@@ -158,6 +158,10 @@ $route[trim(ADMIN_PATH  . '/buy-plan/(:num)', '/')] = 'AdminController/buy_plan/
 // $route[trim(ADMIN_PATH . '/view-chat', '/')] = 'AdminController/view_chat';
 $route[trim(ADMIN_PATH  . '/view-chat/(:num)/(:num)', '/')] = 'AdminController/view_chat/$1/$2';
 
+$route[trim(ADMIN_PATH  . '/chat-overview', '/')] = 'AdminController/chat_overview';
+
+$route[trim(ADMIN_PATH  . '/get-user-info', '/')] = 'AdminController/get_user_info';
+
 
 // /////////////////////////////////////////////Dealer////////////////////////////////////////////////////////////////////////////////////////////
 
