@@ -8,14 +8,49 @@
 </head>
 <body>
 
-<h3>Live Chat</h3>
+<h3 style="margin-bottom: 15px; font-size: 22px; color: #00856a;">💬 Live Chat</h3>
 
 <!-- 🔹 Chat box -->
-<div id="chat-box" style="border:1px solid #ccc; height:300px; overflow:auto; padding:10px; margin-bottom:10px;"></div>
+<div id="chat-box" style="
+    border: 1px solid #ddd;
+    height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+"></div>
 
-<!-- 🔹 Message input -->
-<input type="text" id="message" placeholder="Type message..." style="width:70%;" />
-<button onclick="sendMessage()">Send</button>
+<!-- 🔹 Input area -->
+<div style="
+    display: flex;
+    gap: 10px;
+    align-items: center;
+">
+  <input type="text" id="message" placeholder="Type a message..." style="
+      flex-grow: 1;
+      padding: 10px 15px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      outline: none;
+      transition: 0.2s;
+  " onfocus="this.style.borderColor='#00856a'" onblur="this.style.borderColor='#ccc'">
+
+  <button onclick="sendMessage()" style="
+      background-color: #00856a;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s ease;
+  " onmouseover="this.style.backgroundColor='#006f57'" onmouseout="this.style.backgroundColor='#00856a'">
+    Send
+  </button>
+</div>
 
 
 
