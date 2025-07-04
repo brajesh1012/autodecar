@@ -1,5 +1,4 @@
-     <?php include('head.php'); ?>
-   
+        <?php include('head.php'); ?>
    <section class="flat-title mb-40">
                 <div class="container2">
                     <div class="row">
@@ -2063,16 +2062,24 @@
                                                 <i class="icon-autodeal-phone2"></i>
                                                 <span class="fs-16 fw-5 lh-20 font text-color-1">Call to seller</span>
                                             </a>
-                                            <!-- <form id="chatForm" method="POST" action="<?= base_url(ADMIN_PATH . '/view-chat') ?>">
-                                            <input type="hidden" name="vehicle_id" value="<?= $details->id; ?>">
-                                            <input type="hidden" name="receiver_id" value="<?= $details->added_by; ?>">
-                                            <button type="submit" class="btn-pf bg-green"> <i class="icon-autodeal-chat"></i>
-                                                <span class="fs-16 fw-5 lh-20 font text-color-1">Chat</span></button>
-                                            </form> -->
-                                            <a href="<?= base_url(ADMIN_PATH . '/view-chat/'.$details->id.'/'. $details->added_by); ?>" class="btn-pf bg-green">
-                                                <i class="icon-autodeal-chat"></i>
-                                                <span class="fs-16 fw-5 lh-20 font text-color-1">Chat</span>
-                                            </a>
+                                               <?php $is_logged_in = isset($_SESSION['user_id']);
+                                                    $chat_url = base_url(ADMIN_PATH . '/view-chat/'.$details->id.'/'. $details->added_by); 
+                                                ?>
+                                                <a href="javascript:void(0);" 
+                                                    class="btn-pf bg-green chat-btn" 
+                                                    data-url="<?= $chat_url ?>" 
+                                                    data-logged-in="<?= $is_logged_in ? 'yes' : 'no' ?>">
+                                                    <i class="icon-autodeal-chat"></i>
+                                                    <span class="fs-16 fw-5 lh-20 font text-color-1">Chat</span>
+                                                </a>
+
+                                             <!-- 💬 Chat Modal -->
+                                            <div id="chatModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+                                            <div style="width:90%; max-width:900px; height:90%; background:#fff; position:relative; border-radius:10px; overflow:hidden;">
+                                                <button onclick="closeChatModal()" style="position:absolute; top:10px; right:10px; background:#ff4444; color:#fff; border:none; padding:5px 10px; cursor:pointer; border-radius:5px;">Close</button>
+                                                <iframe id="chatFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+                                            </div>
+                                            </div>
                                         </div>
 
 
@@ -2152,4 +2159,33 @@
 
               <?php include('footer.php'); ?>
 
-         
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".chat-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            var isLoggedIn = btn.getAttribute("data-logged-in");
+            var chatUrl = btn.getAttribute("data-url");
+
+            if (isLoggedIn === "yes") {
+                // Open in modal
+                document.getElementById("chatFrame").src = chatUrl;
+                document.getElementById("chatModal").style.display = "flex";
+            } else {
+                // Show login alert
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Please login first',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+
+function closeChatModal() {
+    document.getElementById("chatModal").style.display = "none";
+    document.getElementById("chatFrame").src = ""; // Optional: Clear iframe on close
+}
+</script>
+
