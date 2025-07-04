@@ -176,7 +176,18 @@
              </div>
          </div>
          <div class="footer-main">
-            <div class="d-flex justify-content-evenly">
+            <div class="d-flex justify-content-evenly align-items-center">
+                <div>
+                <label class="form-label fw-bold">Language</label>
+    <select class="form-select bg-dark text-white" name="language">
+      <option value="">German</option>
+      <option value="en">English</option>
+      
+      <option value="fr">French</option>
+     
+      <option value="es">Spanish</option>
+    </select>
+                </div>
                     <a href="#">About Us</a>
                     <a href="#">Contact Us</a>
                     <a href="#">Compare</a>
