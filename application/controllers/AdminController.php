@@ -18,6 +18,7 @@ class AdminController extends CI_Controller
         // if (!has_permission("Dashboard")) {
         //     show_error("Unauthorized access");
         // }
+		// hello test
 
               if (!isset($_SESSION['role_name'])) {
                 redirect(base_url()); // or homepage
