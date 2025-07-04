@@ -1,5 +1,38 @@
 
+  <!-- Firebase must be loaded BEFORE your script -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
+<style>
+    .notification-box {
+        position: relative;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .notification-box .icon {
+        font-size: 20px;
+        margin-right: 8px;
+    }
+
+    .notification-box .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: red;
+        color: white;
+        font-size: 12px;
+        padding: 3px 6px;
+        border-radius: 50%;
+        font-weight: bold;
+    }
+</style>
         <div id="themesflat-content">
             <div class="dashboard-toggle">Show DashBoard</div>
             <div class="container">
@@ -127,9 +160,13 @@
                                                         alt="icon">
                                                 </div>
                                                 <div class="content-overview">
-                                                    <h5>Activity</h5>
+                                                    <!-- <h5>Activity</h5> -->
                                                     <div class="tfcl-dashboard-title">
-                                                        <span><b>0</b></span>
+                                                       <div class="notification-box">
+                                                        <span class="icon">📩</span>
+                                                        <span class="label">Messages</span>
+                                                        <span class="badge" id="unreadCount">0</span>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -654,4 +691,60 @@ $(document).ready(function() {
         $('#success-msg').fadeOut('slow');
     }, 3000); // 3000ms = 3 seconds
 });
+</script>
+
+<script>
+    const currentUserId = "<?= (string)$_SESSION['user_id'] ?>";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyD0TUv5KLfBy6qCfVNwOaaf98-AU813x7I",
+        authDomain: "autokorb-f0b82.firebaseapp.com",
+        projectId: "autokorb-f0b82",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function updateUnreadCount(count) {
+        const badge = document.getElementById("unreadCount");
+        badge.innerText = count;
+
+        if (count === 0) {
+            badge.style.display = "none"; // hide badge if 0
+        } else {
+            badge.style.display = "inline-block"; // show badge
+        }
+    }
+
+    db.collection("chats").onSnapshot((snapshot) => {
+        let totalUnread = 0;
+        const chats = snapshot.docs.filter(doc => {
+            const data = doc.data();
+            const participants = data.participants || [];
+            return participants.includes(currentUserId);
+        });
+
+        let processed = 0;
+
+        chats.forEach(chat => {
+            db.collection("chats")
+              .doc(chat.id)
+              .collection("messages")
+              .where("receiver_id", "==", currentUserId)
+              .where("is_read", "==", false)
+              .get()
+              .then(querySnapshot => {
+                  totalUnread += querySnapshot.size;
+                  processed++;
+
+                  if (processed === chats.length) {
+                      updateUnreadCount(totalUnread);
+                  }
+              });
+        });
+
+        if (chats.length === 0) {
+            updateUnreadCount(0);
+        }
+    });
 </script>
