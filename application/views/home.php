@@ -23,72 +23,104 @@
         object-fit: cover;
     }
 
-    .main-header .main-menu .navigation > li > a {
-    font-size: 14px;
+    .main-header .main-menu .navigation>li>a {
+        font-size: 14px;
     }
+
     .dropdown {
-  position: relative;
-  display: inline-block;
-}
+        position: relative;
+        display: inline-block;
+    }
 
-.dropbtn {
-  background-color: transparent;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 10px 20px;
-}
+    .dropbtn {
+        background-color: transparent;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 10px 20px;
+    }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 160px;
-  top: 100%;
-  left: 0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  padding: 10px 0;
-  z-index: 1000;
-}
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        top: 100%;
+        left: 0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        padding: 10px 0;
+        z-index: 1000;
+    }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
-/* The little arrow pointer */
-.arrow-up {
-  position: absolute;
-  top: -10px;
-  left: 30%;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid white;
-}
-.arrow-up-sell {
-  position: absolute;
-  top: -10px;
-  left: 20%;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid white;
-}
+    /* The little arrow pointer */
+    .arrow-up {
+        position: absolute;
+        top: -10px;
+        left: 30%;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid white;
+    }
 
-.dropdown-content a {
-  color: #000;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  font-weight: 500;
-}
+    .arrow-up-sell {
+        position: absolute;
+        top: -10px;
+        left: 20%;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid white;
+    }
 
-.dropdown-content a:hover {
-  background-color: #f3f3f3;
-}
+    .dropdown-content a {
+        color: #000;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-weight: 500;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f3f3f3;
+    }
+
+    .sidebar-icons button {
+        background: none;
+        border: none;
+        font-size: 24px;
+        opacity: 0.4;
+    }
+
+    .sidebar-icons .active {
+        opacity: 1;
+        color: red;
+    }
+
+    .filter-box {
+        border-radius: 15px;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-left: 80px;
+    }
+
+    .btn-red {
+        background-color: #d93226;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-red:hover {
+        background-color: #bb2a1f;
+    }
     </style>
 
 
@@ -128,50 +160,51 @@
                                         <nav class="main-menu show navbar-expand-md">
                                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                 <ul class="navigation clearfix">
-                                                <!-- Updated Menu -->
-                                                <li>
-  <div class="dropdown">
-    <button class="dropbtn text-white">
-      Search 
-    </button>
-    <div class="dropdown-content">
-      <div class="arrow-up"></div>
-      <a href="#">Used And New Cars</a>
-    </div>
-  </div>
-</li>
+                                                    <!-- Updated Menu -->
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <button class="dropbtn text-white">
+                                                                Search
+                                                            </button>
+                                                            <div class="dropdown-content">
+                                                                <div class="arrow-up"></div>
+                                                                <a href="#">Used And New Cars</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
 
-<li>
-  <div class="dropdown">
-    <button class="dropbtn text-white">
-      Sell 
-    </button>
-    <div class="dropdown-content">
-      <div class="arrow-up-sell"></div>
-      <a href="#">Cars</a>
-      <a href="#">Motorcycle</a>
-      <a href="#">Commercial Vehicle</a>
-    </div>
-  </div>
-</li>
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <button class="dropbtn text-white">
+                                                                Sell
+                                                            </button>
+                                                            <div class="dropdown-content">
+                                                                <div class="arrow-up-sell"></div>
+                                                                <a href="#">Cars</a>
+                                                                <a href="#">Motorcycle</a>
+                                                                <a href="#">Commercial Vehicle</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
 
-<li>
-  <div class="dropdown">
-    <button class="dropbtn text-white">
-      Dealer/Seller
-    </button>
-    <div class="dropdown-content">
-      <div class="arrow-up"></div>
-      <a href="#">Private Dealer</a>
-    </div>
-  </div>
-</li>
-
-
-
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <button class="dropbtn text-white">
+                                                                Dealer/Seller
+                                                            </button>
+                                                            <div class="dropdown-content">
+                                                                <div class="arrow-up"></div>
+                                                                <a href="#">Private Dealer</a>
+                                                                <a href="#">commercial Dealer</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
 
 
-                                                <!-- Updated Menu End -->
+
+
+
+                                                    <!-- Updated Menu End -->
 
 
 
@@ -181,7 +214,7 @@
 
 
                                                     <!-- <li class=""><a href="<?= base_url();?>">Home</a> -->
-                                                        <!-- <ul>
+                                                    <!-- <ul>
                                                             <li><a href="index.html">Home Page 01</a></li>
                                                             <li class="current"><a href="home02.html">Home Page 02</a>
                                                             </li>
@@ -199,7 +232,7 @@
                                                     <!-- <li class="dropdown2"><a href="#">Listing Car</a> -->
                                                     <!-- <li class=""><a href="<?= base_url('listing-list'); ?>">Listing
                                                             Car</a> -->
-                                                        <!-- <ul>
+                                                    <!-- <ul>
                                                             <li><a href="<?= base_url('listing-list'); ?>">Listing
                                                                     list</a>
 
@@ -264,7 +297,7 @@
                                                     </li> -->
 
                                                     <!-- <li class=""><a href="<?= base_url('blog-grid'); ?>">Blog</a> -->
-                                                        <!-- <ul>
+                                                    <!-- <ul>
                                                             <li><a href="blog.html">Blog List</a></li>
                                                             <li><a href="blog-grid.html">Blog Grid</a></li>
                                                             <li><a href="<?= base_url('blog-details'); ?>">Blog Detail</a></li>
@@ -306,10 +339,10 @@
                                             <option value="de">Ger</option>
                                         </select></li> -->
                                         <!-- <div id="google_translate_element" style="margin-top: 15px;"></div> -->
-                                         <!-- Translate Element -->
+                                        <!-- Translate Element -->
                                         <!-- <div id="google_translate_element"></div> -->
-                                       
-								
+
+
                                         <?php if (!$this->session->userdata('user_id')) { ?>
                                         <div class="register">
                                             <ul class="flex align-center">
@@ -353,7 +386,8 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <li> <select class="form-control" name="location" id="filter_by_location" style="width: 140px; font-size: 14px; padding: 4px;">
+                                        <li> <select class="form-control" name="location" id="filter_by_location"
+                                                style="width: 140px; font-size: 14px; padding: 4px;">
                                                 <option value="">Select Location</option>
                                                 <?php  $cities= $this->db->get('cities')->result();  foreach($cities as $city){?>
                                                 <option value="<?= $city->city_name; ?>"
@@ -361,7 +395,7 @@
                                                     <?= $city->city_name; ?></option>
                                                 <?php }?>
                                             </select></li>
-                                                
+
                                         <?php } if (isset($_SESSION['role']) && $_SESSION['role'] == 1) {?>
 
                                         <!-- <div class="flat-bt-top">
@@ -455,7 +489,8 @@
                         <div class="swiper-slide">
                             <div class="slider-item">
                                 <div class="img-slider">
-                                    <img class="img-item lazyload" data-src="<?= base_url(); ?>/assets/assets/images/slider/slide2.jpg"
+                                    <img class="img-item lazyload"
+                                        data-src="<?= base_url(); ?>/assets/assets/images/slider/slide2.jpg"
                                         src="<?= base_url(); ?>/assets/assets/images/slider/slide2.jpg" alt="">
                                 </div>
                             </div>
@@ -475,10 +510,13 @@
                 <!-- <video autoplay="" muted="" loop="">
                     <source src="<?= base_url(); ?>/assets/assets/images/section/video.mp4" type="video/mp4">
                 </video> -->
-                <div class="slider-item-content">
+                <div>
+
+                </div>
+                <div class="slider-item-content position-relative">
                     <div class="container">
-                        <div class="flat-tabs" style="max-width:500px;">
-                            <div class="flat-tabs-wrap">
+                        <div class="flat-tabs">
+                            <!--<div class="flat-tabs-wrap">
                                 <h1 class="title" style="font-size: 30px;">Find your right car</h1>
                                 <div class="box-tab style1 center">
                                     <ul class="menu-tab tab-title flex flex-wrap">
@@ -639,7 +677,7 @@
                                                                         <input type="hidden" name="max-value" value="">
                                                                     </div>
                                                                 </div>
-                                                            </div><!-- /.widget_price -->
+                                                            </div>
                                                         </div>
                                                         <div class="form-group wg-box3">
                                                             <div class="widget widget-price ">
@@ -657,7 +695,7 @@
                                                                         <input type="hidden" name="max-value2" value="">
                                                                     </div>
                                                                 </div>
-                                                            </div><!-- /.widget_price -->
+                                                            </div><
                                                         </div>
                                                         <div class="form-group wg-box3">
                                                             <div class="widget widget-price ">
@@ -675,7 +713,7 @@
                                                                         <input type="hidden" name="max-value3" value="">
                                                                     </div>
                                                                 </div>
-                                                            </div><!-- /.widget_price -->
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="box1 grid-4">
@@ -913,11 +951,19 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                            <!-- End Job  Search Form-->
+                                           
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <!-- New Form -->
+                                            
+
+                                                <!-- Fileter -->
+                                                <?php $this->load->view('filter-form'); ?>
+
+                                                 <!-- Filter end -->
+                            <!-- new form end -->
 
                             <div class="wrap-icon trending2">
                                 <div class="icon-box text-color-1 fs-14 fw-4 flex align-center font">
@@ -930,7 +976,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- widegt categori -->
             <section class="tf-section2">
                 <div class="container">
@@ -1155,13 +1200,13 @@
                                 </div>
                                 <div class="content-tab">
 
-                               
+
                                     <div class="content-inner tab-content">
                                         <div class="swiper tf-sw-mobile" data-preview="3" data-tablet="2"
                                             data-mobile-sm="2" data-mobile="1" data-space-lg="30" data-space-md="15"
                                             data-space="15">
                                             <div class="swiper-wrapper">
-                                                  <?php if(!empty($vehicles)){ foreach($vehicles as $vehicle){?>
+                                                <?php if(!empty($vehicles)){ foreach($vehicles as $vehicle){?>
                                                 <div class="swiper-slide">
                                                     <div class="box-car-list hv-one">
                                                         <div class="image-group relative ">
@@ -1186,16 +1231,17 @@
                                                                 <div class="year flag-tag">2024</div>
                                                             </div> -->
                                                             <div class="swiper-container carousel-2 img-style">
-                                                                
+
                                                                 <div class="swiper-wrapper ">
                                                                     <?php $car_img = $this->db->where('car_list_id',$vehicle->id)->get('car_img')->result(); foreach($car_img as $c_img){ ?>
                                                                     <div class="swiper-slide">
                                                                         <img class="lazyload"
                                                                             data-src="<?= base_url('uploads/'.$c_img->photos); ?>"
-                                                                            src="<?= base_url('uploads/'.$c_img->photos); ?>" alt="image">
-                                                                        </div>
-                                                                        <?php } ?>
-                                                                       
+                                                                            src="<?= base_url('uploads/'.$c_img->photos); ?>"
+                                                                            alt="image">
+                                                                    </div>
+                                                                    <?php } ?>
+
                                                                     <!-- <div class="swiper-slide"><img class="lazyload"
                                                                             data-src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
                                                                             src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
@@ -1208,7 +1254,7 @@
                                                                             data-src="<?= base_url(); ?>/assets/assets/images/car-list/car4.jpg"
                                                                             src="<?= base_url(); ?>/assets/assets/images/car-list/car4.jpg"
                                                                             alt="image"></div>-->
-                                                                    
+
                                                                 </div>
                                                                 <div class="pagi2">
                                                                     <div class="swiper-pagination2"></div>
@@ -1220,7 +1266,8 @@
                                                                 <p class="text-color-3 font"><?= $vehicle->make; ?></p>
                                                             </div>
                                                             <h5 class="link-style-1">
-                                                                <a href="<?= base_url('list-details/'.$vehicle->slug); ?>"><?= $vehicle->year. " " .$vehicle->make. " " .$vehicle->model ; ?></a>
+                                                                <a
+                                                                    href="<?= base_url('list-details/'.$vehicle->slug); ?>"><?= $vehicle->year. " " .$vehicle->make. " " .$vehicle->model ; ?></a>
                                                             </h5>
                                                             <div class="icon-box flex flex-wrap">
                                                                 <div class="icons flex-three">
@@ -1236,7 +1283,8 @@
                                                                     <span><?= $vehicle->transmission; ?></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="money fs-20 fw-5 lh-25 text-color-3">CHF <?= $vehicle->price; ?>
+                                                            <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
+                                                                <?= $vehicle->price; ?>
                                                             </div>
                                                             <div class="days-box flex justify-space align-center">
                                                                 <div class="img-author">
@@ -1254,7 +1302,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                     <?php }}?>
+                                                <?php }}?>
                                                 <!-- <div class="swiper-slide">
                                                     <div class="box-car-list hv-one">
                                                         <div class="image-group relative ">
@@ -1435,7 +1483,7 @@
                                             <div class="swiper-pagination3"></div>
                                         </div>
                                     </div>
-                                 
+
                                     <!-- <div class="content-inner tab-content">
                                         <div class="swiper tf-sw-mobile" data-preview="3" data-tablet="2"
                                             data-mobile-sm="2" data-mobile="1" data-space-lg="30" data-space-md="15"
@@ -2932,8 +2980,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Cooper, Kristin</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3025,8 +3072,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Cooper, Kristin</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3118,8 +3164,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Flores, Juanita</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3211,8 +3256,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Henry, Arthur</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3304,8 +3348,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Nguyen, Shane</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3397,8 +3440,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Nguyen, Shane</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3490,8 +3532,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Miles, Esther</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3583,8 +3624,7 @@
                                                                 alt="image">
                                                             <span class="font text-color-2 fw-5">Black, Marvin</span>
                                                         </div>
-                                                        <a href="#"
-                                                            class="view-car">View car</a>
+                                                        <a href="#" class="view-car">View car</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -11811,7 +11851,8 @@
                                                     <a href="#" class="admin fw-7 text-color-2">Jerome Bell</a>
                                                     <a href="#" class="category text-color-3">First Drives</a>
                                                 </div>
-                                                <h3><a href="<?= base_url('blog-details'); ?>">Get Ready For A Diesel Mild-Hybrid Toyota
+                                                <h3><a href="<?= base_url('blog-details'); ?>">Get Ready For A Diesel
+                                                        Mild-Hybrid Toyota
                                                         Fortuner In...</a></h3>
                                                 <p>The sub-4 metre SUV segment has been quite active over the last six
                                                     months or so, with the launch of various facelifted...</p>
@@ -11832,7 +11873,8 @@
                                                     <a href="#" class="admin fw-7 text-color-2">Jerome Bell</a>
                                                     <a href="#" class="category text-color-3">First Drives</a>
                                                 </div>
-                                                <h3><a href="<?= base_url('blog-details'); ?>">Get Ready For A Diesel Mild-Hybrid Toyota
+                                                <h3><a href="<?= base_url('blog-details'); ?>">Get Ready For A Diesel
+                                                        Mild-Hybrid Toyota
                                                         Fortuner In...</a></h3>
                                                 <p>The sub-4 metre SUV segment has been quite active over the last six
                                                     months or so, with the launch of various facelifted...</p>
@@ -11853,7 +11895,8 @@
                                                     <a href="#" class="admin fw-7 text-color-2">Jerome Bell</a>
                                                     <a href="#" class="category text-color-3">First Drives</a>
                                                 </div>
-                                                <h3><a href="<?= base_url('blog-details'); ?>">Get Ready For A Diesel Mild-Hybrid Toyota
+                                                <h3><a href="<?= base_url('blog-details'); ?>">Get Ready For A Diesel
+                                                        Mild-Hybrid Toyota
                                                         Fortuner In...</a></h3>
                                                 <p>The sub-4 metre SUV segment has been quite active over the last six
                                                     months or so, with the launch of various facelifted...</p>
@@ -11968,4 +12011,3 @@
                 });
             });
             </script>
-           
