@@ -2350,7 +2350,34 @@ public function view_chat($vehicle_id, $other_user_id)
 }
 
 
+    public function chat_overview()
+    {
+        $data["main"] = "chat_overview";
+        $this->load->view("admin/template", $data);
 
+    }
+
+
+    public function get_user_info()
+{
+    $user_id = $this->input->get('id');
+    if (!$user_id) {
+        echo json_encode([]);
+        return;
+    }
+
+    $this->db->select('users.username, users.mobile, users.email, roles.role as role_name');
+    $this->db->from('users');
+    $this->db->join('roles', 'roles.id = users.role', 'left');
+    $this->db->where('users.id', $user_id);
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+        echo json_encode($query->row());
+    } else {
+        echo json_encode([]);
+    }
+}
 
     public function test()
     {

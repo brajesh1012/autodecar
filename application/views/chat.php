@@ -23,15 +23,15 @@
 <!-- 🔹 Session/User Data + chatDocId -->
 <script>
   const vehicleId = "<?= $vehicle_id ?>";
-  const senderId = "<?= $_SESSION['user_id'] ?>";
+  const senderId = "<?= (string)$_SESSION['user_id'] ?>";
   const senderRole = "<?= $_SESSION['role_name'] ?>";
-  const receiverId = "<?= $receiver_id ?>";
+  const receiverId = "<?= (string)$receiver_id ?>";
   const receiverRole = "<?= $receiver_role ?>";
 
 
   // 🔁 Make ID consistent
-// const participants = [senderId, receiverId].sort();
-// const chatDocId = `chat_${vehicleId}_${participants[0]}_${participants[1]}`;
+const participants = [senderId, receiverId].sort();
+const chatDocId = `chat_${vehicleId}_${participants[0]}_${participants[1]}`;
 
 //   const chatDocId = `chat_${vehicleId}_${senderId}_${receiverId}`;
 </script>
@@ -49,30 +49,85 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-   const participants = [senderId, receiverId].sort();
-  const chatDocId = `chat_${vehicleId}_${participants[0]}_${participants[1]}`;
-  const chatBox = document.getElementById("chat-box");
+
+ function markMessagesAsRead() {
+  console.log("Marking messages as read for:", senderId);
+  db.collection("chats")
+    .doc(chatDocId)
+    .collection("messages")
+    .where("receiver_id", "==", senderId)
+    .where("is_read", "==", false)
+    .get()
+    .then((querySnapshot) => {
+      if (querySnapshot.empty) {
+        console.log("No unread messages found for this user.");
+      } else {
+        querySnapshot.forEach((doc) => {
+          console.log("Marking message as read:", doc.id);
+          // console.log("Checking to mark as read:", {
+          //   msgId: doc.id,
+          //   receiver_id: doc.data().receiver_id,
+          //   senderId: senderId,
+          //   is_read: doc.data().is_read
+          // });
+          doc.ref.update({ is_read: true });
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error updating read status:", error);
+    });
+}
+
 </script>
 
 <!-- 🔹 sendMessage() Function -->
 <script>
+  // function sendMessage() {
+  //   const text = document.getElementById("message").value.trim();
+  //   if (text === "") return;
+
+  //   db.collection("chats").doc(chatDocId).collection("messages").add({
+  //     sender_id: senderId,
+  //     sender_role: senderRole,
+  //     receiver_id: receiverId,
+  //     receiver_role: receiverRole,
+  //     vehicle_id: vehicleId,
+  //     text: text,
+  //     timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  //   });
+
+  //   document.getElementById("message").value = "";
+  // }
+
+
   function sendMessage() {
-    const text = document.getElementById("message").value.trim();
-    // if (text === "") return;
-     if (!text) return;
+  const text = document.getElementById("message").value.trim();
+  if (text === "") return;
 
-    db.collection("chats").doc(chatDocId).collection("messages").add({
-      sender_id: senderId,
-      sender_role: senderRole,
-      receiver_id: receiverId,
-      receiver_role: receiverRole,
-      vehicle_id: vehicleId,
-      text: text,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
+  // Save the message
+  db.collection("chats").doc(chatDocId).collection("messages").add({
+    sender_id: senderId,
+    sender_role: senderRole,
+    receiver_id: receiverId,
+    receiver_role: receiverRole,
+    vehicle_id: vehicleId,
+    text: text,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    is_read: false
+  });
 
-    document.getElementById("message").value = "";
-  }
+  // 🔥 Update parent chat doc with participants & last message
+  db.collection("chats").doc(chatDocId).set({
+    participants: [senderId, receiverId],
+    vehicle_id: vehicleId,
+    last_message: text,
+    last_updated: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true });
+
+  // Clear input
+  document.getElementById("message").value = "";
+}
 </script>
 
 
@@ -92,13 +147,6 @@
         const alignment = isSender ? "right" : "left";
         const bgColor = isSender ? "#dcf8c6" : "#f1f0f0";
 
-
-             // Mark as read if message is for me
-        if (msg.receiver_id === senderId && !msg.is_read) {
-          doc.ref.update({ is_read: true });
-        }
-
-
         chatBox.innerHTML += `
           <div style="text-align:${alignment}; margin:5px 0;">
             <div style="display:inline-block; background:${bgColor}; padding:8px 12px; border-radius:10px; max-width:60%;">
@@ -108,6 +156,7 @@
         `;
       });
       chatBox.scrollTop = chatBox.scrollHeight;
+          markMessagesAsRead();
     });
 </script>
 
