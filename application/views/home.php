@@ -515,7 +515,7 @@
                 </div>
                 <div class="slider-item-content position-relative">
                     <div class="container">
-                        <div class="flat-tabs">
+                        <div class="position-absolute" style="bottom:110px">
                             <!--<div class="flat-tabs-wrap">
                                 <h1 class="title" style="font-size: 30px;">Find your right car</h1>
                                 <div class="box-tab style1 center">
