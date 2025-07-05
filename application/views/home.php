@@ -151,8 +151,8 @@
                                     <div class="logo-box flex">
                                         <div class="logo"><a href="<?= base_url();?>">
                                                 <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>assets/assets/images/logo/tb_new.jpeg"
-                                                    src="<?= base_url(); ?>assets/assets/images/logo/tb_new.jpeg" alt=""
+                                                    data-src="<?= base_url(); ?>assets/assets/images/logo/autob.png"
+                                                    src="<?= base_url(); ?>assets/assets/images/logo/autob.png" alt=""
                                                     width="225" height="40"></a></div>
                                     </div>
                                     <div class="nav-outer flex align-center">
@@ -1262,13 +1262,24 @@
                                                             </div>
                                                         </div>
                                                         <div class="content">
+                                                            <?php
+                                                            
+                                                            $makes = $this->db->where('id',$vehicle->make)->get('make')->result();
+
+                                                             $models = $this->db->where('id',$vehicle->model)->get('model')->result();
+
+                                                             $added_by = $this->db->where('id',$vehicle->added_by)->get('users')->result();
+
+                                                            foreach ($makes as $make) { ?>
                                                             <div class="text-address">
-                                                                <p class="text-color-3 font"><?= $vehicle->make; ?></p>
+                                                                <p class="text-color-3 font"><?= $make->name; ?></p>
                                                             </div>
+                                                            <?php foreach ($models as $model) { ?>
                                                             <h5 class="link-style-1">
                                                                 <a
-                                                                    href="<?= base_url('list-details/'.$vehicle->slug); ?>"><?= $vehicle->year. " " .$vehicle->make. " " .$vehicle->model ; ?></a>
+                                                                    href="<?= base_url('list-details/'.$vehicle->slug); ?>"><?= $vehicle->year. " " .$make->name. " " .$model->name ; ?></a>
                                                             </h5>
+                                                            <?php } } ?>
                                                             <div class="icon-box flex flex-wrap">
                                                                 <div class="icons flex-three">
                                                                     <i class="icon-autodeal-km1"></i>
@@ -1287,17 +1298,27 @@
                                                                 <?= $vehicle->price; ?>
                                                             </div>
                                                             <div class="days-box flex justify-space align-center">
+                                                                <?php foreach ($added_by as $added) { ?>
                                                                 <div class="img-author">
+
+                                                                <?php if(!empty($added->profile)){?>
+                                                                    <img class="lazyload"
+                                                                        data-src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
+                                                                        src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
+                                                                        alt="image">
+                                                                    <?php }else{?>
                                                                     <img class="lazyload"
                                                                         data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
                                                                         src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
                                                                         alt="image">
-                                                                    <span class="font text-color-2 fw-5">Kathryn
-                                                                        Murphy</span>
+                                                                        <?php } ?>
+
+                                                                    <span class="font text-color-2 fw-5"><?= $added->username; ?></span>
                                                                 </div>
                                                                 <a href="<?= base_url('list-details/'.$vehicle->slug); ?>"
                                                                     class="view-car">View
                                                                     car</a>
+                                                                    <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>

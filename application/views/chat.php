@@ -8,7 +8,9 @@
 </head>
 <body>
 
-<h3 style="margin-bottom: 15px; font-size: 22px; color: #00856a;">💬 Live Chat</h3>
+<h3 style="margin-bottom: 15px; font-size: 22px; color: #00856a;">💬 Live Chat - <?php echo $username = $this->db->where('id', $receiver_id)->get('users')->row('username'); ?> (<?= $receiver_role ?>) </h3>
+
+<!-- <h3 style="margin-bottom: 15px; font-size: 15px; color:rgb(57, 100, 92);">💬 <?php echo $username = $this->db->where('id', $receiver_id)->get('users')->row('username'); ?> (<?= $receiver_role ?>)</h3> -->
 
 <!-- 🔹 Chat box -->
 <div id="chat-box" style="
