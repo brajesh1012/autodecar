@@ -439,7 +439,7 @@
                                  <div id="modalMsg"></div>
 
                                  <form method="POST" class="comment-form form-submit" id="registerForm"
-                                     accept-charset="utf-8" novalidate="novalidate">
+                                     accept-charset="utf-8" novalidate="novalidate" autocomplete="off">
                                      <?php $roles = $this->db->where('type !=',1)->get('roles')->result_array(); ?>
                                      <fieldset class="">
                                          <div class="form-group-1 flex radio-wrap">
@@ -447,9 +447,10 @@
                                                     $id = 'role_' . $index; // unique ID for each radio
                                                 ?>
                                              <div class="group">
-                                                 <input type="radio" id="<?= $id ?>" value="<?= $role['id']; ?>"
-                                                     name="role">
-                                                 <label for="<?= $id ?>"><?= $role['role']?></label>
+                                                 <label for="<?= $id ?>"> <input type="radio" id="<?= $id ?>" value="<?= $role['id']; ?>"
+                                                     name="role" >
+                                                <?= $role['role']?></label>
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                              </div>
                                              <?php } ?>
                                          </div>
@@ -796,6 +797,11 @@ $('#registerForm').on('submit', function(e) {
     let password = $('[name="password"]').val().trim();
     let cpassword = $('[name="cpassword"]').val().trim();
 
+    // console.log(password, cpassword);
+
+    console.log("Password field value = ", $('[name="password"]').val());
+console.log("Confirm Password field value = ", $('[name="cpassword"]').val());
+
     if (role === "") {
         $('#role_error').text('Please select a role');
         valid = false;
@@ -952,7 +958,7 @@ $(document).ready(function() {
 </script> -->
 
 
- <div id="google_translate_element" style="margin-top: 15px;"></div>
+ <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>
  <script type="text/javascript">
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
@@ -963,51 +969,60 @@ function googleTranslateElementInit() {
 }
  </script>
  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
- </script>
+ </script> -->
 
+ <div id="google_translate_element" style="margin-top: 15px;"></div>
 
- <!-- <script>
-(function() {
-    const redirectKey = 'germanTranslated';
-    const isOnGoogle = window.location.hostname.includes('translate.google.com');
-
-    if (!localStorage.getItem(redirectKey) && !isOnGoogle) {
-        localStorage.setItem(redirectKey, 'true');
-
-        const currentUrl = window.location.href;
-        const translatedUrl =
-            `https://translate.google.com/translate?hl=de&sl=auto&tl=de&u=${encodeURIComponent(currentUrl)}`;
-
-        // Use href instead of replace for safer redirect
-        window.location.href = translatedUrl;
-    }
-})();
- </script>
- <script>
-;
-(function() {
-    const key = 'germanTranslated';
-    // Only redirect once, and avoid infinite loops on Google Translate frames
-    if (!localStorage.getItem(key) &&
-        window.location.hostname !== 'translate.google.com') {
-        localStorage.setItem(key, 'true');
-        const url = window.location.href;
-        const turl = `https://translate.google.com/translate?hl=de&sl=en&tl=de&u=${encodeURIComponent(url)}`;
-        window.location.replace(turl);
-    }
-})();
- </script>
- <script>
-function googleTranslateElementInit() {
+<script type="text/javascript">
+  function googleTranslateElementInit() {
     new google.translate.TranslateElement({
-        pageLanguage: 'auto',
-        includedLanguages: 'de,en,fr,it',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      pageLanguage: 'en',
+      includedLanguages: 'de,en,fr,it',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
-}
- </script>
- <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
 
+    // Try selecting German after initialization
+    triggerGermanTranslation();
+  }
+
+  function triggerGermanTranslation() {
+    let maxAttempts = 30; // Try for 15 seconds
+    let attempts = 0;
+
+    const interval = setInterval(function () {
+      const iframe = document.querySelector('iframe.goog-te-menu-frame');
+
+      if (iframe) {
+        let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        let select = innerDoc.querySelector('.goog-te-combo');
+
+        if (select) {
+          select.value = 'de';
+          select.dispatchEvent(new Event('change'));
+          console.log('✅ German language triggered');
+          clearInterval(interval);
+        } else {
+          console.log('⏳ Dropdown not yet inside iframe');
+        }
+      } else {
+        console.log('⏳ Waiting for iframe...');
+      }
+
+      attempts++;
+      if (attempts >= maxAttempts) {
+        clearInterval(interval);
+        console.warn('❌ Could not find the language dropdown inside iframe');
+      }
+    }, 500); // check every 500ms
+  }
+</script>
+
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+ 
 
  <!-- Javascript -->
  <script src="<?= base_url();?>assets/app/js/jquery.min.js"></script>
