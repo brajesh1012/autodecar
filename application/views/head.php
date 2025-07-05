@@ -44,7 +44,7 @@
                                 <div class="inner-container flex justify-space align-center">
                                     <!-- Logo Box -->
                                     <div class="logo-box flex">
-                                        <div class="logo"><a href="<?= base_url(); ?>"><img src="<?= base_url(); ?>assets/assets/images/logo/tblogo_new.png"
+                                        <div class="logo"><a href="<?= base_url(); ?>"><img src="<?= base_url(); ?>assets/assets/images/logo/autob.png"
                                                     alt="" width="225" height="40"></a></div>
                                     </div>
                                     <div class="nav-outer flex align-center">

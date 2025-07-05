@@ -11,7 +11,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="tf-section3 listing-detail style-1">
                 <div class="container">
                     <div class="row">
@@ -1945,7 +1944,13 @@
                             <div class="listing-sidebar">
                                 <div class="widget-listing mb-40">
                                     <div class="heading-widget">
-                                        <h2 class="title"><?= $details->year . " ". $details->make . " " . $details->model; ?> </h2>
+                                        <?php
+
+                                        $make = $this->db->where('id',$details->make)->get('make')->row();
+                                        $model = $this->db->where('id',$details->model)->get('model')->row();
+                                        $added_by = $this->db->where('id',$details->added_by)->get('users')->row();
+                                        ?>
+                                        <h2 class="title"><?= $details->year . " ".$make->name . " " . $model->name; ?> </h2>
                                         <div class="icon-box flex flex-wrap">
                                             <div class="icons flex-three">
                                                 <i class="icon-autodeal-km1"></i>
