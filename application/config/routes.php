@@ -164,6 +164,7 @@ $route[trim(ADMIN_PATH  . '/get-user-info', '/')] = 'AdminController/get_user_in
 
 
 // /////////////////////////////////////////////Dealer////////////////////////////////////////////////////////////////////////////////////////////
+$route['advance-filter'] = 'WebsiteController/advance_filter';
 
 $route['dealer/my-listing'] = 'dealer/my_listing';
 $route['dealer/delete-vehicle-record'] = 'dealer/delete_vehicle_record';
