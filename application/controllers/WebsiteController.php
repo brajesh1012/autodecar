@@ -31,7 +31,11 @@ class WebsiteController extends CI_Controller {
     }
 }
 
-
+public function advance_filter()
+{
+    
+  $this->load->view('advance-filter'); // This will load the view file
+}
 public function register()
 {
     $this->form_validation->set_rules('role', 'Role', 'required');
@@ -114,6 +118,7 @@ public function register()
             }
         }
     }
+
 
     public function logout()
 {
