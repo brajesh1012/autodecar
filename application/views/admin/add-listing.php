@@ -174,14 +174,14 @@ p {
 
                                         <div class="form-group">
                                             <label for="listing_title">MFk *</label>
-                                            <input type="date" class="form-control" name="mfk_date"
+                                            <input type="month" class="form-control" name="mfk_date"
                                                 placeholder="Enter MFK" value="<?= set_value('mfk_date') ?>">
                                             <small class="text-danger"><?= form_error('mfk_date') ?></small>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="listing_title">TUV *</label>
-                                            <input type="date" class="form-control" name="tuv_date"
+                                            <input type="month" class="form-control" name="tuv_date"
                                                 placeholder="Enter TUV" value="<?= set_value('tuv_date') ?>">
                                             <small class="text-danger"><?= form_error('tuv_date') ?></small>
                                         </div>

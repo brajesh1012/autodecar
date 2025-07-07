@@ -524,6 +524,26 @@ class AdminController extends CI_Controller
                 $total_price = $price; // ya zero if private user ko free listing dena ho
             }
 
+
+            $tuv_date_raw = $this->input->post("tuv_date"); // This will be '2025-07-07'
+
+            if (!empty($tuv_date_raw)) {
+                $tuv_date = date('m/y', strtotime($tuv_date_raw)); // Output: 07/25
+            } else {
+                $tuv_date = null;
+            }
+
+
+
+             $mfk_date_raw = $this->input->post("mfk_date"); // This will be '2025-07-07'
+
+            if (!empty($mfk_date_raw)) {
+                $mfk_date = date('m/y', strtotime($tuv_date_raw)); // Output: 07/25
+            } else {
+                $mfk_date = null;
+            }
+
+
             $data = [
 				"slug" => $slug,
                 "title" => $this->input->post("title"),
@@ -562,8 +582,8 @@ class AdminController extends CI_Controller
                 "parking_sensors" => $this->input->post("parking_sensors") ?? '',
 
 
-                "mfk_date" => $this->input->post("mfk_date") ?? '',
-                "tuv_date" =>  $this->input->post("tuv_date") ?? '',
+                "mfk_date" => $mfk_date ?? '',
+                "tuv_date" =>  $tuv_date ?? '',
 
                 "emission_certificate" => $emission_certificate ?? '',
                 "added_by" => $this->session->userdata('user_id'),
@@ -832,6 +852,25 @@ class AdminController extends CI_Controller
                 $total_price = $new_price + $vat;
           
                 
+            $tuv_date_raw = $this->input->post("tuv_date"); // This will be '2025-07-07'
+
+            if (!empty($tuv_date_raw)) {
+                $tuv_date = date('m/y', strtotime($tuv_date_raw)); // Output: 07/25
+            } else {
+                $tuv_date = null;
+            }
+
+
+
+             $mfk_date_raw = $this->input->post("mfk_date"); // This will be '2025-07-07'
+
+            if (!empty($mfk_date_raw)) {
+                $mfk_date = date('m/y', strtotime($tuv_date_raw)); // Output: 07/25
+            } else {
+                $mfk_date = null;
+            }
+
+            
             $data = [
 				"slug" => $slug,
                  "title" => $this->input->post("title"),
@@ -873,8 +912,8 @@ class AdminController extends CI_Controller
                 "parking_sensors" => $this->input->post("parking_sensors") ?? '',
 
 
-                "mfk_date" => $this->input->post("mfk_date"),
-                "tuv_date" => $this->input->post("tuv_date"),
+                "mfk_date" => $mfk_date ?? '',
+                "tuv_date" => $tuv_date ?? '',
 
                 "emission_certificate" => $emission_certificate ?? '',
                 "added_by" => $this->session->userdata('user_id'),
@@ -1129,6 +1168,26 @@ class AdminController extends CI_Controller
 
                 $total_price = $new_price + $vat;
 
+                         
+                $tuv_date_raw = $this->input->post("tuv_date"); // This will be '2025-07-07'
+
+                if (!empty($tuv_date_raw)) {
+                    $tuv_date = date('m/y', strtotime($tuv_date_raw)); // Output: 07/25
+                } else {
+                    $tuv_date = null;
+                }
+
+
+                
+             $mfk_date_raw = $this->input->post("mfk_date"); // This will be '2025-07-07'
+
+            if (!empty($mfk_date_raw)) {
+                $mfk_date = date('m/y', strtotime($tuv_date_raw)); // Output: 07/25
+            } else {
+                $mfk_date = null;
+            }
+
+
             $data = [
 				"slug" => $slug,
                  "title" => $this->input->post("title"),
@@ -1146,7 +1205,7 @@ class AdminController extends CI_Controller
                 "total_price" => $total_price,
 
                 "tax" => $vat ?? '' ,
-                
+
                 "is_negotiable" => $this->input->post("is_negotiable"),
 
                 "fuel_type" => $this->input->post("fuel_type"),
@@ -1170,8 +1229,8 @@ class AdminController extends CI_Controller
                 "parking_sensors" => $this->input->post("parking_sensors") ?? '' ,
 
 
-                "mfk_date" => $this->input->post("mfk_date"),
-                "tuv_date" => $this->input->post("tuv_date"),
+                "mfk_date" => $mfk_date,
+                "tuv_date" => $tuv_date,
 
                 "emission_certificate" => $emission_certificate ?? '',
                 "added_by" => $this->session->userdata('user_id'),
@@ -1949,8 +2008,8 @@ public function import_csv() {
 
             // SLug
 
-            $make =  $data[0];
-			$slug = url_title($make, 'dash', TRUE);
+            $title =  $data[0];
+			$slug = url_title($title, 'dash', TRUE);
 			$checkSlug = $this->Common_model->getsingle('car_list', array('slug' => $slug));
 			if ($checkSlug) 
 			{
@@ -1980,6 +2039,23 @@ public function import_csv() {
                 continue;
             }
 
+
+             $price = $data[9];
+
+             if (!is_numeric($price) || $price <= 0) {
+                    continue; // Skip this row
+                }
+            if($_SESSION["role_name"] == 'Dealer') {
+                $tax = 7.7; // 7.7% (VAT = Value Added Tax)
+                $vat_rate = $tax/100; // 0.077 
+                $vat_amount = $price * $vat_rate;
+                $total_price = $price + $vat_amount;
+            } else {
+                $vat_amount = 0;
+                $total_price = $price; // ya zero if private user ko free listing dena ho
+            }
+
+
             $insertData = [
                 "slug"               => $slug,
                 "title"              => $data[0],
@@ -1991,7 +2067,9 @@ public function import_csv() {
                 "year"               => $data[6],
                 "mileage"            => $data[7],
                 "vehicle_condition"  => $data[8],
-                "price"              => $data[9],
+                "price"              => $price,
+                "total_price"        => $total_price,
+                "tax"                => $vat_amount,
                 "is_negotiable"      => $data[10],
                 "fuel_type"          => $data[11],
                 "transmission"       => $data[12],
