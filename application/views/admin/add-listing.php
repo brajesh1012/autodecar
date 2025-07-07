@@ -432,7 +432,6 @@ p {
                                         <small class="text-danger"><?= form_error('price') ?></small>
 
                                     </div>
-
                                     <div class="form-group">
                                         <label for="listing_title"> Is Price Negotiable *</label>
                                         <select name="is_negotiable" class="form-control" id="is_negotiable">

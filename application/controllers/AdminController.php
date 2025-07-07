@@ -419,25 +419,7 @@ class AdminController extends CI_Controller
             // 
 
         } else {
-			
-			// $make = $this->input->post('make');
-			// $slug = url_title($make, 'dash', TRUE);
-			// $checkSlug = $this->Common_model->getsingle('car_list', array('slug' => $slug));
-			// if ($checkSlug) 
-			// {
-			// 	for ($i = 1; $i <= 99999; $i++) 
-			// 	{
-			// 		$rand = rand(11, 99);
-			// 		$newSlug = $slug . '-' . $rand;
-			// 		$checkNewSlug = $this->Common_model->getsingle('car_list', array('slug' => $newSlug));
-			// 		if (!$checkNewSlug) {
-			// 			$slug = $newSlug;
-			// 			break; 
-			// 		}
-			// 	}
-			// }
-
-            		$title = $this->input->post('title');
+            $title = $this->input->post('title');
 			$slug = url_title($title, 'dash', TRUE);
 			$checkSlug = $this->Common_model->getsingle('car_list', array('slug' => $slug));
 			if ($checkSlug) 
@@ -529,7 +511,19 @@ class AdminController extends CI_Controller
                 $other_features = $this->input->post("other_features_and_extras");
                 $other_features_json = !empty($other_features) ? json_encode($other_features) : json_encode([]);
 
-            // Prepare data to insert (example)
+
+                $price = $this->input->post("price");
+
+            if($_SESSION["role_name"] == 'Dealer') {
+                $tax = 7.7; // 7.7% (VAT = Value Added Tax)
+                $vat_rate = $tax/100; // 0.077 
+                $vat_amount = $price * $vat_rate;
+                $total_price = $price + $vat_amount;
+            } else {
+                $vat_amount = 0;
+                $total_price = $price; // ya zero if private user ko free listing dena ho
+            }
+
             $data = [
 				"slug" => $slug,
                 "title" => $this->input->post("title"),
@@ -542,7 +536,9 @@ class AdminController extends CI_Controller
                 "mileage" => $this->input->post("mileage"),
                 "vehicle_condition" => $this->input->post("vehicle_condition"),
 
-                "price" => $this->input->post("price"),
+                "price" => $price,
+                "total_price" => $total_price,
+                "tax" => $vat_amount ?? '' ,
                 "is_negotiable" => $this->input->post("is_negotiable"),
 
                 "fuel_type" => $this->input->post("fuel_type"),
@@ -820,8 +816,22 @@ class AdminController extends CI_Controller
                 $other_features = $this->input->post("other_features_and_extras");
                 $other_features_json = !empty($other_features) ? json_encode($other_features) : json_encode([]);
                 
+    
+              // Assume vehicle info already loaded in $vehicle
+                $old_price = $cars->price;
+                $old_vat = $cars->tax;
+                $new_price = $this->input->post('price');
 
-            // Prepare data to insert (example)
+                // Compare price to check if it changed
+                if ($old_price != $new_price && $_SESSION["role_name"] == 'Dealer') {
+                    $vat = ($new_price * 7.7) / 100;
+                } else {
+                    $vat = $old_vat; // Use old VAT if price is unchanged
+                }
+
+                $total_price = $new_price + $vat;
+          
+                
             $data = [
 				"slug" => $slug,
                  "title" => $this->input->post("title"),
@@ -834,7 +844,12 @@ class AdminController extends CI_Controller
                 "mileage" => $this->input->post("mileage"),
                 "vehicle_condition" => $this->input->post("vehicle_condition"),
 
-                "price" => $this->input->post("price"),
+                "price" => $new_price,
+
+                "total_price" => $total_price,
+
+                "tax" => $vat ?? '' ,
+
                 "is_negotiable" => $this->input->post("is_negotiable"),
 
                 "fuel_type" => $this->input->post("fuel_type"),
@@ -1099,6 +1114,21 @@ class AdminController extends CI_Controller
                 
 
             // Prepare data to insert (example)
+
+             // Assume vehicle info already loaded in $vehicle
+                $old_price = $cars->price;
+                $old_vat = $cars->tax;
+                $new_price = $this->input->post('price');
+
+                // Compare price to check if it changed
+                if ($old_price != $new_price && $_SESSION["role_name"] == 'Dealer') {
+                    $vat = ($new_price * 7.7) / 100;
+                } else {
+                    $vat = $old_vat; // Use old VAT if price is unchanged
+                }
+
+                $total_price = $new_price + $vat;
+
             $data = [
 				"slug" => $slug,
                  "title" => $this->input->post("title"),
@@ -1111,7 +1141,12 @@ class AdminController extends CI_Controller
                 "mileage" => $this->input->post("mileage"),
                 "vehicle_condition" => $this->input->post("vehicle_condition"),
 
-                "price" => $this->input->post("price"),
+                "price" => $new_price,
+
+                "total_price" => $total_price,
+
+                "tax" => $vat ?? '' ,
+                
                 "is_negotiable" => $this->input->post("is_negotiable"),
 
                 "fuel_type" => $this->input->post("fuel_type"),
