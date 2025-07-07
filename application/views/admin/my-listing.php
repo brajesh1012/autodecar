@@ -97,6 +97,9 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Listing</th>
+                                                                 <?php if($_SESSION["role_name"] != 'Seller'){ ?>
+                                                                <th>Tax (7.7%)</th>
+                                                                <?php } ?>
                                                                 <th>Status</th>
                                                                 <th>Posting date</th>
                                                                 <th>Action</th>
@@ -150,12 +153,27 @@
                                                                             </div>
                                                                             <div class="price">
                                                                                 <div class="inner tfcl-listing-price">
-                                                                                    CHF <?= $detail->price; ?>
+                                                                                
+                                                                                 CHF <?= $detail->price; ?>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </td>
+                                                                <?php if($_SESSION["role_name"] != 'Seller'){ ?>
+                                                                  <td class="column-tax">
+                                                                    <div class="tfcl-listing-tax">
+                                                                        <?php 
+                                                                        $tax = $detail->tax;
+                                                                        if($tax != 0){
+                                                                            echo "CHF " . $tax;
+                                                                        }else{
+                                                                            echo "N/A";
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                </td>
+                                                                <?php } ?>
                                                                 <td class="column-status">
                                                                     <?php if($detail->status==0){?>
                                                                     <span class="tfcl-listing-status status-publish">
