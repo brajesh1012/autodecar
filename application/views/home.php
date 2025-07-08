@@ -957,12 +957,12 @@
                                 </div>
                             </div> -->
                             <!-- New Form -->
-                                            
 
-                                                <!-- Fileter -->
-                                                <?php $this->load->view('filter-form'); ?>
 
-                                                 <!-- Filter end -->
+                            <!-- Fileter -->
+                            <?php $this->load->view('filter-form'); ?>
+
+                            <!-- Filter end -->
                             <!-- new form end -->
 
                             <div class="wrap-icon trending2">
@@ -1301,7 +1301,7 @@
                                                                 <?php foreach ($added_by as $added) { ?>
                                                                 <div class="img-author">
 
-                                                                <?php if(!empty($added->profile)){?>
+                                                                    <?php if(!empty($added->profile)){?>
                                                                     <img class="lazyload"
                                                                         data-src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
                                                                         src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
@@ -1311,14 +1311,15 @@
                                                                         data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
                                                                         src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
                                                                         alt="image">
-                                                                        <?php } ?>
+                                                                    <?php } ?>
 
-                                                                    <span class="font text-color-2 fw-5"><?= $added->username; ?></span>
+                                                                    <span
+                                                                        class="font text-color-2 fw-5"><?= $added->username; ?></span>
                                                                 </div>
                                                                 <a href="<?= base_url('list-details/'.$vehicle->slug); ?>"
                                                                     class="view-car">View
                                                                     car</a>
-                                                                    <?php } ?>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>

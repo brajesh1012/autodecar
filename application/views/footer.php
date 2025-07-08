@@ -179,6 +179,7 @@
             <div class="d-flex justify-content-evenly align-items-center">
                 <div>
                 <label class="form-label fw-bold">Language</label>
+                <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>  -->
     <select class="form-select bg-dark text-white" name="language">
       <option value="">German</option>
       <option value="en">English</option>
@@ -699,7 +700,7 @@
  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
- // ...existing code...
+ <!-- ...existing code... -->
  <script>
 $(document).ready(function() {
     // Register se Login

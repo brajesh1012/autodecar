@@ -336,37 +336,44 @@ public function reset_password($token = null) {
         $data['models'] =  $this->WebsiteModel->get_data('model');  
         $data['fuel_types'] =  $this->WebsiteModel->get_data('fuel_type');  
         $data['transmissions'] = $this->WebsiteModel->get_data('transmission');
-        $data['vehicles'] = $this->WebsiteModel->get_vehicle();
-    
+        // $data['vehicles'] = $this->WebsiteModel->get_vehicle();
+        $vehicle_type = $this->input->get('vehicle_type');
+        $make = $this->input->get('make');
+        $model = $this->input->get('model');
+        $minYear = $this->input->get('year');
+        $zipcode = $this->input->get('zipcode');
+        $maxkm = str_replace(',', '', $this->input->get('km'));
+        $min_price = str_replace(',', '', $this->input->get('price'));
+     $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
     	$this->load->view('listing-list', $data);
 }
 
 
     public function filterVehicles() {
-        $make = $this->input->post('make');
-        $model = $this->input->post('model');
-        $fuel_type = $this->input->post('fuel_type');
-        $transmission = $this->input->post('transmission');
+        $make = $this->input->get('make');
+        $model = $this->input->get('model');
+        // $fuel_type = $this->input->post('fuel_type');
+        // $transmission = $this->input->post('transmission');
 
-            $min_price = $this->input->post('min-price');
-            $max_price = $this->input->post('max-price');
+        //     $min_price = $this->input->post('min-price');
+        //     $max_price = $this->input->post('max-price');
 
-            // print_r($min_price);
-            // print_r($max_price);die;
-        $minYear = $this->input->post('min-value3');
-        $maxYear = $this->input->post('max-value3');
+        //     // print_r($min_price);
+        //     // print_r($max_price);die;
+        // $minYear = $this->input->post('min-value3');
+        // $maxYear = $this->input->post('max-value3');
 
-        $minkm = $this->input->post('min-value');
-        $maxkm = $this->input->post('max-value');
+        // $minkm = $this->input->post('min-value');
+        // $maxkm = $this->input->post('max-value');
 
-         $data['year_range'] = $this->db->get_where('years_range', ['id' => 1])->row_array();
-        //  $data['km_range'] = $this->db->get_where('km_range', ['id' => 1])->row_array();
-        //  $data['price_range'] = $this->db->get_where('price_range', ['id' => 1])->row_array();
+        //  $data['year_range'] = $this->db->get_where('years_range', ['id' => 1])->row_array();
+        // //  $data['km_range'] = $this->db->get_where('km_range', ['id' => 1])->row_array();
+        // //  $data['price_range'] = $this->db->get_where('price_range', ['id' => 1])->row_array();
 
-         $data['makes'] = $this->WebsiteModel->get_data('make');
-        $data['models'] =  $this->WebsiteModel->get_data('model');  
-        $data['fuel_types'] =  $this->WebsiteModel->get_data('fuel_type');  
-        $data['transmissions'] = $this->WebsiteModel->get_data('transmission');
+        //  $data['makes'] = $this->WebsiteModel->get_data('make');
+        // $data['models'] =  $this->WebsiteModel->get_data('model');  
+        // $data['fuel_types'] =  $this->WebsiteModel->get_data('fuel_type');  
+        // $data['transmissions'] = $this->WebsiteModel->get_data('transmission');
          $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm);
         $this->load->view('partials/_vehicle_list',  $data);
     }
@@ -376,8 +383,10 @@ public function reset_password($token = null) {
 
     public function listing_grid()
 {
- 
-    	$this->load->view('listing-grid');
+    $data['vehicles'] = $this->WebsiteModel->get_vehicle();
+
+    // print_r($data['vehicles']);die;
+    	$this->load->view('listing-grid', $data);
 }
 
     public function listing_grid2()

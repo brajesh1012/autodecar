@@ -21,24 +21,50 @@ class WebsiteModel extends CI_Model {
     }
 
     public function get_vehicle() {
+        $filters = $this->input->get();
     $location = $this->session->userdata('location');
     
     if (!empty($location)) {
-        return $this->db->where('location', $location)->get('car_list')->result();
-    }else{
-          return $this->db->get('car_list')->result();
+        $this->db->where('location', $location);
     }
+
+    // 
+
+         if (!empty($filters['make']) && $filters['make'] !== 'Any') {
+        $this->db->where('make', $filters['make']);
+    }
+    if (!empty($filters['model']) && $filters['model'] !== 'Any') {
+        $this->db->where('model', $filters['model']);
+    }
+    if (!empty($filters['year']) && $filters['year'] !== 'Any') {
+        $this->db->where('year >=', $filters['year']);
+    }
+    if (!empty($filters['km']) && $filters['km'] !== 'Any') {
+        $this->db->where('km <=', str_replace(',', '', $filters['km']));
+    }
+    if (!empty($filters['price']) && $filters['price'] !== 'Any') {
+        $this->db->where('price <=', str_replace(',', '', $filters['price']));
+    }
+    // 
+
+
+          return $this->db->get('car_list')->result();
+    
 
     
  }
 
-   public function filter_vehicles($make = '', $model = '', $fuel_type = '', $transmission = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '') {
+   public function filter_vehicles($make = '', $model = '', $fuel_type = '', $transmission = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '', $vehicle_type = '') {
 
     $location = $this->session->userdata('location');
     
     if (!empty($location)) {
          $this->db->where('location', $location);
     }
+
+      if(!empty($vehicle_type)) {
+            $this->db->where('vehicle_type', $vehicle_type);
+        }
 
         if(!empty($make)) {
             $this->db->where('make', $make);
@@ -56,29 +82,44 @@ class WebsiteModel extends CI_Model {
             $this->db->where('fuel_type', $fuel_type);
         }
 
-        if(!empty($minYear) && !empty($maxYear)){
+        if(!empty($minYear)){
 
             
                     $this->db->where('year >=', $minYear);
-                    $this->db->where('year <=', $maxYear);
+                    // $this->db->where('year <=', $maxYear);
         }
 
-           if (is_numeric($min_price) && is_numeric($max_price)){
+        //    if (is_numeric($min_price) && is_numeric($max_price)){
+            if (is_numeric($min_price)){
+            
+                    $this->db->where('price', $min_price);
+                    // $this->db->where('price >=', $min_price);
+                    // $this->db->where('price <=', $max_price);
+        }
+
+        //    if (is_numeric($minkm) && is_numeric($maxkm)){
+           if (is_numeric($maxkm)){
 
             
-                    $this->db->where('price >=', $min_price);
-                    $this->db->where('price <=', $max_price);
+                    $this->db->where('km >=', $maxkm);
+                    // $this->db->where('km >=', $minkm);
+                    // $this->db->where('km <=', $maxkm);
         }
 
-           if (is_numeric($minkm) && is_numeric($maxkm)){
+          if (is_numeric($zipcode)){
 
             
-                    $this->db->where('km >=', $minkm);
-                    $this->db->where('km <=', $maxkm);
+                    $this->db->where('zipcode', $zipcode);
+                   
         }
+      
+    $query = $this->db->get('car_list');
 
-        return $this->db->get('car_list')->result();
-
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    } else {
+        return false; // Or return ['message' => 'Data not found'];
+    }
 
     }
 

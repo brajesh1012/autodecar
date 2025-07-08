@@ -23,7 +23,7 @@ p {
                             <div class="alert alert-success" id="success-msg">
                                 <?= $this->session->flashdata('success') ?></div>
                             <?php endif; ?>
-                            <form action="<?= base_url(ADMIN_PATH . '/add-make'); ?>" method="POST">
+                            <form action="<?= base_url(ADMIN_PATH . '/add-make'); ?>" method="POST"  enctype="multipart/form-data">
                                 <input type="hidden" name="added_by"
                                     value="<?= $this->session->userdata('user_id'); ?>">
                                 <h1 class="admin-title mb-3">Make</h1>
@@ -31,26 +31,34 @@ p {
                                 <div class="tfcl-add-listing car-details">
                                     <h3>Vehicle Make</h3>
                                     <div class="form-group-2">
-                                         <div class="form-group">
-                                        <label for="listing_title">Vehicle Type *</label>
-                                        <select name="vehicle_type_id" id="vehicle_type_id" class="form-control">
-                                            <option value="">Select Vehicle Type</option>
-                                            <?php foreach($vehicle_types as $vehicle_type){ ?>
-                                            <option value="<?= $vehicle_type->id; ?>"><?= $vehicle_type->name; ?></option>
+                                        <div class="form-group">
+                                            <label for="listing_title">Vehicle Type *</label>
+                                            <select name="vehicle_type_id" id="vehicle_type_id" class="form-control">
+                                                <option value="">Select Vehicle Type</option>
+                                                <?php foreach($vehicle_types as $vehicle_type){ ?>
+                                                <option value="<?= $vehicle_type->id; ?>"><?= $vehicle_type->name; ?>
+                                                </option>
                                                 <?php } ?>
-                                        </select>
-                                        <small class="text-danger"><?= form_error('vehicle_type_id') ?></small>
+                                            </select>
+                                            <small class="text-danger"><?= form_error('vehicle_type_id') ?></small>
 
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="listing_title">Make *</label>
+                                            <input type="text" class="form-control" name="name"
+                                                placeholder="Enter Make(e.g. Honda, Toyota)"
+                                                value="<?= set_value('name') ?>">
+                                            <small class="text-danger"><?= form_error('name') ?></small>
+
+                                        </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="listing_title">Make *</label>
-                                        <input type="text" class="form-control" name="name"
-                                            placeholder="Enter Make(e.g. Honda, Toyota)"
-                                            value="<?= set_value('name') ?>">
-                                        <small class="text-danger"><?= form_error('name') ?></small>
-
-                                    </div>
+                                    <div class="form-group-2">
+                                        <div class="form-group">
+                                            <label for="photos">Brand Logo</label>
+                                            <input type="file" accept="image/*" class="form-control" name="logo"
+                                                placeholder="Upload Logo" value="<?= set_value('logo') ?>">
+                                        </div>
                                     </div>
                                 </div>
 
