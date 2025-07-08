@@ -177,17 +177,38 @@ p {
                                             <small class="text-danger"><?= form_error('vehicle_condition') ?></small>
                                         </div>
 
+                                        <?php
+                                        // Format the TUV date
+                                        $tuv_value = '';
+                                            if (!empty($cars->tuv_date)) {
+                                                $dateObj = DateTime::createFromFormat('m/y', $cars->tuv_date);
+                                                if ($dateObj) {
+                                                    $tuv_value = $dateObj->format('Y-m'); // Output: 2025-07
+                                                }
+                                            }
+
+                                            // Format the MFK date
+                                            $mfk_value = '';
+                                            if (!empty($cars->mfk_date)) {
+                                                $dateObj = DateTime::createFromFormat('m/y', $cars->mfk_date);
+                                                if ($dateObj) {
+                                                    $mfk_value = $dateObj->format('Y-m'); // Output: 2025-07
+                                                }
+                                            }
+                                            ?>
+
+
                                         <div class="form-group">
                                             <label for="listing_title">MFk *</label>
-                                            <input type="date" class="form-control" name="mfk_date"
-                                                placeholder="Enter MFK" value="<?= $cars->mfk_date ; ?>">
+                                            <input type="month" class="form-control" name="mfk_date"
+                                                placeholder="Enter MFK" value="<?= $mfk_value; ?>">
                                             <small class="text-danger"><?= form_error('mfk_date') ?></small>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="listing_title">TUV *</label>
-                                            <input type="date" class="form-control" name="tuv_date"
-                                                placeholder="Enter TUV" value="<?= $cars->tuv_date; ?>">
+                                            <input type="month" class="form-control" name="tuv_date"
+                                                placeholder="Enter TUV" value="<?= $tuv_value; ?>">
                                             <small class="text-danger"><?= form_error('tuv_date') ?></small>
                                         </div>
                                     </div>
