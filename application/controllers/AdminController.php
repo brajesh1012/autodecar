@@ -490,6 +490,9 @@ class AdminController extends CI_Controller
                     }
                 }
 
+              
+
+
                   $comfort_and_interior = $this->input->post("comfort_and_interior");
                 $comfort_and_interior_json = !empty($comfort_and_interior) ? json_encode($comfort_and_interior) : json_encode([]);
 
@@ -1454,10 +1457,38 @@ class AdminController extends CI_Controller
             $data["main"] = "vehicle_make";
             $this->load->view("admin/template", $data);
         } else {
+
+              // Emission Certificate Upload
+                $brand_logo = '';
+                if (!empty($_FILES['logo']['name'])) {
+                    $_FILES["file"]["name"] = $_FILES["logo"]["name"];
+                    $_FILES["file"]["type"] = $_FILES["logo"]["type"];
+                    $_FILES["file"]["tmp_name"] = $_FILES["logo"]["tmp_name"];
+                    $_FILES["file"]["error"] = $_FILES["logo"]["error"];
+                    $_FILES["file"]["size"] = $_FILES["logo"]["size"];
+
+                    $config["upload_path"] = "./uploads/brands/";
+                    $config["allowed_types"] = "jpg|jpeg|png";
+                    $config["file_name"] = time() . "_" . $_FILES["file"]["name"];
+
+                    // Make sure the directory exists
+                    if (!is_dir($config["upload_path"])) {
+                        mkdir($config["upload_path"], 0777, true);
+                    }
+
+                    $this->load->library("upload", $config);
+
+                    if ($this->upload->do_upload("file")) {
+                        $uploadData = $this->upload->data();
+                        $brand_logo = $uploadData["file_name"];
+                    }
+                }
+
             // Prepare data to insert (example)
             $data = [
                 "name" => $this->input->post("name"),
                 "vehicle_type_id" => $this->input->post("vehicle_type_id"),
+                "logo" => $brand_logo,
             ];
             $this->db->insert("make", $data); // Save to database
 
