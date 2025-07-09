@@ -115,7 +115,7 @@ $route[trim(ADMIN_PATH  . '/delete-model', '/')] = 'AdminController/delete_model
 $route[trim(ADMIN_PATH  . '/add-variant', '/')] = 'AdminController/add_variant';
 $route[trim(ADMIN_PATH  . '/delete-variant', '/')] = 'AdminController/delete_variant';
 
-
+$route[trim(ADMIN_PATH  . '/add-categories', '/')] = 'AdminController/add_categories';
 $route[trim(ADMIN_PATH  . '/vehicle-make', '/')] = 'AdminController/vehicle_make';
 $route[trim(ADMIN_PATH  . '/add-make', '/')] = 'AdminController/add_make';
 $route[trim(ADMIN_PATH  . '/get-makes-by-vehicle-type', '/')] = 'AdminController/get_makes_by_vehicle_type';

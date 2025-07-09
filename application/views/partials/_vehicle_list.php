@@ -113,3 +113,35 @@
          <p>Data not Found. </p>
          <?php } ?>
      </div>
+
+
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".chat-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            var isLoggedIn = btn.getAttribute("data-logged-in");
+            var chatUrl = btn.getAttribute("data-url");
+
+            if (isLoggedIn === "yes") {
+                // Open in modal
+                document.getElementById("chatFrame").src = chatUrl;
+                document.getElementById("chatModal").style.display = "flex";
+            } else {
+                // Show login alert
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Please login first',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+
+function closeChatModal() {
+    document.getElementById("chatModal").style.display = "none";
+    document.getElementById("chatFrame").src = ""; // Optional: Clear iframe on close
+}
+</script>
+

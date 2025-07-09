@@ -37,7 +37,6 @@ p {
                                             <small class="text-danger"><?= form_error('title') ?></small>
                                         </div>
 
-
                                         <div class="form-group">
                                             <label for="listing_title">Vehicle Type</label>
 
@@ -55,6 +54,26 @@ p {
                                             <small class="text-danger"><?= form_error('vehicle_type') ?></small>
 
                                         </div>
+
+                                         <div class="form-group">
+                                            <label for="listing_title">Category</label>
+
+                                            <select class="form-control" name="cat_id" id="cat_id">
+                                                <option value="">Select Category</option>
+                                                <?php foreach($categories as $cat){
+                                                $cat_key = strtolower(str_replace(' ', '_', $cat->name)); 
+                                                ?>
+                                                <option value="<?= $cat->id; ?>" data-type="<?= $cat_key ?>"
+                                                    <?php if(set_value('cat_id') == $cat->id ){ echo "selected"; } ?>>
+                                                    <?= $cat->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+
+                                            <small class="text-danger"><?= form_error('cat') ?></small>
+
+                                        </div>
+
+
 
                                         <div class="form-group">
                                             <label for="listing_title">Make *</label>

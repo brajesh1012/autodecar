@@ -186,7 +186,7 @@
       
       <option value="fr">French</option>
      
-      <option value="es">Spanish</option>
+      <option value="es">Italian</option>
     </select>
                 </div>
                     <a href="#">About Us</a>
