@@ -320,6 +320,7 @@ class AdminController extends CI_Controller
 
         $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
+        // $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
         $this->form_validation->set_rules("variant", "variant", "required");
@@ -356,6 +357,7 @@ class AdminController extends CI_Controller
         );
 
         if ($this->form_validation->run() == false) {
+            $data["categories"] = $this->WebsiteModel->get_data("categories");
             $data["makes"] = $this->WebsiteModel->get_data("make");
             $data["models"] = $this->WebsiteModel->get_data("model");
             $data["variants"] = $this->WebsiteModel->get_data("variants");
@@ -551,6 +553,7 @@ class AdminController extends CI_Controller
 				"slug" => $slug,
                 "title" => $this->input->post("title"),
                 "vehicle_type" => $this->input->post("vehicle_type"),
+                "cat_id" => $this->input->post("cat_id"),
                 "make" => $this->input->post("make"),
                 "model" => $this->input->post("model"),
                 "variant" => $this->input->post("variant"),
@@ -1427,6 +1430,78 @@ class AdminController extends CI_Controller
         }
     }
 
+     public function add_categories()
+    {
+         
+        if (!isset($_SESSION['role_name'])) {
+                redirect(base_url()); // or homepage
+            }
+
+         if ($_SESSION["role_name"] == "Buyer") {
+                redirect(base_url());
+            }
+
+        $this->form_validation->set_rules(
+            "name",
+            "Categories Name",
+            "required|is_unique[categories.name]"
+        );
+         $this->form_validation->set_rules(
+            "vehicle_type_id",
+            "Vehicle Type",
+            "required"
+        );
+
+        if ($this->form_validation->run() == false) {
+            $data["vehicle_types"] = $this->WebsiteModel->get_data("vehicle_type");
+            $data["categories"] = $this->WebsiteModel->get_data("categories");
+            $data["main"] = "categories";
+            $this->load->view("admin/template", $data);
+        } else {
+
+              // Emission Certificate Upload
+                $cat_img = '';
+                if (!empty($_FILES['img']['name'])) {
+                    $_FILES["file"]["name"] = $_FILES["img"]["name"];
+                    $_FILES["file"]["type"] = $_FILES["img"]["type"];
+                    $_FILES["file"]["tmp_name"] = $_FILES["img"]["tmp_name"];
+                    $_FILES["file"]["error"] = $_FILES["img"]["error"];
+                    $_FILES["file"]["size"] = $_FILES["img"]["size"];
+
+                    $config["upload_path"] = "./uploads/categories/";
+                    $config["allowed_types"] = "jpg|jpeg|png";
+                    $config["file_name"] = time() . "_" . $_FILES["file"]["name"];
+
+                    // Make sure the directory exists
+                    if (!is_dir($config["upload_path"])) {
+                        mkdir($config["upload_path"], 0777, true);
+                    }
+
+                    $this->load->library("upload", $config);
+
+                    if ($this->upload->do_upload("file")) {
+                        $uploadData = $this->upload->data();
+                        $cat_img = $uploadData["file_name"];
+                    }
+                }
+
+            // Prepare data to insert (example)
+            $data = [
+                "name" => $this->input->post("name"),
+                "vehicle_type_id" => $this->input->post("vehicle_type_id"),
+                "img" => $cat_img,
+            ];
+            $this->db->insert("categories", $data); // Save to database
+
+            $this->session->set_flashdata(
+                "success",
+                "Categories added successfully!"
+            );
+            redirect(ADMIN_PATH . "/add-categories");
+        }
+    }
+
+
 
 
     public function add_make()
@@ -1445,14 +1520,21 @@ class AdminController extends CI_Controller
             "Make Name",
             "required|is_unique[make.name]"
         );
-         $this->form_validation->set_rules(
+       $this->form_validation->set_rules(
             "vehicle_type_id",
             "Vehicle Type",
             "required"
         );
 
+        //  $this->form_validation->set_rules(
+        //     "cat_id",
+        //     "Category",
+        //     "required"
+        // );
+
         if ($this->form_validation->run() == false) {
             $data["vehicle_types"] = $this->WebsiteModel->get_data("vehicle_type");
+            $data["categories"] = $this->WebsiteModel->get_data("categories");
             $data["makes"] = $this->WebsiteModel->get_data("make");
             $data["main"] = "vehicle_make";
             $this->load->view("admin/template", $data);
@@ -1487,7 +1569,8 @@ class AdminController extends CI_Controller
             // Prepare data to insert (example)
             $data = [
                 "name" => $this->input->post("name"),
-                "vehicle_type_id" => $this->input->post("vehicle_type_id"),
+                // "cat_id" => $this->input->post("cat_id"),
+                 "vehicle_type_id" => $this->input->post("vehicle_type_id"),
                 "logo" => $brand_logo,
             ];
             $this->db->insert("make", $data); // Save to database
