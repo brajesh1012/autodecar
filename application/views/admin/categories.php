@@ -33,7 +33,7 @@ p {
                                     <div class="form-group-2">
                                         <div class="form-group">
                                             <label for="listing_title">Vehicle Type *</label>
-                                            <select name="vehicle_type_id" id="vehicle_type_id" class="form-control">
+                                            <select name="vehicle_type_id" class="form-control">
                                                 <option value="">Select Vehicle Type</option>
                                                 <?php foreach($vehicle_types as $vehicle_type){ ?>
                                                 <option value="<?= $vehicle_type->id; ?>"><?= $vehicle_type->name; ?>

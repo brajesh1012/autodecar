@@ -332,6 +332,7 @@ public function reset_password($token = null) {
 {
     
           $data['year_range'] = $this->db->get_where('years_range', ['id' => 1])->row_array();
+        $data['categories'] = $this->WebsiteModel->get_data('categories');
         $data['makes'] = $this->WebsiteModel->get_data('make');
         $data['models'] =  $this->WebsiteModel->get_data('model');  
         $data['fuel_types'] =  $this->WebsiteModel->get_data('fuel_type');  
@@ -347,6 +348,11 @@ public function reset_password($token = null) {
      $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
     	$this->load->view('listing-list', $data);
 }
+
+    public function chat_list() {
+        $this->load->view('chat_list'); // or seller/chat_list
+    }
+
 
 
     public function filterVehicles() {

@@ -30,7 +30,20 @@ p {
                                 <div class="tfcl-add-listing car-details">
                                     <h3>Vehicle Make</h3>
                                     <div class="form-group-2">
-                                        <div class="form-group d-none">
+                                          <div class="form-group">
+                                            <label for="listing_title">Vehicle Type *</label>
+                                            <select name="vehicle_type_id" id="vehicle_type_id" class="form-control">
+                                                <option value="">Select Vehicle Type</option>
+                                                <?php foreach($vehicle_types as $vehicle_type){ ?>
+                                                <option value="<?= $vehicle_type->id; ?>"><?= $vehicle_type->name; ?>
+                                                </option>
+                                                <?php } ?>
+                                            </select>
+                                            <small class="text-danger"><?= form_error('vehicle_type_id') ?></small>
+
+                                        </div>
+                                    
+                                            <div class="form-group">
                                             <label for="listing_title">Categories*</label>
                                             <select name="cat_id" id="cat_id" class="form-control">
                                                 <option value="">Select category</option>
@@ -43,21 +56,6 @@ p {
 
                                         </div>
 
-
-                                          <div class="form-group">
-                                            <label for="listing_title">Vehicle Type *</label>
-                                            <select name="vehicle_type_id" class="form-control">
-                                                <option value="">Select Vehicle Type</option>
-                                                <?php foreach($vehicle_types as $vehicle_type){ ?>
-                                                <option value="<?= $vehicle_type->id; ?>"><?= $vehicle_type->name; ?>
-                                                </option>
-                                                <?php } ?>
-                                            </select>
-                                            <small class="text-danger"><?= form_error('vehicle_type_id') ?></small>
-
-                                        </div>
-
-
                                         <div class="form-group">
                                             <label for="listing_title">Make *</label>
                                             <input type="text" class="form-control" name="name"
@@ -66,16 +64,14 @@ p {
                                             <small class="text-danger"><?= form_error('name') ?></small>
 
                                         </div>
-                                    </div>
-                                    <div class="form-group-2">
+                                   
                                         <div class="form-group">
                                             <label for="photos">Brand Logo</label>
                                             <input type="file" accept="image/*" class="form-control" name="logo"
                                                 placeholder="Upload Logo" value="<?= set_value('logo') ?>">
                                         </div>
-                                    </div>
                                 </div>
-
+                             </div>
                                 <div class="group-button-submit">
                                     <!-- <button class="pre-btn">List Now</button>
                                     <button type class="second-btn">Save & Preview</button> -->
@@ -146,4 +142,8 @@ $(document).ready(function() {
         $('#success-msg').fadeOut('slow');
     }, 3000); // 3000ms = 3 seconds
 });
+</script>
+
+<script>
+    var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
 </script>

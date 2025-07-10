@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             <!-- Vehicle Bulk upload -->
 
-                             <li class="d-none"><a href="<?= base_url(ADMIN_PATH . '/add-categories'); ?>" class="<?= $this->uri->segment(1) == 'add-categories' ? 'active' : ''; ?>">
+                             <li><a href="<?= base_url(ADMIN_PATH . '/add-categories'); ?>" class="<?= $this->uri->segment(1) == 'add-categories' ? 'active' : ''; ?>">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                                 fill="none">
                                 <g opacity="0.2">

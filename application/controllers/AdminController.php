@@ -320,7 +320,7 @@ class AdminController extends CI_Controller
 
         $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
-        // $this->form_validation->set_rules("cat_id", "Category", "required");
+        $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
         $this->form_validation->set_rules("variant", "variant", "required");
@@ -650,6 +650,7 @@ class AdminController extends CI_Controller
 
         $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
+        $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
         $this->form_validation->set_rules("variant", "variant", "required");
@@ -692,6 +693,7 @@ class AdminController extends CI_Controller
 		
         if ($this->form_validation->run() == false) {
 
+            $data["categories"] = $this->WebsiteModel->get_data("categories");
              $data["makes"] = $this->WebsiteModel->get_data("make");
             $data["models"] = $this->WebsiteModel->get_data("model");
             $data["variants"] = $this->WebsiteModel->get_data("variants");
@@ -881,6 +883,7 @@ class AdminController extends CI_Controller
 				"slug" => $slug,
                  "title" => $this->input->post("title"),
                 "vehicle_type" => $this->input->post("vehicle_type"),
+                "cat_id" => $this->input->post("cat_id"),
                 "make" => $this->input->post("make"),
                 "model" => $this->input->post("model"),
                 "variant" => $this->input->post("variant"),
@@ -969,6 +972,7 @@ class AdminController extends CI_Controller
 
         $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
+         $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
         $this->form_validation->set_rules("variant", "variant", "required");
@@ -1020,6 +1024,7 @@ class AdminController extends CI_Controller
                 "transmission"
             );
             $data["vehicle_types"] = $this->AdminModel->get_data("vehicle_type");
+              $data["categories"] = $this->WebsiteModel->get_data("categories");
             $data["cities"] = $this->AdminModel->get_data("cities");
             $data["states"] = $this->AdminModel->get_data("states");
 
@@ -1198,6 +1203,7 @@ class AdminController extends CI_Controller
 				"slug" => $slug,
                  "title" => $this->input->post("title"),
                 "vehicle_type" => $this->input->post("vehicle_type"),
+                "cat_id" => $this->input->post("cat_id"),
                 "make" => $this->input->post("make"),
                 "model" => $this->input->post("model"),
                 "variant" => $this->input->post("variant"),
@@ -1304,6 +1310,13 @@ class AdminController extends CI_Controller
             "required"
         );
 
+        
+         $this->form_validation->set_rules(
+            "cat_id",
+            "Category",
+            "required"
+        );
+
           $this->form_validation->set_rules(
             "make_id",
             "Make",
@@ -1314,6 +1327,7 @@ class AdminController extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data["vehicle_types"] = $this->WebsiteModel->get_data("vehicle_type");
+            $data["categories"] = $this->WebsiteModel->get_data("categories");
             $data["makes"] = $this->WebsiteModel->get_data("make");
             $data["models"] = $this->WebsiteModel->get_data("model");
             $data["main"] = "vehicle_model";
@@ -1323,6 +1337,7 @@ class AdminController extends CI_Controller
             $data = [
                 "name" => $this->input->post("name"),
                 "vehicle_type_id" => $this->input->post("vehicle_type_id"),
+                "cat_id" => $this->input->post("cat_id"),
                 "make_id" => $this->input->post("make_id"),
             ];
             $this->db->insert("model", $data); // Save to database
@@ -1382,6 +1397,12 @@ class AdminController extends CI_Controller
             "required"
         );
 
+            $this->form_validation->set_rules(
+            "cat_id",
+            "Category",
+            "required"
+        );
+
           $this->form_validation->set_rules(
             "make_id",
             "Make",
@@ -1392,6 +1413,7 @@ class AdminController extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data["vehicle_types"] = $this->WebsiteModel->get_data("vehicle_type");
+             $data["categories"] = $this->WebsiteModel->get_data("categories");
             $data["makes"] = $this->WebsiteModel->get_data("make");
             $data["models"] = $this->WebsiteModel->get_data("model");
             $data["variants"] = $this->WebsiteModel->get_data("variants");
@@ -1402,6 +1424,7 @@ class AdminController extends CI_Controller
             $data = [
                 "name" => $this->input->post("name"),
                 "vehicle_type_id" => $this->input->post("vehicle_type_id"),
+                "cat_id" => $this->input->post("cat_id"),
                 "make_id" => $this->input->post("make_id"),
                 "model_id" => $this->input->post("model_id"),
             ];
@@ -1526,11 +1549,11 @@ class AdminController extends CI_Controller
             "required"
         );
 
-        //  $this->form_validation->set_rules(
-        //     "cat_id",
-        //     "Category",
-        //     "required"
-        // );
+         $this->form_validation->set_rules(
+            "cat_id",
+            "Category",
+            "required"
+        );
 
         if ($this->form_validation->run() == false) {
             $data["vehicle_types"] = $this->WebsiteModel->get_data("vehicle_type");
@@ -1569,7 +1592,7 @@ class AdminController extends CI_Controller
             // Prepare data to insert (example)
             $data = [
                 "name" => $this->input->post("name"),
-                // "cat_id" => $this->input->post("cat_id"),
+                 "cat_id" => $this->input->post("cat_id"),
                  "vehicle_type_id" => $this->input->post("vehicle_type_id"),
                 "logo" => $brand_logo,
             ];
@@ -1893,11 +1916,21 @@ class AdminController extends CI_Controller
         return $this->db->get_where($table, [$column => $value])->result();
     }
 
-      public function get_makes_by_vehicle_type() {
+      public function get_makes_by_category() {
+        $cat_id = $this->input->post('cat_id');
+        if ($cat_id) {
+            $makes = $this->getDropdownData('make', 'cat_id', $cat_id);
+            echo json_encode($makes);
+        } else {
+            echo json_encode([]);
+        }
+    }
+
+         public function get_category_by_vehicle_type() {
         $vehicle_type_id = $this->input->post('vehicle_type_id');
         if ($vehicle_type_id) {
-            $makes = $this->getDropdownData('make', 'vehicle_type_id', $vehicle_type_id);
-            echo json_encode($makes);
+            $categories = $this->getDropdownData('categories', 'vehicle_type_id', $vehicle_type_id);
+            echo json_encode($categories);
         } else {
             echo json_encode([]);
         }
