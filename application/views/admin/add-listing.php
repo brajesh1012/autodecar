@@ -69,7 +69,7 @@ p {
                                                 <?php } ?>
                                             </select>
 
-                                            <small class="text-danger"><?= form_error('cat') ?></small>
+                                            <small class="text-danger"><?= form_error('cat_id') ?></small>
 
                                         </div>
 
@@ -561,7 +561,8 @@ p {
 </div>
 
 <script>
-var URL = "<?= base_url(ADMIN_PATH . "/get-makes-by-vehicle-type") ?>";
+    var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
+    var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
 var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
 var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
 

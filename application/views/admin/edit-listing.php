@@ -55,6 +55,25 @@ p {
 
                                         </div>
 
+                                            <div class="form-group">
+                                            <label for="listing_title">Category</label>
+
+                                            <select class="form-control" name="cat_id" id="cat_id">
+                                                <option value="">Select Category</option>
+                                                <?php foreach($categories as $cat){
+                                                $cat_key = strtolower(str_replace(' ', '_', $cat->name)); 
+                                                ?>
+                                                <option value="<?= $cat->id; ?>" data-type="<?= $cat_key ?>"
+                                                    <?php if($cars->cat_id == $cat->id ){ echo "selected"; } ?>>
+                                                    <?= $cat->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+
+                                            <small class="text-danger"><?= form_error('cat_id') ?></small>
+
+                                        </div>
+
+
                                         <div class="form-group">
                                             <label for="listing_title">Make *</label>
 
@@ -668,7 +687,8 @@ p {
 </div>
 
 <script>
-var URL = "<?= base_url(ADMIN_PATH . "/get-makes-by-vehicle-type") ?>";
+ var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
+var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
 var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
 var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
 

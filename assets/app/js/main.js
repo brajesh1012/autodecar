@@ -473,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// /////////////////////////////////////////////////////get_makes_by_vehicle_type///////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////get_category_by_vehicle_type///////////////////////////////////////////////////////////////////
 
 
 $(document).ready(function () {
@@ -485,6 +485,36 @@ $(document).ready(function () {
                 url: URL,
                 type: 'POST',
                 data: { vehicle_type_id: vehicleTypeId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#cat_id').html('<option value="">Select Category</option>');
+                    $.each(response, function (index, item) {
+                        $('#cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading cat_id list.');
+                }
+            });
+        } else {
+            $('#cat_id').html('<option value="">Select Category</option>');
+        }
+    });
+});
+
+
+// /////////////////////////////////////////////////////get_makes_by_category_type///////////////////////////////////////////////////////////////////
+
+
+$(document).ready(function () {
+    $('#cat_id').on('change', function () {
+        const catId = $(this).val();
+
+        if (catId !== "") {
+            $.ajax({
+                url: URL1,
+                type: 'POST',
+                data: { cat_id: catId },
                 dataType: 'json',
                 success: function (response) {
                     $('#make_id').html('<option value="">Select Make</option>');
