@@ -56,7 +56,7 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
-
+ 
     /* The little arrow pointer */
     .arrow-up {
         position: absolute;
@@ -187,7 +187,7 @@
                                                         </div>
                                                     </li>
 
-                                                    <li>
+                                                    <!-- <li>
                                                         <div class="dropdown">
                                                             <button class="dropbtn text-white">
                                                                 Dealer/Seller
@@ -198,7 +198,7 @@
                                                                 <a href="#">commercial Dealer</a>
                                                             </div>
                                                         </div>
-                                                    </li>
+                                                    </li> -->
 
 
 
