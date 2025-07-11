@@ -371,13 +371,24 @@ label::after {
         <form id="car-form" action="<?= base_url('listing-list') ?>" method="get" autocomplete="off">
           <?php $brands = $this->db->get('make')->result(); ?>
           <?php $models = $this->db->get('model')->result(); ?>
+          <?php $categories = $this->db->get('categories')->result(); ?>
 
            <input type="hidden" class="form-control" name="vehicle_type" id="vehicle_type" value="2">
 
             <div class="row g-3">
+
+             <div class="col-md-6 col-12">
+                    <label class="form-label" for="cat_id">Category</label>
+                    <select class="form-select" name="cat_id" id="cat_id">
+                        <option>Any</option>
+                      <?php foreach($categories as $cat){ ?>
+                        <option value="<?= $cat->id; ?>"><?= $cat->name; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
                 <div class="col-md-6 col-12">
                     <label class="form-label" for="brand">Brand</label>
-                    <select class="form-select" name="brand" id="brand">
+                    <select class="form-select" name="make" id="make_id">
                         <option>Any</option>
                       <?php foreach($brands as $brand){ ?>
                         <option value="<?= $brand->id; ?>"><?= $brand->name; ?></option>
@@ -388,7 +399,7 @@ label::after {
 
                 <div class="col-md-6 col-12">
                     <label class="form-label" for="model">Model</label>
-                    <select class="form-select" name="model" id="model">
+                    <select class="form-select" name="model" id="model_id">
                         <option>Any</option>
                         <?php foreach($models as $model){ ?>
                         <option value="<?= $model->id; ?>"><?= $model->name; ?></option>
@@ -469,8 +480,9 @@ label::after {
                         <i class="bi bi-arrow-counterclockwise"></i> Reset
                     </button>
                     <button type="button" class="btn text-primary additional-options" id="toggleAdvFilters">
+                         <a href="<?= base_url('advance-filter') ?>">
                         <i class="bi bi-sliders"></i> Additional Filters
-                    </button>
+                   </a> </button>
                 </div>
         </form>
 
@@ -480,7 +492,7 @@ label::after {
 
     <!-- commercial form -->
 
-    <form id="commercial-form" action="<?= site_url('search') ?>" method="get" autocomplete="off">
+    <!-- <form id="commercial-form" action="<?= site_url('search') ?>" method="get" autocomplete="off">
         <div class="row g-3">
             <div class="col-md-6 col-12">
                 <label class="form-label" for="brand">Brand</label>
@@ -576,12 +588,8 @@ label::after {
 
 
         </div>
-
-        <!-- Advanced Filters Section (collapsible) -->
-
-
-    </form>
-    <form id="truck-form" action="<?= site_url('search') ?>" method="get" autocomplete="off">
+    </form> -->
+    <!-- <form id="truck-form" action="<?= site_url('search') ?>" method="get" autocomplete="off">
         <div class="row g-3">
             <div class="col-md-6 col-12">
                 <label class="form-label" for="brand">Brand</label>
@@ -676,54 +684,86 @@ label::after {
         </div>
       </div>
 
-<!-- Advanced Filters Section (collapsible) -->
 
-
-</form>
+</form> -->
 
 </div>
 
 </div>
 <script>
-// Toggle advanced filters with animation
 const carBtn = document.getElementById('car-button');
 const commercialBtn = document.getElementById('commercial-button');
 const truckBtn = document.getElementById('truck-button');
 
-const carForm = document.getElementById('car-form');
-const commercialForm = document.getElementById('commercial-form');
-const truckForm = document.getElementById('truck-form');
+const vehicleTypeInput = document.getElementById('vehicle_type');
+const categorySelect = document.getElementById('cat_id');
 
+const form = document.getElementById('car-form'); // 🟡 Reuse same form
 const sidebarIcons = document.querySelectorAll('.sidebar-icon');
 
-function showForm(formToShow) {
-    // Hide all forms
-    carForm.style.display = 'none';
-    commercialForm.style.display = 'none';
-    if (truckForm) truckForm.style.display = 'none';
-
-    // Remove active class from all icons
+function updateForm(formId, vehicleTypeValue) {
+    // Remove active class
     sidebarIcons.forEach(icon => icon.classList.remove('active'));
 
-    // Show selected form
-    formToShow.style.display = 'block';
+    // ✅ Show the form and update ID
+    form.style.display = 'block';
+    form.setAttribute('id', formId);
+
+    // ✅ Update hidden vehicle_type
+    const vehicleTypeInput = form.querySelector('#vehicle_type');
+    if (vehicleTypeInput) {
+        vehicleTypeInput.value = vehicleTypeValue;
+    }
+
+    // ✅ Call AJAX to get categories
+    fetchCategories(vehicleTypeValue)
 }
 
-// Event listeners for each tab
+function fetchCategories(vehicleType) {
+    fetch('<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'vehicle_type_id=' + vehicleType
+    })
+    .then(response => response.json())
+    .then(data => {
+        // ✅ Clear existing options
+        categorySelect.innerHTML = '<option>Any</option>';
+        data.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.id;
+            option.textContent = cat.name;
+            categorySelect.appendChild(option);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching categories:', error);
+    });
+}
+
+// Events
 carBtn.addEventListener('click', () => {
-    showForm(carForm);
+    updateForm('car-form', '2');
     carBtn.classList.add('active');
 });
 
 commercialBtn.addEventListener('click', () => {
-    showForm(commercialForm);
+    updateForm('commercial-form', '3');
     commercialBtn.classList.add('active');
 });
 
 truckBtn.addEventListener('click', () => {
-    if (truckForm) {
-        showForm(truckForm);
-        truckBtn.classList.add('active');
-    }
+    updateForm('truck-form', '1');
+    truckBtn.classList.add('active');
 });
+</script>
+
+
+<script>
+        var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
+    var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
+var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
+var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
 </script>

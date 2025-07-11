@@ -186,7 +186,7 @@
       
       <option value="fr">French</option>
      
-      <option value="es">Spanish</option>
+      <option value="es">Italian</option>
     </select>
                 </div>
                     <a href="#">About Us</a>
@@ -959,7 +959,7 @@ $(document).ready(function() {
 </script> -->
 
 
- <div id="google_translate_element" style="margin-top: 15px;"></div>
+ <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>
  <script type="text/javascript">
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
@@ -970,7 +970,7 @@ function googleTranslateElementInit() {
 }
  </script>
  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
- </script>
+ </script> -->
 
  <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>
 
