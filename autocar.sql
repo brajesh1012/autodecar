@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jul 03, 2025 at 08:19 AM
--- Server version: 10.11.10-MariaDB-log
--- PHP Version: 7.2.34
+-- Host: 127.0.0.1
+-- Generation Time: Jul 11, 2025 at 09:24 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `u479129765_autodecar`
+-- Database: `autocar`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `car_img` (
   `id` int(11) NOT NULL,
   `car_list_id` int(11) NOT NULL,
-  `photos` text NOT NULL,
+  `photos` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -65,7 +66,17 @@ INSERT INTO `car_img` (`id`, `car_list_id`, `photos`, `created_at`, `updated_at`
 (129, 53, '1751367726_car11.jpg', '2025-07-01 11:02:06', '2025-07-01 11:02:06'),
 (130, 53, '1751367726_car12.jpg', '2025-07-01 11:02:06', '2025-07-01 11:02:06'),
 (131, 54, '1751441859_car6_(1).jpg', '2025-07-02 07:37:39', '2025-07-02 07:37:39'),
-(132, 54, '1751441859_car6_(1)1.jpg', '2025-07-02 07:37:39', '2025-07-02 07:37:39');
+(132, 54, '1751441859_car6_(1)1.jpg', '2025-07-02 07:37:39', '2025-07-02 07:37:39'),
+(133, 55, '1751869710_car14.jpg', '2025-07-07 06:28:34', '2025-07-07 06:28:34'),
+(134, 55, '1751869710_car141.jpg', '2025-07-07 06:28:34', '2025-07-07 06:28:34'),
+(135, 56, '1751870121_car29_(1).jpg', '2025-07-07 06:35:21', '2025-07-07 06:35:21'),
+(136, 56, '1751870121_car29_(1)1.jpg', '2025-07-07 06:35:21', '2025-07-07 06:35:21'),
+(137, 57, '1751878503_car9_(1).jpg', '2025-07-07 08:55:03', '2025-07-07 08:55:03'),
+(138, 57, '1751878503_car9_(1)1.jpg', '2025-07-07 08:55:03', '2025-07-07 08:55:03'),
+(139, 58, '1751885735_car1.jpg', '2025-07-07 10:55:35', '2025-07-07 10:55:35'),
+(140, 58, '1751885735_car11.jpg', '2025-07-07 10:55:35', '2025-07-07 10:55:35'),
+(141, 58, '1751885735_car12.jpg', '2025-07-07 10:55:35', '2025-07-07 10:55:35'),
+(142, 58, '1751885735_car13.jpg', '2025-07-07 10:55:35', '2025-07-07 10:55:35');
 
 -- --------------------------------------------------------
 
@@ -75,44 +86,47 @@ INSERT INTO `car_img` (`id`, `car_list_id`, `photos`, `created_at`, `updated_at`
 
 CREATE TABLE `car_list` (
   `id` int(11) NOT NULL,
-  `slug` varchar(500) NOT NULL,
-  `title` varchar(150) NOT NULL,
-  `vehicle_type` varchar(150) NOT NULL,
-  `make` varchar(150) NOT NULL,
-  `model` varchar(150) NOT NULL,
+  `slug` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vehicle_type` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `make` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `year` year(4) NOT NULL,
   `mileage` int(50) NOT NULL,
-  `vehicle_condition` varchar(150) NOT NULL,
+  `vehicle_condition` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` float(100,2) NOT NULL,
-  `fuel_type` varchar(150) NOT NULL,
-  `transmission` varchar(255) NOT NULL,
+  `total_price` float(100,2) NOT NULL,
+  `tax` float(100,2) NOT NULL,
+  `fuel_type` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transmission` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `km` int(50) NOT NULL,
-  `location` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `variant` varchar(255) NOT NULL,
-  `color` varchar(150) NOT NULL,
-  `ownership` varchar(150) NOT NULL,
-  `euro_norm` varchar(150) NOT NULL,
-  `co2_emission` varchar(150) NOT NULL,
-  `is_negotiable` varchar(100) NOT NULL,
-  `zipcode` varchar(100) NOT NULL,
-  `emission_certificate` text NOT NULL,
-  `four_by_four` varchar(100) NOT NULL,
-  `winter_tires` varchar(150) NOT NULL,
-  `ac_type` varchar(150) NOT NULL,
-  `navigation_system` varchar(150) NOT NULL,
-  `parking_sensors` varchar(150) NOT NULL,
-  `mfk_date` datetime NOT NULL,
-  `tuv_date` datetime NOT NULL,
-  `comfort_and_interior` varchar(255) NOT NULL,
-  `safety_and_assistance` varchar(255) NOT NULL,
-  `lighting_and_visibility` varchar(255) NOT NULL,
-  `multimedia_and_navigation` varchar(255) NOT NULL,
-  `engine_and_drive_technology` varchar(255) NOT NULL,
-  `exterior_and_design` varchar(255) NOT NULL,
-  `other_features_and_extras` varchar(255) NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT '0',
+  `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `variant` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ownership` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `euro_norm` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `co2_emission` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_negotiable` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zipcode` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `emission_certificate` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `four_by_four` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `winter_tires` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ac_type` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `navigation_system` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `parking_sensors` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mfk_date` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tuv_date` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comfort_and_interior` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `safety_and_assistance` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lighting_and_visibility` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `multimedia_and_navigation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `engine_and_drive_technology` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exterior_and_design` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `other_features_and_extras` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `added_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -122,18 +136,46 @@ CREATE TABLE `car_list` (
 -- Dumping data for table `car_list`
 --
 
-INSERT INTO `car_list` (`id`, `slug`, `title`, `vehicle_type`, `make`, `model`, `year`, `mileage`, `vehicle_condition`, `price`, `fuel_type`, `transmission`, `km`, `location`, `state`, `description`, `variant`, `color`, `ownership`, `euro_norm`, `co2_emission`, `is_negotiable`, `zipcode`, `emission_certificate`, `four_by_four`, `winter_tires`, `ac_type`, `navigation_system`, `parking_sensors`, `mfk_date`, `tuv_date`, `comfort_and_interior`, `safety_and_assistance`, `lighting_and_visibility`, `multimedia_and_navigation`, `engine_and_drive_technology`, `exterior_and_design`, `other_features_and_extras`, `status`, `added_by`, `created_at`, `updated_at`) VALUES
-(34, '1-29', '', '2', '1', '1', '2004', 22, 'New', 1000000.00, 'Petrol', 'Automatic', 6000000, '1', '1', 'Test Dealer', '6', 'Black', '2nd', '5 Euro', '554', 'no', '451020', '', 'yes', 'Yes', 'Manual AC', 'no', 'Rear Only', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '3', 1, '2025-06-18 13:17:30', '2025-06-18 13:17:30'),
-(37, 'test-car', 'Test Car', '2', '1', '1', '2000', 33455, 'Good', 20998.00, 'Diesel ', 'Automatic', 23123, '2', '1', 'testtt', '6', 'Red', '2nd', '4 Euro', '551', 'yes', '451020', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-06-25 00:00:00', '2025-06-19 00:00:00', '[]', '[]', '[]', '[]', '[]', '[]', '[]', '1', 1, '2025-06-22 18:18:08', '2025-06-22 18:18:08'),
-(39, '1', '', '2', '1', '1', '2013', 21, 'New', 50000.00, 'Petrol', 'Manual', 75000, 'Indore', 'Madhya Pradesh', 'tffyfyg', '6', 'Black', '1st', '5 Euro', '554', 'no', '5445545555', '', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '0', 1, '2025-06-23 11:59:52', '2025-06-23 11:59:52'),
-(40, '1-91', '', '2', '1', '1', '2015', 21, 'new', 100000000.00, 'Diesel ', 'Manual', 10000, '1', '1', 'tdggdfghfhfhf jgjg gfg ghh', '6', 'Black', '1st', '5 Euro', '554', 'yes', '451020', '', 'yes', 'Yes', 'Manual AC', 'yes', '', '2025-06-26 00:00:00', '2025-06-28 00:00:00', '', '', '', '', '', '', '', '0', 1, '2025-06-23 13:34:25', '2025-06-23 13:34:25'),
-(41, 'new-title', 'new title', '2', '1', '1', '2024', 21, 'old', 1000000.00, 'Petrol', 'Automatic', 6000000, '1', '1', 'New Vehicle', '6', 'Black', '1st', '5 Euro', '554', 'yes', '451020', '', 'no', 'Yes', 'Manual AC', 'no', 'Rear Only', '2025-06-25 00:00:00', '2025-06-20 00:00:00', '', '', '', '', '', '', '', '0', 1, '2025-06-24 11:11:47', '2025-06-24 11:11:47'),
-(42, 'new-title-85', 'new title ', '2', '1', '1', '2019', 21, 'Good', 1000000.00, 'Diesel ', 'Automatic', 6500000, '1', '1', 'Test all featuers', '6', 'Black', '2nd', '5 Euro', '551', 'no', '451020', '', '', 'Yes', '', '', '', '2025-06-10 00:00:00', '2025-06-05 00:00:00', '[\"AC\",\"Heated seats (front and back)\",\"Lumbar support\",\"Ambient lighting\",\"Heated steering wheel\"]', '[\"Emergency brake assist\",\"Adaptive cruise control\",\"Driver fatigue alert\",\"Night vision camera\",\"Head-Up display\"]', '[\"Daytime running lights\",\"Tinted rear windows\",\"Power-folding heated mirrors\"]', '[\"virtual cockpit\",\"Sound system\",\"Bluetooth \",\"USB \",\"AUX\",\"Voice control\",\"DAB+ \",\"WiFi hotspot\"]', '[\"All-wheel drive \",\"Front-wheel drive \",\"Automatic gearboxes\",\"Eco Drive mode\",\"Sport Drive mode\",\"Plug-in Hybrid\",\"Mild Hybrid\",\"Regenerative braking\"]', '[\"Alloy wheels\",\"Sports kit \",\"Chrome or black styling packages\",\"Lowered ride height\",\"Painted bumpers\"]', '[\"Long-distance vehicle\",\"First owner\",\"Leasing available\",\" Used car warranty\",\"Spare tires\",\"Runflats\",\"Winter tires\"]', '0', 1, '2025-06-30 06:31:01', '2025-06-30 06:31:01'),
-(49, 'test-car-88', 'Test Car', '2', '1', '1', '2000', 33455, 'Good', 20998.00, 'Diesel ', 'Automatic', 23123, '2', '1', 'testtt', '6', 'Red', '2nd', '4 Euro', '551', 'yes', '451020', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-06-24 00:00:00', '2025-06-17 00:00:00', '[\"AC\",\"Heated steering wheel\",\"Massage seats\",\"Push Start\",\"Panoramic roof\"]', '[\"ABS, ESP (traction\\/stability control)\",\"Adaptive cruise control\",\"Head-Up display\",\"Blind-spot warning\",\"360\\u00b0 camera\"]', '[\"LED \\/ Matrix LED \\/ Xenon \\/ Laser lights\",\"Rain sensor wipers \\/ Auto lights\"]', '[\"Apple CarPlay & Android Auto\",\"Voice control\"]', '[\"Sport Drive mode\",\"Hybrid \",\"fixed Tow bar\"]', '[\"Spoilers\",\"matte paint options\",\"Contrasting roof\"]', '[\"Non-smoker vehicle\",\"Emergency kit\",\"Bike rack\",\"Summer tires\"]', '0', 1, '2025-06-30 12:01:58', '2025-06-30 12:01:58'),
-(51, 'abc', 'abc', '2', '1', '1', '2013', 21, 'Export', 950000.00, 'Diesel ', 'Automatic', 6500000, '2', '1', 'Plan Test', '6', 'White', '2nd', '4 Euro', '551', 'no', '451020', '', '', 'Yes', 'Automatic AC', '', 'Rear Only', '2025-07-14 00:00:00', '2025-07-16 00:00:00', '[\"Lumbar support\",\"Power windows\",\"Push Start\"]', '[\"Driver fatigue alert\",\"360\\u00b0 camera\",\"Auto parking\"]', '[\"Daytime running lights\",\"Tinted rear windows\",\"Auto-dimming rearview \\/ side mirrors\",\"Power-folding heated mirrors\"]', '[\"virtual cockpit\",\"Touchscreen display\",\"AUX\",\"Voice control\",\"Rear seat screens\"]', '[\"All-wheel drive \",\"Rear-wheel drive\",\"Automatic gearboxes\",\"Comfort Drive mode\",\"Air suspension\",\"Hybrid \",\"fixed Tow bar\",\"removable Tow bar\"]', '[\"Alloy wheels\",\"Sport suspension\",\"Lowered ride height\",\"Running boards (for SUVs)\",\"Metallic\",\"matte paint options\",\"Contrasting roof\"]', '[\"Non-smoker vehicle\",\"Full service history\",\"Garage kept\",\"Long-distance vehicle\",\"First owner\",\"Warranty\",\" Used car warranty\",\"Spare tires\",\"Runflats\",\"Emergency kit\"]', '0', 5, '2025-07-01 10:27:51', '2025-07-01 10:27:51'),
-(52, 'seller-title', 'Seller title', '2', '1', '1', '2013', 21, 'Good', 110000.00, 'Diesel ', 'Automatic', 23123, '2', '1', 'test', '6', 'White', '1st', '5 Euro', '551', 'no', '451020', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-07-17 00:00:00', '2025-07-15 00:00:00', '[\"Heated steering wheel\",\"Power windows\",\"Push Start\"]', '[\"Driver fatigue alert\",\"Reverse cam \",\"360\\u00b0 camera\"]', '[\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\"]', '[\"AUX\",\"Apple CarPlay & Android Auto\",\"Voice control\"]', '[\"Comfort Drive mode\",\"Hybrid \",\"Plug-in Hybrid\"]', '[\"Sport suspension\",\"Lowered ride height\"]', '[\"Long-distance vehicle\",\"First owner\",\"Summer tires\"]', '0', 5, '2025-07-01 10:50:30', '2025-07-01 10:50:30'),
-(53, 'gddssdfds', 'gddssdfds', '2', '1', '1', '2013', 21, 'Accident Vehicle', 50998.00, 'Diesel ', 'Automatic', 250000000, '1', '1', 'dsgsdsfsfsf', '6', 'White', '1st', '5 Euro', '565', 'yes', '451020', '', '', 'Yes', 'Tri-Zone Automatic AC', '', 'Rear Only', '2025-07-17 00:00:00', '2025-07-17 00:00:00', '[\"Lumbar support\",\"Ambient lighting\",\"Leather steering\",\"Panoramic roof\",\"Soft-close doors\"]', '[\"Adaptive cruise control\",\"Driver fatigue alert\",\"Reverse cam \",\"Hill assist\",\"Auto parking\"]', '[\"Daytime running lights\",\"Fog lights \\/ Headlight washers\",\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\",\"Auto-dimming rearview \\/ side mirrors\"]', '[\"Standard Built-in navigation system\",\"Digital cockpit\",\"virtual cockpit\",\"Sound system\",\"Apple CarPlay & Android Auto\",\"Voice control\",\"DAB+ \"]', '[\"All-wheel drive \",\"Comfort Drive mode\",\"Adjustable dampers\",\"Mild Hybrid\",\"removable Tow bar\"]', '[\"Alloy wheels\",\"Roof rails\",\"Lowered ride height\",\"Running boards (for SUVs)\",\"matte paint options\"]', '[\"Non-smoker vehicle\",\"Long-distance vehicle\",\"First owner\",\"Leasing available\",\" Used car warranty\",\"Spare tires\",\"Runflats\",\"Winter tires\"]', '0', 5, '2025-07-01 11:02:06', '2025-07-01 11:02:06'),
-(54, 'abc-79', 'ABC', '2', '1', '1', '2009', 25, 'Good', 65000.00, 'CNG', 'Manual', 50000, '1', '1', 'Test Bulk', '6', 'Red', '2nd', '5 Euro', '123', 'yes', '451020', '', '', 'Yes', '', '', 'Rear Only', '2025-07-07 00:00:00', '2025-07-24 00:00:00', '[\"Ambient lighting\",\"Power windows\"]', '[\"Driver fatigue alert\",\"Reverse cam \",\"Hill assist\",\"side airbags\",\"Blind-spot warning\",\"360\\u00b0 camera\",\"Trailer stability\"]', '[\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\",\"Auto-dimming rearview \\/ side mirrors\",\"Power-folding heated mirrors\"]', '[\"AUX\",\"Apple CarPlay & Android Auto\"]', '[\"Comfort Drive mode\",\"Hybrid \",\"Plug-in Hybrid\"]', '[\"Sport suspension\",\"Metallic\",\"matte paint options\"]', '[\"Long-distance vehicle\",\"Leasing available\",\"Warranty\",\" Used car warranty\",\"Spare tires\",\"Runflats\"]', '0', 6, '2025-07-02 07:34:01', '2025-07-02 07:34:01');
+INSERT INTO `car_list` (`id`, `slug`, `title`, `vehicle_type`, `cat_id`, `make`, `model`, `year`, `mileage`, `vehicle_condition`, `price`, `total_price`, `tax`, `fuel_type`, `transmission`, `km`, `location`, `state`, `description`, `variant`, `color`, `ownership`, `euro_norm`, `co2_emission`, `is_negotiable`, `zipcode`, `emission_certificate`, `four_by_four`, `winter_tires`, `ac_type`, `navigation_system`, `parking_sensors`, `mfk_date`, `tuv_date`, `comfort_and_interior`, `safety_and_assistance`, `lighting_and_visibility`, `multimedia_and_navigation`, `engine_and_drive_technology`, `exterior_and_design`, `other_features_and_extras`, `status`, `added_by`, `created_at`, `updated_at`) VALUES
+(34, '1-29', '', '2', 0, '1', '1', 2004, 22, 'New', 1000000.00, 0.00, 0.00, 'Petrol', 'Automatic', 6000000, '1', '1', 'Test Dealer', '6', 'Black', '2nd', '5 Euro', '554', 'no', '451020', '', 'yes', 'Yes', 'Manual AC', 'no', 'Rear Only', '0000-00', '0000-00', '', '', '', '', '', '', '', '3', 1, '2025-06-18 13:17:30', '2025-06-18 13:17:30'),
+(37, 'test-car', 'Test Car', '2', 0, '1', '1', 2000, 33455, 'Good', 20998.00, 0.00, 0.00, 'Diesel ', 'Automatic', 23123, '2', '1', 'testtt', '6', 'Red', '2nd', '4 Euro', '551', 'yes', '451020', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-06', '2025-06', '[]', '[]', '[]', '[]', '[]', '[]', '[]', '1', 1, '2025-06-22 18:18:08', '2025-06-22 18:18:08'),
+(39, '1', '', '2', 0, '1', '1', 2013, 21, 'New', 50000.00, 0.00, 0.00, 'Petrol', 'Manual', 75000, 'Indore', 'Madhya Pradesh', 'tffyfyg', '6', 'Black', '1st', '5 Euro', '554', 'no', '5445545555', '', '', '', '', '', '', '0000-00', '0000-00', '', '', '', '', '', '', '', '0', 1, '2025-06-23 11:59:52', '2025-06-23 11:59:52'),
+(40, '1-91', '', '2', 0, '1', '1', 2015, 21, 'new', 100000000.00, 0.00, 0.00, 'Diesel ', 'Manual', 10000, '1', '1', 'tdggdfghfhfhf jgjg gfg ghh', '6', 'Black', '1st', '5 Euro', '554', 'yes', '451020', '', 'yes', 'Yes', 'Manual AC', 'yes', '', '2025-06', '2025-06', '', '', '', '', '', '', '', '0', 1, '2025-06-23 13:34:25', '2025-06-23 13:34:25'),
+(41, 'new-title', 'new title', '2', 0, '1', '1', 2024, 21, 'old', 1000000.00, 0.00, 0.00, 'Petrol', 'Automatic', 6000000, '1', '1', 'New Vehicle', '6', 'Black', '1st', '5 Euro', '554', 'yes', '451020', '', 'no', 'Yes', 'Manual AC', 'no', 'Rear Only', '2025-06', '2025-06', '', '', '', '', '', '', '', '0', 1, '2025-06-24 11:11:47', '2025-06-24 11:11:47'),
+(42, 'new-title-85', 'new title ', '2', 0, '1', '1', 2019, 21, 'Good', 1000000.00, 0.00, 0.00, 'Diesel ', 'Automatic', 6500000, '1', '1', 'Test all featuers', '6', 'Black', '2nd', '5 Euro', '551', 'no', '451020', '', '', 'Yes', '', '', '', '2025-06', '2025-06', '[\"AC\",\"Heated seats (front and back)\",\"Lumbar support\",\"Ambient lighting\",\"Heated steering wheel\"]', '[\"Emergency brake assist\",\"Adaptive cruise control\",\"Driver fatigue alert\",\"Night vision camera\",\"Head-Up display\"]', '[\"Daytime running lights\",\"Tinted rear windows\",\"Power-folding heated mirrors\"]', '[\"virtual cockpit\",\"Sound system\",\"Bluetooth \",\"USB \",\"AUX\",\"Voice control\",\"DAB+ \",\"WiFi hotspot\"]', '[\"All-wheel drive \",\"Front-wheel drive \",\"Automatic gearboxes\",\"Eco Drive mode\",\"Sport Drive mode\",\"Plug-in Hybrid\",\"Mild Hybrid\",\"Regenerative braking\"]', '[\"Alloy wheels\",\"Sports kit \",\"Chrome or black styling packages\",\"Lowered ride height\",\"Painted bumpers\"]', '[\"Long-distance vehicle\",\"First owner\",\"Leasing available\",\" Used car warranty\",\"Spare tires\",\"Runflats\",\"Winter tires\"]', '0', 1, '2025-06-30 06:31:01', '2025-06-30 06:31:01'),
+(49, 'test-car-88', 'Test Car', '2', 0, '1', '1', 2000, 33455, 'Good', 20998.00, 0.00, 0.00, 'Diesel ', 'Automatic', 23123, '2', '1', 'testtt', '6', 'Red', '2nd', '4 Euro', '551', 'yes', '451020', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-06', '2025-06', '[\"AC\",\"Heated steering wheel\",\"Massage seats\",\"Push Start\",\"Panoramic roof\"]', '[\"ABS, ESP (traction\\/stability control)\",\"Adaptive cruise control\",\"Head-Up display\",\"Blind-spot warning\",\"360\\u00b0 camera\"]', '[\"LED \\/ Matrix LED \\/ Xenon \\/ Laser lights\",\"Rain sensor wipers \\/ Auto lights\"]', '[\"Apple CarPlay & Android Auto\",\"Voice control\"]', '[\"Sport Drive mode\",\"Hybrid \",\"fixed Tow bar\"]', '[\"Spoilers\",\"matte paint options\",\"Contrasting roof\"]', '[\"Non-smoker vehicle\",\"Emergency kit\",\"Bike rack\",\"Summer tires\"]', '0', 1, '2025-06-30 12:01:58', '2025-06-30 12:01:58'),
+(51, 'abc', 'abc', '2', 0, '1', '1', 2013, 21, 'Export', 950000.00, 0.00, 0.00, 'Diesel ', 'Automatic', 6500000, '2', '1', 'Plan Test', '6', 'White', '2nd', '4 Euro', '551', 'no', '451020', '', '', 'Yes', 'Automatic AC', '', 'Rear Only', '2025-07', '2025-07', '[\"Lumbar support\",\"Power windows\",\"Push Start\"]', '[\"Driver fatigue alert\",\"360\\u00b0 camera\",\"Auto parking\"]', '[\"Daytime running lights\",\"Tinted rear windows\",\"Auto-dimming rearview \\/ side mirrors\",\"Power-folding heated mirrors\"]', '[\"virtual cockpit\",\"Touchscreen display\",\"AUX\",\"Voice control\",\"Rear seat screens\"]', '[\"All-wheel drive \",\"Rear-wheel drive\",\"Automatic gearboxes\",\"Comfort Drive mode\",\"Air suspension\",\"Hybrid \",\"fixed Tow bar\",\"removable Tow bar\"]', '[\"Alloy wheels\",\"Sport suspension\",\"Lowered ride height\",\"Running boards (for SUVs)\",\"Metallic\",\"matte paint options\",\"Contrasting roof\"]', '[\"Non-smoker vehicle\",\"Full service history\",\"Garage kept\",\"Long-distance vehicle\",\"First owner\",\"Warranty\",\" Used car warranty\",\"Spare tires\",\"Runflats\",\"Emergency kit\"]', '0', 5, '2025-07-01 10:27:51', '2025-07-01 10:27:51'),
+(52, 'seller-title', 'Seller title', '2', 0, '1', '1', 2013, 21, 'Good', 110000.00, 0.00, 0.00, 'Diesel ', 'Automatic', 23123, '2', '1', 'test', '6', 'White', '1st', '5 Euro', '551', 'no', '451020', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-07', '2025-07', '[\"Heated steering wheel\",\"Power windows\",\"Push Start\"]', '[\"Driver fatigue alert\",\"Reverse cam \",\"360\\u00b0 camera\"]', '[\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\"]', '[\"AUX\",\"Apple CarPlay & Android Auto\",\"Voice control\"]', '[\"Comfort Drive mode\",\"Hybrid \",\"Plug-in Hybrid\"]', '[\"Sport suspension\",\"Lowered ride height\"]', '[\"Long-distance vehicle\",\"First owner\",\"Summer tires\"]', '0', 5, '2025-07-01 10:50:30', '2025-07-01 10:50:30'),
+(53, 'gddssdfds', 'gddssdfds', '2', 0, '1', '1', 2013, 21, 'Accident Vehicle', 50998.00, 0.00, 0.00, 'Diesel ', 'Automatic', 250000000, '1', '1', 'dsgsdsfsfsf', '6', 'White', '1st', '5 Euro', '565', 'yes', '451020', '', '', 'Yes', 'Tri-Zone Automatic AC', '', 'Rear Only', '2025-07', '2025-07', '[\"Lumbar support\",\"Ambient lighting\",\"Leather steering\",\"Panoramic roof\",\"Soft-close doors\"]', '[\"Adaptive cruise control\",\"Driver fatigue alert\",\"Reverse cam \",\"Hill assist\",\"Auto parking\"]', '[\"Daytime running lights\",\"Fog lights \\/ Headlight washers\",\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\",\"Auto-dimming rearview \\/ side mirrors\"]', '[\"Standard Built-in navigation system\",\"Digital cockpit\",\"virtual cockpit\",\"Sound system\",\"Apple CarPlay & Android Auto\",\"Voice control\",\"DAB+ \"]', '[\"All-wheel drive \",\"Comfort Drive mode\",\"Adjustable dampers\",\"Mild Hybrid\",\"removable Tow bar\"]', '[\"Alloy wheels\",\"Roof rails\",\"Lowered ride height\",\"Running boards (for SUVs)\",\"matte paint options\"]', '[\"Non-smoker vehicle\",\"Long-distance vehicle\",\"First owner\",\"Leasing available\",\" Used car warranty\",\"Spare tires\",\"Runflats\",\"Winter tires\"]', '0', 5, '2025-07-01 11:02:06', '2025-07-01 11:02:06'),
+(54, 'abc-79', 'ABC', '2', 0, '1', '1', 2009, 25, 'Good', 8000.00, 8616.50, 616.50, 'CNG', 'Manual', 50000, '1', '1', 'Test Bulk', '6', 'Red', '2nd', '5 Euro', '123', 'yes', '451020', '1751891482_autokorb2.pdf', '', 'Yes', '', '', 'Rear Only', '01/25', '01/25', '[\"Ambient lighting\",\"Power windows\"]', '[\"Driver fatigue alert\",\"Reverse cam \",\"Hill assist\",\"side airbags\",\"Blind-spot warning\",\"360\\u00b0 camera\",\"Trailer stability\"]', '[\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\",\"Auto-dimming rearview \\/ side mirrors\",\"Power-folding heated mirrors\"]', '[\"AUX\",\"Apple CarPlay & Android Auto\"]', '[\"Comfort Drive mode\",\"Hybrid \",\"Plug-in Hybrid\"]', '[\"Sport suspension\",\"Metallic\",\"matte paint options\"]', '[\"Long-distance vehicle\",\"Leasing available\",\"Warranty\",\" Used car warranty\",\"Spare tires\",\"Runflats\"]', '0', 6, '2025-07-02 07:34:01', '2025-07-02 07:34:01'),
+(55, 'tax-check', 'Tax check', '2', 0, '1', '1', 2021, 25, 'Good', 1000.00, 1077.00, 77.00, 'CNG', 'Automatic', 55000, '3', '1', 'For cheack tax', '6', 'Black', '2nd', '5 Euro', '123', 'no', '451020', '', '', 'Yes', 'Automatic AC', '', 'Front and Rear', '2025-07', '2025-07', '[\"AC\",\"Lumbar support\",\"Soft-close doors\",\"Interior filters\"]', '[\"Parking sensors\",\"Reverse cam \",\"Blind-spot warning\"]', '[\"Daytime running lights\",\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\"]', '[\"Sound system\",\"Touchscreen display\",\"Apple CarPlay & Android Auto\"]', '[\"All-wheel drive \",\"Eco Drive mode\",\"Charging cables and fast-charging\",\"Regenerative braking\"]', '[\"Alloy wheels\",\"matte paint options\"]', '[\"Long-distance vehicle\",\"Spare tires\",\"Roof box\"]', '0', 6, '2025-07-07 06:28:34', '2025-07-07 06:28:34'),
+(56, 'seller-test', 'seller test', '2', 0, '1', '1', 2024, 22, 'Export', 1000.00, 0.00, 0.00, 'Diesel ', 'Automatic', 6500000, '2', '1', 'seller Tax test', '6', 'Black', '3rd', '6 Euro', '565', 'yes', '451020', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-07', '2025-07', '[\"AC\",\"Heated steering wheel\",\"Power windows\"]', '[\"Adaptive cruise control\",\"Driver fatigue alert\",\"Parking sensors\",\"Reverse cam \"]', '[\"Auto-dimming rearview \\/ side mirrors\",\"Power-folding heated mirrors\"]', '[\"Touchscreen display\",\"Bluetooth \",\"Apple CarPlay & Android Auto\",\"Voice control\",\"WiFi hotspot\"]', '[\"Front-wheel drive \",\"Comfort Drive mode\",\"Adjustable dampers\",\"fixed Tow bar\",\"removable Tow bar\"]', '[\"Sports kit \",\"Sport suspension\",\"Running boards (for SUVs)\",\"Metallic\",\"Contrasting roof\"]', '[\"Non-smoker vehicle\",\"First owner\",\"Spare tires\",\"Runflats\",\"Emergency kit\"]', '0', 15, '2025-07-07 06:35:21', '2025-07-07 06:35:21'),
+(57, 'hfhhhffd', 'hfhhhffd', '2', 0, '1', '1', 2019, 25, 'Export', 2000.00, 2154.00, 154.00, 'Diesel ', 'Continuously Variable', 55000, '1', '1', 'hhdhggdgdg', '6', 'Black', '2nd', '5 Euro', '554', 'yes', '451010', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Rear Only', '2025-07', '2025-07', '[\"Keyless Entry\",\"Heated steering wheel\",\"Power windows\"]', '[\"Adaptive cruise control\",\"Parking sensors\",\"Reverse cam \",\"Hill assist\"]', '[\"LED \\/ Matrix LED \\/ Xenon \\/ Laser lights\",\"Fog lights \\/ Headlight washers\",\"Auto-dimming rearview \\/ side mirrors\"]', '[\"Premium Built-in navigation system\",\"virtual cockpit\",\"Touchscreen display\",\"AUX\",\"Apple CarPlay & Android Auto\",\"Voice control\"]', '[\"Automatic gearboxes\",\"Comfort Drive mode\",\"Sport Drive mode\",\"Adjustable dampers\",\"Hybrid \"]', '[\"Alloy wheels\",\"Chrome or black styling packages\",\"Spoilers\",\"Sport suspension\",\"Lowered ride height\"]', '[\"First owner\",\" Used car warranty\",\"Spare tires\",\"Emergency kit\"]', '0', 6, '2025-07-07 08:55:03', '2025-07-07 08:55:03'),
+(58, 'huhjlkjk', 'huhjlkj;k', '2', 0, '1', '1', 2014, 22, 'Accident Vehicle', 1200.00, 1292.40, 92.40, 'CNG', 'Continuously Variable', 6500000, '2', '1', 'dadasaadsasd', '6', 'White', '2nd', '5 Euro', '554', 'yes', '451050', '', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Front Only', '07/25', '07/25', '[\"Ventilated seats \",\"Heated steering wheel\",\"Power windows\",\"Panoramic roof\"]', '[\"ABS, ESP (traction\\/stability control)\",\"Front airbags\",\"Adaptive cruise control\",\"Driver fatigue alert\",\"Parking sensors\",\"Reverse cam \"]', '[]', '[\"Sound system\",\"Bluetooth \",\"USB \",\"Voice control\"]', '[\"Air suspension\",\"Adjustable dampers\",\"Hybrid \",\"Plug-in Hybrid\"]', '[\"Sports kit \",\"Roof rails\",\"Spoilers\",\"Lowered ride height\"]', '[\"Garage kept\",\"Long-distance vehicle\",\"First owner\",\" Used car warranty\",\"Roof box\",\"Summer tires\",\"Jack tools included\"]', '0', 6, '2025-07-07 10:55:35', '2025-07-07 10:55:35'),
+(59, 'abc1', 'ABC1', '2', 1, '13', '15', 2009, 25, 'Good', 8000.00, 8616.50, 616.50, 'Diesel ', 'Manual', 50000, '1', '1', 'Test Bulk', '7', 'Red', '2nd', '5 Euro', '123', 'yes', '451020', '', '', 'Yes', '', '', 'Rear Only', '01/25', '01/25', '[\"Ambient lighting\",\"Power windows\"]', '[\"Driver fatigue alert\",\"Reverse cam \",\"Hill assist\",\"side airbags\",\"Blind-spot warning\",\"360\\u00b0 camera\",\"Trailer stability\"]', '[\"Tinted rear windows\",\"Rain sensor wipers \\/ Auto lights\",\"Auto-dimming rearview \\/ side mirrors\",\"Power-folding heated mirrors\"]', '[\"AUX\",\"Apple CarPlay & Android Auto\"]', '[\"Comfort Drive mode\",\"Hybrid \",\"Plug-in Hybrid\"]', '[\"Sport suspension\",\"Metallic\",\"matte paint options\"]', '[\"Long-distance vehicle\",\"Leasing available\",\"Warranty\",\" Used car warranty\",\"Spare tires\",\"Runflats\"]', '0', 6, '2025-07-07 12:36:40', '2025-07-07 12:36:40'),
+(60, 'huhjlkjk111', 'huhjlkj;k111', '2', 0, '1', '1', 2014, 22, 'Accident Vehicle', 1200.00, 1292.40, 92.40, 'CNG', 'Continuously Variable', 6500000, '2', '1', 'dadasaadsasd', '6', 'White', '2nd', '5 Euro', '554', 'yes', '451050', '1751892151_autokorb2.pdf', '', 'Yes', 'Dual-Zone Automatic AC', '', 'Front Only', '07/25', '07/25', '[\"Ventilated seats \",\"Heated steering wheel\",\"Power windows\",\"Panoramic roof\"]', '[\"ABS, ESP (traction\\/stability control)\",\"Front airbags\",\"Adaptive cruise control\",\"Driver fatigue alert\",\"Parking sensors\",\"Reverse cam \"]', '[]', '[\"Sound system\",\"Bluetooth \",\"USB \",\"Voice control\"]', '[\"Air suspension\",\"Adjustable dampers\",\"Hybrid \",\"Plug-in Hybrid\"]', '[\"Sports kit \",\"Roof rails\",\"Spoilers\",\"Lowered ride height\"]', '[\"Garage kept\",\"Long-distance vehicle\",\"First owner\",\" Used car warranty\",\"Roof box\",\"Summer tires\",\"Jack tools included\"]', '0', 6, '2025-07-07 12:42:31', '2025-07-07 12:42:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `img` text NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `vehicle_type_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `img`, `name`, `vehicle_type_id`, `created_at`) VALUES
+(1, '1752046178_Autokorb_logo_.png', 'SUV', 2, '2025-07-09 07:29:38'),
+(2, '1752046782_Autokorb_logo_.png', 'Sedan', 2, '2025-07-09 07:39:42');
 
 -- --------------------------------------------------------
 
@@ -143,8 +185,8 @@ INSERT INTO `car_list` (`id`, `slug`, `title`, `vehicle_type`, `make`, `model`, 
 
 CREATE TABLE `cities` (
   `id` int(11) NOT NULL,
-  `city_name` varchar(100) NOT NULL,
-  `state_id` varchar(11) NOT NULL,
+  `city_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state_id` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -167,7 +209,7 @@ INSERT INTO `cities` (`id`, `city_name`, `state_id`, `is_active`) VALUES
 
 CREATE TABLE `comfort_and_interior` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -204,7 +246,7 @@ INSERT INTO `comfort_and_interior` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `countries` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -225,25 +267,25 @@ INSERT INTO `countries` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `dealer_profile` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `company_name` varchar(255) DEFAULT NULL,
-  `logo` varchar(255) DEFAULT NULL,
-  `address` text DEFAULT NULL,
-  `city` varchar(100) DEFAULT NULL,
-  `state` varchar(100) DEFAULT NULL,
-  `pincode` varchar(20) DEFAULT NULL,
-  `country` varchar(100) DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `company_email` varchar(100) DEFAULT NULL,
-  `website` varchar(255) DEFAULT NULL,
+  `company_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pincode` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_number` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `open_from` time DEFAULT NULL,
   `open_to` time DEFAULT NULL,
-  `opening_hours` varchar(100) DEFAULT NULL,
-  `closing_days` varchar(100) DEFAULT NULL,
-  `contact_name` varchar(100) DEFAULT NULL,
-  `contact_designation` varchar(100) DEFAULT NULL,
-  `contact_email` varchar(100) DEFAULT NULL,
-  `contact_phone` varchar(20) DEFAULT NULL,
-  `contact_image` varchar(255) DEFAULT NULL,
+  `opening_hours` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_days` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_designation` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -265,7 +307,7 @@ INSERT INTO `dealer_profile` (`id`, `user_id`, `company_name`, `logo`, `address`
 
 CREATE TABLE `engine_and_drive_technology` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -300,7 +342,7 @@ INSERT INTO `engine_and_drive_technology` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `exterior_and_design` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -331,7 +373,7 @@ INSERT INTO `exterior_and_design` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `fuel_type` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -375,7 +417,7 @@ INSERT INTO `km_range` (`id`, `min`, `max`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `lighting_and_visibility` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -401,8 +443,10 @@ INSERT INTO `lighting_and_visibility` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `make` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vehicle_type_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `logo` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -411,10 +455,13 @@ CREATE TABLE `make` (
 -- Dumping data for table `make`
 --
 
-INSERT INTO `make` (`id`, `name`, `vehicle_type_id`, `created_at`, `updated_at`) VALUES
-(1, 'Toyota', 2, '2025-05-29 10:02:36', '2025-05-29 10:02:36'),
-(2, 'Honda', 2, '2025-05-29 10:02:36', '2025-05-29 10:02:36'),
-(9, 'abc', 1, '2025-06-20 06:43:04', '2025-06-20 06:43:04');
+INSERT INTO `make` (`id`, `name`, `vehicle_type_id`, `cat_id`, `logo`, `created_at`, `updated_at`) VALUES
+(1, 'Toyota', 2, 0, '', '2025-05-29 10:02:36', '2025-05-29 10:02:36'),
+(2, 'Honda', 2, 0, '', '2025-05-29 10:02:36', '2025-05-29 10:02:36'),
+(9, 'abc', 1, 0, '', '2025-06-20 06:43:04', '2025-06-20 06:43:04'),
+(10, 'dfhfhfddf', 1, 0, '', '2025-07-08 08:58:17', '2025-07-08 08:58:17'),
+(13, 'dfdfgdfss', 2, 1, '1752129853_auto_korb_logo_resized.png', '2025-07-10 06:44:14', '2025-07-10 06:44:14'),
+(14, 'fhdfgf', 2, 1, '1752132601_tblogo_(2).png', '2025-07-10 07:30:01', '2025-07-10 07:30:01');
 
 -- --------------------------------------------------------
 
@@ -424,8 +471,9 @@ INSERT INTO `make` (`id`, `name`, `vehicle_type_id`, `created_at`, `updated_at`)
 
 CREATE TABLE `model` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vehicle_type_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
   `make_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -435,11 +483,12 @@ CREATE TABLE `model` (
 -- Dumping data for table `model`
 --
 
-INSERT INTO `model` (`id`, `name`, `vehicle_type_id`, `make_id`, `created_at`, `updated_at`) VALUES
-(1, 'Taisor', 2, 1, '2025-05-29 09:56:24', '2025-05-29 09:56:24'),
-(2, 'Fortuner', 2, 2, '2025-05-29 09:59:31', '2025-05-29 09:59:31'),
-(12, 'Civic', 2, 2, '2025-06-18 13:13:12', '2025-06-18 13:13:12'),
-(14, 'bikemodel', 1, 9, '2025-06-20 10:10:04', '2025-06-20 10:10:04');
+INSERT INTO `model` (`id`, `name`, `vehicle_type_id`, `cat_id`, `make_id`, `created_at`, `updated_at`) VALUES
+(1, 'Taisor', 2, 0, 1, '2025-05-29 09:56:24', '2025-05-29 09:56:24'),
+(2, 'Fortuner', 2, 0, 2, '2025-05-29 09:59:31', '2025-05-29 09:59:31'),
+(12, 'Civic', 2, 0, 2, '2025-06-18 13:13:12', '2025-06-18 13:13:12'),
+(14, 'bikemodel', 1, 0, 9, '2025-06-20 10:10:04', '2025-06-20 10:10:04'),
+(15, 'new Model', 2, 1, 13, '2025-07-10 07:34:15', '2025-07-10 07:34:15');
 
 -- --------------------------------------------------------
 
@@ -449,7 +498,7 @@ INSERT INTO `model` (`id`, `name`, `vehicle_type_id`, `make_id`, `created_at`, `
 
 CREATE TABLE `multimedia_and_navigation` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -483,7 +532,7 @@ INSERT INTO `multimedia_and_navigation` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `other_features_and_extras` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -519,9 +568,9 @@ INSERT INTO `other_features_and_extras` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `permissions` (
   `id` int(11) NOT NULL,
-  `module` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL
+  `module` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -565,7 +614,7 @@ INSERT INTO `price_range` (`id`, `min`, `max`, `created_at`, `updated_at`) VALUE
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
-  `role` varchar(255) NOT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -617,8 +666,8 @@ INSERT INTO `role_has_permissions` (`id`, `role_id`, `permission_id`) VALUES
 
 CREATE TABLE `safety_and_assistance` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -652,7 +701,7 @@ INSERT INTO `safety_and_assistance` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `states` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `country_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -674,7 +723,7 @@ INSERT INTO `states` (`id`, `name`, `country_id`, `created_at`, `updated_at`) VA
 
 CREATE TABLE `subscription_plans` (
   `id` int(11) NOT NULL,
-  `plan_name` varchar(100) DEFAULT NULL,
+  `plan_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `duration_days` int(11) DEFAULT NULL,
   `listing_limit` int(11) DEFAULT NULL,
@@ -686,7 +735,7 @@ CREATE TABLE `subscription_plans` (
 --
 
 INSERT INTO `subscription_plans` (`id`, `plan_name`, `price`, `duration_days`, `listing_limit`, `created_at`) VALUES
-(1, 'Basic', 199.00, 30, 7, NULL);
+(1, 'Basic', '199.00', 30, 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -696,7 +745,7 @@ INSERT INTO `subscription_plans` (`id`, `plan_name`, `price`, `duration_days`, `
 
 CREATE TABLE `transmission` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -730,7 +779,7 @@ CREATE TABLE `users` (
   `token_expiry` datetime NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -738,7 +787,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `mobile`, `email`, `password`, `role`, `profile`, `status`, `token`, `token_expiry`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', '9934567890', 'admin@gmail.com', '$2y$10$0S0uaz.dX2OaH0QnYckclueuKb18jNOZ2gsyME2M4R6fqgOKBW1g.', '1', '1750316205_dummy_profile.jpg', 1, '619f7e46991a9ecd34da3c86500ed008', '2025-05-23 14:50:50', '2025-05-20 12:17:42', '2025-05-20 12:17:42'),
-(2, 'sonam', '', 'sonamgoswami3898@gmail.com', '$2y$10$PEMzvpsEQPD2g6m2XYx8cOc0lXnqPIicRUpf/2khyn596ZeL9PjuK', '4', '', 1, '7a93a8574a06d7cdd46777aff7698b14', '2025-05-23 14:27:36', '2025-05-20 12:48:37', '2025-05-20 12:48:37'),
+(2, 'sonam', '9554541230', 'sonamgoswami3898@gmail.com', '$2y$10$PEMzvpsEQPD2g6m2XYx8cOc0lXnqPIicRUpf/2khyn596ZeL9PjuK', '4', '', 1, '7a93a8574a06d7cdd46777aff7698b14', '2025-05-23 14:27:36', '2025-05-20 12:48:37', '2025-05-20 12:48:37'),
 (3, 'fsedsdfsd', '', 'manan@gmail.com', '$2y$10$EVnHHNcGVFLlMDvWLeY9peHVgiRznfs58N125291Pbp2bgxjUHMLW', '4', '', 1, '', '0000-00-00 00:00:00', '2025-05-20 12:51:37', '2025-05-20 12:51:37'),
 (4, 'test1', '', 'test@gmail.com', '$2y$10$j9mTlIX38iIDYJx7gaa.fO1HGuiiJ9U9gwqR1cxJquv6HKkVHE4xO', '4', '1748242883_dummy_profile.jpg', 1, '', '0000-00-00 00:00:00', '2025-05-20 13:50:02', '2025-05-20 13:50:02'),
 (5, 'Seller', '7974046163', 'seller@gmail.com', '$2y$10$YlbM6RwE2O7V18WogFvNi.1k0YHQ6kRU/GVFaIamjGq.Sf3t8Gyv2', '2', '1750146494_dummy_profile.jpg', 1, '', '0000-00-00 00:00:00', '2025-05-23 06:38:18', '2025-05-23 06:38:18'),
@@ -772,7 +821,7 @@ CREATE TABLE `user_subscriptions` (
 --
 
 INSERT INTO `user_subscriptions` (`id`, `user_id`, `plan_id`, `start_date`, `end_date`, `listings_used`) VALUES
-(1, 6, 1, '2025-07-01', '2025-07-31', 0),
+(1, 6, 1, '2025-07-01', '2025-07-31', 3),
 (2, 5, 1, '2025-07-01', '2025-07-31', 2);
 
 -- --------------------------------------------------------
@@ -783,8 +832,9 @@ INSERT INTO `user_subscriptions` (`id`, `user_id`, `plan_id`, `start_date`, `end
 
 CREATE TABLE `variants` (
   `id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vehicle_type_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
   `make_id` int(11) NOT NULL,
   `model_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -793,8 +843,9 @@ CREATE TABLE `variants` (
 -- Dumping data for table `variants`
 --
 
-INSERT INTO `variants` (`id`, `name`, `vehicle_type_id`, `make_id`, `model_id`) VALUES
-(6, 'Limousine', 2, 1, 1);
+INSERT INTO `variants` (`id`, `name`, `vehicle_type_id`, `cat_id`, `make_id`, `model_id`) VALUES
+(6, 'Limousine', 2, 0, 1, 1),
+(7, 'New Variant', 2, 1, 13, 15);
 
 -- --------------------------------------------------------
 
@@ -804,7 +855,7 @@ INSERT INTO `variants` (`id`, `name`, `vehicle_type_id`, `make_id`, `model_id`) 
 
 CREATE TABLE `vehicle_color` (
   `id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -825,7 +876,7 @@ INSERT INTO `vehicle_color` (`id`, `name`, `created_at`) VALUES
 
 CREATE TABLE `vehicle_type` (
   `id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -873,6 +924,12 @@ ALTER TABLE `car_img`
 -- Indexes for table `car_list`
 --
 ALTER TABLE `car_list`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1045,13 +1102,19 @@ ALTER TABLE `years_range`
 -- AUTO_INCREMENT for table `car_img`
 --
 ALTER TABLE `car_img`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT for table `car_list`
 --
 ALTER TABLE `car_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -1111,13 +1174,13 @@ ALTER TABLE `lighting_and_visibility`
 -- AUTO_INCREMENT for table `make`
 --
 ALTER TABLE `make`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `model`
 --
 ALTER TABLE `model`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `multimedia_and_navigation`
@@ -1195,7 +1258,7 @@ ALTER TABLE `user_subscriptions`
 -- AUTO_INCREMENT for table `variants`
 --
 ALTER TABLE `variants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `vehicle_color`
