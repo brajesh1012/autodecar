@@ -129,10 +129,10 @@
 
 <body class="body header-fixed">
 
-    <div class="preload preload-container">
+    <!-- <div class="preload preload-container">
         <div class="middle">
         </div>
-    </div>
+    </div> -->
 
     <!-- /preload -->
 
@@ -525,7 +525,11 @@
                 </div>
                 <div class="slider-item-content position-relative">
                     <div class="container">
-                        <div class="position-absolute" style="bottom:110px">
+                        <div class="position-absolute" style="bottom: 80px;
+    display: flex
+;
+    flex-direction: column;
+    align-items: center;">
                             <!--<div class="flat-tabs-wrap">
                                 <h1 class="title" style="font-size: 30px;">Find your right car</h1>
                                 <div class="box-tab style1 center">
@@ -975,7 +979,7 @@
                             <!-- Filter end -->
                             <!-- new form end -->
 
-                            <div class="wrap-icon trending2">
+                            <div class="wrap-icon trending2 mt-2">
                                 <div class="icon-box text-color-1 fs-14 fw-4 flex align-center font">
                                     <span class="icon-autodeal-trending"></span>
                                     <a href="#"><strong class="font-2 fw-7">Trending:</strong> Volkswagen Scirocco,
