@@ -15,7 +15,7 @@
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="<?= base_url(); ?>assets/assets/images/logo/favicon.jpeg">
     <link rel="apple-touch-icon-precomposed" href="<?= base_url(); ?>assets/assets/images/logo/favicon.jpeg">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
     .slider.home2 video {
         width: 100%;
@@ -363,6 +363,16 @@
                                             </ul>
                                         </div>
                                         <?php }else{ ?>
+
+                                       <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle position-relative" href="#" id="messageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-envelope fs-4 text-white"></i>
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="unreadCount" style="display: none;">0</span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="messageDropdown" style="width: 300px; max-height: 400px; overflow-y: auto;" id="messageDropdownContent">
+                                            <li class="text-center text-muted">Loading...</li>
+                                        </ul>
+                                    </li>
                                         <div class="register">
 
 

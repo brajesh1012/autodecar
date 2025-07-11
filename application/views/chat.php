@@ -7,7 +7,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
-
+<h6 style="margin-bottom: 15px; font-size: 15px; color: #00856a;"><a href="<?= base_url(); ?>" style="color: #00856a; text-decoration: none;">Back To Home</a></h6>
 <h3 style="margin-bottom: 15px; font-size: 22px; color: #00856a;">💬 Live Chat - <?php echo $username = $this->db->where('id', $receiver_id)->get('users')->row('username'); ?> (<?= $receiver_role ?>) </h3>
 
 <!-- <h3 style="margin-bottom: 15px; font-size: 15px; color:rgb(57, 100, 92);">💬 <?php echo $username = $this->db->where('id', $receiver_id)->get('users')->row('username'); ?> (<?= $receiver_role ?>)</h3> -->

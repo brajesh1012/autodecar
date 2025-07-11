@@ -1020,7 +1020,80 @@ function googleTranslateElementInit() {
 
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD0TUv5KLfBy6qCfVNwOaaf98-AU813x7I",
+  authDomain: "autokorb-f0b82.firebaseapp.com",
+  projectId: "autokorb-f0b82"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
+const currentUserId = "<?= $_SESSION['user_id'] ?>";
+const msgContent = document.getElementById("messageDropdownContent");
+const unreadBadge = document.getElementById("unreadCount");
+
+function loadUnreadMessagesDropdown() {
+  db.collection("chats").where("participants", "array-contains", currentUserId).onSnapshot(snapshot => {
+    msgContent.innerHTML = "";
+    let items = [];
+    let unreadTotal = 0;
+
+    const promises = snapshot.docs.map(doc => {
+      const chatId = doc.id;
+      const chatData = doc.data();
+      const otherUserId = chatData.participants.find(id => id !== currentUserId);
+
+      return db.collection("chats").doc(chatId).collection("messages")
+        .orderBy("timestamp", "desc").limit(1).get()
+        .then(lastMsgs => {
+          const lastMsgData = lastMsgs.docs[0]?.data() || {};
+          const text = lastMsgData.text || "📎 File";
+          const timestamp = lastMsgData.timestamp?.toDate?.() || new Date();
+          const formattedTime = timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+          return db.collection("chats").doc(chatId).collection("messages")
+            .where("receiver_id", "==", currentUserId)
+            .where("is_read", "==", false).get()
+            .then(unreadSnap => {
+              const unreadCount = unreadSnap.size;
+              unreadTotal += unreadCount;
+
+              return $.ajax({
+                url: "<?= base_url(ADMIN_PATH . '/get-user-info') ?>",
+                method: "GET",
+                data: { id: otherUserId },
+                dataType: "json"
+              }).then(user => {
+                const username = user.username || 'Unknown';
+                const badge = unreadCount > 0 ? `<span class="badge bg-danger ms-1">${unreadCount}</span>` : '';
+                const item = `
+                  <li class="dropdown-item d-flex justify-content-between align-items-start">
+                    <div class="me-2">
+                      <div class="fw-bold">${username}</div>
+                      <small class="text-muted">${text} • ${formattedTime}</small>
+                    </div>
+                    <a href="<?= base_url(ADMIN_PATH) ?>/view-chat/${chatData.vehicle_id}/${otherUserId}" class="btn btn-sm btn-outline-primary">Chat</a>
+                  </li>`;
+                items.push({ html: item, time: timestamp });
+              });
+            });
+        });
+    });
+
+    Promise.all(promises).then(() => {
+      items.sort((a, b) => b.time - a.time);
+      msgContent.innerHTML = items.map(i => i.html).join("") || "<li class='text-center text-muted'>No messages</li>";
+      unreadBadge.textContent = unreadTotal;
+      unreadBadge.style.display = unreadTotal > 0 ? 'inline-block' : 'none';
+    });
+  });
+}
+
+loadUnreadMessagesDropdown();
+</script>
 
 
  
