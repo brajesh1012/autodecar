@@ -156,7 +156,7 @@
 }
 
 .box {
-    width: 90%;
+    width: 70%;
     z-index: 9;
     position: relative;
 }
@@ -457,14 +457,14 @@ label::after {
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <div class="form-check mt-4">
+                    <div class="form-check mt-2">
                         <input class="form-check-input" type="checkbox" id="online" name="online">
                         <label class="form-check-label" for="online">Online Purchase</label>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <div class="form-check mt-4">
+                    <div class="form-check mt-2">
                         <input class="form-check-input" type="checkbox" id="electric" name="electric">
                         <label class="form-check-label" for="electric">Only electric cars ⚡</label>
                     </div>
@@ -557,14 +557,14 @@ label::after {
             </div>
 
             <div class="col-md-6 col-12">
-                <div class="form-check mt-4">
+                <div class="form-check mt-2">
                     <input class="form-check-input" type="checkbox" id="online" name="online">
                     <label class="form-check-label" for="online">Online Purchase</label>
                 </div>
             </div>
 
             <div class="col-md-6 col-12">
-                <div class="form-check mt-4">
+                <div class="form-check mt-2">
                     <input class="form-check-input" type="checkbox" id="electric" name="electric">
                     <label class="form-check-label" for="electric">Only electric cars ⚡</label>
                 </div>
@@ -654,14 +654,14 @@ label::after {
             </div>
 
             <div class="col-md-6 col-12">
-                <div class="form-check mt-4">
+                <div class="form-check mt-2">
                     <input class="form-check-input" type="checkbox" id="online" name="online">
                     <label class="form-check-label" for="online">Online Purchase</label>
                 </div>
             </div>
 
             <div class="col-md-6 col-12">
-                <div class="form-check mt-4">
+                <div class="form-check mt-2">
                     <input class="form-check-input" type="checkbox" id="electric" name="electric">
                     <label class="form-check-label" for="electric">Only electric cars ⚡</label>
                 </div>
