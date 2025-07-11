@@ -43,6 +43,18 @@ p {
 
                                     </div>
 
+                                     <div class="form-group">
+                                            <label for="listing_title">Categories*</label>
+                                            <select name="cat_id" id="cat_id" class="form-control">
+                                                <option value="">Select category</option>
+                                                <?php foreach($categories as $cat){ ?>
+                                                <option value="<?= $cat->id; ?>"><?= $cat->name; ?>
+                                                </option>
+                                                <?php } ?>
+                                            </select>
+                                            <small class="text-danger"><?= form_error('cat_id') ?></small>
+
+                                        </div>
                                       <div class="form-group">
                                         <label for="listing_title">Make *</label>
                                         <select name="make_id" id="make_id" class="form-control">
@@ -150,7 +162,9 @@ $(document).ready(function() {
 </script>
 
 <script>
-    var URL = "<?= base_url(ADMIN_PATH . "/get-makes-by-vehicle-type") ?>";
+
+    var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
+    var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
     var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
     var URL3 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
 </script>

@@ -115,10 +115,11 @@ $route[trim(ADMIN_PATH  . '/delete-model', '/')] = 'AdminController/delete_model
 $route[trim(ADMIN_PATH  . '/add-variant', '/')] = 'AdminController/add_variant';
 $route[trim(ADMIN_PATH  . '/delete-variant', '/')] = 'AdminController/delete_variant';
 
-
+$route[trim(ADMIN_PATH  . '/add-categories', '/')] = 'AdminController/add_categories';
 $route[trim(ADMIN_PATH  . '/vehicle-make', '/')] = 'AdminController/vehicle_make';
 $route[trim(ADMIN_PATH  . '/add-make', '/')] = 'AdminController/add_make';
-$route[trim(ADMIN_PATH  . '/get-makes-by-vehicle-type', '/')] = 'AdminController/get_makes_by_vehicle_type';
+$route[trim(ADMIN_PATH  . '/get-category-by-vehicle-type', '/')] = 'AdminController/get_category_by_vehicle_type';
+$route[trim(ADMIN_PATH  . '/get-makes-by-category', '/')] = 'AdminController/get_makes_by_category';
 $route[trim(ADMIN_PATH  . '/get-modal-by-make', '/')] = 'AdminController/get_modal_by_make';
 $route[trim(ADMIN_PATH  . '/get-variant-by-model', '/')] = 'AdminController/get_variant_by_model';
 $route[trim(ADMIN_PATH  . '/get-city-by-state', '/')] = 'AdminController/get_city_by_state';
@@ -162,8 +163,11 @@ $route[trim(ADMIN_PATH  . '/chat-overview', '/')] = 'AdminController/chat_overvi
 
 $route[trim(ADMIN_PATH  . '/get-user-info', '/')] = 'AdminController/get_user_info';
 
+$route['messages'] = 'WebsiteController/chat_list';
+// $route['buyer/view-chat/(:num)/(:num)'] = 'chat/view_chat/$1/$2';
+// $route['get-user-info'] = 'chat/get_user_info';
 
-// /////////////////////////////////////////////Dealer////////////////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////Dealer//////////////////////////////////////////////////////
 $route['advance-filter'] = 'WebsiteController/advance_filter';
 
 $route['dealer/my-listing'] = 'dealer/my_listing';

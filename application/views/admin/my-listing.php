@@ -132,19 +132,18 @@
                                                             <tr>
                                                                 <td class="column-listing">
                                                                     <div class="tfcl-listing-product">
-                                                                        <a href="#">
-                                                                            <img src="<?= base_url('uploads/'. @$vehicle_images[0]->photos); ?>"
-                                                                                        alt="image">
-                                                                        </a>
+                                                                        <!-- <a href="#"> -->
+                                                                            <img src="<?= base_url('uploads/'. @$vehicle_images[0]->photos); ?>"  class="zoomable-image" alt="image">
+                                                                        <!-- </a> -->
                                                                         <div class="tfcl-listing-summary">
                                                                             <h4 class="tfcl-listing-title"> 
                                                                                 <?php foreach($makes as $make): ?>
-                                                                                    <a target="_blank" href="listing-detail-v1.html">
+                                                                                    <!-- <a target="_blank" href="listing-detail-v1.html"> -->
                                                                                         <?= $detail->year . " " ?>
                                                                                         <?= $make->make_name . " " ?>
                                                                                         <?= $make->model_name . " " ?>
                                                                                         <?= $detail->mileage . "km" ?>
-                                                                                    </a>
+                                                                                    <!-- </a> -->
                                                                                 <?php endforeach; ?>
                                                                             </h4>
                                                                             <div class="features-text">
