@@ -792,65 +792,66 @@
                                         <h4>Comfort & Interior Features</h4>
                                     </div>
                                     <div class="form-group-4">
-                                        <?php foreach($comforts as $comfort){ ?>
+                                        
+                                        <?php if(isset($comforts) && !empty($comforts)){ foreach($comforts as $comfort){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="comfort_and_interior[]"
                                                 value="<?= $comfort->name ?>"
                                                 <?php if(set_value('comfort_and_interior')==  $comfort->name ){ echo "checked"; } ?>><?= $comfort->name ?>
                                         </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                 </div>
 
                                     <div class="form-group">
                                         <h4>Safety & Assistance</h4>
                                     </div>
                                     <div class="form-group-4">
-                                        <?php foreach($safety_and_assistance as $safety){ ?>
+                                        <?php if(isset($safety_and_assistance) && !empty($safety_and_assistance)){ foreach($safety_and_assistance as $safety){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="safety_and_assistance[]"
                                                 value="<?= $safety->name ?>"
                                                 <?php if(set_value('safety_and_assistance')==  $safety->name ){ echo "checked"; } ?>><?= $safety->name ?>
                                         </div>
-                                        <?php } ?>
+                                        <?php }}  ?>
                                 </div>
 
                                     <div class="form-group">
                                         <h4>Lighting & Visibility</h4>
                                     </div>
                                     <div class="form-group-4">
-                                        <?php foreach($lighting_and_visibility as $lighting){ ?>
+                                        <?php if(isset($lighting_and_visibility) && !empty($lighting_and_visibility)){ foreach($lighting_and_visibility as $lighting){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="lighting_and_visibility[]"
                                                 value="<?= $lighting->name ?>"
                                                 <?php if(set_value('lighting_and_visibility')==  $lighting->name ){ echo "checked"; } ?>><?= $lighting->name ?>
                                         </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                 </div>
 
                                   <div class="form-group">
                                         <h4>Multimedia & Navigation</h4>
                                     </div>
                                     <div class="form-group-4">
-                                        <?php foreach($multimedia_and_navigation as $multimedia){ ?>
+                                        <?php if(isset($multimedia_and_navigation) && !empty($multimedia_and_navigation)){   foreach($multimedia_and_navigation as $multimedia){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="multimedia_and_navigation[]"
                                                 value="<?= $multimedia->name ?>"
                                                 <?php if(set_value('multimedia_and_navigation')==  $multimedia->name ){ echo "checked"; } ?>><?= $multimedia->name ?>
                                         </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                 </div>
 
                                       <div class="form-group">
                                         <h4>Engine & Drive Technology</h4>
                                     </div>
                                     <div class="form-group-4">
-                                        <?php foreach($engine_and_drive_technology as $engine){ ?>
+                                        <?php if(isset($engine_and_drive_technology) && !empty($engine_and_drive_technology)){   foreach($engine_and_drive_technology as $engine){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="engine_and_drive_technology[]"
                                                 value="<?= $engine->name ?>"
                                                 <?php if(set_value('engine_and_drive_technology')==  $engine->name ){ echo "checked"; } ?>><?= $engine->name ?>
                                         </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                 </div>
 
 
@@ -859,13 +860,13 @@
                                         <h4>Exterior & Design</h4>
                                     </div>
                                     <div class="form-group-4">
-                                        <?php foreach($exterior_and_design as $exterior){ ?>
+                                        <?php if(isset($exterior_and_design) && !empty($exterior_and_design)){   foreach($exterior_and_design as $exterior){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="exterior[]"
                                                 value="<?= $exterior->name ?>"
                                                 <?php if(set_value('exterior')==  $exterior->name ){ echo "checked"; } ?>><?= $exterior->name ?>
                                         </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                 </div>
 
 
@@ -874,13 +875,13 @@
                                         <h4>Other Features & Extras</h4>
                                     </div>
                                     <div class="form-group-4">
-                                        <?php foreach($other_features_and_extras as $other){ ?>
+                                        <?php if(isset($other_features_and_extras) && !empty($other_features_and_extras)){    foreach($other_features_and_extras as $other){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="other_features_and_extras[]"
                                                 value="<?= $other->name ?>"
                                                 <?php if(set_value('other_features_and_extras')==  $other->name ){ echo "checked"; } ?>><?= $other->name ?>
                                         </div>
-                                        <?php } ?>
+                                        <?php } } ?>
                                 </div>
 
 
