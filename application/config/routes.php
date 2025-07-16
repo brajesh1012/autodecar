@@ -169,6 +169,9 @@ $route['messages'] = 'WebsiteController/chat_list';
 
 // ////////////////////////////////////////////Dealer//////////////////////////////////////////////////////
 $route['advance-filter'] = 'WebsiteController/advance_filter';
+$route['car'] = 'WebsiteController/car';
+$route['bike'] = 'WebsiteController/bike';
+$route['commercial'] = 'WebsiteController/commercial';
 
 $route['dealer/my-listing'] = 'dealer/my_listing';
 $route['dealer/delete-vehicle-record'] = 'dealer/delete_vehicle_record';

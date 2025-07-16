@@ -494,12 +494,12 @@
                                     </div>
                                     <div class="form-group-4">
 
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="listing_title">Title *</label>
                                             <input type="text" class="form-control" name="title"
                                                 placeholder="Enter Title" value="<?= set_value('title') ?>">
                                             <small class="text-danger"><?= form_error('title') ?></small>
-                                        </div>
+                                        </div> -->
 
 
                                         <div class="form-group">
@@ -643,12 +643,12 @@
                                             <small class="text-danger"><?= form_error('mfk_date') ?></small>
                                         </div>
 
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="listing_title">TUV *</label>
                                             <input type="date" class="form-control" name="tuv_date"
                                                 placeholder="Enter TUV" value="<?= set_value('tuv_date') ?>">
                                             <small class="text-danger"><?= form_error('tuv_date') ?></small>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="form-group">
@@ -712,13 +712,13 @@
                                                 value="<?= set_value('km') ?>">
                                             <small class="text-danger"><?= form_error('km') ?></small>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="listing_title">Co<sub>2</sub> Emission *</label>
                                             <input type="text" class="form-control" name="co2_emission"
                                                 placeholder="Enter co2 Emission"
                                                 value="<?= set_value('co2_emission') ?>">
                                             <small class="text-danger"><?= form_error('co2_emission') ?></small>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                     <!-- Photos -->
@@ -898,7 +898,7 @@
 
                                     </div>
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label for="listing_title"> Is Price Negotiable *</label>
                                         <select name="is_negotiable" class="form-control" id="is_negotiable">
                                             <option value="">Select</option>
@@ -910,16 +910,16 @@
                                             </option>
                                         </select>
                                         <small class="text-danger"><?= form_error('is_negotiable') ?></small>
-                                    </div>
+                                    </div> -->
                                 </div>
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="listing_title">Description</label>
                                     <textarea name="description" class="form-control" id="description"
                                         placeholder="Your Description..."><?= set_value('description') ?></textarea>
 
                                     <small class="text-danger"><?= form_error('description') ?></small>
-                                </div>
+                                </div> -->
 
 
                                 <div class="form-group">
@@ -970,7 +970,7 @@
 
                                 </div>
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <h4>Upload Section</h4>
                                 </div>
                                 <div class="form-group-4">
@@ -987,7 +987,7 @@
                                     </div>
 
 
-                                </div>
+                                </div> -->
 
                         </div>
 
