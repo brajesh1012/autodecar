@@ -14,7 +14,11 @@ class WebsiteController extends CI_Controller {
 
 	public function index()
 	{
-   $data['vehicles'] = $this->WebsiteModel->get_vehicle();
+   $data['brands'] = $this->WebsiteModel->get_data('make');
+   $data['bikes'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 1);
+   $data['cars'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 2);
+   $data['commercials'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 3);
+
     // print_r($data['vehicles']);die;
 	$this->load->view('home', $data);
 	}
@@ -34,8 +38,34 @@ class WebsiteController extends CI_Controller {
 public function advance_filter()
 {
     
-  $this->load->view('advance-filter'); // This will load the view file
-}
+     $data["categories"] = $this->WebsiteModel->get_data("categories");
+            $data["makes"] = $this->WebsiteModel->get_data("make");
+            $data["models"] = $this->WebsiteModel->get_data("model");
+            $data["variants"] = $this->WebsiteModel->get_data("variants");
+            $data["colors"] = $this->WebsiteModel->get_data("vehicle_color");
+            $data["fuel_types"] = $this->WebsiteModel->get_data("fuel_type");
+            $data["transmissions"] = $this->WebsiteModel->get_data(
+                "transmission"
+            );
+            $data["vehicle_types"] = $this->AdminModel->get_data("vehicle_type");
+            $data["cities"] = $this->AdminModel->get_data("cities");
+            $data["states"] = $this->AdminModel->get_data("states");
+
+
+            $data["comforts"] = $this->AdminModel->get_data("comfort_and_interior");
+            $data["safety_and_assistance"] = $this->AdminModel->get_data("safety_and_assistance");
+            $data["lighting_and_visibility"] = $this->AdminModel->get_data("lighting_and_visibility");
+
+
+            $data["multimedia_and_navigation"] = $this->AdminModel->get_data("multimedia_and_navigation");
+            $data["engine_and_drive_technology"] = $this->AdminModel->get_data("engine_and_drive_technology");
+            $data["exterior_and_design"] = $this->AdminModel->get_data("exterior_and_design");
+
+
+            $data["other_features_and_extras"] = $this->AdminModel->get_data("other_features_and_extras");
+
+              $this->load->view('advance-filter', $data); // This will load the view file
+    }
 public function register()
 {
     $this->form_validation->set_rules('role', 'Role', 'required');
@@ -342,12 +372,39 @@ public function reset_password($token = null) {
         $make = $this->input->get('make');
         $model = $this->input->get('model');
         $minYear = $this->input->get('year');
+        $maxYear = $this->input->get('year_to');
         $zipcode = $this->input->get('zipcode');
-        $maxkm = str_replace(',', '', $this->input->get('km'));
+        $minkm = str_replace(',', '', $this->input->get('km'));
+        $maxkm = str_replace(',', '', $this->input->get('km_to'));
         $min_price = str_replace(',', '', $this->input->get('price'));
-     $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
+        $max_price = str_replace(',', '', $this->input->get('price_to'));
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
     	$this->load->view('listing-list', $data);
 }
+
+
+
+public function car()
+  {
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 2);
+        $this->load->view('listing-list', $data);
+    }
+
+            
+ public function bike()
+  {
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 1);
+         $this->load->view('listing-list', $data);
+   }
+
+
+ public function commercial()
+ {
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 3);
+        $this->load->view('listing-list', $data);
+ }
+
+
 
     public function chat_list() {
         $this->load->view('chat_list'); // or seller/chat_list

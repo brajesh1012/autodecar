@@ -84,26 +84,20 @@ class WebsiteModel extends CI_Model {
 
         if(!empty($minYear)){
 
-            
                     $this->db->where('year >=', $minYear);
-                    // $this->db->where('year <=', $maxYear);
+                    $this->db->where('year <=', $maxYear);
         }
 
-        //    if (is_numeric($min_price) && is_numeric($max_price)){
-            if (is_numeric($min_price)){
-            
-                    $this->db->where('price', $min_price);
-                    // $this->db->where('price >=', $min_price);
-                    // $this->db->where('price <=', $max_price);
+           if (is_numeric($min_price) && is_numeric($max_price)){
+
+                    $this->db->where('price >=', $min_price);
+                    $this->db->where('price <=', $max_price);
         }
 
-        //    if (is_numeric($minkm) && is_numeric($maxkm)){
-           if (is_numeric($maxkm)){
-
-            
-                    $this->db->where('km >=', $maxkm);
-                    // $this->db->where('km >=', $minkm);
-                    // $this->db->where('km <=', $maxkm);
+           if (is_numeric($minkm) && is_numeric($maxkm)){
+        
+                    $this->db->where('km >=', $minkm);
+                    $this->db->where('km <=', $maxkm);
         }
 
           if (is_numeric($zipcode)){

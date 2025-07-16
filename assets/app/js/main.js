@@ -628,7 +628,7 @@ $(document).ready(function(){
         // Read data-type attribute of selected <option>
         var typeKey = $vt.find('option:selected').data('type'); // e.g., "car", "bike", "bus"
         // Hide all feature blocks
-        $('.feature-car, .feature-bike, .feature-bus').hide();
+        $('.feature-car, .feature-bike, .feature-commercial').hide();
         // Show matching ones
         if (typeKey) {
             $('.feature-' + typeKey).show();
