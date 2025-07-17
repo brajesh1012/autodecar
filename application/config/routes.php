@@ -82,6 +82,9 @@ $route['sale-agent-details'] = 'WebsiteController/sale_agent_details';
 $route['set-location'] = 'WebsiteController/set_location';
 
 
+$route['toggle'] = 'WebsiteController/toggle';
+$route['favorite-list'] = 'WebsiteController/favorite_list';
+
 $route['compare'] = 'WebsiteController/compare';
 $route['contact'] = 'WebsiteController/contact';
 $route['profile'] = 'WebsiteController/profile';

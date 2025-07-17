@@ -364,6 +364,34 @@
                                         </div>
                                         <?php }else{ ?>
 
+                                            <!-- Favorite Start -->
+
+                                           <li class="nav-item dropdown">
+                                                <a class="nav-link position-relative" href="<?= base_url('favorite-list'); ?>" title="My Favorites">
+                                                    <!-- White Heart Icon -->
+                                                    <svg width="20" height="18" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M14.75 4.1875C14.75 2.32375 13.1758 0.8125 11.234 0.8125C9.78275 0.8125 8.53625 1.657 8 2.86225C7.46375 1.657 6.21725 0.8125 4.76525 0.8125C2.825 0.8125 1.25 2.32375 1.25 4.1875C1.25 9.6025 8 13.1875 8 13.1875C8 13.1875 14.75 9.6025 14.75 4.1875Z"
+                                                            fill="none"
+                                                            stroke="white"
+                                                            stroke-width="1.5"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+
+                                                    <?php if ($favorite_count > 0): ?>
+                                                        <span
+                                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            style="font-size: 12px;">
+                                                            <?= $favorite_count ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </li>
+
+
+                                            <!-- Favorite End -->
+
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle position-relative" href="#"
                                                 id="messageDropdown" role="button" data-bs-toggle="dropdown"
@@ -12085,7 +12113,7 @@
                                 <div class="swiper-wrapper">
                                     <?php foreach($brands as $brand){ ?>
                                     <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
+                                        <a href="<?= base_url('listing-list?make='. $brand->id); ?>" class="partner-item style-1">
                                             <div class="image">
                                                 <img class="lazyload"
                                                     data-src="<?= base_url('uploads/brands/'.$brand->logo); ?>"
