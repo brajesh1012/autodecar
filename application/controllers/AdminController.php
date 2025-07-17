@@ -925,7 +925,7 @@ class AdminController extends CI_Controller
                 "tuv_date" => $tuv_date ?? '',
 
                 "emission_certificate" => $emission_certificate ?? '',
-                "added_by" => $this->session->userdata('user_id'),
+                // "added_by" => $this->session->userdata('user_id'),
 
                  "comfort_and_interior" => $comfort_and_interior_json,
                 "safety_and_assistance" => $safety_and_assistance_json,

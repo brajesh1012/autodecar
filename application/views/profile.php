@@ -118,8 +118,8 @@
 
     <div class="tab-buttons">
       <button class="tab-btn active" onclick="showTab('profile')">Profile</button>
-      <button class="tab-btn" onclick="showTab('listings')">Listings</button>
-      <button class="tab-btn" onclick="showTab('favorites')">Favorites</button>
+      <!-- <button class="tab-btn" onclick="showTab('listings')">Listings</button>
+      <button class="tab-btn" onclick="showTab('favorites')">Favorites</button> -->
     </div>
 
     <div id="profile" class="tab-content active">
