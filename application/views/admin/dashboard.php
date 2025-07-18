@@ -153,12 +153,13 @@
                                     </div>
 
                                     <div class="col-sm-6 col-xl-3">
-                                        <a class="tfcl-card" href="#">
+                                        <a class="tfcl-card" href="<?= base_url(ADMIN_PATH . '/chat-overview'); ?>">
                                             <div class="card-body">
                                                 <div class="tfcl-icon-overview">
                                                     <img src="<?= base_url();?>/assets/assets/images/dashboard/overview2.svg"
                                                         alt="icon">
                                                 </div>
+                                               
                                                 <div class="content-overview">
                                                     <!-- <h5>Activity</h5> -->
                                                     <div class="tfcl-dashboard-title">
@@ -167,7 +168,7 @@
                                                         <span class="label">Messages</span>
                                                         <span class="badge" id="unreadCount">0</span>
                                                     </div>
-                                                    </div>
+                                                </div>
                                                 </div>
                                             </div>
                                         </a>
@@ -271,24 +272,17 @@
                                                             <?php foreach($details as $detail){  
                                                             $original_date = $detail->created_at;
                                                             $posting_date = date("F d, Y", strtotime($original_date));
-
-                                                             //  $detail->vehicle_images = $this->db->get_where('car_img', ['car_list_id' => $detail->id])->result();
+                                                            
                                                              $vehicle_images = $this->db->get_where('car_img', ['car_list_id' => $detail->id])->result();
-                                                             
-                                                            //  $makes = $this->db->get_where('make', ['id' => $detail->make])->result();
-                                                            //  $models = $this->db->get_where('model', ['id' => $detail->model])->result();
                                                             
                                                            $makes = $this->db
                                                             ->select('make.name as make_name, model.name as model_name, variants.name as variant_name')
                                                             ->from('variants')
                                                             ->join('model', 'variants.model_id = model.id')
                                                             ->join('make', 'model.make_id = make.id')
+                                                            ->where('variants.id', $detail->variant) // yahaan variant ID match karo
                                                             ->get()
                                                             ->result();
-                                                            
-                                                            // $query = $this->db->get();
-                                                            // $query->result(); // return as array use ->result_array()
-                                                                // print_r($makes); 
 
                                                             ?>
                                                             <tr>

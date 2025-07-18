@@ -88,8 +88,6 @@
                                                             </select>
                                                 </form>
                                             </div>
-
-
                                             <div class="tfcl-table-listing">
                                                 <div class="table-responsive">
 
@@ -112,22 +110,14 @@
 
                                                              //  $detail->vehicle_images = $this->db->get_where('car_img', ['car_list_id' => $detail->id])->result();
                                                              $vehicle_images = $this->db->get_where('car_img', ['car_list_id' => $detail->id])->result();
-                                                             
-                                                            //  $makes = $this->db->get_where('make', ['id' => $detail->make])->result();
-                                                            //  $models = $this->db->get_where('model', ['id' => $detail->model])->result();
-                                                            
-                                                           $makes = $this->db
+                                                            $makes = $this->db
                                                             ->select('make.name as make_name, model.name as model_name, variants.name as variant_name')
                                                             ->from('variants')
                                                             ->join('model', 'variants.model_id = model.id')
                                                             ->join('make', 'model.make_id = make.id')
+                                                            ->where('variants.id', $detail->variant) // yahaan variant ID match karo
                                                             ->get()
                                                             ->result();
-                                                            
-                                                            // $query = $this->db->get();
-                                                            // $query->result(); // return as array use ->result_array()
-                                                                // print_r($makes); 
-
                                                             ?>
                                                             <tr>
                                                                 <td class="column-listing">

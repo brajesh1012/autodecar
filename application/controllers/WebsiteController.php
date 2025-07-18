@@ -14,9 +14,16 @@ class WebsiteController extends CI_Controller {
 
 	public function index()
 	{
-   $data['vehicles'] = $this->WebsiteModel->get_vehicle();
-    // print_r($data['vehicles']);die;
-	$this->load->view('home', $data);
+        $data['brands'] = $this->WebsiteModel->get_data('make');
+        $data['bikes'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 1);
+        $data['cars'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 2);
+        $data['commercials'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 3);
+
+        $user_id = $this->session->userdata('user_id');
+            $this->db->where('user_id', $user_id);
+            $fav_count = $this->db->count_all_results('favorites');
+            $data['favorite_count'] = $fav_count;
+            $this->load->view('home', $data);
 	}
 
     public function set_location() {
@@ -34,8 +41,34 @@ class WebsiteController extends CI_Controller {
 public function advance_filter()
 {
     
-  $this->load->view('advance-filter'); // This will load the view file
-}
+     $data["categories"] = $this->WebsiteModel->get_data("categories");
+            $data["makes"] = $this->WebsiteModel->get_data("make");
+            $data["models"] = $this->WebsiteModel->get_data("model");
+            $data["variants"] = $this->WebsiteModel->get_data("variants");
+            $data["colors"] = $this->WebsiteModel->get_data("vehicle_color");
+            $data["fuel_types"] = $this->WebsiteModel->get_data("fuel_type");
+            $data["transmissions"] = $this->WebsiteModel->get_data(
+                "transmission"
+            );
+            $data["vehicle_types"] = $this->AdminModel->get_data("vehicle_type");
+            $data["cities"] = $this->AdminModel->get_data("cities");
+            $data["states"] = $this->AdminModel->get_data("states");
+
+
+            $data["comforts"] = $this->AdminModel->get_data("comfort_and_interior");
+            $data["safety_and_assistance"] = $this->AdminModel->get_data("safety_and_assistance");
+            $data["lighting_and_visibility"] = $this->AdminModel->get_data("lighting_and_visibility");
+
+
+            $data["multimedia_and_navigation"] = $this->AdminModel->get_data("multimedia_and_navigation");
+            $data["engine_and_drive_technology"] = $this->AdminModel->get_data("engine_and_drive_technology");
+            $data["exterior_and_design"] = $this->AdminModel->get_data("exterior_and_design");
+
+
+            $data["other_features_and_extras"] = $this->AdminModel->get_data("other_features_and_extras");
+
+              $this->load->view('advance-filter', $data); // This will load the view file
+    }
 public function register()
 {
     $this->form_validation->set_rules('role', 'Role', 'required');
@@ -152,7 +185,8 @@ public function register()
 //             // Send email
 //             $reset_link = base_url("reset-password/{$token}");
 //             $subject = "Password Reset Link";
-//             // $message = "Hello {$user->name},<br><br>Click below link to reset your password:<br><a href='{$reset_link}'>{$reset_link}</a><br><br>This link is valid for 1 hour.";
+//             // $message = "Hello {$user->name},<br><br>Click below link to reset your password:<br>
+//              <a href='{$reset_link}'>{$reset_link}</a><br><br>This link is valid for 1 hour.";
 
 //           $message = "
 //             <p>Hello " . htmlspecialchars($user->username) . ",</p>
@@ -342,12 +376,39 @@ public function reset_password($token = null) {
         $make = $this->input->get('make');
         $model = $this->input->get('model');
         $minYear = $this->input->get('year');
+        $maxYear = $this->input->get('year_to');
         $zipcode = $this->input->get('zipcode');
-        $maxkm = str_replace(',', '', $this->input->get('km'));
+        $minkm = str_replace(',', '', $this->input->get('km'));
+        $maxkm = str_replace(',', '', $this->input->get('km_to'));
         $min_price = str_replace(',', '', $this->input->get('price'));
-     $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
+        $max_price = str_replace(',', '', $this->input->get('price_to'));
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
     	$this->load->view('listing-list', $data);
 }
+
+
+
+public function car()
+  {
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 2);
+        $this->load->view('listing-list', $data);
+    }
+
+            
+ public function bike()
+  {
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 1);
+         $this->load->view('listing-list', $data);
+   }
+
+
+ public function commercial()
+ {
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 3);
+        $this->load->view('listing-list', $data);
+ }
+
+
 
     public function chat_list() {
         $this->load->view('chat_list'); // or seller/chat_list
@@ -358,28 +419,6 @@ public function reset_password($token = null) {
     public function filterVehicles() {
         $make = $this->input->get('make');
         $model = $this->input->get('model');
-        // $fuel_type = $this->input->post('fuel_type');
-        // $transmission = $this->input->post('transmission');
-
-        //     $min_price = $this->input->post('min-price');
-        //     $max_price = $this->input->post('max-price');
-
-        //     // print_r($min_price);
-        //     // print_r($max_price);die;
-        // $minYear = $this->input->post('min-value3');
-        // $maxYear = $this->input->post('max-value3');
-
-        // $minkm = $this->input->post('min-value');
-        // $maxkm = $this->input->post('max-value');
-
-        //  $data['year_range'] = $this->db->get_where('years_range', ['id' => 1])->row_array();
-        // //  $data['km_range'] = $this->db->get_where('km_range', ['id' => 1])->row_array();
-        // //  $data['price_range'] = $this->db->get_where('price_range', ['id' => 1])->row_array();
-
-        //  $data['makes'] = $this->WebsiteModel->get_data('make');
-        // $data['models'] =  $this->WebsiteModel->get_data('model');  
-        // $data['fuel_types'] =  $this->WebsiteModel->get_data('fuel_type');  
-        // $data['transmissions'] = $this->WebsiteModel->get_data('transmission');
          $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm);
         $this->load->view('partials/_vehicle_list',  $data);
     }
@@ -505,6 +544,26 @@ public function reset_password($token = null) {
     	$this->load->view('my-favorite');
 }
 
+
+ public function toggle() {
+        $vehicle_id = $this->input->post('vehicle_id');
+        $user_id = $this->session->userdata('user_id');
+
+        if (!$user_id) {
+            echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
+            return;
+        }
+
+        $result = $this->WebsiteModel->toggle_favorite($user_id, $vehicle_id);
+
+        echo json_encode(['status' => 'success', 'action' => $result]);
+    }
+
+    public function favorite_list() {
+        $user_id = $this->session->userdata('user_id');
+        $data['favorites'] = $this->WebsiteModel->getFavoritesByUser($user_id);
+        $this->load->view('my_favorite', $data);
+    }
 
 }
 	

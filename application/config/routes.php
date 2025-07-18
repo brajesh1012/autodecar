@@ -82,6 +82,9 @@ $route['sale-agent-details'] = 'WebsiteController/sale_agent_details';
 $route['set-location'] = 'WebsiteController/set_location';
 
 
+$route['toggle'] = 'WebsiteController/toggle';
+$route['favorite-list'] = 'WebsiteController/favorite_list';
+
 $route['compare'] = 'WebsiteController/compare';
 $route['contact'] = 'WebsiteController/contact';
 $route['profile'] = 'WebsiteController/profile';
@@ -169,6 +172,9 @@ $route['messages'] = 'WebsiteController/chat_list';
 
 // ////////////////////////////////////////////Dealer//////////////////////////////////////////////////////
 $route['advance-filter'] = 'WebsiteController/advance_filter';
+$route['car'] = 'WebsiteController/car';
+$route['bike'] = 'WebsiteController/bike';
+$route['commercial'] = 'WebsiteController/commercial';
 
 $route['dealer/my-listing'] = 'dealer/my_listing';
 $route['dealer/delete-vehicle-record'] = 'dealer/delete_vehicle_record';

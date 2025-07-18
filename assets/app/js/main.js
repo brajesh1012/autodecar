@@ -628,7 +628,7 @@ $(document).ready(function(){
         // Read data-type attribute of selected <option>
         var typeKey = $vt.find('option:selected').data('type'); // e.g., "car", "bike", "bus"
         // Hide all feature blocks
-        $('.feature-car, .feature-bike, .feature-bus').hide();
+        $('.feature-car, .feature-bike, .feature-commercial').hide();
         // Show matching ones
         if (typeKey) {
             $('.feature-' + typeKey).show();
@@ -643,3 +643,32 @@ $(document).ready(function(){
         toggleFields();
     });
 });
+
+
+// ////////////////////////////////////////Add Favorites //////////////////////////////////////////////////
+
+    $(document).on('click', '.favorite-icon', function () {
+        var icon = $(this);
+        var vehicleId = icon.data('vehicle-id');
+
+        $.ajax({
+            url: toggleUrl,
+            type: 'POST',
+            data: { vehicle_id: vehicleId },
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    if (response.action === 'added') {
+                        icon.addClass('favorited');
+                        icon.attr('title', 'Unfavorite');
+                    } else if (response.action === 'removed') {
+                        icon.removeClass('favorited');
+                        icon.attr('title', 'Favorite');
+                    }
+                } else {
+                    alert(response.message || 'Something went wrong!');
+                }
+            }
+        });
+    });
+

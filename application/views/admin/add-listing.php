@@ -39,7 +39,6 @@ p {
 
                                         <div class="form-group">
                                             <label for="listing_title">Vehicle Type</label>
-
                                             <select class="form-control" name="vehicle_type" id="vehicle_type_id">
                                                 <option value="">Select Vehicle Type</option>
                                                 <?php foreach($vehicle_types as $vehicle_type){
@@ -298,7 +297,7 @@ p {
                                             <small class="text-danger"><?= form_error('winter_tires') ?></small>
                                         </div>
 
-                                        <div class="form-group  feature-car feature-bus" style="display:none;">
+                                        <div class="form-group  feature-car feature-commercial" style="display:none;">
                                             <label for="listing_title"> Climate Control / AC Type *</label>
                                                     <select name="ac_type" class="form-control" id="">
                                                         <option value="">Select Climate Control Type</option>
@@ -312,7 +311,7 @@ p {
                                          
                                         </div> 
 
-                                            <!-- <div class="form-group feature-car feature-bus" style="display:none;">
+                                            <!-- <div class="form-group feature-car feature-commercial" style="display:none;">
                                             <label for="listing_title"> 4x4*</label>
                                                     <select name="4x4" class="form-control" id="four_by_four">
                                                         <option value="">Select</option>
@@ -322,7 +321,7 @@ p {
                                            
                                         </div> 
 
-                                           <div class="form-group feature-car feature-bus" style="display:none;">
+                                           <div class="form-group feature-car feature-commercial" style="display:none;">
                                             <label for="listing_title"> Navigation System *</label>
                                                     <select name="navigation_system" class="form-control" id="">
                                                         <option value="">Select</option>
@@ -332,7 +331,7 @@ p {
                                      
                                         </div> -->
 
-                                        <div class="form-group feature-car feature-bus" style="display:none;">
+                                        <div class="form-group feature-car feature-commercial" style="display:none;">
                                             <label for="parking_sensors">Parking Sensors</label>
                                             <select class="form-control" name="parking_sensors" class="form-control">
                                                 <option value="">Select</option>
@@ -343,6 +342,7 @@ p {
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="feature-car feature-commercial">
                                     <div class="form-group">
                                         <h4>Comfort & Interior Features</h4>
                                     </div>
@@ -423,8 +423,6 @@ p {
                                         <?php } ?>
                                 </div>
 
-
-                                
                                       <div class="form-group">
                                         <h4>Other Features & Extras</h4>
                                     </div>
@@ -437,7 +435,7 @@ p {
                                         </div>
                                         <?php } ?>
                                 </div>
-
+                            </div>
 
                                 <div class="form-group">
                                     <h4>Pricing & Description</h4>
@@ -557,9 +555,7 @@ p {
     </div>
 </div>
 </div>
-
 </div>
-
 <script>
     var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
     var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";

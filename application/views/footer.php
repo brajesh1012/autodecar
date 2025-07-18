@@ -821,18 +821,18 @@ console.log("Confirm Password field value = ", $('[name="cpassword"]').val());
         valid = false;
     }
 
-    if (password == "") {
-        $('#password_error').text('Please enter password');
-        valid = false;
-    }
+    // if (password == "") {
+    //     $('#password_error').text('Please enter password');
+    //     valid = false;
+    // }
 
-    if (cpassword == "") {
-        $('#cpassword_error').text('Please confirm password');
-        valid = false;
-    } else if (password != cpassword) {
-        $('#cpassword_error').text("Passwords don't match");
-        valid = false;
-    }
+    // if (cpassword == "") {
+    //     $('#cpassword_error').text('Please confirm password');
+    //     valid = false;
+    // } else if (password != cpassword) {
+    //     $('#cpassword_error').text("Passwords don't match");
+    //     valid = false;
+    // }
 
     if (valid) {
         $.ajax({
