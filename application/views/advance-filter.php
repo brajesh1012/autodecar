@@ -129,7 +129,7 @@
 
 <body class="body header-fixed">
 
-<div class="preload preload-container">
+    <div class="preload preload-container">
         <div class="middle">
         </div>
     </div>
@@ -137,9 +137,9 @@
     <!-- /preload -->
 
     <div id="wrapper">
-    <div id="pagee" class="clearfix">
+        <div id="pagee" class="clearfix">
 
-    <header class=" p-2">
+            <header class=" p-2">
                 <!-- Header Lower -->
                 <div class="header-lower">
                     <div class="container2">
@@ -484,280 +484,293 @@
 
             <div class="container">
 
-            <form action="<?= base_url(ADMIN_PATH . '/add-listing') ?>" method="POST"
-                                enctype="multipart/form-data">
+                <form action="<?= base_url(ADMIN_PATH . '/add-listing') ?>" method="POST" enctype="multipart/form-data">
 
-                                <h1 class="admin-title mb-3">Advance Filter</h1>
-                                <div class="tfcl-add-listing car-details">
-                                    <div class="form-group">
-                                        <h4>Vehicle Basic Information</h4>
-                                    </div>
-                                    <div class="form-group-4">
+                    <h1 class="admin-title mb-3">Advance Filter</h1>
+                    <div class="tfcl-add-listing car-details">
+                        <div class="form-group">
+                            <h4>Vehicle Basic Information</h4>
+                        </div>
+                        <div class="form-group-4">
 
-                                        <div class="form-group">
+                            <!-- <div class="form-group">
                                             <label for="listing_title">Title *</label>
                                             <input type="text" class="form-control" name="title"
                                                 placeholder="Enter Title" value="<?= set_value('title') ?>">
                                             <small class="text-danger"><?= form_error('title') ?></small>
-                                        </div>
+                                        </div> -->
 
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Vehicle Type</label>
+                            <div class="form-group">
+                                <label for="listing_title">Vehicle Type</label>
 
-                                            <select class="form-control" name="vehicle_type" id="vehicle_type_id">
-                                                <option value="">Select Vehicle Type</option>
-                                                <?php foreach($vehicle_types as $vehicle_type){
+                                <select class="form-control" name="vehicle_type" id="vehicle_type_id">
+                                    <option value="">Select Vehicle Type</option>
+                                    <?php foreach($vehicle_types as $vehicle_type){
                                                 $type_key = strtolower(str_replace(' ', '_', $vehicle_type->name)); 
                                                 ?>
-                                                <option value="<?= $vehicle_type->id; ?>" data-type="<?= $type_key ?>"
-                                                    <?php if(set_value('vehicle_type') == $vehicle_type->id ){ echo "selected"; } ?>>
-                                                    <?= $vehicle_type->name; ?></option>
-                                                <?php } ?>
-                                            </select>
+                                    <option value="<?= $vehicle_type->id; ?>" data-type="<?= $type_key ?>"
+                                        <?php if(set_value('vehicle_type') == $vehicle_type->id ){ echo "selected"; } ?>>
+                                        <?= $vehicle_type->name; ?></option>
+                                    <?php } ?>
+                                </select>
 
-                                            <small class="text-danger"><?= form_error('vehicle_type') ?></small>
+                                <small class="text-danger"><?= form_error('vehicle_type') ?></small>
 
-                                        </div>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Make *</label>
+                            <div class="form-group">
+                                <label for="listing_title">Make *</label>
 
-                                            <select class="form-control" name="make" id="make_id">
-                                                <option value="">Select Make</option>
-                                                <?php  foreach($makes as $make){?>
-                                                <option value="<?= $make->id; ?>"
-                                                    <?php if(set_value('make')==$make->name){ echo "selected"; } ?>>
-                                                    <?= $make->name; ?></option>
-                                                <?php }?>
-                                            </select>
+                                <select class="form-control" name="make" id="make_id">
+                                    <option value="">Select Make</option>
+                                    <?php  foreach($makes as $make){?>
+                                    <option value="<?= $make->id; ?>"
+                                        <?php if(set_value('make')==$make->name){ echo "selected"; } ?>>
+                                        <?= $make->name; ?></option>
+                                    <?php }?>
+                                </select>
 
-                                            <small class="text-danger"><?= form_error('make') ?></small>
+                                <small class="text-danger"><?= form_error('make') ?></small>
 
-                                        </div>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Model *</label>
+                            <div class="form-group">
+                                <label for="listing_title">Model *</label>
 
-                                            <select class="form-control" name="model" id="model_id">
-                                                <option value="">Select Model</option>
-                                                <?php  foreach($models as $model){?>
-                                                <option value="<?= $model->id; ?>"
-                                                    <?php if(set_value('model')==$model->name){ echo "selected"; } ?>>
-                                                    <?= $model->name; ?></option>
-                                                <?php }?>
-                                            </select>
+                                <select class="form-control" name="model" id="model_id">
+                                    <option value="">Select Model</option>
+                                    <?php  foreach($models as $model){?>
+                                    <option value="<?= $model->id; ?>"
+                                        <?php if(set_value('model')==$model->name){ echo "selected"; } ?>>
+                                        <?= $model->name; ?></option>
+                                    <?php }?>
+                                </select>
 
-                                            <small class="text-danger"><?= form_error('model') ?></small>
+                                <small class="text-danger"><?= form_error('model') ?></small>
 
-                                        </div>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Variant *</label>
+                            <div class="form-group">
+                                <label for="listing_title">Variant *</label>
 
-                                            <select class="form-control" name="variant" id="variant_id">
-                                                <option value="">Select Variant</option>
-                                                <?php  foreach($variants as $variant){?>
-                                                <option value="<?= $variant->id; ?>"
-                                                    <?php if(set_value('variant')==$variant->name){ echo "selected"; } ?>>
-                                                    <?= $variant->name; ?></option>
-                                                <?php }?>
+                                <select class="form-control" name="variant" id="variant_id">
+                                    <option value="">Select Variant</option>
+                                    <?php  foreach($variants as $variant){?>
+                                    <option value="<?= $variant->id; ?>"
+                                        <?php if(set_value('variant')==$variant->name){ echo "selected"; } ?>>
+                                        <?= $variant->name; ?></option>
+                                    <?php }?>
 
-                                            </select>
+                                </select>
 
-                                            <small class="text-danger"><?= form_error('variant') ?></small>
+                                <small class="text-danger"><?= form_error('variant') ?></small>
 
-                                        </div>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Fuel Type *</label>
+                            <div class="form-group">
+                                <label for="listing_title">Fuel Type *</label>
 
-                                            <select class="form-control" name="fuel_type" id="fuel_type">
-                                                <option value="">Select Fuel Type</option>
-                                                <?php  foreach($fuel_types as $fuel_type){?>
-                                                <option value="<?= $fuel_type->name; ?>"
-                                                    <?php if(set_value('fuel_type')==$fuel_type->name){ echo "selected"; } ?>>
-                                                    <?= $fuel_type->name; ?>
-                                                </option>
-                                                <?php }?>
-                                            </select>
-                                            <small class="text-danger"><?= form_error('fuel_type') ?></small>
-                                        </div>
+                                <select class="form-control" name="fuel_type" id="fuel_type">
+                                    <option value="">Select Fuel Type</option>
+                                    <?php  foreach($fuel_types as $fuel_type){?>
+                                    <option value="<?= $fuel_type->name; ?>"
+                                        <?php if(set_value('fuel_type')==$fuel_type->name){ echo "selected"; } ?>>
+                                        <?= $fuel_type->name; ?>
+                                    </option>
+                                    <?php }?>
+                                </select>
+                                <small class="text-danger"><?= form_error('fuel_type') ?></small>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Color *</label>
+                            <div class="form-group">
+                                <label for="listing_title">Color *</label>
 
-                                            <select class="form-control" name="color" id="color">
-                                                <option value="">Select Color</option>
-                                                <?php  foreach($colors as $color){?>
-                                                <option value="<?= $color->name; ?>"
-                                                    <?php if(set_value('color')==$color->name){ echo "selected"; } ?>>
-                                                    <?= $color->name; ?>
-                                                </option>
-                                                <?php }?>
-                                            </select>
-                                            <small class="text-danger"><?= form_error('color') ?></small>
-                                        </div>
+                                <select class="form-control" name="color" id="color">
+                                    <option value="">Select Color</option>
+                                    <?php  foreach($colors as $color){?>
+                                    <option value="<?= $color->name; ?>"
+                                        <?php if(set_value('color')==$color->name){ echo "selected"; } ?>>
+                                        <?= $color->name; ?>
+                                    </option>
+                                    <?php }?>
+                                </select>
+                                <small class="text-danger"><?= form_error('color') ?></small>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Mileage *</label>
-                                            <input type="text" class="form-control" name="mileage"
-                                                placeholder="Enter mileage" value="<?= set_value('mileage') ?>">
-                                            <small class="text-danger"><?= form_error('mileage') ?></small>
-                                        </div>
+                            <div class="form-group">
+                                <label for="listing_title">Mileage *</label>
+                                <input type="text" class="form-control" name="mileage" placeholder="Enter mileage"
+                                    value="<?= set_value('mileage') ?>">
+                                <small class="text-danger"><?= form_error('mileage') ?></small>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Transmission *</label>
+                            <div class="form-group">
+                                <label for="listing_title">Transmission *</label>
 
-                                            <select class="form-control" name="transmission">
-                                                <option value="">Select Transmission</option>
-                                                <?php  foreach($transmissions as $transmission){?>
-                                                <option value="<?= $transmission->name; ?>"
-                                                    <?php if(set_value('transmission')==$transmission->name){ echo "selected"; } ?>>
-                                                    <?= $transmission->name; ?>
-                                                </option>
-                                                <?php }?>
-                                            </select>
-                                            <small class="text-danger"><?= form_error('transmission') ?></small>
-                                        </div>
+                                <select class="form-control" name="transmission">
+                                    <option value="">Select Transmission</option>
+                                    <?php  foreach($transmissions as $transmission){?>
+                                    <option value="<?= $transmission->name; ?>"
+                                        <?php if(set_value('transmission')==$transmission->name){ echo "selected"; } ?>>
+                                        <?= $transmission->name; ?>
+                                    </option>
+                                    <?php }?>
+                                </select>
+                                <small class="text-danger"><?= form_error('transmission') ?></small>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Condition *</label>
-                                            <select class="form-control" name="vehicle_condition">
-                                                <option value="">Select Condition</option>
-                                                <option value="Good" <?php if(set_value('vehicle_condition')== "Good"){ echo "selected"; } ?>>Good</option>
-                                                <option value="Export" <?php if(set_value('vehicle_condition')== "Export"){ echo "selected"; } ?>>Export</option>
-                                                <option value="Accident Vehicle" <?php if(set_value('vehicle_condition')== "Accident Vehicle"){ echo "selected"; } ?>>Accident Vehicle</option>
-                                            </select>
+                            <div class="form-group">
+                                <label for="listing_title">Condition *</label>
+                                <select class="form-control" name="vehicle_condition">
+                                    <option value="">Select Condition</option>
+                                    <option value="Good"
+                                        <?php if(set_value('vehicle_condition')== "Good"){ echo "selected"; } ?>>Good
+                                    </option>
+                                    <option value="Export"
+                                        <?php if(set_value('vehicle_condition')== "Export"){ echo "selected"; } ?>>
+                                        Export</option>
+                                    <option value="Accident Vehicle"
+                                        <?php if(set_value('vehicle_condition')== "Accident Vehicle"){ echo "selected"; } ?>>
+                                        Accident Vehicle</option>
+                                </select>
 
-                                            <!-- <input type="text" class="form-control" name="vehicle_condition"
+                                <!-- <input type="text" class="form-control" name="vehicle_condition"
                                                 placeholder="Enter Condition"
                                                 value="<?= set_value('vehicle_condition') ?>"> -->
-                                            <small class="text-danger"><?= form_error('vehicle_condition') ?></small>
-                                        </div>
+                                <small class="text-danger"><?= form_error('vehicle_condition') ?></small>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">MFk *</label>
-                                            <input type="date" class="form-control" name="mfk_date"
-                                                placeholder="Enter MFK" value="<?= set_value('mfk_date') ?>">
-                                            <small class="text-danger"><?= form_error('mfk_date') ?></small>
-                                        </div>
+                            <div class="form-group">
+                                <label for="listing_title">MFk *</label>
+                                <input type="date" class="form-control" name="mfk_date" placeholder="Enter MFK"
+                                    value="<?= set_value('mfk_date') ?>">
+                                <small class="text-danger"><?= form_error('mfk_date') ?></small>
+                            </div>
 
-                                        <div class="form-group">
+                            <!-- <div class="form-group">
                                             <label for="listing_title">TUV *</label>
                                             <input type="date" class="form-control" name="tuv_date"
                                                 placeholder="Enter TUV" value="<?= set_value('tuv_date') ?>">
                                             <small class="text-danger"><?= form_error('tuv_date') ?></small>
-                                        </div>
-                                    </div>
+                                        </div> -->
+                        </div>
 
-                                    <div class="form-group">
-                                        <h4>Register & Ownership</h4>
-                                    </div>
-                                    <div class="form-group-4">
+                        <div class="form-group">
+                            <h4>Register & Ownership</h4>
+                        </div>
+                        <div class="form-group-4">
 
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Register Years *</label>
-                                            <input type="number" class="form-control" name="year"
-                                                placeholder="Enter Register year" value="<?= set_value('year') ?>">
-                                            <small class="text-danger"><?= form_error('year') ?></small>
-                                        </div>
+                            <div class="form-group">
+                                <label for="listing_title">Register Years *</label>
+                                <input type="number" class="form-control" name="year" placeholder="Enter Register year"
+                                    value="<?= set_value('year') ?>">
+                                <small class="text-danger"><?= form_error('year') ?></small>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Ownership *</label>
-                                            <!-- <input type="text" class="form-control" name="ownership" placeholder="Enter KM"
+                            <div class="form-group">
+                                <label for="listing_title">Ownership *</label>
+                                <!-- <input type="text" class="form-control" name="ownership" placeholder="Enter KM"
                                                 value="<?= set_value('ownership') ?>"> -->
-                                            <select name="ownership" class="form-control" id="ownership">
-                                                <option value="">Select Owner</option>
-                                                <option value="1st"
-                                                    <?php if(set_value('ownership')== '1st'){ echo "selected"; } ?>>1st
-                                                </option>
-                                                <option value="2nd"
-                                                    <?php if(set_value('ownership')== '2nd'){ echo "selected"; } ?>>2nd
-                                                </option>
-                                                <option value="3rd"
-                                                    <?php if(set_value('ownership')== '3rd'){ echo "selected"; } ?>>3rd
-                                                </option>
-                                            </select>
-                                            <small class="text-danger"><?= form_error('ownership') ?></small>
-                                        </div>
+                                <select name="ownership" class="form-control" id="ownership">
+                                    <option value="">Select Owner</option>
+                                    <option value="1st" <?php if(set_value('ownership')== '1st'){ echo "selected"; } ?>>
+                                        1st
+                                    </option>
+                                    <option value="2nd" <?php if(set_value('ownership')== '2nd'){ echo "selected"; } ?>>
+                                        2nd
+                                    </option>
+                                    <option value="3rd" <?php if(set_value('ownership')== '3rd'){ echo "selected"; } ?>>
+                                        3rd
+                                    </option>
+                                </select>
+                                <small class="text-danger"><?= form_error('ownership') ?></small>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label for="listing_title">Euro Norm *</label>
-                                            <!-- <input type="text" class="form-control" name="ownership" placeholder="Enter KM"
+                            <div class="form-group">
+                                <label for="listing_title">Euro Norm *</label>
+                                <!-- <input type="text" class="form-control" name="ownership" placeholder="Enter KM"
                                                 value="<?= set_value('euro_norm') ?>"> -->
-                                            <select name="euro_norm" class="form-control" id="euro_norm">
-                                                <option value="">Select Euro</option>
-                                                <option value="6 Euro"
-                                                    <?php if(set_value('euro_norm')== '6 Euro'){ echo "selected"; } ?>>6
-                                                    Euro</option>
-                                                <option value="5 Euro"
-                                                    <?php if(set_value('euro_norm')== '5 Euro'){ echo "selected"; } ?>>5
-                                                    Euro</option>
-                                                <option value="4 Euro"
-                                                    <?php if(set_value('euro_norm')== '4 Euro'){ echo "selected"; } ?>>4
-                                                    Euro</option>
-                                                <option value="3 Euro"
-                                                    <?php if(set_value('euro_norm')== '3 Euro'){ echo "selected"; } ?>>3
-                                                    Euro</option>
-                                            </select>
-                                            <small class="text-danger"><?= form_error('euro_norm') ?></small>
-                                        </div>
+                                <select name="euro_norm" class="form-control" id="euro_norm">
+                                    <option value="">Select Euro</option>
+                                    <option value="6 Euro"
+                                        <?php if(set_value('euro_norm')== '6 Euro'){ echo "selected"; } ?>>6
+                                        Euro</option>
+                                    <option value="5 Euro"
+                                        <?php if(set_value('euro_norm')== '5 Euro'){ echo "selected"; } ?>>5
+                                        Euro</option>
+                                    <option value="4 Euro"
+                                        <?php if(set_value('euro_norm')== '4 Euro'){ echo "selected"; } ?>>4
+                                        Euro</option>
+                                    <option value="3 Euro"
+                                        <?php if(set_value('euro_norm')== '3 Euro'){ echo "selected"; } ?>>3
+                                        Euro</option>
+                                </select>
+                                <small class="text-danger"><?= form_error('euro_norm') ?></small>
+                            </div>
 
 
-                                        <div class="form-group">
-                                            <label for="listing_title">KM Driven *</label>
-                                            <input type="text" class="form-control" name="km" placeholder="Enter KM"
-                                                value="<?= set_value('km') ?>">
-                                            <small class="text-danger"><?= form_error('km') ?></small>
-                                        </div>
-                                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="listing_title">KM Driven *</label>
+                                <input type="text" class="form-control" name="km" placeholder="Enter KM"
+                                    value="<?= set_value('km') ?>">
+                                <small class="text-danger"><?= form_error('km') ?></small>
+                            </div>
+                            <!-- <div class="form-group">
                                             <label for="listing_title">Co<sub>2</sub> Emission *</label>
                                             <input type="text" class="form-control" name="co2_emission"
                                                 placeholder="Enter co2 Emission"
                                                 value="<?= set_value('co2_emission') ?>">
                                             <small class="text-danger"><?= form_error('co2_emission') ?></small>
-                                        </div>
+                                        </div> -->
 
-                                    </div>
-                                    <!-- Photos -->
+                        </div>
+                        <!-- Photos -->
 
-                                    <div class="form-group">
-                                        <h4>Features & Specifications</h4>
-                                    </div>
+                        <div class="form-group">
+                            <h4>Features & Specifications</h4>
+                        </div>
 
-                                    <div class="form-group-4">
-                                        <div class="form-group ">
-                                            <label for="winter_tires">Winter Tires <span
-                                                    class="text-danger">*</span></label>
-                                            <select class="form-control" name="winter_tires" id="winter_tires">
-                                                <option value="">Select</option>
-                                                <option value="Yes"
-                                                    <?= set_value('winter_tires') == 'Yes' ? 'selected' : '' ?>>Yes
-                                                </option>
-                                                <option value="No"
-                                                    <?= set_value('winter_tires') == 'No' ? 'selected' : '' ?>>No
-                                                </option>
-                                            </select>
-                                            <small class="text-danger"><?= form_error('winter_tires') ?></small>
-                                        </div>
+                        <div class="form-group-4">
+                            <div class="form-group ">
+                                <label for="winter_tires">Winter Tires <span class="text-danger">*</span></label>
+                                <select class="form-control" name="winter_tires" id="winter_tires">
+                                    <option value="">Select</option>
+                                    <option value="Yes" <?= set_value('winter_tires') == 'Yes' ? 'selected' : '' ?>>Yes
+                                    </option>
+                                    <option value="No" <?= set_value('winter_tires') == 'No' ? 'selected' : '' ?>>No
+                                    </option>
+                                </select>
+                                <small class="text-danger"><?= form_error('winter_tires') ?></small>
+                            </div>
 
-                                        <div class="form-group  feature-car feature-bus" style="display:none;">
-                                            <label for="listing_title"> Climate Control / AC Type *</label>
-                                                    <select name="ac_type" class="form-control" id="">
-                                                        <option value="">Select Climate Control Type</option>
-                                                        <option value="No AC" <?php if(set_value('ac_type')== 'No AC'){ echo "selected"; } ?>>No AC</option>
-                                                        <option value="Manual AC" <?php if(set_value('ac_type')== 'Manual AC'){ echo "selected"; } ?>>Manual AC</option>
-                                                        <option value="Automatic AC" <?php if(set_value('ac_type')== 'Automatic AC'){ echo "selected"; } ?> >Automatic AC</option>
-                                                        <option value="Dual-Zone Automatic AC" <?php if(set_value('ac_type')== 'Dual-Zone Automatic AC'){ echo "selected"; } ?>>Dual-Zone Automatic AC</option>
-                                                        <option value="Tri-Zone Automatic AC" <?php if(set_value('ac_type')== 'Tri-Zone Automatic AC'){ echo "selected"; } ?> >Tri-Zone Automatic AC</option>
-                                                        <option value="4-Zone Automatic AC" <?php if(set_value('ac_type')== '4-Zone Automatic AC'){ echo "selected"; } ?> >4-Zone Automatic AC</option>
-                                                    </select>
-                                         
-                                        </div> 
+                            <div class="form-group  feature-car feature-bus" style="display:none;">
+                                <label for="listing_title"> Climate Control / AC Type *</label>
+                                <select name="ac_type" class="form-control" id="">
+                                    <option value="">Select Climate Control Type</option>
+                                    <option value="No AC"
+                                        <?php if(set_value('ac_type')== 'No AC'){ echo "selected"; } ?>>No AC</option>
+                                    <option value="Manual AC"
+                                        <?php if(set_value('ac_type')== 'Manual AC'){ echo "selected"; } ?>>Manual AC
+                                    </option>
+                                    <option value="Automatic AC"
+                                        <?php if(set_value('ac_type')== 'Automatic AC'){ echo "selected"; } ?>>Automatic
+                                        AC</option>
+                                    <option value="Dual-Zone Automatic AC"
+                                        <?php if(set_value('ac_type')== 'Dual-Zone Automatic AC'){ echo "selected"; } ?>>
+                                        Dual-Zone Automatic AC</option>
+                                    <option value="Tri-Zone Automatic AC"
+                                        <?php if(set_value('ac_type')== 'Tri-Zone Automatic AC'){ echo "selected"; } ?>>
+                                        Tri-Zone Automatic AC</option>
+                                    <option value="4-Zone Automatic AC"
+                                        <?php if(set_value('ac_type')== '4-Zone Automatic AC'){ echo "selected"; } ?>>
+                                        4-Zone Automatic AC</option>
+                                </select>
 
-                                            <!-- <div class="form-group feature-car feature-bus" style="display:none;">
+                            </div>
+
+                            <!-- <div class="form-group feature-car feature-bus" style="display:none;">
                                             <label for="listing_title"> 4x4*</label>
                                                     <select name="4x4" class="form-control" id="four_by_four">
                                                         <option value="">Select</option>
@@ -777,128 +790,122 @@
                                      
                                         </div> -->
 
-                                        <div class="form-group feature-car feature-bus" style="display:none;">
-                                            <label for="parking_sensors">Parking Sensors</label>
-                                            <select class="form-control" name="parking_sensors" class="form-control">
-                                                <option value="">Select</option>
-                                                <option value="None">None</option>
-                                                <option value="Rear Only">Rear Only</option>
-                                                <option value="Front Only">Front Only</option>
-                                                <option value="Front and Rear">Front and Rear</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <h4>Comfort & Interior Features</h4>
-                                    </div>
-                                    <div class="form-group-4">
-                                        
-                                        <?php if(isset($comforts) && !empty($comforts)){ foreach($comforts as $comfort){ ?>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="comfort_and_interior[]"
-                                                value="<?= $comfort->name ?>"
-                                                <?php if(set_value('comfort_and_interior')==  $comfort->name ){ echo "checked"; } ?>><?= $comfort->name ?>
-                                        </div>
-                                        <?php } } ?>
-                                </div>
+                            <div class="form-group feature-car feature-bus" style="display:none;">
+                                <label for="parking_sensors">Parking Sensors</label>
+                                <select class="form-control" name="parking_sensors" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="None">None</option>
+                                    <option value="Rear Only">Rear Only</option>
+                                    <option value="Front Only">Front Only</option>
+                                    <option value="Front and Rear">Front and Rear</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h4>Comfort & Interior Features</h4>
+                        </div>
+                        <div class="form-group-4">
 
-                                    <div class="form-group">
-                                        <h4>Safety & Assistance</h4>
-                                    </div>
-                                    <div class="form-group-4">
-                                        <?php if(isset($safety_and_assistance) && !empty($safety_and_assistance)){ foreach($safety_and_assistance as $safety){ ?>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="safety_and_assistance[]"
-                                                value="<?= $safety->name ?>"
-                                                <?php if(set_value('safety_and_assistance')==  $safety->name ){ echo "checked"; } ?>><?= $safety->name ?>
-                                        </div>
-                                        <?php }}  ?>
-                                </div>
+                            <?php if(isset($comforts) && !empty($comforts)){ foreach($comforts as $comfort){ ?>
+                            <div class="form-group">
+                                <input type="checkbox" name="comfort_and_interior[]" value="<?= $comfort->name ?>"
+                                    <?php if(set_value('comfort_and_interior')==  $comfort->name ){ echo "checked"; } ?>><?= $comfort->name ?>
+                            </div>
+                            <?php } } ?>
+                        </div>
 
-                                    <div class="form-group">
-                                        <h4>Lighting & Visibility</h4>
-                                    </div>
-                                    <div class="form-group-4">
-                                        <?php if(isset($lighting_and_visibility) && !empty($lighting_and_visibility)){ foreach($lighting_and_visibility as $lighting){ ?>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="lighting_and_visibility[]"
-                                                value="<?= $lighting->name ?>"
-                                                <?php if(set_value('lighting_and_visibility')==  $lighting->name ){ echo "checked"; } ?>><?= $lighting->name ?>
-                                        </div>
-                                        <?php } } ?>
-                                </div>
+                        <div class="form-group">
+                            <h4>Safety & Assistance</h4>
+                        </div>
+                        <div class="form-group-4">
+                            <?php if(isset($safety_and_assistance) && !empty($safety_and_assistance)){ foreach($safety_and_assistance as $safety){ ?>
+                            <div class="form-group">
+                                <input type="checkbox" name="safety_and_assistance[]" value="<?= $safety->name ?>"
+                                    <?php if(set_value('safety_and_assistance')==  $safety->name ){ echo "checked"; } ?>><?= $safety->name ?>
+                            </div>
+                            <?php }}  ?>
+                        </div>
 
-                                  <div class="form-group">
-                                        <h4>Multimedia & Navigation</h4>
-                                    </div>
-                                    <div class="form-group-4">
-                                        <?php if(isset($multimedia_and_navigation) && !empty($multimedia_and_navigation)){   foreach($multimedia_and_navigation as $multimedia){ ?>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="multimedia_and_navigation[]"
-                                                value="<?= $multimedia->name ?>"
-                                                <?php if(set_value('multimedia_and_navigation')==  $multimedia->name ){ echo "checked"; } ?>><?= $multimedia->name ?>
-                                        </div>
-                                        <?php } } ?>
-                                </div>
+                        <div class="form-group">
+                            <h4>Lighting & Visibility</h4>
+                        </div>
+                        <div class="form-group-4">
+                            <?php if(isset($lighting_and_visibility) && !empty($lighting_and_visibility)){ foreach($lighting_and_visibility as $lighting){ ?>
+                            <div class="form-group">
+                                <input type="checkbox" name="lighting_and_visibility[]" value="<?= $lighting->name ?>"
+                                    <?php if(set_value('lighting_and_visibility')==  $lighting->name ){ echo "checked"; } ?>><?= $lighting->name ?>
+                            </div>
+                            <?php } } ?>
+                        </div>
 
-                                      <div class="form-group">
-                                        <h4>Engine & Drive Technology</h4>
-                                    </div>
-                                    <div class="form-group-4">
-                                        <?php if(isset($engine_and_drive_technology) && !empty($engine_and_drive_technology)){   foreach($engine_and_drive_technology as $engine){ ?>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="engine_and_drive_technology[]"
-                                                value="<?= $engine->name ?>"
-                                                <?php if(set_value('engine_and_drive_technology')==  $engine->name ){ echo "checked"; } ?>><?= $engine->name ?>
-                                        </div>
-                                        <?php } } ?>
-                                </div>
+                        <div class="form-group">
+                            <h4>Multimedia & Navigation</h4>
+                        </div>
+                        <div class="form-group-4">
+                            <?php if(isset($multimedia_and_navigation) && !empty($multimedia_and_navigation)){   foreach($multimedia_and_navigation as $multimedia){ ?>
+                            <div class="form-group">
+                                <input type="checkbox" name="multimedia_and_navigation[]"
+                                    value="<?= $multimedia->name ?>"
+                                    <?php if(set_value('multimedia_and_navigation')==  $multimedia->name ){ echo "checked"; } ?>><?= $multimedia->name ?>
+                            </div>
+                            <?php } } ?>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Engine & Drive Technology</h4>
+                        </div>
+                        <div class="form-group-4">
+                            <?php if(isset($engine_and_drive_technology) && !empty($engine_and_drive_technology)){   foreach($engine_and_drive_technology as $engine){ ?>
+                            <div class="form-group">
+                                <input type="checkbox" name="engine_and_drive_technology[]" value="<?= $engine->name ?>"
+                                    <?php if(set_value('engine_and_drive_technology')==  $engine->name ){ echo "checked"; } ?>><?= $engine->name ?>
+                            </div>
+                            <?php } } ?>
+                        </div>
 
 
-                                
-                                      <div class="form-group">
-                                        <h4>Exterior & Design</h4>
-                                    </div>
-                                    <div class="form-group-4">
-                                        <?php if(isset($exterior_and_design) && !empty($exterior_and_design)){   foreach($exterior_and_design as $exterior){ ?>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="exterior[]"
-                                                value="<?= $exterior->name ?>"
-                                                <?php if(set_value('exterior')==  $exterior->name ){ echo "checked"; } ?>><?= $exterior->name ?>
-                                        </div>
-                                        <?php } } ?>
-                                </div>
+
+                        <div class="form-group">
+                            <h4>Exterior & Design</h4>
+                        </div>
+                        <div class="form-group-4">
+                            <?php if(isset($exterior_and_design) && !empty($exterior_and_design)){   foreach($exterior_and_design as $exterior){ ?>
+                            <div class="form-group">
+                                <input type="checkbox" name="exterior[]" value="<?= $exterior->name ?>"
+                                    <?php if(set_value('exterior')==  $exterior->name ){ echo "checked"; } ?>><?= $exterior->name ?>
+                            </div>
+                            <?php } } ?>
+                        </div>
 
 
-                                
-                                      <div class="form-group">
-                                        <h4>Other Features & Extras</h4>
-                                    </div>
-                                    <div class="form-group-4">
-                                        <?php if(isset($other_features_and_extras) && !empty($other_features_and_extras)){    foreach($other_features_and_extras as $other){ ?>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="other_features_and_extras[]"
-                                                value="<?= $other->name ?>"
-                                                <?php if(set_value('other_features_and_extras')==  $other->name ){ echo "checked"; } ?>><?= $other->name ?>
-                                        </div>
-                                        <?php } } ?>
-                                </div>
+
+                        <div class="form-group">
+                            <h4>Other Features & Extras</h4>
+                        </div>
+                        <div class="form-group-4">
+                            <?php if(isset($other_features_and_extras) && !empty($other_features_and_extras)){    foreach($other_features_and_extras as $other){ ?>
+                            <div class="form-group">
+                                <input type="checkbox" name="other_features_and_extras[]" value="<?= $other->name ?>"
+                                    <?php if(set_value('other_features_and_extras')==  $other->name ){ echo "checked"; } ?>><?= $other->name ?>
+                            </div>
+                            <?php } } ?>
+                        </div>
 
 
-                                <div class="form-group">
-                                    <h4>Pricing & Description</h4>
-                                </div>
-                                <div class="form-group-2">
-                                    <div class="form-group">
-                                        <label for="listing_title">Expected Price *</label>
-                                        <input type="text" class="form-control" name="price" placeholder="Enter Price"
-                                            value="<?= set_value('price') ?>">
+                        <div class="form-group">
+                            <h4>Pricing & Description</h4>
+                        </div>
+                        <div class="form-group-2">
+                            <div class="form-group">
+                                <label for="listing_title">Expected Price *</label>
+                                <input type="text" class="form-control" name="price" placeholder="Enter Price"
+                                    value="<?= set_value('price') ?>">
 
-                                        <small class="text-danger"><?= form_error('price') ?></small>
+                                <small class="text-danger"><?= form_error('price') ?></small>
 
-                                    </div>
+                            </div>
 
-                                    <div class="form-group">
+                            <!-- <div class="form-group">
                                         <label for="listing_title"> Is Price Negotiable *</label>
                                         <select name="is_negotiable" class="form-control" id="is_negotiable">
                                             <option value="">Select</option>
@@ -910,67 +917,67 @@
                                             </option>
                                         </select>
                                         <small class="text-danger"><?= form_error('is_negotiable') ?></small>
-                                    </div>
-                                </div>
+                                    </div> -->
+                        </div>
 
-                                <div class="form-group">
+                        <!-- <div class="form-group">
                                     <label for="listing_title">Description</label>
                                     <textarea name="description" class="form-control" id="description"
                                         placeholder="Your Description..."><?= set_value('description') ?></textarea>
 
                                     <small class="text-danger"><?= form_error('description') ?></small>
-                                </div>
+                                </div> -->
 
 
-                                <div class="form-group">
-                                    <h4>Location</h4>
-                                </div>
-                                <div class="form-group-4">
-                                    <div class="form-group">
-                                        <label for="listing_title">Canton *</label>
+                        <div class="form-group">
+                            <h4>Location</h4>
+                        </div>
+                        <div class="form-group-4">
+                            <div class="form-group">
+                                <label for="listing_title">Canton *</label>
 
-                                        <select class="form-control" name="state" id="state">
-                                            <option value="">Select Location</option>
-                                            <?php  foreach($states as $state){?>
-                                            <option value="<?= $state->id; ?>"
-                                                <?php if(set_value('state')==$state->name){ echo "selected"; } ?>>
-                                                <?= $state->name; ?>
-                                            </option>
-                                            <?php }?>
-                                        </select>
+                                <select class="form-control" name="state" id="state">
+                                    <option value="">Select Location</option>
+                                    <?php  foreach($states as $state){?>
+                                    <option value="<?= $state->id; ?>"
+                                        <?php if(set_value('state')==$state->name){ echo "selected"; } ?>>
+                                        <?= $state->name; ?>
+                                    </option>
+                                    <?php }?>
+                                </select>
 
-                                        <small class="text-danger"><?= form_error('state') ?></small>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="listing_title">City/Town *</label>
-
-                                        <select class="form-control" name="location" id="city">
-                                            <option value="">Select City</option>
-                                            <?php  foreach($cities as $city){?>
-                                            <option value="<?= $city->id; ?>"
-                                                <?php if(set_value('location')==$city->city_name){ echo "selected"; } ?>>
-                                                <?= $city->city_name; ?>
-                                            </option>
-                                            <?php }?>
-                                        </select>
-
-                                        <small class="text-danger"><?= form_error('location') ?></small>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="listing_title">Zipcode *</label>
-
-                                        <input type="text" class="form-control" name="zipcode"
-                                            placeholder="Enter Zipcode" value="<?= set_value('zipcode') ?>">
-                                        <small class="text-danger"><?= form_error('zipcode') ?></small>
-                                    </div>
+                                <small class="text-danger"><?= form_error('state') ?></small>
+                            </div>
 
 
-                                </div>
+                            <div class="form-group">
+                                <label for="listing_title">City/Town *</label>
 
-                                <div class="form-group">
+                                <select class="form-control" name="location" id="city">
+                                    <option value="">Select City</option>
+                                    <?php  foreach($cities as $city){?>
+                                    <option value="<?= $city->id; ?>"
+                                        <?php if(set_value('location')==$city->city_name){ echo "selected"; } ?>>
+                                        <?= $city->city_name; ?>
+                                    </option>
+                                    <?php }?>
+                                </select>
+
+                                <small class="text-danger"><?= form_error('location') ?></small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="listing_title">Zipcode *</label>
+
+                                <input type="text" class="form-control" name="zipcode" placeholder="Enter Zipcode"
+                                    value="<?= set_value('zipcode') ?>">
+                                <small class="text-danger"><?= form_error('zipcode') ?></small>
+                            </div>
+
+
+                        </div>
+
+                        <!-- <div class="form-group">
                                     <h4>Upload Section</h4>
                                 </div>
                                 <div class="form-group-4">
@@ -987,39 +994,39 @@
                                     </div>
 
 
-                                </div>
+                                </div> -->
 
-                        </div>
+                    </div>
 
-                        <div class="group-button-submit mb-2">
+                    <div class="group-button-submit mb-2">
 
-                            <button type="submit" class="second-btn">Submit</button>
-                        </div>
+                        <button type="submit" class="second-btn">Submit</button>
+                    </div>
 
-                        </form>
+                </form>
             </div>
 
         </div>
-                                        </div>
-    
+    </div>
+
 
     <?php include('footer.php'); ?>
 
 
-<script>
-$('#filter_by_location').on('change', function() {
-    // console.log('hello');
-    var selectlocation = $(this).val();
-    $.ajax({
-        url: '<?= base_url("set-location") ?>',
-        type: 'POST',
-        data: {
-            location: selectlocation
-        },
-        success: function(response) {
-            console.log('Location set in session:', response);
-            location.reload();
-        }
+    <script>
+    $('#filter_by_location').on('change', function() {
+        // console.log('hello');
+        var selectlocation = $(this).val();
+        $.ajax({
+            url: '<?= base_url("set-location") ?>',
+            type: 'POST',
+            data: {
+                location: selectlocation
+            },
+            success: function(response) {
+                console.log('Location set in session:', response);
+                location.reload();
+            }
+        });
     });
-});
-</script>
+    </script>

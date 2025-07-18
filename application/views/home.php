@@ -56,7 +56,7 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
- 
+
     /* The little arrow pointer */
     .arrow-up {
         position: absolute;
@@ -364,15 +364,50 @@
                                         </div>
                                         <?php }else{ ?>
 
-                                       <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle position-relative" href="#" id="messageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-envelope fs-4 text-white"></i>
-                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="unreadCount" style="display: none;">0</span>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="messageDropdown" style="width: 300px; max-height: 400px; overflow-y: auto;" id="messageDropdownContent">
-                                            <li class="text-center text-muted">Loading...</li>
-                                        </ul>
-                                    </li>
+                                            <!-- Favorite Start -->
+
+                                           <li class="nav-item dropdown">
+                                                <a class="nav-link position-relative" href="<?= base_url('favorite-list'); ?>" title="My Favorites">
+                                                    <!-- White Heart Icon -->
+                                                    <svg width="20" height="18" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M14.75 4.1875C14.75 2.32375 13.1758 0.8125 11.234 0.8125C9.78275 0.8125 8.53625 1.657 8 2.86225C7.46375 1.657 6.21725 0.8125 4.76525 0.8125C2.825 0.8125 1.25 2.32375 1.25 4.1875C1.25 9.6025 8 13.1875 8 13.1875C8 13.1875 14.75 9.6025 14.75 4.1875Z"
+                                                            fill="none"
+                                                            stroke="white"
+                                                            stroke-width="1.5"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+
+                                                    <?php if ($favorite_count > 0): ?>
+                                                        <span
+                                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            style="font-size: 12px;">
+                                                            <?= $favorite_count ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </li>
+
+
+                                            <!-- Favorite End -->
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle position-relative" href="#"
+                                                id="messageDropdown" role="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="bi bi-envelope fs-4 text-white"></i>
+                                                <span
+                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                    id="unreadCount" style="display: none;">0</span>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end p-2"
+                                                aria-labelledby="messageDropdown"
+                                                style="width: 300px; max-height: 400px; overflow-y: auto;"
+                                                id="messageDropdownContent">
+                                                <li class="text-center text-muted">Loading...</li>
+                                            </ul>
+                                        </li>
                                         <div class="register">
 
 
@@ -991,192 +1026,7 @@
                 </div>
             </div>
             <!-- widegt categori -->
-            <section class="tf-section2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="heading-section flex align-center justify-space flex-wrap gap-20">
-                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">Popular
-                                    Brands</h2>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="swiper partner-slide overflow-hidden">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner1.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner1.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Land Rover </div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Kia</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Toyota</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Jeep</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Nissan</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Ford</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner1.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner1.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Land Rover </div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Kia</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Toyota</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Jeep</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Nissan</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
-                                            <div class="image">
-                                                <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
-                                                    alt="images">
-                                            </div>
-                                            <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Ford</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
 
             <!-- widegt List car -->
             <section class="tf-section">
@@ -1184,16 +1034,16 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="heading-section flex align-center justify-space flex-wrap gap-20">
-                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">Used Cars
-                                    by Budget</h2>
-                                <a href="<?= base_url('listing-list'); ?>" class="tf-btn-arrow wow fadeInUpSmall"
+                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">Latest
+                                    Cars for Sale</h2>
+                                <a href="<?= base_url('car'); ?>" class="tf-btn-arrow wow fadeInUpSmall"
                                     data-wow-delay="0.2s" data-wow-duration="1000ms">View all<i
                                         class="icon-autodeal-btn-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="flat-tabs themesflat-tabs ">
-                                <div class="box-tab center">
+                                <!-- <div class="box-tab center">
                                     <ul class="menu-tab tab-title style flex ">
                                         <li class="item-title active ">
                                             <h5 class="inner">Auto Decar used cars</h5>
@@ -1211,7 +1061,7 @@
                                             <h5 class="inner">$90.000 - $120.000</h5>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <div class="content-tab">
 
 
@@ -1220,7 +1070,7 @@
                                             data-mobile-sm="2" data-mobile="1" data-space-lg="30" data-space-md="15"
                                             data-space="15">
                                             <div class="swiper-wrapper">
-                                                <?php if(!empty($vehicles)){ foreach($vehicles as $vehicle){?>
+                                                <?php if(!empty($cars)){ foreach($cars as $car){?>
                                                 <div class="swiper-slide">
                                                     <div class="box-car-list hv-one">
                                                         <div class="image-group relative ">
@@ -1247,7 +1097,7 @@
                                                             <div class="swiper-container carousel-2 img-style">
 
                                                                 <div class="swiper-wrapper ">
-                                                                    <?php $car_img = $this->db->where('car_list_id',$vehicle->id)->get('car_img')->result(); foreach($car_img as $c_img){ ?>
+                                                                    <?php $car_img = $this->db->where('car_list_id',$car->id)->get('car_img')->result(); foreach($car_img as $c_img){ ?>
                                                                     <div class="swiper-slide">
                                                                         <img class="lazyload"
                                                                             data-src="<?= base_url('uploads/'.$c_img->photos); ?>"
@@ -1278,11 +1128,11 @@
                                                         <div class="content">
                                                             <?php
                                                             
-                                                            $makes = $this->db->where('id',$vehicle->make)->get('make')->result();
+                                                            $makes = $this->db->where('id',$car->make)->get('make')->result();
 
-                                                             $models = $this->db->where('id',$vehicle->model)->get('model')->result();
+                                                             $models = $this->db->where('id',$car->model)->get('model')->result();
 
-                                                             $added_by = $this->db->where('id',$vehicle->added_by)->get('users')->result();
+                                                             $added_by = $this->db->where('id',$car->added_by)->get('users')->result();
 
                                                             foreach ($makes as $make) { ?>
                                                             <div class="text-address">
@@ -1291,25 +1141,25 @@
                                                             <?php foreach ($models as $model) { ?>
                                                             <h5 class="link-style-1">
                                                                 <a
-                                                                    href="<?= base_url('list-details/'.$vehicle->slug); ?>"><?= $vehicle->year. " " .$make->name. " " .$model->name ; ?></a>
+                                                                    href="<?= base_url('list-details/'.$car->slug); ?>"><?= $car->year. " " .$make->name. " " .$model->name ; ?></a>
                                                             </h5>
                                                             <?php } } ?>
                                                             <div class="icon-box flex flex-wrap">
                                                                 <div class="icons flex-three">
                                                                     <i class="icon-autodeal-km1"></i>
-                                                                    <span><?= $vehicle->mileage; ?> kms</span>
+                                                                    <span><?= $car->mileage; ?> kms</span>
                                                                 </div>
                                                                 <div class="icons flex-three">
                                                                     <i class="icon-autodeal-diesel"></i>
-                                                                    <span><?= $vehicle->fuel_type; ?></span>
+                                                                    <span><?= $car->fuel_type; ?></span>
                                                                 </div>
                                                                 <div class="icons flex-three">
                                                                     <i class="icon-autodeal-automatic"></i>
-                                                                    <span><?= $vehicle->transmission; ?></span>
+                                                                    <span><?= $car->transmission; ?></span>
                                                                 </div>
                                                             </div>
                                                             <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
-                                                                <?= $vehicle->price; ?>
+                                                                <?= $car->price; ?>
                                                             </div>
                                                             <div class="days-box flex justify-space align-center">
                                                                 <?php foreach ($added_by as $added) { ?>
@@ -1330,9 +1180,9 @@
                                                                     <span
                                                                         class="font text-color-2 fw-5"><?= $added->username; ?></span>
                                                                 </div>
-                                                                <a href="<?= base_url('list-details/'.$vehicle->slug); ?>"
+                                                                <a href="<?= base_url('list-details/'.$car->slug); ?>"
                                                                     class="view-car">View
-                                                                    car</a>
+                                                                    Details</a>
                                                                 <?php } ?>
                                                             </div>
                                                         </div>
@@ -2889,11 +2739,309 @@
                         </div>
 
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading-section flex align-center justify-space flex-wrap gap-20">
+                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">Top Bikes
+                                    on Sale</h2>
+                                <a href="<?= base_url('bike'); ?>" class="tf-btn-arrow wow fadeInUpSmall"
+                                    data-wow-delay="0.2s" data-wow-duration="1000ms">View all<i
+                                        class="icon-autodeal-btn-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="flat-tabs themesflat-tabs ">
+                                <!-- <div class="box-tab center">
+                                    <ul class="menu-tab tab-title style flex ">
+                                        <li class="item-title active ">
+                                            <h5 class="inner">Auto Decar used cars</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner">$20.000 - $50.000</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner ">$50.000 - $70.000</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner">$70.000 - $90.000</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner">$90.000 - $120.000</h5>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                                <div class="content-tab">
+
+
+                                    <div class="content-inner tab-content">
+                                        <div class="swiper tf-sw-mobile" data-preview="3" data-tablet="2"
+                                            data-mobile-sm="2" data-mobile="1" data-space-lg="30" data-space-md="15"
+                                            data-space="15">
+                                            <div class="swiper-wrapper">
+                                                <?php if(!empty($bikes)){ foreach($bikes as $bike){?>
+                                                <div class="swiper-slide">
+                                                    <div class="box-car-list hv-one">
+                                                        <div class="image-group relative ">
+                                                            <div class="swiper-container carousel-2 img-style">
+                                                                <div class="swiper-wrapper ">
+                                                                    <?php $car_img = $this->db->where('car_list_id',$bike->id)->get('car_img')->result(); foreach($car_img as $c_img){ ?>
+                                                                    <div class="swiper-slide">
+                                                                        <img class="lazyload"
+                                                                            data-src="<?= base_url('uploads/'.$c_img->photos); ?>"
+                                                                            src="<?= base_url('uploads/'.$c_img->photos); ?>"
+                                                                            alt="image">
+                                                                    </div>
+                                                                    <?php } ?>
+
+                                                                    <!-- <div class="swiper-slide"><img class="lazyload"
+                                                                            data-src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
+                                                                            src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
+                                                                            alt="image"></div>
+                                                                    <div class="swiper-slide"><img class="lazyload"
+                                                                            data-src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
+                                                                            src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
+                                                                            alt="image"></div>
+                                                                    <div class="swiper-slide"><img class="lazyload" 
+                                                                            data-src="<?= base_url(); ?>/assets/assets/images/car-list/car4.jpg"
+                                                                            src="<?= base_url(); ?>/assets/assets/images/car-list/car4.jpg"
+                                                                            alt="image"></div>-->
+
+                                                                </div>
+                                                                <div class="pagi2">
+                                                                    <div class="swiper-pagination2"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="content">
+                                                            <?php
+                                                            
+                                                            $makes = $this->db->where('id',$bike->make)->get('make')->result();
+
+                                                             $models = $this->db->where('id',$bike->model)->get('model')->result();
+
+                                                             $added_by = $this->db->where('id',$bike->added_by)->get('users')->result();
+
+                                                            foreach ($makes as $make) { ?>
+                                                            <div class="text-address">
+                                                                <p class="text-color-3 font"><?= $make->name; ?></p>
+                                                            </div>
+                                                            <?php foreach ($models as $model) { ?>
+                                                            <h5 class="link-style-1">
+                                                                <a
+                                                                    href="<?= base_url('list-details/'.$bike->slug); ?>"><?= $bike->year. " " .$make->name. " " .$model->name ; ?></a>
+                                                            </h5>
+                                                            <?php } } ?>
+                                                            <div class="icon-box flex flex-wrap">
+                                                                <div class="icons flex-three">
+                                                                    <i class="icon-autodeal-km1"></i>
+                                                                    <span><?= $bike->mileage; ?> kms</span>
+                                                                </div>
+                                                                <div class="icons flex-three">
+                                                                    <i class="icon-autodeal-diesel"></i>
+                                                                    <span><?= $bike->fuel_type; ?></span>
+                                                                </div>
+                                                                <div class="icons flex-three">
+                                                                    <i class="icon-autodeal-automatic"></i>
+                                                                    <span><?= $bike->transmission; ?></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
+                                                                <?= $bike->price; ?>
+                                                            </div>
+                                                            <div class="days-box flex justify-space align-center">
+                                                                <?php foreach ($added_by as $added) { ?>
+                                                                <div class="img-author">
+
+                                                                    <?php if(!empty($added->profile)){?>
+                                                                    <img class="lazyload"
+                                                                        data-src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
+                                                                        src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
+                                                                        alt="image">
+                                                                    <?php }else{?>
+                                                                    <img class="lazyload"
+                                                                        data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
+                                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
+                                                                        alt="image">
+                                                                    <?php } ?>
+
+                                                                    <span
+                                                                        class="font text-color-2 fw-5"><?= $added->username; ?></span>
+                                                                </div>
+                                                                <a href="<?= base_url('list-details/'.$bike->slug); ?>"
+                                                                    class="view-car">View
+                                                                    Details</a>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php }}?>
+                                            </div>
+                                            <div class="swiper-pagination3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- widegt List Bike Start -->
+                    <!-- <section class="tf-section">
+                <div class="container"> -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading-section flex align-center justify-space flex-wrap gap-20">
+                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">
+                                    Commercial Vehicles Available</h2>
+                                <a href="<?= base_url('commercial'); ?>" class="tf-btn-arrow wow fadeInUpSmall"
+                                    data-wow-delay="0.2s" data-wow-duration="1000ms">View all<i
+                                        class="icon-autodeal-btn-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="flat-tabs themesflat-tabs ">
+                                <!-- <div class="box-tab center">
+                                    <ul class="menu-tab tab-title style flex ">
+                                        <li class="item-title active ">
+                                            <h5 class="inner">Auto Decar used cars</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner">$20.000 - $50.000</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner ">$50.000 - $70.000</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner">$70.000 - $90.000</h5>
+                                        </li>
+                                        <li class="item-title">
+                                            <h5 class="inner">$90.000 - $120.000</h5>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                                <div class="content-tab">
+
+
+                                    <div class="content-inner tab-content">
+                                        <div class="swiper tf-sw-mobile" data-preview="3" data-tablet="2"
+                                            data-mobile-sm="2" data-mobile="1" data-space-lg="30" data-space-md="15"
+                                            data-space="15">
+                                            <div class="swiper-wrapper">
+                                                <?php if(!empty($commercials)){ foreach($commercials as $commercial){?>
+                                                <div class="swiper-slide">
+                                                    <div class="box-car-list hv-one">
+                                                        <div class="image-group relative ">
+                                                            <div class="swiper-container carousel-2 img-style">
+                                                                <div class="swiper-wrapper ">
+                                                                    <?php $car_img = $this->db->where('car_list_id',$commercial->id)->get('car_img')->result(); foreach($car_img as $c_img){ ?>
+                                                                    <div class="swiper-slide">
+                                                                        <img class="lazyload"
+                                                                            data-src="<?= base_url('uploads/'.$c_img->photos); ?>"
+                                                                            src="<?= base_url('uploads/'.$c_img->photos); ?>"
+                                                                            alt="image">
+                                                                    </div>
+                                                                    <?php } ?>
+
+                                                                    <!-- <div class="swiper-slide"><img class="lazyload"
+                                                                            data-src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
+                                                                            src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
+                                                                            alt="image"></div>
+                                                                    <div class="swiper-slide"><img class="lazyload"
+                                                                            data-src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
+                                                                            src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
+                                                                            alt="image"></div>
+                                                                    <div class="swiper-slide"><img class="lazyload" 
+                                                                            data-src="<?= base_url(); ?>/assets/assets/images/car-list/car4.jpg"
+                                                                            src="<?= base_url(); ?>/assets/assets/images/car-list/car4.jpg"
+                                                                            alt="image"></div>-->
+
+                                                                </div>
+                                                                <div class="pagi2">
+                                                                    <div class="swiper-pagination2"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="content">
+                                                            <?php
+                                                            
+                                                            $makes = $this->db->where('id',$commercial->make)->get('make')->result();
+
+                                                             $models = $this->db->where('id',$commercial->model)->get('model')->result();
+
+                                                             $added_by = $this->db->where('id',$commercial->added_by)->get('users')->result();
+
+                                                            foreach ($makes as $make) { ?>
+                                                            <div class="text-address">
+                                                                <p class="text-color-3 font"><?= $make->name; ?></p>
+                                                            </div>
+                                                            <?php foreach ($models as $model) { ?>
+                                                            <h5 class="link-style-1">
+                                                                <a
+                                                                    href="<?= base_url('list-details/'.$commercial->slug); ?>"><?= $commercial->year. " " .$make->name. " " .$model->name ; ?></a>
+                                                            </h5>
+                                                            <?php } } ?>
+                                                            <div class="icon-box flex flex-wrap">
+                                                                <div class="icons flex-three">
+                                                                    <i class="icon-autodeal-km1"></i>
+                                                                    <span><?= $commercial->mileage; ?> kms</span>
+                                                                </div>
+                                                                <div class="icons flex-three">
+                                                                    <i class="icon-autodeal-diesel"></i>
+                                                                    <span><?= $commercial->fuel_type; ?></span>
+                                                                </div>
+                                                                <div class="icons flex-three">
+                                                                    <i class="icon-autodeal-automatic"></i>
+                                                                    <span><?= $commercial->transmission; ?></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
+                                                                <?= $commercial->price; ?>
+                                                            </div>
+                                                            <div class="days-box flex justify-space align-center">
+                                                                <?php foreach ($added_by as $added) { ?>
+                                                                <div class="img-author">
+
+                                                                    <?php if(!empty($added->profile)){?>
+                                                                    <img class="lazyload"
+                                                                        data-src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
+                                                                        src="<?= base_url(); ?>uploads/profile/<?= $added->profile; ?>"
+                                                                        alt="image">
+                                                                    <?php }else{?>
+                                                                    <img class="lazyload"
+                                                                        data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
+                                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
+                                                                        alt="image">
+                                                                    <?php } ?>
+
+                                                                    <span
+                                                                        class="font text-color-2 fw-5"><?= $added->username; ?></span>
+                                                                </div>
+                                                                <a href="<?= base_url('list-details/'.$commercial->slug); ?>"
+                                                                    class="view-car">View
+                                                                    Details</a>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php }}?>
+                                            </div>
+                                            <div class="swiper-pagination3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- widegt List Commercial End -->
                 </div>
             </section>
 
             <!-- widegt List car -->
-            <section class="tf-section3">
+
+
+            <!-- <section class="tf-section3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -7412,7 +7560,7 @@
 
                     </div>
                 </div>
-            </section>
+            </section> -->
 
             <!-- widegt feature-specs -->
             <section class="tf-section3 section-feature-specs">
@@ -7673,7 +7821,7 @@
             </section>
 
             <!-- widegt Compare -->
-            <section class="tf-section">
+            <!-- <section class="tf-section">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -7815,10 +7963,10 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
             <!-- widegt List car -->
-            <section class="tf-section3">
+            <!-- <section class="tf-section3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -11855,11 +12003,11 @@
 
                     </div>
                 </div>
-            </section>
+            </section> -->
 
 
             <!-- widegt blog -->
-            <section class="section-blog tf-section3">
+            <!-- <section class="section-blog tf-section3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -11946,8 +12094,201 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
+
+            <!-- Popular Brands Start -->
+
+             <section class="tf-section2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading-section flex align-center justify-space flex-wrap gap-20">
+                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">Popular
+                                    Brands</h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="swiper partner-slide overflow-hidden">
+                                <div class="swiper-wrapper">
+                                    <?php foreach($brands as $brand){ ?>
+                                    <div class="swiper-slide">
+                                        <a href="<?= base_url('listing-list?make='. $brand->id); ?>" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url('uploads/brands/'.$brand->logo); ?>"
+                                                    src="<?= base_url('uploads/brands/'.$brand->logo); ?>"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2"><?= $brand->name?></div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <?php } ?>
+                                    <!-- <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Kia</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Toyota</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Jeep</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Nissan</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Ford</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner1.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner1.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Land Rover </div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner2.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Kia</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner3.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Toyota</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner4.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Jeep</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner5.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Nissan</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="partner-item style-1">
+                                            <div class="image">
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/partner6.png"
+                                                    alt="images">
+                                            </div>
+                                            <div class="content center">
+                                                <div class="fs-16 fw-6 title text-color-2 font-2">Ford</div>
+                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                            </div>
+                                        </a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            <!-- Popular Brands End -->
             <!-- logo -->
             <section class="flat-brand tf-section3">
                 <div class="container">

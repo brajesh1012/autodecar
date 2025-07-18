@@ -84,26 +84,20 @@ class WebsiteModel extends CI_Model {
 
         if(!empty($minYear)){
 
-            
                     $this->db->where('year >=', $minYear);
-                    // $this->db->where('year <=', $maxYear);
+                    $this->db->where('year <=', $maxYear);
         }
 
-        //    if (is_numeric($min_price) && is_numeric($max_price)){
-            if (is_numeric($min_price)){
-            
-                    $this->db->where('price', $min_price);
-                    // $this->db->where('price >=', $min_price);
-                    // $this->db->where('price <=', $max_price);
+           if (is_numeric($min_price) && is_numeric($max_price)){
+
+                    $this->db->where('price >=', $min_price);
+                    $this->db->where('price <=', $max_price);
         }
 
-        //    if (is_numeric($minkm) && is_numeric($maxkm)){
-           if (is_numeric($maxkm)){
-
-            
-                    $this->db->where('km >=', $maxkm);
-                    // $this->db->where('km >=', $minkm);
-                    // $this->db->where('km <=', $maxkm);
+           if (is_numeric($minkm) && is_numeric($maxkm)){
+        
+                    $this->db->where('km >=', $minkm);
+                    $this->db->where('km <=', $maxkm);
         }
 
           if (is_numeric($zipcode)){
@@ -112,7 +106,7 @@ class WebsiteModel extends CI_Model {
                     $this->db->where('zipcode', $zipcode);
                    
         }
-      
+      $this->db->where('status',1);
     $query = $this->db->get('car_list');
 
     if ($query->num_rows() > 0) {
@@ -157,5 +151,58 @@ class WebsiteModel extends CI_Model {
      return $this->db->get($table)->result();
 
  }
+
+
+ public function is_favorited($user_id, $vehicle_id) {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('vehicle_id', $vehicle_id);
+        return $this->db->get('favorites')->num_rows() > 0;
+    }
+
+
+    public function toggle_favorite($user_id, $vehicle_id) {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('vehicle_id', $vehicle_id);
+        $query = $this->db->get('favorites');
+
+        if ($query->num_rows() > 0) {
+            // Already favorite, so remove
+            $this->db->where('user_id', $user_id);
+            $this->db->where('vehicle_id', $vehicle_id);
+            $this->db->delete('favorites');
+            return 'removed';
+        } else {
+            // Add to favorites
+            $this->db->insert('favorites', [
+                'user_id' => $user_id,
+                'vehicle_id' => $vehicle_id
+            ]);
+            return 'added';
+        }
+    }
+
+
+    //  public function getFavoritesByUser($user_id) {
+    //     $this->db->select('f.*, v.title, v.price, v.image');
+    //     $this->db->from('favorites f');
+    //     $this->db->join('car_list v', 'f.vehicle_id = v.id');  // vehicle_id used here
+    //     $this->db->where('f.user_id', $user_id);
+    //     return $this->db->get()->result();
+    // }
+
+
+public function getFavoritesByUser($user_id) {
+    $this->db->select('f.*, cl.title, cl.price, ci.photos');
+    $this->db->from('favorites f');
+    $this->db->join('car_list cl', 'f.vehicle_id = cl.id');
+    $this->db->join(
+        '(SELECT MIN(id) as id, car_list_id, photos FROM car_img GROUP BY car_list_id) ci',
+        'f.vehicle_id = ci.car_list_id',
+        'left'
+    );
+    $this->db->where('f.user_id', $user_id);
+    return $this->db->get()->result();
+}
+
 
 }

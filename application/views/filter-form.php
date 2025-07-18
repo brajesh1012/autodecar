@@ -377,7 +377,7 @@ label::after {
 
             <div class="row g-3">
 
-             <div class="col-md-6 col-12">
+             <div class="col-md-4 col-12">
                     <label class="form-label" for="cat_id">Category</label>
                     <select class="form-select" name="cat_id" id="cat_id">
                         <option>Any</option>
@@ -386,7 +386,7 @@ label::after {
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-6 col-12">
+                <div class="col-md-4 col-12">
                     <label class="form-label" for="brand">Brand</label>
                     <select class="form-select" name="make" id="make_id">
                         <option>Any</option>
@@ -397,7 +397,7 @@ label::after {
                     </select>
                 </div>
 
-                <div class="col-md-6 col-12">
+                <div class="col-md-4 col-12">
                     <label class="form-label" for="model">Model</label>
                     <select class="form-select" name="model" id="model_id">
                         <option>Any</option>
@@ -407,39 +407,39 @@ label::after {
                     </select>
                 </div>
 
-                <div class="col-md-6 col-12">
-                    <label class="form-label" for="reg_date">Reg. From</label>
+                <div class="col-md-4 col-12">
+                    <label class="form-label" for="reg_date">Registration From</label>
                     <input type="text" class="form-control" name="year" id="year" placeholder="Any">
-                    <!-- <select class="form-select" name="reg_date" id="reg_date">
-                        <option>Any</option>
-                        <option>2024</option>
-                        <option>2023</option>
-                    </select> -->
                 </div>
 
-                <div class="col-md-6 col-12">
+                  <div class="col-md-4 col-12">
+                    <label class="form-label" for="reg_date">Registration To</label>
+                    <input type="text" class="form-control" name="year_to" id="year" placeholder="Any">
+                </div>
+
+                <div class="col-md-4 col-12">
                     <label class="form-label" for="location">City / PIN</label>
                     <input type="text" class="form-control" name="zipcode" id="location" placeholder="Any">
                 </div>
 
-                <div class="col-md-6 col-12">
-                    <label class="form-label" for="km">KM To</label>
+                  <div class="col-md-4 col-12">
+                    <label class="form-label" for="km">KM From</label>
                      <input type="text" class="form-control" name="km" id="km" placeholder="Any">
-                    <!-- <select class="form-select" name="km" id="km">
-                        <option>Any</option>
-                        <option>50,000</option>
-                        <option>100,000</option>
-                    </select> -->
                 </div>
 
-                <div class="col-md-6 col-12">
-                    <label class="form-label" for="price">Price To</label>
+                <div class="col-md-4 col-12">
+                    <label class="form-label" for="km">KM To</label>
+                     <input type="text" class="form-control" name="km_to" id="km" placeholder="Any">
+                </div>
+
+                <div class="col-md-4 col-12">
+                    <label class="form-label" for="price">Price From</label>
                     <input type="text" class="form-control" name="price" id="price" placeholder="Any">
-                    <!-- <select class="form-select" name="price" id="price">
-                        <option>Any</option>
-                        <option>10,000</option>
-                        <option>20,000</option>
-                    </select> -->
+                </div>
+
+                  <div class="col-md-4 col-12">
+                    <label class="form-label" for="price">Price To</label>
+                    <input type="text" class="form-control" name="price_to" id="price" placeholder="Any">
                 </div>
 
                 <div class="col-md-12 col-12">
