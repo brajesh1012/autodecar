@@ -17,14 +17,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="heading-section">
-                    <h2>10,000+ Get The Best Deals On Used Cars</h2>
+                    <h2>10,000+ Get The Best Deals On Used Vehicles</h2>
                     <p class="mt-20">Explore our selection of high-quality, pre-owned vehicles. Our
                         inventory includes top brands like Toyota, Mercedes, Honda, and more. Find the
                         perfect used car for your needs.</p>
                 </div>
             </div>
             <div class="col-lg-12 flex gap-30 text-start">
-                <div class="sidebar-right-listing style-2">
+                <div class="sidebar-right-listing style-2  d-none">
                     <div class="sidebar-title flex-two flex-wrap">
                         <h4>Filters and Sort</h4>
                         <a href="javascript:void(0);" id="clear-filters" class="fw-5 font claer text-color-2"><i

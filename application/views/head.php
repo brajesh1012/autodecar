@@ -190,9 +190,9 @@
                                                             </button>
                                                             <div class="dropdown-content">
                                                                 <div class="arrow-up-sell"></div>
-                                                                <a href="#">Cars</a>
-                                                                <a href="#">Motorcycle</a>
-                                                                <a href="#">Commercial Vehicle</a>
+                                                                <a href="<?= base_url('car'); ?>">Cars</a>
+                                                                <a href="<?= base_url('bike'); ?>">Motorcycle</a>
+                                                                <a href="<?= base_url('commercial'); ?>">Commercial Vehicle</a>
                                                             </div>
                                                         </div>
                                                     </li>

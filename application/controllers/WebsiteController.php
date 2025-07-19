@@ -28,7 +28,7 @@ class WebsiteController extends CI_Controller {
 
     public function set_location() {
         $location = $this->input->post('location');
-        // print_r($location);die;
+        //  print_r($location);die;
     if (!empty($location)) {
         $this->session->set_userdata('location', $location);
         echo "success";
@@ -382,7 +382,7 @@ public function reset_password($token = null) {
         $maxkm = str_replace(',', '', $this->input->get('km_to'));
         $min_price = str_replace(',', '', $this->input->get('price'));
         $max_price = str_replace(',', '', $this->input->get('price_to'));
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $fuel_type, $transmission, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
     	$this->load->view('listing-list', $data);
 }
 
@@ -480,6 +480,8 @@ public function car()
 
    public function list_details_v1($slug = null)
 {
+
+    // $data['new_vehicles'] = $this->WebsiteModel->get_new_vehicle();
     $data['details'] = $this->WebsiteModel->get_data_by('slug', $slug, 'car_list');
     	$this->load->view('list-details-v1', $data);
 }
