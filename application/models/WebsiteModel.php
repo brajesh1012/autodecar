@@ -204,5 +204,12 @@ public function getFavoritesByUser($user_id) {
     return $this->db->get()->result();
 }
 
+public function get_new_vehicle() {
+   $this->db->order_by('created_at', 'DESC');
+$this->db->limit(5);
+$query = $this->db->get('car_list');
+$result = $query->result();
+return $result;
+}
 
 }

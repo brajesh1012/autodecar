@@ -409,27 +409,27 @@ label::after {
 
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="reg_date">Registration From</label>
-                    <input type="text" class="form-control" name="year" id="year" placeholder="Any">
+                    <input type="number" min="0" class="form-control" name="year" id="year" placeholder="Any">
                 </div>
 
                   <div class="col-md-4 col-12">
                     <label class="form-label" for="reg_date">Registration To</label>
-                    <input type="text" class="form-control" name="year_to" id="year" placeholder="Any">
+                    <input type="number" min="0" class="form-control" name="year_to" id="year" placeholder="Any">
                 </div>
 
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="location">City / PIN</label>
-                    <input type="text" class="form-control" name="zipcode" id="location" placeholder="Any">
+                    <input type="number" min="0" class="form-control" name="zipcode" id="location" placeholder="Any">
                 </div>
 
                   <div class="col-md-4 col-12">
                     <label class="form-label" for="km">KM From</label>
-                     <input type="text" class="form-control" name="km" id="km" placeholder="Any">
+                     <input type="number" min="0" class="form-control" name="km" id="km" placeholder="Any">
                 </div>
 
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="km">KM To</label>
-                     <input type="text" class="form-control" name="km_to" id="km" placeholder="Any">
+                     <input type="number" min="0" class="form-control" name="km_to" id="km" placeholder="Any">
                 </div>
 
                 <div class="col-md-4 col-12">
@@ -442,7 +442,7 @@ label::after {
                     <input type="text" class="form-control" name="price_to" id="price" placeholder="Any">
                 </div>
 
-                <div class="col-md-12 col-12">
+                <!-- <div class="col-md-12 col-12">
                     <label class="form-label">Payment</label>
                     <div class="btn-toggle-group d-flex gap-2">
                         <div>
@@ -468,7 +468,7 @@ label::after {
                         <input class="form-check-input" type="checkbox" id="electric" name="electric">
                         <label class="form-check-label" for="electric">Only electric cars ⚡</label>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-12 d-flex flex-wrap align-items-end gap-3 action-buttons">
                     <button type="submit" class="btn search-btn full-width-btn">
@@ -480,9 +480,10 @@ label::after {
                         <i class="bi bi-arrow-counterclockwise"></i> Reset
                     </button>
                     <button type="button" class="btn text-primary additional-options" id="toggleAdvFilters">
-                         <a href="<?= base_url('advance-filter') ?>">
+                         <!-- <a href="<?= base_url('advance-filter') ?>"> -->
                         <i class="bi bi-sliders"></i> Additional Filters
-                   </a> </button>
+                   <!-- </a>  -->
+                </button>
                 </div>
         </form>
 
@@ -766,4 +767,6 @@ truckBtn.addEventListener('click', () => {
     var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
 var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
 var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
+
+ const baseUrl = "<?= base_url(); ?>";
 </script>
