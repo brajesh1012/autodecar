@@ -284,7 +284,7 @@
          </div>
          <div class="footer-bottom">
              <div class="row">
-                 <div class="col-lg-4 col-md-12">
+                 <!-- <div class="col-lg-4 col-md-12">
                      <div class="logo-footer style box-1">
                          <a href="index.html">
                              <img class="lazyload"
@@ -293,7 +293,7 @@
                                  width="225" height="40">
                          </a>
                      </div>
-                 </div>
+                 </div> -->
                  <div class="col-lg-8 col-md-12">
                      <div class="footer-bottom-right flex-six flex-wrap ">
                          <div class="title-bottom center">© 2024 Auto Decar. All rights reserved</div>
@@ -484,8 +484,9 @@
                                      </fieldset>
                                              <fieldset class="t">
                                          <label class="fw-6">Mobile</label>
-                                         <input type="number" class="tb-my-input" name="mobile"
-                                             placeholder="Mobile Number">
+                                             <input type="text" class="tb-my-input" name="mobile" placeholder="Mobile Number"
+                                               minlength="0"  maxlength="10"    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" required>
+
                                          <small id="mobile_error" class="text-danger"></small>
                                          <div class="icon">
                                              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -844,10 +845,12 @@ console.log("Confirm Password field value = ", $('[name="cpassword"]').val());
                 $('#modalMsg').html(
                     '<div class="alert alert-success">Registered successfully!</div>');
                 $('#registerForm')[0].reset();
+                 $('.modal').modal('hide'); // close current open modal
 
                 setTimeout(function() {
                     $('#modalMsg').html('');
-                }, 3000);
+                    $('#popup_bid').modal('show'); // open login modal
+                }, 1000);
             },
             error: function(xhr) {
                 // handle errors

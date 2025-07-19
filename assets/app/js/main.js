@@ -628,7 +628,7 @@ $(document).ready(function(){
         // Read data-type attribute of selected <option>
         var typeKey = $vt.find('option:selected').data('type'); // e.g., "car", "bike", "bus"
         // Hide all feature blocks
-        $('.feature-car, .feature-bike, .feature-commercial').hide();
+        $('.feature-car, .feature-bike, .feature-bus').hide();
         // Show matching ones
         if (typeKey) {
             $('.feature-' + typeKey).show();
@@ -665,10 +665,59 @@ $(document).ready(function(){
                         icon.removeClass('favorited');
                         icon.attr('title', 'Favorite');
                     }
-                } else {
-                    alert(response.message || 'Something went wrong!');
                 }
+                //  else {
+                //     alert(response.message || 'Something went wrong!');
+                // }
             }
         });
     });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".favorite-icon").forEach(function (icon) {
+        icon.addEventListener("click", function () {
+            var isLoggedIn = icon.getAttribute("data-logged-in");
+
+            if (isLoggedIn === "yes") {
+                // ✅ Do nothing OR show a tooltip, etc.
+                console.log("User is logged in - favorite button clicked");
+            } else {
+                // ❌ Show SweetAlert login prompt
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Please login first',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+
+// /////////////////////////////////////Advance filter////////////////////////////////////////////////////////
+
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleAdvFiltersBtn = document.getElementById('toggleAdvFilters');
+
+    if (toggleAdvFiltersBtn) {
+        toggleAdvFiltersBtn.addEventListener('click', function () {
+            // Get the currently visible form (id ends with -form)
+            const activeForm = document.querySelector('form[id$="-form"]');
+
+            if (!activeForm) return;
+
+            const formData = new FormData(activeForm);
+            const params = new URLSearchParams();
+
+            for (const [key, value] of formData.entries()) {
+                if (value !== '' && value !== 'Any') {
+                    params.append(key, value);
+                }
+            }
+
+            const redirectUrl = baseUrl + 'advance-filter?' + params.toString();
+            window.location.href = redirectUrl;
+        });
+    }
+});
