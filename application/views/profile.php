@@ -18,7 +18,7 @@
     }
 
     .card {
-          margin-top: 100px;
+          margin-top: 10px;
       background-color: white;
       padding: 30px 20px;
       border-radius: 10px;

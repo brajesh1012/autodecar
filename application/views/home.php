@@ -180,9 +180,9 @@
                                                             </button>
                                                             <div class="dropdown-content">
                                                                 <div class="arrow-up-sell"></div>
-                                                                <a href="#">Cars</a>
-                                                                <a href="#">Motorcycle</a>
-                                                                <a href="#">Commercial Vehicle</a>
+                                                                <a href="<?= base_url('car'); ?>">Cars</a>
+                                                                <a href="<?= base_url('bike'); ?>">Motorcycle</a>
+                                                                <a href="<?= base_url('commercial'); ?>">Commercial Vehicle</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -435,8 +435,8 @@
                                                 style="width: 140px; font-size: 14px; padding: 4px;">
                                                 <option value="">Select Location</option>
                                                 <?php  $cities= $this->db->get('cities')->result();  foreach($cities as $city){?>
-                                                <option value="<?= $city->city_name; ?>"
-                                                    <?php if($this->session->userdata('location')== $city->city_name){ echo "selected";}?>>
+                                                <option value="<?= $city->id; ?>"
+                                                    <?php if($this->session->userdata('location') == $city->id){ echo "selected";}?>>
                                                     <?= $city->city_name; ?></option>
                                                 <?php }?>
                                             </select></li>
@@ -12373,7 +12373,7 @@
 
             <script>
             $('#filter_by_location').on('change', function() {
-                // console.log('hello');
+                //  console.log('hello');
                 var selectlocation = $(this).val();
                 $.ajax({
                     url: '<?= base_url("set-location") ?>',
@@ -12383,7 +12383,7 @@
                     },
                     success: function(response) {
                         console.log('Location set in session:', response);
-                        location.reload();
+                         location.reload();
                     }
                 });
             });

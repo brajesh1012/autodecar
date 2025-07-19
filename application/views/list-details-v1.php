@@ -1,3 +1,4 @@
+
         <?php include('head.php'); ?>
 
         <style>
@@ -162,8 +163,9 @@
                                                         cubilia curae; Ut hendrerit non nisl auctor
                                                         sollicitudin. Nunc id viverra erat, quis viverra elit.
                                                     </p> -->
-                                            </div>
-                                            <div class="list-file">
+                                                </div>
+                                                 <?php if(!empty($details->emission_certificate)){ ?>
+                                                <div class="list-file">
                                                 <a target="_blank"
                                                     href="<?= base_url('uploads/emission_certificates/'. $details->emission_certificate); ?>"
                                                     class="button" download>
@@ -197,6 +199,7 @@
                                                     Download Documents
                                                 </a>
                                             </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="listing-description footer-col-block" id="scrollspyHeading1">
                                             <div class="footer-heading-desktop ">
@@ -1957,7 +1960,7 @@
                                                 <span>1st owner</span>
                                             </div> -->
                                     </div>
-                                    <div class="money text-color-3 font">₹ <?= $details->price; ?></div>
+                                    <div class="money text-color-3 font">CHF <?= $details->price; ?></div>
                                     <!-- <div class="price-wrap">
                                             <p class="fs-12 lh-16 text-color-2">Monthly installment payment: <span
                                                     class="fs-14 fw-5 font">$4,000</span></p>
@@ -1977,22 +1980,24 @@
                                             </li> -->
 
                                         <?php
-                                                $is_favorited = $this->WebsiteModel->is_favorited($_SESSION['user_id'], $details->id);
-                                         ?>
-                                        <li>
-                                            <a href="javascript:void(0);"
-                                                class="icon favorite-icon <?= $is_favorited ? 'favorited' : '' ?>"
-                                                data-vehicle-id="<?= $details->id; ?>"
-                                                title="<?= $is_favorited ? 'Unfavorite' : 'Favorite' ?>">
-                                                <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M14.75 4.1875C14.75 2.32375 13.1758 0.8125 11.234 0.8125C9.78275 0.8125 8.53625 1.657 8 2.86225C7.46375 1.657 6.21725 0.8125 4.76525 0.8125C2.825 0.8125 1.25 2.32375 1.25 4.1875C1.25 9.6025 8 13.1875 8 13.1875C8 13.1875 14.75 9.6025 14.75 4.1875Z"
-                                                        stroke="CurrentColor" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                            </a>
-                                        </li>
+                                            $is_logged_in = isset($_SESSION['user_id']);
+                                            $is_favorited = $is_logged_in ? $this->WebsiteModel->is_favorited($_SESSION['user_id'], $details->id) : false;
+                                            ?>
+                                            <li>
+                                                <a href="javascript:void(0);"
+                                                    class="icon favorite-icon <?= $is_favorited ? 'favorited' : '' ?>"
+                                                    data-vehicle-id="<?= $details->id; ?>"
+                                                    data-logged-in="<?= $is_logged_in ? 'yes' : 'no' ?>"
+                                                    title="<?= $is_favorited ? 'Unfavorite' : 'Favorite' ?>">
+                                                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M14.75 4.1875C14.75 2.32375 13.1758 0.8125 11.234 0.8125C9.78275 0.8125 8.53625 1.657 8 2.86225C7.46375 1.657 6.21725 0.8125 4.76525 0.8125C2.825 0.8125 1.25 2.32375 1.25 4.1875C1.25 9.6025 8 13.1875 8 13.1875C8 13.1875 14.75 9.6025 14.75 4.1875Z"
+                                                            stroke="CurrentColor" stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                </a>
+                                            </li>
 
                                         <li>
                                             <a href="#" class="icon">
@@ -2074,6 +2079,23 @@
                                 <div class="profile-contact">
                                     <!-- <h6>Contact</h6> -->
                                     <div class="btn-contact flex-two">
+                                           <?php
+                                         $is_logged_in = isset($_SESSION['user_id']);
+                                         if($details->added_by != $is_logged_in) { 
+                                                    $chat_url = base_url(ADMIN_PATH . '/view-chat/'.$details->id.'/'. $details->added_by); 
+                                                ?>
+                                        <a href="#" class="btn-pf bg-orange">
+                                            <i class="icon-autodeal-phone2"></i>
+                                            <span class="fs-16 fw-5 lh-20 font text-color-1">Call</span>
+                                        </a>
+                                        <a href="javascript:void(0);" class="btn-pf bg-green chat-btn"
+                                            data-url="<?= $chat_url ?>"
+                                            data-logged-in="<?= $is_logged_in ? 'yes' : 'no' ?>">
+                                            <i class="icon-autodeal-chat"></i>
+                                            <span class="fs-16 fw-5 lh-20 font text-color-1">Chat</span>
+                                        </a>
+                                    <?php }else{ ?>
+
                                         <a href="#" class="btn-pf bg-orange">
                                             <i class="icon-autodeal-phone2"></i>
                                             <span class="fs-16 fw-5 lh-20 font text-color-1">Call</span>
@@ -2088,6 +2110,7 @@
                                             <span class="fs-16 fw-5 lh-20 font text-color-1">Chat</span>
                                         </a>
 
+                                        <?php }?>
                                         <!-- 💬 Chat Modal -->
                                         <div id="chatModal"
                                             style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
@@ -2110,25 +2133,57 @@
                             </div>
                             <div class="widget-listing">
                                 <div class="listing-header mb-30">
-                                    <h3>Recommended Used Cars</h3>
-                                    <p>Showing 26 more cars you might like</p>
+                                    <h3>Recent Added Vehicle</h3>
+                                    <!-- <p>Showing 26 more cars you might like</p> -->
                                 </div>
                                 <div class="listing-recommended mb-30">
-                                    <div class="item flex">
-                                        <div class="image">
-                                            <img class="lazyload"
-                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
-                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
-                                                alt="image">
-                                        </div>
-                                        <div class="content">
-                                            <h6><a href="#">2023 Skoda Slavia 1.0 TSI Ambition AT BSVI</a></h6>
-                                            <p class="fs-14 fw-7 text-color-2 font-1">$73,000</p>
 
-                                        </div>
+                              <?php 
+                             $new_vehicles = $this->db->order_by('created_at', 'DESC')->limit(5)->where('vehicle_type', $details->vehicle_type)->where('id !=', $details->id)->get('car_list')->result();
 
-                                    </div>
-                                    <div class="item flex">
+                                    foreach($new_vehicles as $new) { 
+                                        // Get make name
+                                        // if($new->vehicle_type == $details->vehicle_type && $new->id != ){
+                                        $make_row = $this->db->where('id', $new->make)->get('make')->row();
+                                        $make_name = $make_row ? $make_row->name : '';
+
+                                        // Get model name
+                                        $model_row = $this->db->where('id', $new->model)->get('model')->row();
+                                        $model_name = $model_row ? $model_row->name : '';
+
+                                        // Get variant name
+                                        $variant_row = $this->db->where('id', $new->variant)->get('model')->row();
+                                        $variant_name = $variant_row ? $variant_row->name : ''; // adjust column name if needed
+
+                                          // ✅ Get first image for this vehicle
+                                        $img_row = $this->db->where('car_list_id', $new->id)->order_by('id', 'ASC')->limit(1)->get('car_img')->row();
+                                        $vehicle_img = $img_row ? $img_row->photos : '';  // fallback image
+                                    ?>
+                                        <div class="item flex">
+                                            <div class="image">
+                                                <?php if($vehicle_img != '') { ?>
+                                                   <img class="lazyload"
+                                                    data-src="<?= base_url('uploads/' . $vehicle_img); ?>"
+                                                    src="<?= base_url('uploads/' . $vehicle_img); ?>"
+                                                    alt="Vehicle Image">
+                                                    <?php }else{ ?>
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
+                                                    src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
+                                                    alt="image">
+                                                    <?php }  ?>
+                                            </div>
+                                            <div class="content">
+                                                <h6>
+                                                    <a href="<?= base_url('list-details/'.$new->slug); ?>">
+                                                        <?= $new->year ?> <?= $make_name ?> <?= $model_name ?> <?= $variant_name ?>
+                                                    </a>
+                                                </h6>
+                                                <p class="fs-14 fw-7 text-color-2 font-1">CHF <?= $new->price?></p>
+                                            </div>
+                                        </div>
+                                    <?php } //} ?>
+                                    <!-- <div class="item flex">
                                         <div class="image">
                                             <img class="lazyload"
                                                 data-src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
@@ -2170,7 +2225,7 @@
 
                                         </div>
 
-                                    </div>
+                                    </div> -->
 
                                 </div>
                                 <a href="#" class="fs-16 fw-5 font text-color-3 lh-22">View more reviews <i
