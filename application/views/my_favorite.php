@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><?= $fav->title ?></h5>
                             <p class="card-text">Price: <?= $fav->price ?></p>
-                            <a href="<?= base_url('list-details/'.$details->slug); ?> " class="btn btn-primary">View</a>
+                            <a href="<?= base_url('list-details/'.$details->slug); ?> " class="btn btn-warning ">View</a>
                         </div>
                     </div>
                 </div>

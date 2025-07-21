@@ -9,15 +9,16 @@ class WebsiteController extends CI_Controller {
         // $this->load->library(['form_validation', 'session']);
         $this->load->model('WebsiteModel');
           $this->load->model('AdminModel');
+           $this->load->library('pagination');
     }
 
 
 	public function index()
 	{
         $data['brands'] = $this->WebsiteModel->get_data('make');
-        $data['bikes'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 1);
-        $data['cars'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 2);
-        $data['commercials'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 3);
+        $data['bikes'] = $this->WebsiteModel->filter_vehicles(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        $data['cars'] = $this->WebsiteModel->filter_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        $data['commercials'] = $this->WebsiteModel->filter_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
         $user_id = $this->session->userdata('user_id');
             $this->db->where('user_id', $user_id);
@@ -67,7 +68,7 @@ public function advance_filter()
 
             $data["other_features_and_extras"] = $this->AdminModel->get_data("other_features_and_extras");
 
-              $this->load->view('advance-filter', $data); // This will load the view file
+         $this->load->view('advance-filter', $data); // This will load the view file
     }
 public function register()
 {
@@ -364,7 +365,6 @@ public function reset_password($token = null) {
 
     public function listing_list()
 {
-    
           $data['year_range'] = $this->db->get_where('years_range', ['id' => 1])->row_array();
         $data['categories'] = $this->WebsiteModel->get_data('categories');
         $data['makes'] = $this->WebsiteModel->get_data('make');
@@ -375,6 +375,27 @@ public function reset_password($token = null) {
         $vehicle_type = $this->input->get('vehicle_type');
         $make = $this->input->get('make');
         $model = $this->input->get('model');
+        
+        $variant = $this->input->get('variant');
+        $fuel_type = $this->input->get('fuel_type');
+        $color = $this->input->get('color');
+        $mileage = $this->input->get('mileage');
+        $transmission = $this->input->get('transmission');
+        $vehicle_condition = $this->input->get('vehicle_condition');
+        $ownership = $this->input->get('ownership');
+        $euro_norm = $this->input->get('euro_norm');
+        $winter_tires = $this->input->get('winter_tires');
+        $ac_type = $this->input->get('ac_type');
+        $parking_sensors = $this->input->get('parking_sensors');
+
+        $comfort_and_interior = $this->input->get('comfort_and_interior');
+        $safety_and_assistance = $this->input->get('safety_and_assistance');
+        $lighting_and_visibility = $this->input->get('lighting_and_visibility');
+        $multimedia_and_navigation = $this->input->get('multimedia_and_navigation');
+        $engine_and_drive_technology = $this->input->get('engine_and_drive_technology');
+        $exteriors = $this->input->get('exterior');
+        $other_features_and_extras = $this->input->get('other_features_and_extras');
+
         $minYear = $this->input->get('year');
         $maxYear = $this->input->get('year_to');
         $zipcode = $this->input->get('zipcode');
@@ -382,7 +403,69 @@ public function reset_password($token = null) {
         $maxkm = str_replace(',', '', $this->input->get('km_to'));
         $min_price = str_replace(',', '', $this->input->get('price'));
         $max_price = str_replace(',', '', $this->input->get('price_to'));
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles($make, $model, $minYear, $maxYear, $min_price, $max_price, $minkm, $maxkm, $zipcode, $vehicle_type);
+
+
+
+    // Step 2: Pagination Configuration
+        $config['base_url'] = base_url('listing-list');
+        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(
+            $vehicle_type, $make, $model, $minYear, $maxYear, $min_price, $max_price,
+            $minkm, $maxkm, $zipcode, $variant, $fuel_type, $color, $mileage,
+            $transmission, $vehicle_condition, $ownership, $euro_norm,
+            $winter_tires, $ac_type, $parking_sensors, $comfort_and_interior,
+            $safety_and_assistance, $lighting_and_visibility,
+            $multimedia_and_navigation, $engine_and_drive_technology,
+            $exteriors, $other_features_and_extras
+        );
+       
+        $config['per_page'] = 5;
+        $config['page_query_string'] = TRUE;
+        $config['query_string_segment'] = 'page';
+
+        $config['first_link'] = FALSE;
+        $config['last_link']  = FALSE;
+
+        $config['full_tag_open']  = '<ul class="pagination custom-pagination">';
+        $config['full_tag_close'] = '</ul>';
+
+        $config['cur_tag_open']  = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open']  = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '<span class="page-link">&laquo;</span>';
+        $config['next_link'] = '<span class="page-link">&raquo;</span>';
+
+        // ✅ Add this line to apply class to all <a> tags automatically
+        $config['attributes'] = ['class' => 'page-link'];
+
+
+        $this->pagination->initialize($config);
+
+        // Step 3: Get page offset
+        $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
+
+        // Step 4: Fetch Filtered Vehicles
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(
+            $vehicle_type, $make, $model, $minYear, $maxYear, $min_price, $max_price,
+            $minkm, $maxkm, $zipcode, $variant, $fuel_type, $color, $mileage,
+            $transmission, $vehicle_condition, $ownership, $euro_norm,
+            $winter_tires, $ac_type, $parking_sensors, $comfort_and_interior,
+            $safety_and_assistance, $lighting_and_visibility,
+            $multimedia_and_navigation, $engine_and_drive_technology,
+            $exteriors, $other_features_and_extras,
+            $config['per_page'], $page
+        );
+
+        // Step 5: Send Pagination Links to View
+        $data['pagination_links'] = $this->pagination->create_links();
     	$this->load->view('listing-list', $data);
 }
 
@@ -390,21 +473,157 @@ public function reset_password($token = null) {
 
 public function car()
   {
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 2);
+         // Step 2: Pagination Configuration
+        $config['base_url'] = base_url('car');
+        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        );
+        //  print_r($config['total_rows']);die;
+
+         $config['per_page'] = 5;
+        $config['page_query_string'] = TRUE;
+        $config['query_string_segment'] = 'page';
+
+        $config['first_link'] = FALSE;
+        $config['last_link']  = FALSE;
+
+        $config['full_tag_open']  = '<ul class="pagination custom-pagination">';
+        $config['full_tag_close'] = '</ul>';
+
+        $config['cur_tag_open']  = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open']  = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '<span class="page-link">&laquo;</span>';
+        $config['next_link'] = '<span class="page-link">&raquo;</span>';
+
+        // ✅ Add this line to apply class to all <a> tags automatically
+        $config['attributes'] = ['class' => 'page-link'];
+
+
+        $this->pagination->initialize($config);
+
+        // Step 3: Get page offset
+        $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
+
+        // Step 4: Fetch Filtered Vehicles
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
+        );
+
+        // Step 5: Send Pagination Links to View
+        $data['pagination_links'] = $this->pagination->create_links();
+       
+
         $this->load->view('listing-list', $data);
     }
 
             
  public function bike()
   {
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 1);
+        // Step 2: Pagination Configuration
+        $config['base_url'] = base_url('bike');
+        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        );
+
+         $config['per_page'] = 5;
+        $config['page_query_string'] = TRUE;
+        $config['query_string_segment'] = 'page';
+
+        $config['first_link'] = FALSE;
+        $config['last_link']  = FALSE;
+
+        $config['full_tag_open']  = '<ul class="pagination custom-pagination">';
+        $config['full_tag_close'] = '</ul>';
+
+        $config['cur_tag_open']  = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open']  = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '<span class="page-link">&laquo;</span>';
+        $config['next_link'] = '<span class="page-link">&raquo;</span>';
+
+        // ✅ Add this line to apply class to all <a> tags automatically
+        $config['attributes'] = ['class' => 'page-link'];
+
+
+        $this->pagination->initialize($config);
+
+        // Step 3: Get page offset
+        $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
+
+        // Step 4: Fetch Filtered Vehicles
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
+        );
+
+        // Step 5: Send Pagination Links to View
+        $data['pagination_links'] = $this->pagination->create_links();
          $this->load->view('listing-list', $data);
    }
 
 
  public function commercial()
  {
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(null, null, null, null, null, null, null, null, null, null, null, 3);
+    // Step 2: Pagination Configuration
+        $config['base_url'] = base_url('commercial');
+        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        );
+
+         $config['per_page'] = 5;
+        $config['page_query_string'] = TRUE;
+        $config['query_string_segment'] = 'page';
+
+        $config['first_link'] = FALSE;
+        $config['last_link']  = FALSE;
+
+        $config['full_tag_open']  = '<ul class="pagination custom-pagination">';
+        $config['full_tag_close'] = '</ul>';
+
+        $config['cur_tag_open']  = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open']  = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '<span class="page-link">&laquo;</span>';
+        $config['next_link'] = '<span class="page-link">&raquo;</span>';
+
+        // ✅ Add this line to apply class to all <a> tags automatically
+        $config['attributes'] = ['class' => 'page-link'];
+
+
+        $this->pagination->initialize($config);
+
+        // Step 3: Get page offset
+        $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
+
+        // Step 4: Fetch Filtered Vehicles
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
+        );
+
+        // Step 5: Send Pagination Links to View
+        $data['pagination_links'] = $this->pagination->create_links();
+
         $this->load->view('listing-list', $data);
  }
 
