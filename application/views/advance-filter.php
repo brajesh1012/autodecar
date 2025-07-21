@@ -1,14 +1,14 @@
 <?php include('head.php'); ?>
 
 <div class="container">
-        
 
-    <form action="<?= base_url(ADMIN_PATH . '/add-listing') ?>" method="POST" enctype="multipart/form-data">
+    <form action="<?= base_url('listing-list') ?>" method="GET">
 
         <h1 class="admin-title mb-3">Advance Filter</h1>
         <div class="tfcl-add-listing car-details">
-            <div class="form-group">
-                <h4>Vehicle Basic Information</h4>
+            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                <h4 style="margin: 0;">Vehicle Basic Information</h4>
+                   <button type="button" class="btn btn-secondary btn-sm" id="reset-vehicle-info">Reset</button>
             </div>
             <div class="form-group-4">
                 <div class="form-group">
@@ -25,9 +25,6 @@
                         </option>
                         <?php } ?>
                     </select>
-
-                    <small class="text-danger"><?= form_error('vehicle_type') ?></small>
-
                 </div>
 
                 <div class="form-group">
@@ -43,9 +40,6 @@
                             <?= $cat->name; ?></option>
                         <?php } ?>
                     </select>
-
-                    <small class="text-danger"><?= form_error('cat_id') ?></small>
-
                 </div>
 
                 <div class="form-group">
@@ -59,9 +53,6 @@
                             <?= $make->name; ?></option>
                         <?php }?>
                     </select>
-
-                    <small class="text-danger"><?= form_error('make') ?></small>
-
                 </div>
 
                 <div class="form-group">
@@ -75,9 +66,6 @@
                             <?= $model->name; ?></option>
                         <?php }?>
                     </select>
-
-                    <small class="text-danger"><?= form_error('model') ?></small>
-
                 </div>
 
                 <div class="form-group">
@@ -92,24 +80,18 @@
                         <?php }?>
 
                     </select>
-
-                    <small class="text-danger"><?= form_error('variant') ?></small>
-
                 </div>
-
                 <div class="form-group">
                     <label for="listing_title">Fuel Type *</label>
-
                     <select class="form-control" name="fuel_type" id="fuel_type">
                         <option value="">Select Fuel Type</option>
                         <?php  foreach($fuel_types as $fuel_type){?>
                         <option value="<?= $fuel_type->name; ?>"
-                            <?= (isset($_GET['fuel_type']) && $_GET['fuel_type'] == $fuel_type->id) ? 'selected' : '' ?>>
+                            <?= (isset($_GET['fuel_type']) && $_GET['fuel_type'] == $fuel_type->name) ? 'selected' : '' ?>>
                             <?= $fuel_type->name; ?>
                         </option>
                         <?php }?>
                     </select>
-                    <small class="text-danger"><?= form_error('fuel_type') ?></small>
                 </div>
 
                 <div class="form-group">
@@ -119,19 +101,17 @@
                         <option value="">Select Color</option>
                         <?php  foreach($colors as $color){?>
                         <option value="<?= $color->name; ?>"
-                            <?= (isset($_GET['color']) && $_GET['color'] == $color->id) ? 'selected' : '' ?>>
+                            <?= (isset($_GET['color']) && $_GET['color'] == $color->name) ? 'selected' : '' ?>>
                             <?= $color->name; ?>
                         </option>
                         <?php }?>
                     </select>
-                    <small class="text-danger"><?= form_error('color') ?></small>
                 </div>
 
                 <div class="form-group">
                     <label for="listing_title">Mileage *</label>
-                    <input type="text" class="form-control" name="mileage" placeholder="Enter mileage"
-                        value="<?= set_value('mileage') ?>">
-                    <small class="text-danger"><?= form_error('mileage') ?></small>
+                    <input type="text" class="form-control" name="mileage" placeholder="Any"
+                        value="<?= isset($_GET['mileage']) ? $_GET['mileage'] : '' ?>">
                 </div>
 
                 <div class="form-group">
@@ -141,12 +121,11 @@
                         <option value="">Select Transmission</option>
                         <?php  foreach($transmissions as $transmission){?>
                         <option value="<?= $transmission->name; ?>"
-                            <?= (isset($_GET['transmission']) && $_GET['transmission'] == $transmission->id) ? 'selected' : '' ?>>
+                            <?= (isset($_GET['transmission']) && $_GET['transmission'] == $transmission->name) ? 'selected' : '' ?>>
                             <?= $transmission->name; ?>
                         </option>
                         <?php }?>
                     </select>
-                    <small class="text-danger"><?= form_error('transmission') ?></small>
                 </div>
 
                 <div class="form-group">
@@ -166,12 +145,10 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="listing_title">MFk *</label>
-                    <input type="date" class="form-control" name="mfk_date" placeholder="Enter MFK"
-                        value="<?= set_value('mfk_date') ?>">
-                    <small class="text-danger"><?= form_error('mfk_date') ?></small>
-                </div>
+                  <!-- <div class="form-group">
+                        <label for="listing_title">MFk *</label>
+                            <input type="month" class="form-control" name="mfk_date" placeholder="Enter MFK" value="<?= isset($_GET['mfk_date']) ? $_GET['mfk_date'] : '' ?>">
+                 </div> -->
 
                 <!-- <div class="form-group">
                                             <label for="listing_title">TUV *</label>
@@ -204,17 +181,16 @@
                     <label for="listing_title">Ownership *</label>
                     <select name="ownership" class="form-control" id="ownership">
                         <option value="">Select Owner</option>
-                        <option value="1st" <?php if(set_value('ownership')== '1st'){ echo "selected"; } ?>>
+                        <option value="1st"  <?php if(isset($_GET['ownership']) && $_GET['ownership'] == "1st"){ echo "selected"; } ?>>
                             1st
                         </option>
-                        <option value="2nd" <?php if(set_value('ownership')== '2nd'){ echo "selected"; } ?>>
+                        <option value="2nd" <?php if(isset($_GET['ownership']) && $_GET['ownership'] == "2nd"){ echo "selected"; } ?>>
                             2nd
                         </option>
-                        <option value="3rd" <?php if(set_value('ownership')== '3rd'){ echo "selected"; } ?>>
+                        <option value="3rd" <?php if(isset($_GET['ownership']) && $_GET['ownership'] == "3rd"){ echo "selected"; } ?>>
                             3rd
                         </option>
                     </select>
-                    <small class="text-danger"><?= form_error('ownership') ?></small>
                 </div>
 
                 <div class="form-group">
@@ -223,16 +199,15 @@
                                                 value="<?= set_value('euro_norm') ?>"> -->
                     <select name="euro_norm" class="form-control" id="euro_norm">
                         <option value="">Select Euro</option>
-                        <option value="6 Euro" <?php if(set_value('euro_norm')== '6 Euro'){ echo "selected"; } ?>>6
+                        <option value="6 Euro" <?php if(isset($_GET['euro_norm']) && $_GET['euro_norm'] == "6 Euro"){ echo "selected"; } ?>>6
                             Euro</option>
-                        <option value="5 Euro" <?php if(set_value('euro_norm')== '5 Euro'){ echo "selected"; } ?>>5
+                        <option value="5 Euro" <?php if(isset($_GET['euro_norm']) && $_GET['euro_norm'] == "5 Euro"){ echo "selected"; } ?>>5
                             Euro</option>
-                        <option value="4 Euro" <?php if(set_value('euro_norm')== '4 Euro'){ echo "selected"; } ?>>4
+                        <option value="4 Euro" <?php if(isset($_GET['euro_norm']) && $_GET['euro_norm'] == "4 Euro"){ echo "selected"; } ?>>4
                             Euro</option>
-                        <option value="3 Euro" <?php if(set_value('euro_norm')== '3 Euro'){ echo "selected"; } ?>>3
+                        <option value="3 Euro" <?php if(isset($_GET['euro_norm']) && $_GET['euro_norm'] == "3 Euro"){ echo "selected"; } ?>>3
                             Euro</option>
                     </select>
-                    <small class="text-danger"><?= form_error('euro_norm') ?></small>
                 </div>
 
 
@@ -259,46 +234,45 @@
                     <label for="winter_tires">Winter Tires <span class="text-danger">*</span></label>
                     <select class="form-control" name="winter_tires" id="winter_tires">
                         <option value="">Select</option>
-                        <option value="Yes" <?= set_value('winter_tires') == 'Yes' ? 'selected' : '' ?>>Yes
+                        <option value="Yes" <?php if(isset($_GET['winter_tires']) && $_GET['winter_tires'] == "Yes"){ echo "selected"; } ?> >Yes
                         </option>
-                        <option value="No" <?= set_value('winter_tires') == 'No' ? 'selected' : '' ?>>No
+                        <option value="No" <?php if(isset($_GET['winter_tires']) && $_GET['winter_tires'] == "No"){ echo "selected"; } ?>>No
                         </option>
                     </select>
-                    <small class="text-danger"><?= form_error('winter_tires') ?></small>
                 </div>
 
                 <div class="form-group  feature-car feature-bus" style="display:none;">
                     <label for="listing_title"> Climate Control / AC Type *</label>
-                    <select name="ac_type" class="form-control" id="">
+                    <select name="ac_type" class="form-control" id="ac_type">
                         <option value="">Select Climate Control Type</option>
-                        <option value="No AC" <?php if(set_value('ac_type')== 'No AC'){ echo "selected"; } ?>>No AC
+                        <option value="No AC" <?php if(isset($_GET['ac_type']) && $_GET['ac_type'] == "No AC"){ echo "selected"; } ?>>No AC
                         </option>
-                        <option value="Manual AC" <?php if(set_value('ac_type')== 'Manual AC'){ echo "selected"; } ?>>
+                        <option value="Manual AC" <?php if(isset($_GET['ac_type']) && $_GET['ac_type'] == "Manual AC"){ echo "selected"; } ?>>
                             Manual AC
                         </option>
                         <option value="Automatic AC"
-                            <?php if(set_value('ac_type')== 'Automatic AC'){ echo "selected"; } ?>>Automatic
+                           <?php if(isset($_GET['ac_type']) && $_GET['ac_type'] == "Automatic AC"){ echo "selected"; } ?>>Automatic
                             AC</option>
                         <option value="Dual-Zone Automatic AC"
-                            <?php if(set_value('ac_type')== 'Dual-Zone Automatic AC'){ echo "selected"; } ?>>
+                            <?php if(isset($_GET['ac_type']) && $_GET['ac_type'] == "Dual-Zone Automatic AC"){ echo "selected"; } ?>>
                             Dual-Zone Automatic AC</option>
                         <option value="Tri-Zone Automatic AC"
-                            <?php if(set_value('ac_type')== 'Tri-Zone Automatic AC'){ echo "selected"; } ?>>
+                            <?php if(isset($_GET['ac_type']) && $_GET['ac_type'] == "Tri-Zone Automatic AC"){ echo "selected"; } ?>>
                             Tri-Zone Automatic AC</option>
                         <option value="4-Zone Automatic AC"
-                            <?php if(set_value('ac_type')== '4-Zone Automatic AC'){ echo "selected"; } ?>>
+                            <?php if(isset($_GET['ac_type']) && $_GET['ac_type'] == "4-Zone Automatic AC"){ echo "selected"; } ?>>
                             4-Zone Automatic AC</option>
                     </select>
 
                 </div>
                 <div class="form-group feature-car feature-bus" style="display:none;">
                     <label for="parking_sensors">Parking Sensors</label>
-                    <select class="form-control" name="parking_sensors" class="form-control">
+                    <select class="form-control" name="parking_sensors" id="parking_sensors" class="form-control">
                         <option value="">Select</option>
-                        <option value="None">None</option>
-                        <option value="Rear Only">Rear Only</option>
-                        <option value="Front Only">Front Only</option>
-                        <option value="Front and Rear">Front and Rear</option>
+                        <option value="None" <?php if(isset($_GET['parking_sensors']) && $_GET['parking_sensors'] == "None"){ echo "selected"; } ?>>None</option>
+                        <option value="Rear Only" <?php if(isset($_GET['parking_sensors']) && $_GET['parking_sensors'] == "Rear Only"){ echo "selected"; } ?>>Rear Only</option>
+                        <option value="Front Only" <?php if(isset($_GET['parking_sensors']) && $_GET['parking_sensors'] == "Front Only"){ echo "selected"; } ?>>Front Only</option>
+                        <option value="Front and Rear" <?php if(isset($_GET['parking_sensors']) && $_GET['parking_sensors'] == "Front and Rear"){ echo "selected"; } ?>>Front and Rear</option>
                     </select>
                 </div>
             </div>
@@ -309,8 +283,8 @@
 
                 <?php if(isset($comforts) && !empty($comforts)){ foreach($comforts as $comfort){ ?>
                 <div class="form-group">
-                    <input type="checkbox" name="comfort_and_interior[]" value="<?= $comfort->name ?>"
-                        <?php if(set_value('comfort_and_interior')==  $comfort->name ){ echo "checked"; } ?>><?= $comfort->name ?>
+                    <input type="checkbox" name="comfort_and_interior[]" class="comfort_and_interior" value="<?= $comfort->name ?>"
+                       <?= in_array($comfort->name, $this->input->get('comfort_and_interior') ?? []) ? 'checked' : '' ?>><?= $comfort->name ?>
                 </div>
                 <?php } } ?>
             </div>
@@ -321,8 +295,8 @@
             <div class="form-group-4">
                 <?php if(isset($safety_and_assistance) && !empty($safety_and_assistance)){ foreach($safety_and_assistance as $safety){ ?>
                 <div class="form-group">
-                    <input type="checkbox" name="safety_and_assistance[]" value="<?= $safety->name ?>"
-                        <?php if(set_value('safety_and_assistance')==  $safety->name ){ echo "checked"; } ?>><?= $safety->name ?>
+                    <input type="checkbox" name="safety_and_assistance[]" class="safety_and_assistance"  value="<?= $safety->name ?>"
+                        <?= in_array($safety->name, $this->input->get('safety_and_assistance') ?? []) ? 'checked' : '' ?>><?= $safety->name ?>
                 </div>
                 <?php }}  ?>
             </div>
@@ -333,8 +307,8 @@
             <div class="form-group-4">
                 <?php if(isset($lighting_and_visibility) && !empty($lighting_and_visibility)){ foreach($lighting_and_visibility as $lighting){ ?>
                 <div class="form-group">
-                    <input type="checkbox" name="lighting_and_visibility[]" value="<?= $lighting->name ?>"
-                        <?php if(set_value('lighting_and_visibility')==  $lighting->name ){ echo "checked"; } ?>><?= $lighting->name ?>
+                    <input type="checkbox" name="lighting_and_visibility[]" class="lighting_and_visibility" value="<?= $lighting->name ?>"
+                          <?= in_array( $lighting->name , $this->input->get('lighting_and_visibility') ?? []) ? 'checked' : '' ?>><?= $lighting->name ?>
                 </div>
                 <?php } } ?>
             </div>
@@ -345,8 +319,8 @@
             <div class="form-group-4">
                 <?php if(isset($multimedia_and_navigation) && !empty($multimedia_and_navigation)){   foreach($multimedia_and_navigation as $multimedia){ ?>
                 <div class="form-group">
-                    <input type="checkbox" name="multimedia_and_navigation[]" value="<?= $multimedia->name ?>"
-                        <?php if(set_value('multimedia_and_navigation')==  $multimedia->name ){ echo "checked"; } ?>><?= $multimedia->name ?>
+                    <input type="checkbox" name="multimedia_and_navigation[]" class="multimedia_and_navigation" value="<?= $multimedia->name ?>"
+                       <?= in_array($multimedia->name, $this->input->get('multimedia_and_navigation') ?? []) ? 'checked' : '' ?>><?= $multimedia->name ?>
                 </div>
                 <?php } } ?>
             </div>
@@ -357,8 +331,8 @@
             <div class="form-group-4">
                 <?php if(isset($engine_and_drive_technology) && !empty($engine_and_drive_technology)){   foreach($engine_and_drive_technology as $engine){ ?>
                 <div class="form-group">
-                    <input type="checkbox" name="engine_and_drive_technology[]" value="<?= $engine->name ?>"
-                        <?php if(set_value('engine_and_drive_technology')==  $engine->name ){ echo "checked"; } ?>><?= $engine->name ?>
+                    <input type="checkbox" name="engine_and_drive_technology[]" class= "engine_and_drive_technology" value="<?= $engine->name ?>"
+                         <?= in_array($engine->name, $this->input->get('engine_and_drive_technology') ?? []) ? 'checked' : '' ?>><?= $engine->name ?>
                 </div>
                 <?php } } ?>
             </div>
@@ -371,8 +345,8 @@
             <div class="form-group-4">
                 <?php if(isset($exterior_and_design) && !empty($exterior_and_design)){   foreach($exterior_and_design as $exterior){ ?>
                 <div class="form-group">
-                    <input type="checkbox" name="exterior[]" value="<?= $exterior->name ?>"
-                        <?php if(set_value('exterior')==  $exterior->name ){ echo "checked"; } ?>><?= $exterior->name ?>
+                    <input type="checkbox" name="exterior[]" class="exterior" value="<?= $exterior->name ?>"
+                         <?= in_array($exterior->name, $this->input->get('exterior') ?? []) ? 'checked' : '' ?>><?= $exterior->name ?>
                 </div>
                 <?php } } ?>
             </div>
@@ -385,8 +359,8 @@
             <div class="form-group-4">
                 <?php if(isset($other_features_and_extras) && !empty($other_features_and_extras)){    foreach($other_features_and_extras as $other){ ?>
                 <div class="form-group">
-                    <input type="checkbox" name="other_features_and_extras[]" value="<?= $other->name ?>"
-                        <?php if(set_value('other_features_and_extras')==  $other->name ){ echo "checked"; } ?>><?= $other->name ?>
+                    <input type="checkbox" name="other_features_and_extras[]" class="other_features_and_extras" value="<?= $other->name ?>"
+                       <?= in_array($other->name , $this->input->get('other_features_and_extras') ?? []) ? 'checked' : '' ?>><?= $other->name ?>
                 </div>
                 <?php } } ?>
             </div>
@@ -455,6 +429,7 @@
         </div>
 
         <div class="group-button-submit mb-2">
+
             <button type="submit" class="second-btn">Submit</button>
         </div>
 
@@ -495,4 +470,44 @@ var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
 
 // Location
 var URL4 = "<?= base_url(ADMIN_PATH . "/get-city-by-state") ?>";
+</script>
+
+<script>
+    // ...existing code...
+
+    // Reset Vehicle Basic Information fields
+    $('#reset-vehicle-info').on('click', function() {
+        $('#vehicle_type_id').val('');
+        $('#cat_id').val('');
+        $('#make_id').val('');
+        $('#model_id').val('');
+        $('#variant_id').val('');
+        $('#fuel_type').val('');
+        $('#color').val('');
+
+        $('#ownership').val('');
+        $('#euro_norm').val('');
+        $('#winter_tires').val('');
+        $('#ac_type').val('');
+        $('#parking_sensors').val('');
+
+        $('input[name="mileage"]').val('');
+        $('input[name="year"]').val('');
+        $('input[name="year_to"]').val('');
+        $('input[name="km"]').val('');
+        $('input[name="km_to"]').val('');
+        $('input[name="price"]').val('');
+        $('input[name="price_to"]').val('');
+        $('input[name="zipcode"]').val('zipcode');
+
+        $('select[name="transmission"]').val('');
+        $('select[name="vehicle_condition"]').val('');
+        $('.comfort_and_interior').prop('checked', false);
+        $('.safety_and_assistance').prop('checked', false);
+        $('.lighting_and_visibility').prop('checked', false);
+        $('.multimedia_and_navigation').prop('checked', false);
+        $('.engine_and_drive_technology').prop('checked', false);
+        $('.exterior').prop('checked', false);
+        $('.other_features_and_extras').prop('checked', false);
+    });
 </script>

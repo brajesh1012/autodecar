@@ -7,7 +7,6 @@ class WebsiteModel extends CI_Model {
         return $this->db->insert('users', $data);
     }
 
-
     public function get_user_by_email($email) {
         return $this->db->where('email', $email)->get('users')->row();
     }
@@ -54,7 +53,7 @@ class WebsiteModel extends CI_Model {
     
  }
 
-   public function filter_vehicles($make = '', $model = '', $fuel_type = '', $transmission = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '', $vehicle_type = '') {
+   public function filter_vehicles($vehicle_type = '', $make = '', $model = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '',  $variant = '', $fuel_type = '', $color = '', $mileage = '', $transmission = '', $vehicle_condition = '', $ownership = '', $euro_norm = '', $winter_tires = '', $ac_type = '', $parking_sensors = '', $comfort_and_interior = '',$safety_and_assistance = '' , $lighting_and_visibility = '', $multimedia_and_navigation = '', $engine_and_drive_technology = '', $exteriors = '', $other_features_and_extras = '', $limit = 5, $offset = 0) {
 
     $location = $this->session->userdata('location');
     
@@ -72,6 +71,10 @@ class WebsiteModel extends CI_Model {
 
           if(!empty($model)) {
             $this->db->where('model', $model);
+        }
+
+         if(!empty($variant)) {
+            $this->db->where('variant', $variant);
         }
 
              if(!empty($transmission)) {
@@ -100,17 +103,99 @@ class WebsiteModel extends CI_Model {
                     $this->db->where('km <=', $maxkm);
         }
 
-          if (is_numeric($zipcode)){
-
-            
-                    $this->db->where('zipcode', $zipcode);
-                   
+        if(!empty($color)) {
+            $this->db->where('color', $color);
         }
+        if(!empty($mileage)) {
+             $this->db->where('mileage >=', $mileage);
+        }
+        if(!empty($vehicle_condition)) {
+             $this->db->where('vehicle_condition', $vehicle_condition);
+        }
+        if(!empty($ownership)) {
+             $this->db->where('ownership', $ownership);
+        }
+        if(!empty($euro_norm)) {
+             $this->db->where('euro_norm', $euro_norm);
+        }
+        if(!empty($winter_tires)) {
+             $this->db->where('winter_tires', $winter_tires);
+        }
+        if(!empty($ac_type)) {
+             $this->db->where('ac_type', $ac_type);
+        }
+        if(!empty($parking_sensors)) {
+             $this->db->where('parking_sensors', $parking_sensors);
+        }
+
+          if (is_numeric($zipcode)){
+            $this->db->where('zipcode', $zipcode);       
+        }
+
+        
+        if (!empty($comfort_and_interior) && is_array($comfort_and_interior)) {
+            $this->db->group_start();
+            foreach ($comfort_and_interior as $filter) {
+                $this->db->or_like('comfort_and_interior', $filter);
+            }
+            $this->db->group_end();
+        }
+        if (!empty($safety_and_assistance) && is_array($safety_and_assistance)) {
+            $this->db->group_start();
+            foreach ($safety_and_assistance as $safety) {
+                $this->db->or_like('safety_and_assistance', $safety);
+            }
+            $this->db->group_end();
+        }
+        if (!empty($lighting_and_visibility) && is_array($lighting_and_visibility)) {
+            $this->db->group_start();
+            foreach ($lighting_and_visibility as $lighting) {
+                $this->db->or_like('lighting_and_visibility', $lighting);
+            }
+            $this->db->group_end();
+        }
+
+           if (!empty($multimedia_and_navigation) && is_array($multimedia_and_navigation)) {
+            $this->db->group_start();
+            foreach ($multimedia_and_navigation as $multimedia) {
+                $this->db->or_like('multimedia_and_navigation', $multimedia);
+            }
+            $this->db->group_end();
+        }
+
+             if (!empty($engine_and_drive_technology) && is_array($engine_and_drive_technology)) {
+            $this->db->group_start();
+            foreach ($engine_and_drive_technology as $engine) {
+                $this->db->or_like('engine_and_drive_technology', $engine);
+            }
+            $this->db->group_end();
+        }
+
+
+          if (!empty($exteriors) && is_array($exteriors)) {
+            $this->db->group_start();
+            foreach ($exteriors as $exterior) {
+                $this->db->or_like('exterior_and_design', $exterior);
+            }
+            $this->db->group_end();
+        }
+
+          if (!empty($other_features_and_extras) && is_array($other_features_and_extras)) {
+            $this->db->group_start();
+            foreach ($other_features_and_extras as $other) {
+                $this->db->or_like('other_features_and_extras', $other);
+            }
+            $this->db->group_end();
+        }
+
+          $this->db->limit($limit, $offset);
+
       $this->db->where('status',1);
     $query = $this->db->get('car_list');
 
     if ($query->num_rows() > 0) {
         return $query->result();
+        // echo $this->db->last_query();die;
     } else {
         return false; // Or return ['message' => 'Data not found'];
     }
@@ -211,5 +296,154 @@ $query = $this->db->get('car_list');
 $result = $query->result();
 return $result;
 }
+
+
+public function count_filtered_vehicles($vehicle_type = '', $make = '', $model = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '',  $variant = '', $fuel_type = '', $color = '', $mileage = '', $transmission = '', $vehicle_condition = '', $ownership = '', $euro_norm = '', $winter_tires = '', $ac_type = '', $parking_sensors = '', $comfort_and_interior = '', $safety_and_assistance = '' , $lighting_and_visibility = '', $multimedia_and_navigation = '', $engine_and_drive_technology = '', $exteriors = '', $other_features_and_extras = '')
+{
+    // Same filters as filter_vehicles
+    $location = $this->session->userdata('location');
+    
+    if (!empty($location)) {
+         $this->db->where('location', $location);
+    }
+
+    if(!empty($vehicle_type)) {
+        $this->db->where('vehicle_type', $vehicle_type);
+    }
+
+    if(!empty($make)) {
+        $this->db->where('make', $make);
+    }
+
+    if(!empty($model)) {
+        $this->db->where('model', $model);
+    }
+
+    if(!empty($variant)) {
+        $this->db->where('variant', $variant);
+    }
+
+    if(!empty($transmission)) {
+        $this->db->where('transmission', $transmission);
+    }
+
+    if(!empty($fuel_type)) {
+        $this->db->where('fuel_type', $fuel_type);
+    }
+
+    if(!empty($minYear)) {
+        $this->db->where('year >=', $minYear);
+        $this->db->where('year <=', $maxYear);
+    }
+
+    if (is_numeric($min_price) && is_numeric($max_price)){
+        $this->db->where('price >=', $min_price);
+        $this->db->where('price <=', $max_price);
+    }
+
+    if (is_numeric($minkm) && is_numeric($maxkm)){
+        $this->db->where('km >=', $minkm);
+        $this->db->where('km <=', $maxkm);
+    }
+
+    if(!empty($color)) {
+        $this->db->where('color', $color);
+    }
+
+    if(!empty($mileage)) {
+        $this->db->where('mileage >=', $mileage);
+    }
+
+    if(!empty($vehicle_condition)) {
+        $this->db->where('vehicle_condition', $vehicle_condition);
+    }
+
+    if(!empty($ownership)) {
+        $this->db->where('ownership', $ownership);
+    }
+
+    if(!empty($euro_norm)) {
+        $this->db->where('euro_norm', $euro_norm);
+    }
+
+    if(!empty($winter_tires)) {
+        $this->db->where('winter_tires', $winter_tires);
+    }
+
+    if(!empty($ac_type)) {
+        $this->db->where('ac_type', $ac_type);
+    }
+
+    if(!empty($parking_sensors)) {
+        $this->db->where('parking_sensors', $parking_sensors);
+    }
+
+    if (is_numeric($zipcode)){
+        $this->db->where('zipcode', $zipcode);       
+    }
+
+    // Multi-checkbox filters (like JSON fields)
+    
+    if (!empty($comfort_and_interior)) {
+        $this->db->group_start();
+        foreach ($comfort_and_interior as $filter) {
+            $this->db->or_like('comfort_and_interior', $filter);
+        }
+        $this->db->group_end();
+    }
+
+    if (!empty($safety_and_assistance)) {
+        $this->db->group_start();
+        foreach ($safety_and_assistance as $safety) {
+            $this->db->or_like('safety_and_assistance', $safety);
+        }
+        $this->db->group_end();
+    }
+
+    if (!empty($lighting_and_visibility)) {
+        $this->db->group_start();
+        foreach ($lighting_and_visibility as $lighting) {
+            $this->db->or_like('lighting_and_visibility', $lighting);
+        }
+        $this->db->group_end();
+    }
+
+    if (!empty($multimedia_and_navigation)) {
+        $this->db->group_start();
+        foreach ($multimedia_and_navigation as $multimedia) {
+            $this->db->or_like('multimedia_and_navigation', $multimedia);
+        }
+        $this->db->group_end();
+    }
+
+    if (!empty($engine_and_drive_technology)) {
+        $this->db->group_start();
+        foreach ($engine_and_drive_technology as $engine) {
+            $this->db->or_like('engine_and_drive_technology', $engine);
+        }
+        $this->db->group_end();
+    }
+
+    if (!empty($exteriors)) {
+        $this->db->group_start();
+        foreach ($exteriors as $exterior) {
+            $this->db->or_like('exterior_and_design', $exterior);
+        }
+        $this->db->group_end();
+    }
+
+    if (!empty($other_features_and_extras)) {
+        $this->db->group_start();
+        foreach ($other_features_and_extras as $other) {
+            $this->db->or_like('other_features_and_extras', $other);
+        }
+        $this->db->group_end();
+    }
+
+    $this->db->where('status', 1);
+
+    return $this->db->count_all_results('car_list');
+}
+
 
 }

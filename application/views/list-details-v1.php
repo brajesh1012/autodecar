@@ -133,9 +133,9 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#scrollspyHeading3">Recommended cars</a>
                                             </li>
-                                            <li class="nav-item">
+                                            <!-- <li class="nav-item">
                                                 <a class="nav-link" href="#scrollspyHeading4">Loan calculator</a>
-                                            </li>
+                                            </li> -->
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#scrollspyHeading5">New car reviews</a>
                                             </li>
@@ -471,7 +471,8 @@
                                             </div>
                                         </div>
                                         <div class="listing-line "></div>
-                                        <div class="listing-features footer-col-block" id="scrollspyHeading2">
+                                        <?php if($details->vehicle_type!=1){?>
+                                        <div class="listing-features footer-col-block " id="scrollspyHeading2">
                                             <div class="footer-heading-desktop mb-30">
                                                 <h2>Features</h2>
                                             </div>
@@ -622,6 +623,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                         <!-- <div class="listing-line "></div> -->
                                         <!-- <div class="listing-calculator loan-calculator-form" id="scrollspyHeading4">
                                                 <div class="box-title">

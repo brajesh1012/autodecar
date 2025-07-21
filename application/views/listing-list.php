@@ -413,6 +413,13 @@
                             <div class="category-filter flex justify-space align-center mb-30 flex-wrap gap-8">
                                 <div class="box-1 flex align-center flex-wrap gap-8">
                                     <p class="">Showing 1–16 of 20 results</p>
+                                      <div>
+                                        <a href="<?= base_url('listing-list'); ?>"><button class="btn btn-warning me-2">Clear All</button></a>
+                                        <a href="<?= base_url('advance-filter') . '?' . $_SERVER['QUERY_STRING'] ?>" class="btn btn-secondary">
+                                            Back to Filter
+                                        </a>
+                                        
+                                    </div>
                                     <div class="filter-mobie">
                                         <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                                             aria-controls="offcanvasRight" class="filter">Filter<i
@@ -476,7 +483,7 @@
                                         </svg>
                                     </a>
                                     <div class="wd-find-select flex gap-8">
-                                        <div class="group-select">
+                                        <!-- <div class="group-select">
                                             <div class="nice-select" tabindex="0"><span class="current">Show: 50</span>
                                                 <ul class="list style">
                                                     <li data-value="10" class="option">Show: 10</li>
@@ -500,7 +507,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -1505,7 +1512,7 @@
                                             </div> -->
                             <!-- </div> -->
                             <div class="themesflat-pagination clearfix mt-40">
-                                <ul>
+                                <!-- <ul>
                                     <li><a href="#" class="page-numbers style"><i class="far fa-angle-left"></i></a>
                                     </li>
                                     <li><a href="#" class="page-numbers">1</a></li>
@@ -1515,7 +1522,9 @@
                                     <li><a href="#" class="page-numbers">...</a></li>
                                     <li><a href="#" class="page-numbers style"><i class="far fa-angle-right"></i></a>
                                     </li>
-                                </ul>
+                                </ul> -->
+
+                                <?= $pagination_links ?>
                             </div>
 
                         </div>
