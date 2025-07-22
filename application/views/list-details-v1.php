@@ -15,6 +15,18 @@
     fill: orange !important;
     stroke: orange;
 }
+
+
+    .star-rating span {
+        font-size: 24px;
+        cursor: pointer;
+        color: #ccc;
+    }
+
+    .star-rating span.selected {
+        color: gold;
+    }
+
         </style>
         <?php $users = $this->db->where('id',$details->added_by)->get('users')->row();?>
         <?php $roles = $this->db->where('id',$users->role)->get('roles')->row();?>
@@ -755,25 +767,38 @@
 
 
                                         </div>
+                                        <?php 
+                                        
+                                            $ratingStats = $this->db->select('AVG(rating) as avg_rating, COUNT(*) as total_reviews')
+                                            ->from('reviews')
+                                            ->where('vehicle_id', $details->id)
+                                            ->get()
+                                            ->row();
+                                                ?>
                                         <div class="listing-line "></div>
                                         <div class="listing-reviews flat-property-detail" id="scrollspyHeading5">
                                             <div class="box-title">
-                                                <h2 class="title-ct">Car User Reviews & Rating</h2>
+                                                <h2 class="title-ct">User Reviews & Rating</h2>
                                             </div>
-                                            <div class="widget-rating flex-three mb-30 mt-30">
-                                                <div class="icon-star">
-                                                    <i class="icon-autodeal-star"></i>
-                                                </div>
-                                                <div class="number">4.8</div>
-                                                <div class="content">
-                                                    <p class="text-color-2">Overall Rating</p>
-                                                    <p class="text-color-2">Base on <span class="fw-6">372
-                                                            Reviews</span></p>
+                                           <?php
+                                                $avg = isset($ratingStats->avg_rating) ? number_format($ratingStats->avg_rating, 1) : '0.0';
+                                                $total = isset($ratingStats->total_reviews) ? $ratingStats->total_reviews : '0';
+                                                ?>
+
+                                                <div id="review-section" class="widget-rating flex-three mb-30 mt-30">
+                                                    <div class="icon-star">
+                                                        <i class="icon-autodeal-star"></i>
+                                                    </div>
+                                                    <div class="number"><?= $avg ?></div>
+                                                    <div class="content">
+                                                        <p class="text-color-2">Overall Rating</p>
+                                                        <p class="text-color-2">Based on <span class="fw-6"><?= $total ?> Reviews</span></p>
+                                                    </div>
                                                 </div>
 
-                                            </div>
+
                                             <div class="flat-tabs mb-60">
-                                                <div class="box-tab style5  center">
+                                                <!-- <div class="box-tab style5  center">
                                                     <ul class="menu-tab tab-title flex  ">
                                                         <li class="item-title style active">
                                                             <span class="inner fs-16 fw-5 lh-20">All</span>
@@ -794,81 +819,86 @@
                                                             <span class="inner fs-16 fw-5 lh-20">Comfort</span>
                                                         </li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                                 <div class="content-tab">
                                                     <div class="content-inner tab-content">
                                                         <div class="wrap-review  pd-0">
                                                             <div class="titles mb-30">
-                                                                <h4>372 Rating and Reviews</h4>
+                                                                <h4><?= $total ?> Rating and Reviews</h4>
                                                             </div>
+                                                             <?php if($this->session->flashdata('msg')): ?>
+                                                            <div class="alert alert-success"><?= $this->session->flashdata('msg'); ?></div>
+                                                        <?php endif; ?>
+
+                                                        <?php if($this->session->flashdata('error')): ?>
+                                                            <div class="alert alert-danger"><?= $this->session->flashdata('error'); ?></div>
+                                                        <?php endif; ?>
                                                             <div class="comment-list">
                                                                 <ol class="mb-30">
-                                                                    <li>
-                                                                        <div class="flex-one">
-                                                                            <div class="comment-list-wrap flex-three">
-                                                                                <div class="images flex-none">
-                                                                                    <img src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
-                                                                                        alt="images">
-                                                                                </div>
-                                                                                <div class="content">
-                                                                                    <h5>Leslie Alexander
-                                                                                    </h5>
-                                                                                    <div
-                                                                                        class="icon-star text-color-3 fs-12">
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
+                                                                      <?php  
+                                                                      $reviews = $this->db->select('r.*, u.username, u.profile')->from('reviews r')->join('users u', 'u.id = r.user_id')->where('r.vehicle_id', $details->id)->order_by('r.created_at', 'DESC')->get()->result();
+                                                                    ?>
+                                                                    <?php if (!empty($reviews)): ?>
+                                                                        <?php foreach ($reviews as $review): ?>
+                                                                            <li id="review-<?= $review->id; ?>">
+                                                                                <div class="flex-one">
+                                                                                    <div class="comment-list-wrap flex-three">
+                                                                                        <!-- Optional User Profile Image -->
+                                                                                        <div class="images flex-none">
+                                                                                            <img src="<?= base_url(); ?>uploads/profile/<?= $review->profile ?? 'default.jpg' ?>" alt="User Image">
+                                                                                        </div>
+
+                                                                                        <div class="content">
+                                                                                            <h5><?= htmlspecialchars($review->username) ?></h5>
+
+                                                                                            <div class="icon-star text-color-3 fs-12">
+                                                                                                <?php
+                                                                                                    for ($i = 1; $i <= 5; $i++) {
+                                                                                                        echo '<i class="icon-autodeal-star'.($i <= $review->rating ? '' : '-o').'"></i>';
+                                                                                                    }
+                                                                                                ?>
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
+
+                                                                                    <p class="fs-12 lh-16 font">
+                                                                                        <?= date('F d, Y', strtotime($review->created_at)) ?>
+                                                                                    </p>
                                                                                 </div>
-                                                                            </div>
-                                                                            <p class="fs-12 lh-16 font">
-                                                                                August 13, 2023</p>
 
-                                                                        </div>
+                                                                                <p class="texts text-color-2"><?= nl2br(htmlspecialchars($review->review_text)) ?></p>
 
-                                                                        <p class="texts text-color-2">It's
-                                                                            really easy to use and it is
-                                                                            exactly what I am looking for. A
-                                                                            lot of good looking templates &
-                                                                            it's highly customizable. Live
-                                                                            support is helpful, solved my
-                                                                            issue in no time. 
-                                                                        </p>
-                                                                        <div class="image-wrap flex flex-wrap gap-20">
-                                                                            <img class="lazyload"
-                                                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car1.jpg"
-                                                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car1.jpg"
-                                                                                alt="">
-                                                                            <img class="lazyload"
-                                                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
-                                                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
-                                                                                alt="">
-                                                                            <img class="lazyload"
-                                                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
-                                                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
-                                                                                alt="">
-                                                                        </div>
-                                                                        <div class="flex-three">
-                                                                            <p class="fs-12">Is this review
-                                                                                helpful?</p>
-                                                                            <div class="helpful">
-                                                                                <a href="#"
-                                                                                    class="fs-12 fw-4 font-2">Yes</a>
-                                                                                <a href="#"
-                                                                                    class="fs-12 fw-4 font-2">No</a>
-                                                                            </div>
+                                                                                <?php if (!empty($review->images)): ?>
+                                                                                    <div class="image-wrap">
+                                                                                        <?php foreach (explode(',', $review->images) as $img): ?>
+                                                                                            <img class="lazyload"
+                                                                                                data-src="<?= base_url(); ?>uploads/review_images/<?= $img ?>"
+                                                                                                src="<?= base_url(); ?>uploads/review_images/<?= $img ?>"
+                                                                                                alt="Review Image">
+                                                                                        <?php endforeach; ?>
+                                                                                    </div>
+                                                                                <?php endif; ?>
 
-                                                                        </div>
+                                                                                <!-- <div class="flex-three">
+                                                                                    <p class="fs-12">Is this review helpful?</p>
+                                                                                    <div class="helpful">
+                                                                                        <a href="#" class="fs-12 fw-4 font-2">Yes</a>
+                                                                                        <a href="#" class="fs-12 fw-4 font-2">No</a>
+                                                                                    </div>
+                                                                                </div> -->
 
-                                                                    </li>
-                                                                    <li>
+                                                                            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review->user_id): ?>
+                                                                                <button class="delete-review-btn btn btn-sm btn-danger mt-2"
+                                                                                    data-id="<?= $review->id; ?>">
+                                                                                    <i class="bi bi-trash"></i> Delete
+                                                                                </button>
+                                                                            <?php endif; ?>
+                                                                            </li>
+                                                                        <?php endforeach; ?>
+                                                                    <?php else: ?>
+                                                                        <li><p>No reviews yet. Be the first to leave a review.</p></li>
+                                                                    <?php endif; ?>
+                                                                    <!-- <li>
                                                                         <div class="flex-one">
                                                                             <div class="comment-list-wrap flex-three">
                                                                                 <div class="images flex-none">
@@ -967,16 +997,16 @@
 
                                                                         </div>
 
-                                                                    </li>
+                                                                    </li> -->
                                                                 </ol>
-                                                                <a href="#"
+                                                                <!-- <a href="#"
                                                                     class="fs-16 fw-5 font text-color-3 lh-22">View
                                                                     more reviews <i
-                                                                        class="icon-autodeal-view-more"></i></a>
+                                                                        class="icon-autodeal-view-more"></i></a> -->
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="content-inner tab-content">
+                                                    <!-- <div class="content-inner tab-content">
                                                         <div class="wrap-review  pd-0">
                                                             <div class="titles mb-30">
                                                                 <h4>372 Rating and Reviews</h4>
@@ -1703,71 +1733,8 @@
                                                             </div>
                                                             <div class="comment-list">
                                                                 <ol class="mb-30">
-                                                                    <li>
-                                                                        <div class="flex-one">
-                                                                            <div class="comment-list-wrap flex-three">
-                                                                                <div class="images flex-none">
-                                                                                    <img src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
-                                                                                        alt="images">
-                                                                                </div>
-                                                                                <div class="content">
-                                                                                    <h5>Leslie Alexander
-                                                                                    </h5>
-                                                                                    <div
-                                                                                        class="icon-star text-color-3 fs-12">
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                        <i
-                                                                                            class="icon-autodeal-star"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <p class="fs-12 lh-16 font">
-                                                                                August 13, 2023</p>
+                                                                  
 
-                                                                        </div>
-
-                                                                        <p class="texts text-color-2">It's
-                                                                            really easy to use and it is
-                                                                            exactly what I am looking for. A
-                                                                            lot of good looking templates &
-                                                                            it's highly customizable. Live
-                                                                            support is helpful, solved my
-                                                                            issue in no time. 
-                                                                        </p>
-                                                                        <div class="image-wrap">
-                                                                            <img class="lazyload"
-                                                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car1.jpg"
-                                                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car1.jpg"
-                                                                                alt="">
-                                                                            <img class="lazyload"
-                                                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
-                                                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car2.jpg"
-                                                                                alt="">
-                                                                            <img class="lazyload"
-                                                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
-                                                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car3.jpg"
-                                                                                alt="">
-                                                                        </div>
-                                                                        <div class="flex-three">
-                                                                            <p class="fs-12">Is this review
-                                                                                helpful?</p>
-                                                                            <div class="helpful">
-                                                                                <a href="#"
-                                                                                    class="fs-12 fw-4 font-2">Yes</a>
-                                                                                <a href="#"
-                                                                                    class="fs-12 fw-4 font-2">No</a>
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                    </li>
                                                                     <li>
                                                                         <div class="flex-one">
                                                                             <div class="comment-list-wrap flex-three">
@@ -1875,22 +1842,23 @@
                                                                         class="icon-autodeal-view-more"></i></a>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
+                                            <?php if(isset($_SESSION['user_id'])){?>
                                             <div class="wrap-contact wrap-form pd-0">
                                                 <div class="title">
                                                     <h2>Leave a Reply</h2>
-                                                    <p>Your email address will not be published</p>
+                                                    <!-- <p>Your email address will not be published</p> -->
                                                 </div>
 
                                                 <div id="comments" class="comments">
                                                     <div class="respond-comment">
-                                                        <form method="post" id="contactform"
+                                                        <form method="POST" id="reviewForm"
                                                             class="comment-form form-submit"
-                                                            action="./contact/contact-process.php"
+                                                            action="<?= base_url('reviews'); ?>"
                                                             accept-charset="utf-8" novalidate="novalidate">
-                                                            <div class="inner-1 form-wg flex">
+                                                            <!-- <div class="inner-1 form-wg flex">
                                                                 <fieldset class="wg-box">
                                                                     <label class="fw-6">Name</label>
                                                                     <input type="text" class="my-input" name="text"
@@ -1909,10 +1877,21 @@
                                                                 <span class="btn-checkbox flex-two"></span>
                                                                 <span class="font-2">Save your name, email
                                                                     for the next time review</span>
-                                                            </label>
+                                                            </label> -->
+                                                                <input type="hidden" name="slug" value="<?= $details->slug; ?>">
+                                                                <input type="hidden" name="vehicle_id" value="<?= $details->id; ?>">
+                                                             <label class="fw-6">Your Rating</label>
+                                                                <div class="star-rating">
+                                                                    <span data-value="1">★</span>
+                                                                    <span data-value="2">★</span>
+                                                                    <span data-value="3">★</span>
+                                                                    <span data-value="4">★</span>
+                                                                    <span data-value="5">★</span>
+                                                                </div>
+                                                                <input type="hidden" name="rating" id="rating" value="0">
                                                             <fieldset class="message-wrap">
                                                                 <label class="fw-6">Review</label>
-                                                                <textarea id="comment-message" name="message" rows="4"
+                                                                <textarea id="comment-message" name="review" rows="4"
                                                                     tabindex="4" placeholder="Your Message:"
                                                                     aria-required="true"></textarea>
                                                             </fieldset>
@@ -1923,7 +1902,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <?php } ?>
 
                                         </div>
                                     </div>
@@ -2278,3 +2257,92 @@ function closeChatModal() {
         // For Add Favorite
               toggleUrl = '<?= base_url("toggle") ?>';
       </script>
+
+      <script>
+    const stars = document.querySelectorAll('.star-rating span');
+    const ratingInput = document.getElementById('rating');
+
+    stars.forEach((star) => {
+        star.addEventListener('click', function () {
+            const rating = this.getAttribute('data-value');
+            ratingInput.value = rating;
+
+            stars.forEach((s) => s.classList.remove('selected'));
+            this.classList.add('selected');
+
+            let previous = this.previousElementSibling;
+            while (previous) {
+                previous.classList.add('selected');
+                previous = previous.previousElementSibling;
+            }
+        });
+    });
+</script>
+
+<script>
+document.getElementById('reviewForm').addEventListener('submit', function (e) {
+    let rating = document.querySelector('input[name="rating"]').value;
+    let review = document.querySelector('textarea[name="review"]').value.trim();
+
+    if (rating === '0' || review === '') {
+        alert("Please fill all fields and select a rating.");
+        e.preventDefault(); // Stop form from submitting
+        return false;
+    }
+});
+</script>
+
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(document).ready(function () {
+    $('.delete-review-btn').on('click', function () {
+        const reviewId = $(this).data('id');
+        const reviewSelector = '#review-' + reviewId;
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this review?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "<?= base_url('delete-review-ajax'); ?>",
+                    type: "POST",
+                    data: { review_id: reviewId },
+                    success: function (response) {
+                        let res = JSON.parse(response);
+                        if (res.status === 'success') {
+                            // DOM se remove karo bina reload ke
+                            $(reviewSelector).fadeOut(300, function () {
+                                $(this).remove();
+                            });
+                            Swal.fire('Deleted!', res.message, 'success');
+                        } else {
+                            Swal.fire('Error!', res.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Error!', 'Something went wrong.', 'error');
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            // $('.alert').fadeOut('slow');
+             $('.alert').slideUp('slow'); 
+        }, 5000); // 3000 milliseconds = 3 seconds
+    });
+</script>
