@@ -19,6 +19,7 @@ class WebsiteController extends CI_Controller {
         $data['bikes'] = $this->WebsiteModel->filter_vehicles(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         $data['cars'] = $this->WebsiteModel->filter_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         $data['commercials'] = $this->WebsiteModel->filter_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        $data['categories'] = $this->WebsiteModel->getCategories();
 
         $user_id = $this->session->userdata('user_id');
             $this->db->where('user_id', $user_id);
@@ -373,6 +374,7 @@ public function reset_password($token = null) {
         $data['transmissions'] = $this->WebsiteModel->get_data('transmission');
         // $data['vehicles'] = $this->WebsiteModel->get_vehicle();
         $vehicle_type = $this->input->get('vehicle_type');
+        $cat_id = $this->input->get('cat_id');
         $make = $this->input->get('make');
         $model = $this->input->get('model');
         
@@ -409,7 +411,7 @@ public function reset_password($token = null) {
     // Step 2: Pagination Configuration
         $config['base_url'] = base_url('listing-list');
         $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(
-            $vehicle_type, $make, $model, $minYear, $maxYear, $min_price, $max_price,
+            $vehicle_type, $cat_id, $make, $model, $minYear, $maxYear, $min_price, $max_price,
             $minkm, $maxkm, $zipcode, $variant, $fuel_type, $color, $mileage,
             $transmission, $vehicle_condition, $ownership, $euro_norm,
             $winter_tires, $ac_type, $parking_sensors, $comfort_and_interior,
@@ -454,7 +456,7 @@ public function reset_password($token = null) {
 
         // Step 4: Fetch Filtered Vehicles
         $data['vehicles'] = $this->WebsiteModel->filter_vehicles(
-            $vehicle_type, $make, $model, $minYear, $maxYear, $min_price, $max_price,
+            $vehicle_type, $cat_id, $make, $model, $minYear, $maxYear, $min_price, $max_price,
             $minkm, $maxkm, $zipcode, $variant, $fuel_type, $color, $mileage,
             $transmission, $vehicle_condition, $ownership, $euro_norm,
             $winter_tires, $ac_type, $parking_sensors, $comfort_and_interior,
@@ -475,7 +477,7 @@ public function car()
   {
          // Step 2: Pagination Configuration
         $config['base_url'] = base_url('car');
-        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
         );
         //  print_r($config['total_rows']);die;
 
@@ -514,7 +516,7 @@ public function car()
         $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
 
         // Step 4: Fetch Filtered Vehicles
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
         );
 
         // Step 5: Send Pagination Links to View
@@ -529,7 +531,7 @@ public function car()
   {
         // Step 2: Pagination Configuration
         $config['base_url'] = base_url('bike');
-        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
         );
 
          $config['per_page'] = 5;
@@ -567,7 +569,7 @@ public function car()
         $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
 
         // Step 4: Fetch Filtered Vehicles
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(1, null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
         );
 
         // Step 5: Send Pagination Links to View
@@ -580,7 +582,7 @@ public function car()
  {
     // Step 2: Pagination Configuration
         $config['base_url'] = base_url('commercial');
-        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        $config['total_rows'] = $this->WebsiteModel->count_filtered_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
         );
 
          $config['per_page'] = 5;
@@ -618,7 +620,7 @@ public function car()
         $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
 
         // Step 4: Fetch Filtered Vehicles
-        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
+        $data['vehicles'] = $this->WebsiteModel->filter_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, $config['per_page'], $page
         );
 
         // Step 5: Send Pagination Links to View
@@ -699,8 +701,6 @@ public function car()
 
    public function list_details_v1($slug = null)
 {
-
-    // $data['new_vehicles'] = $this->WebsiteModel->get_new_vehicle();
     $data['details'] = $this->WebsiteModel->get_data_by('slug', $slug, 'car_list');
     	$this->load->view('list-details-v1', $data);
 }
@@ -785,6 +785,61 @@ public function car()
         $data['favorites'] = $this->WebsiteModel->getFavoritesByUser($user_id);
         $this->load->view('my_favorite', $data);
     }
+
+
+    public function reviews() {
+    // $this->load->library('form_validation');
+
+    // $this->form_validation->set_rules('name', 'Name', 'required|trim');
+    // $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
+    // print_r($_SESSION[]);die;
+    $this->form_validation->set_rules('rating', 'Rating', 'required|greater_than[0]');
+    $this->form_validation->set_rules('review', 'Review', 'required|trim');
+    $slug = $this->input->post('slug');
+    if ($this->form_validation->run() == FALSE) {
+        // Validation failed
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('list-details/'.$slug.'#review-section');
+    } else {
+        // Validation success
+        $data = [
+            // 'name' => $this->input->post('name'),
+            // 'email' => $this->input->post('email'),
+            'user_id' => $_SESSION['user_id'],
+            'vehicle_id' => $this->input->post('vehicle_id'),
+            'rating' => $this->input->post('rating'),
+            'review_text' => $this->input->post('review')
+        ];
+
+        $this->WebsiteModel->insertReview($data);
+
+        $this->session->set_flashdata('msg', 'Thank you for your review!');
+       redirect('list-details/'.$slug.'#review-section');
+    }
+}
+
+public function delete_review_ajax()
+{
+    $review_id = $this->input->post('review_id');
+    $user_id = $_SESSION['user_id'];
+
+    // Check ownership before deleting
+    $this->db->where(['id' => $review_id, 'user_id' => $user_id]);
+    $query = $this->db->get('reviews');
+    if ($query->num_rows() == 0) {
+        echo json_encode(['status' => 'error', 'message' => 'Review not found or permission denied.']);
+        return;
+    }
+
+    // Proceed with deletion
+    $this->db->where('id', $review_id);
+    if ($this->db->delete('reviews')) {
+        echo json_encode(['status' => 'success', 'message' => 'Review deleted successfully.']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to delete review.']);
+    }
+}
+
 
 }
 	

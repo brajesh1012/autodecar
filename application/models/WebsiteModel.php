@@ -53,7 +53,7 @@ class WebsiteModel extends CI_Model {
     
  }
 
-   public function filter_vehicles($vehicle_type = '', $make = '', $model = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '',  $variant = '', $fuel_type = '', $color = '', $mileage = '', $transmission = '', $vehicle_condition = '', $ownership = '', $euro_norm = '', $winter_tires = '', $ac_type = '', $parking_sensors = '', $comfort_and_interior = '',$safety_and_assistance = '' , $lighting_and_visibility = '', $multimedia_and_navigation = '', $engine_and_drive_technology = '', $exteriors = '', $other_features_and_extras = '', $limit = 5, $offset = 0) {
+   public function filter_vehicles($vehicle_type = '', $cat_id= '', $make = '', $model = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '',  $variant = '', $fuel_type = '', $color = '', $mileage = '', $transmission = '', $vehicle_condition = '', $ownership = '', $euro_norm = '', $winter_tires = '', $ac_type = '', $parking_sensors = '', $comfort_and_interior = '',$safety_and_assistance = '' , $lighting_and_visibility = '', $multimedia_and_navigation = '', $engine_and_drive_technology = '', $exteriors = '', $other_features_and_extras = '', $limit = 5, $offset = 0) {
 
     $location = $this->session->userdata('location');
     
@@ -63,6 +63,11 @@ class WebsiteModel extends CI_Model {
 
       if(!empty($vehicle_type)) {
             $this->db->where('vehicle_type', $vehicle_type);
+        }
+
+        
+      if(!empty($cat_id)) {
+            $this->db->where('cat_id', $cat_id);
         }
 
         if(!empty($make)) {
@@ -298,7 +303,7 @@ return $result;
 }
 
 
-public function count_filtered_vehicles($vehicle_type = '', $make = '', $model = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '',  $variant = '', $fuel_type = '', $color = '', $mileage = '', $transmission = '', $vehicle_condition = '', $ownership = '', $euro_norm = '', $winter_tires = '', $ac_type = '', $parking_sensors = '', $comfort_and_interior = '', $safety_and_assistance = '' , $lighting_and_visibility = '', $multimedia_and_navigation = '', $engine_and_drive_technology = '', $exteriors = '', $other_features_and_extras = '')
+public function count_filtered_vehicles($vehicle_type = '', $cat_id= '', $make = '', $model = '', $minYear = '', $maxYear = '', $min_price = '', $max_price = '', $minkm = '', $maxkm = '', $zipcode = '',  $variant = '', $fuel_type = '', $color = '', $mileage = '', $transmission = '', $vehicle_condition = '', $ownership = '', $euro_norm = '', $winter_tires = '', $ac_type = '', $parking_sensors = '', $comfort_and_interior = '', $safety_and_assistance = '' , $lighting_and_visibility = '', $multimedia_and_navigation = '', $engine_and_drive_technology = '', $exteriors = '', $other_features_and_extras = '')
 {
     // Same filters as filter_vehicles
     $location = $this->session->userdata('location');
@@ -310,6 +315,10 @@ public function count_filtered_vehicles($vehicle_type = '', $make = '', $model =
     if(!empty($vehicle_type)) {
         $this->db->where('vehicle_type', $vehicle_type);
     }
+
+      if(!empty($cat_id)) {
+            $this->db->where('cat_id', $cat_id);
+        }
 
     if(!empty($make)) {
         $this->db->where('make', $make);
@@ -445,5 +454,19 @@ public function count_filtered_vehicles($vehicle_type = '', $make = '', $model =
     return $this->db->count_all_results('car_list');
 }
 
+
+public function getCategories()
+{
+    $this->db->select('c.id, c.name, c.img');
+    $this->db->from('categories c');
+    $this->db->join('car_list cl', 'cl.cat_id = c.id');
+    $this->db->group_by('c.id');
+    $query = $this->db->get();
+    return $query->result();
+}
+
+public function insertReview($data) {
+    return $this->db->insert('reviews', $data);
+}
 
 }
