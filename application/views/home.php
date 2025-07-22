@@ -7624,7 +7624,7 @@
                                                 </div>
 
                                             </div>
-                                            <a href="<?= base_url('listing-details-v4'); ?>" class="view-car">View
+                                            <a href="<?= base_url('listing-list'); ?>" class="view-car">View
                                                 car</a>
                                         </div>
                                         <div class="bottom-box flex-two">
@@ -7672,12 +7672,12 @@
                         <div class="col-lg-12">
                             <div class="heading center">
                                 <h2 class="text-color-1 wow fadeInUpSmall" data-wow-delay="0.2s"
-                                    data-wow-duration="1000ms">Search car by body</h2>
+                                    data-wow-duration="1000ms">Search Vehicle by body</h2>
                                 <p class="text-color-1 wow fadeInUpSmall" data-wow-delay="0.3s"
-                                    data-wow-duration="1000ms">Are you looking for your dream car? Or want to sell your
-                                    old car
+                                    data-wow-duration="1000ms">Are you looking for your dream Vehicle? Or want to sell your
+                                    old Vehicle
                                     for the best price?
-                                    AutoDecar is the place for you!</p>
+                                    AutoKorb is the place for you!</p>
                                 <div class="btn-wrap wow fadeInUpSmall" data-wow-delay="0.4s"
                                     data-wow-duration="1000ms">
                                     <a href="#" class="sc-button btn-svg">
@@ -7698,21 +7698,26 @@
                         <div class="col-lg-12">
                             <div class="swiper partner-slide2 overflow-hidden">
                                 <div class="swiper-wrapper">
+
+                                <?php foreach($categories as $cat){
+                                    if(!empty($cat)){
+                                    ?>
                                     <div class="swiper-slide">
-                                        <a href="#" class="partner-item style-1">
+                                        <a href="<?= base_url('listing-list?cat_id='.$cat->id); ?>" class="partner-item style-1">
                                             <div class="image">
                                                 <img class="lazyload"
-                                                    data-src="<?= base_url(); ?>/assets/assets/images/icon-box/car-list1.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/icon-box/car-list1.png"
+                                                    data-src="<?= base_url('uploads/categories/'. $cat->img); ?>"
+                                                    src="<?= base_url('uploads/categories/'. $cat->img); ?>"
                                                     alt="images">
                                             </div>
                                             <div class="content center">
-                                                <div class="fs-16 fw-6 title text-color-2 font-2">Sedan</div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                                <div class="fs-16 fw-6 title text-color-2 font-2"><?= $cat->name?></div>
+                                                <!-- <span class="sub-title fs-12 fw-4 font-2">271 Car</span> -->
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="swiper-slide">
+                                    <?php } } ?>
+                                    <!-- <div class="swiper-slide">
                                         <a href="#" class="partner-item style-1">
                                             <div class="image">
                                                 <img class="lazyload"
@@ -7809,7 +7814,7 @@
                                                 <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
                                             </div>
                                         </a>
-                                    </div>
+                                    </div> -->
 
                                 </div>
                                 <div class="swiper-pagination3"></div>
@@ -12122,7 +12127,7 @@
                                             </div>
                                             <div class="content center">
                                                 <div class="fs-16 fw-6 title text-color-2 font-2"><?= $brand->name?></div>
-                                                <span class="sub-title fs-12 fw-4 font-2">271 Car</span>
+                                                <!-- <span class="sub-title fs-12 fw-4 font-2">271 Car</span> -->
                                             </div>
                                         </a>
                                     </div>
