@@ -85,6 +85,9 @@ $route['set-location'] = 'WebsiteController/set_location';
 $route['toggle'] = 'WebsiteController/toggle';
 $route['favorite-list'] = 'WebsiteController/favorite_list';
 
+$route['reviews'] = 'WebsiteController/reviews';
+$route['delete-review-ajax'] = 'WebsiteController/delete_review_ajax';
+
 $route['compare'] = 'WebsiteController/compare';
 $route['contact'] = 'WebsiteController/contact';
 $route['profile'] = 'WebsiteController/profile';
