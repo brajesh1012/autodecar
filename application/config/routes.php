@@ -172,6 +172,9 @@ $route[trim(ADMIN_PATH  . '/get-user-info', '/')] = 'AdminController/get_user_in
 $route['messages'] = 'WebsiteController/chat_list';
 // $route['buyer/view-chat/(:num)/(:num)'] = 'chat/view_chat/$1/$2';
 // $route['get-user-info'] = 'chat/get_user_info';
+$route[trim(ADMIN_PATH  . '/test', '/')] = 'AdminController/test';
+$route[trim(ADMIN_PATH  . '/features', '/')] = 'AdminController/features';
+$route[trim(ADMIN_PATH  . '/delete-features', '/')] = 'AdminController/delete_features';
 
 // ////////////////////////////////////////////Dealer//////////////////////////////////////////////////////
 $route['advance-filter'] = 'WebsiteController/advance_filter';

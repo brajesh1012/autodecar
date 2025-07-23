@@ -196,6 +196,7 @@ class WebsiteModel extends CI_Model {
           $this->db->limit($limit, $offset);
 
       $this->db->where('status',1);
+      $this->db->order_by('id', 'DESC');
     $query = $this->db->get('car_list');
 
     if ($query->num_rows() > 0) {

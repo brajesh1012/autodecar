@@ -2344,11 +2344,11 @@ public function delete_vehicle_record() {
             "required"
         );
 
-        $this->form_validation->set_rules(
-            "listing_limit",
-            "Listing Limit",
-            "required"
-        );
+        // $this->form_validation->set_rules(
+        //     "listing_limit",
+        //     "Listing Limit",
+        //     "required"
+        // );
 
 
 
@@ -2372,7 +2372,7 @@ public function delete_vehicle_record() {
                 "plan_name" => $this->input->post("plan_name"),
                 "price" => $this->input->post("price"),
                 "duration_days" => $this->input->post("duration_days"),
-                "listing_limit" => $this->input->post("listing_limit"),
+                // "listing_limit" => $this->input->post("listing_limit"),
             ];
             $this->db->insert("subscription_plans", $data); // Save to database
 
@@ -2418,11 +2418,11 @@ public function delete_vehicle_record() {
             "required"
         );
 
-        $this->form_validation->set_rules(
-            "listing_limit",
-            "Listing Limit",
-            "required"
-        );
+        // $this->form_validation->set_rules(
+        //     "listing_limit",
+        //     "Listing Limit",
+        //     "required"
+        // );
 
 
 
@@ -2437,7 +2437,7 @@ public function delete_vehicle_record() {
                 "plan_name" => $this->input->post("plan_name"),
                 "price" => $this->input->post("price"),
                 "duration_days" => $this->input->post("duration_days"),
-                "listing_limit" => $this->input->post("listing_limit"),
+                // "listing_limit" => $this->input->post("listing_limit"),
             ];
             $this->Common_model->updateData('subscription_plans',$data, array('id' => $id));
 
@@ -2640,10 +2640,126 @@ public function view_chat($vehicle_id, $other_user_id)
     }
 }
 
-    public function test()
+    // public function test()
+    // {
+    //     if (!has_permission("Car List")) {
+    //         show_error("Unauthorized access");
+    //     }
+    // }
+
+     public function features()
+     {    
+        if (!isset($_SESSION['role_name'])) {
+                redirect(base_url()); // or homepage
+            }
+
+         if ($_SESSION["role_name"] == "Buyer") {
+                redirect(base_url());
+            }
+
+        $this->form_validation->set_rules(
+            "feature",
+            "Feature Name",
+            "required"
+        );
+         $this->form_validation->set_rules(
+            "type",
+            "Type",
+            "required"
+        );
+
+        if ($this->form_validation->run() == false) {
+            $data["comfort_and_interior"] = $this->WebsiteModel->get_data("comfort_and_interior");
+            $data["safety_and_assistance"] = $this->WebsiteModel->get_data("safety_and_assistance");
+            $data["lighting_and_visibility"] = $this->WebsiteModel->get_data("lighting_and_visibility");
+            $data["multimedia_and_navigation"] = $this->WebsiteModel->get_data("multimedia_and_navigation");
+            $data["engine_and_drive_technology"] = $this->WebsiteModel->get_data("engine_and_drive_technology");
+            $data["exterior_and_design"] = $this->WebsiteModel->get_data("exterior_and_design");
+            $data["other_features_and_extras"] = $this->WebsiteModel->get_data("other_features_and_extras");
+           $data["main"] = "features";
+        $this->load->view("admin/template", $data);
+        } else {
+
+            $type = $this->input->post("type");
+            // Prepare data to insert (example)
+            $data = [
+                "name" => $this->input->post("feature"),
+            ];
+
+            if($type == 'Comfort & Interior'){
+
+                $this->db->insert("comfort_and_interior", $data);
+
+            }elseif ($type == 'Safety & Assistance') {
+
+              $this->db->insert("safety_and_assistance", $data);
+
+            }elseif ($type == 'Lighting & Visibility') {
+
+                $this->db->insert("lighting_and_visibility", $data);
+
+            }elseif ($type == 'Multimedia & Navigation') {
+
+                $this->db->insert("multimedia_and_navigation", $data);
+
+            }elseif ($type == 'Engine & Drive Technology') {
+
+                $this->db->insert("engine_and_drive_technology", $data);
+
+            }elseif ($type == 'Exterior & Design') {
+
+                $this->db->insert("exterior_and_design", $data);
+
+            }elseif ($type == 'Other Features & Extras') {
+
+                $this->db->insert("other_features_and_extras", $data);
+                
+            }
+
+            $this->session->set_flashdata(
+                "success",
+                "Features added successfully!"
+            );
+            redirect(ADMIN_PATH . "/features");
+        }
+
+}
+
+
+   public function delete_features()
     {
-        if (!has_permission("Car List")) {
-            show_error("Unauthorized access");
+         
+
+        if(!empty($_GET["comfort"])){
+            $comfort = $_GET["comfort"];
+            $delete = $this->db->where("id", $comfort)->delete("comfort_and_interior");
+        }elseif (!empty($_GET["safety"])) {
+             $safety = $_GET["safety"];
+            $delete = $this->db->where("id", $safety)->delete("safety_and_assistance");
+        }elseif (!empty($_GET["lighting"])) {
+            $lighting = $_GET["lighting"];
+            $delete = $this->db->where("id", $lighting)->delete("lighting_and_visibility");
+        }elseif (!empty($_GET["multimedia"])) {
+            $multimedia = $_GET["multimedia"];
+            $delete = $this->db->where("id", $multimedia)->delete("multimedia_and_navigation");
+        }elseif (!empty($_GET["engine"])) {
+            $engine = $_GET["engine"];
+            $delete = $this->db->where("id", $engine)->delete("engine_and_drive_technology");
+        }elseif (!empty($_GET["exterior"])) {
+            $exterior = $_GET["exterior"];
+            $delete = $this->db->where("id", $exterior)->delete("exterior_and_design");
+        }elseif (!empty($_GET["other"])) {
+        $other = $_GET["other"];
+            $delete = $this->db->where("id", $other)->delete("other_features_and_extras");
+        }
+
+        if ($delete) {
+            $this->session->set_flashdata(
+                "success",
+                "Feature Delete successfully!"
+            );
+            redirect(ADMIN_PATH . "/features");
         }
     }
+
 }
