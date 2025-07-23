@@ -68,11 +68,11 @@ p {
                                         <small class="text-danger"><?= form_error('duration_days') ?></small>   
                                     </div>
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                        <label for="listing_limit">Listing Limit *</label>
                                        <input type="number" name="listing_limit" class="form-control"  value="<?= set_value('listing_limit') ?>" placeholder="Enter number of vehicles allowed">
                                        <small class="text-danger"><?= form_error('listing_limit') ?></small>
-                                   </div>
+                                   </div> -->
                                 </div>
                                 </div>
 
@@ -115,7 +115,7 @@ p {
                                             <th>Plan Name</th>
                                             <th>Price</th>
                                             <th>Duration</th>
-                                            <th>Listing Limit</th>
+                                            <!-- <th>Listing Limit</th> -->
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -132,7 +132,7 @@ p {
                                             <td><?= $plan->plan_name; ?></td>
                                             <td><?= $plan->price; ?></td>
                                             <td><?= $plan->duration_days; ?></td>
-                                            <td><?= $plan->listing_limit; ?></td>
+                                            <!-- <td><?= $plan->listing_limit; ?></td> -->
                                             <td>
                                             <?php if($_SESSION['role_name'] =="Admin"){ ?>    
                                             <a href="<?= base_url(ADMIN_PATH . '/'); ?>update-plan/<?php echo $plan->id; ?>" >Update</a>

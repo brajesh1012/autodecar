@@ -61,11 +61,11 @@ p {
                                         <small class="text-danger"><?= form_error('duration_days') ?></small>   
                                     </div>
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                        <label for="listing_limit">Listing Limit *</label>
                                        <input type="number" name="listing_limit" class="form-control"  value="<?= $plan->listing_limit; ?>" placeholder="Enter number of vehicles allowed">
                                        <small class="text-danger"><?= form_error('listing_limit') ?></small>
-                                   </div>
+                                   </div> -->
                                 </div>
                                 </div>
 
