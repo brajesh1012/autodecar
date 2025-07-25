@@ -661,14 +661,45 @@ $(document).ready(function(){
                     if (response.action === 'added') {
                         icon.addClass('favorited');
                         icon.attr('title', 'Unfavorite');
+
+                          // ✅ Show "added" message
+                    $('#favorite-message').text('Wishlist added successfully.').css({
+                        'position': 'fixed',
+                        'top': '80px',
+                        'right': '40px',
+                        'z-index': '9999',
+                        'color': 'green',
+                        'background-color': '#e6ffe6',
+                        'border': '1px solid #00cc00',
+                        'padding': '8px 12px',
+                        'border-radius': '5px',
+                        'display': 'inline-block'
+                    }).fadeIn();
+
                     } else if (response.action === 'removed') {
                         icon.removeClass('favorited');
                         icon.attr('title', 'Favorite');
+                         // ✅ Show "removed" message
+                    $('#favorite-message').text('Wishlist removed successfully.').css({
+                        'position': 'fixed',
+                        'top': '80px',
+                        'right': '40px',
+                        'z-index': '9999',
+                        'color': 'red',
+                        'background-color': '#ffe6e6',
+                        'border': '1px solid #cc0000',
+                        'padding': '8px 12px',
+                        'border-radius': '5px',
+                        'display': 'inline-block'
+                    }).fadeIn();
                     }
+                    
+                // ✅ Hide message after 5 seconds
+                setTimeout(function () {
+                    $('#favorite-message').fadeOut();
+                }, 3000);
+
                 }
-                //  else {
-                //     alert(response.message || 'Something went wrong!');
-                // }
             }
         });
     });

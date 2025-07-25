@@ -121,6 +121,20 @@
     .btn-red:hover {
         background-color: #bb2a1f;
     }
+
+.favorite-icon {
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.favorite-icon.favorited {
+    color: orange;
+}
+
+.favorite-icon.favorited svg path {
+    fill: orange !important;
+    stroke: orange;
+}
     </style>
 
 
@@ -135,6 +149,8 @@
     </div> -->
 
     <!-- /preload -->
+       <!-- Message Placeholder -->
+       <div id="favorite-message" style="display: none;"></div>
 
     <div id="wrapper">
         <div id="pagee" class="clearfix">
@@ -560,12 +576,9 @@
                 </div>
                 <div class="slider-item-content position-relative">
                     <div class="container">
-                        <div class="position-absolute" style="bottom: 80px;
-    display: flex
-;
-    flex-direction: column;
-    align-items: center;">
-                            <!--<div class="flat-tabs-wrap">
+                        <div class="position-absolute" style="bottom: 80px; display: flex; flex-direction: column; align-items: center;">
+                            
+                             <!--<div class="flat-tabs-wrap">
                                 <h1 class="title" style="font-size: 30px;">Find your right car</h1>
                                 <div class="box-tab style1 center">
                                     <ul class="menu-tab tab-title flex flex-wrap">
@@ -1158,9 +1171,32 @@
                                                                     <span><?= $car->transmission; ?></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
-                                                                <?= $car->price; ?>
+                                                            <div class="justify-content-between d-flex">
+                                                                <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
+                                                                  <?= $car->price; ?>
+                                                                </div>
+                                                                <?php
+                                                                    $is_logged_in = isset($_SESSION['user_id']);
+                                                                    $is_favorited = $is_logged_in ? $this->WebsiteModel->is_favorited($_SESSION['user_id'], $car->id) : false;
+                                                                ?>
+                                                                 <a href="javascript:void(0);"
+                                                                    class="icon favorite-icon <?= $is_favorited ? 'favorited' : '' ?>"
+                                                                    data-vehicle-id="<?= $car->id; ?>"
+                                                                    data-logged-in="<?= $is_logged_in ? 'yes' : 'no' ?>"
+                                                                    title="<?= $is_favorited ? 'Unfavorite' : 'Favorite' ?>">
+
+                                                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M16.5 4.875C16.5 2.80417 14.7508 1.125 12.5933 1.125C10.9808 1.125 9.59583 2.06333 9 3.4025C8.40417 2.06333 7.01917 1.125 5.40583 1.125C3.25 1.125 1.5 2.80417 1.5 4.875C1.5 10.8917 9 14.875 9 14.875C9 14.875 16.5 10.8917 16.5 4.875Z"
+                                                                            stroke="CurrentColor" stroke-width="1.5" stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </a>
+                                                                
                                                             </div>
+                                                            
+
                                                             <div class="days-box flex justify-space align-center">
                                                                 <?php foreach ($added_by as $added) { ?>
                                                                 <div class="img-author">
@@ -2845,8 +2881,29 @@
                                                                     <span><?= $bike->transmission; ?></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
-                                                                <?= $bike->price; ?>
+                                                            <div class="justify-content-between d-flex">
+                                                                <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
+                                                                  <?= $bike->price; ?>
+                                                                </div>
+                                                                <?php
+                                                                    $is_logged_in = isset($_SESSION['user_id']);
+                                                                    $is_favorited = $is_logged_in ? $this->WebsiteModel->is_favorited($_SESSION['user_id'], $bike->id) : false;
+                                                                ?>
+                                                                 <a href="javascript:void(0);"
+                                                                    class="icon favorite-icon <?= $is_favorited ? 'favorited' : '' ?>"
+                                                                    data-vehicle-id="<?= $bike->id; ?>"
+                                                                    data-logged-in="<?= $is_logged_in ? 'yes' : 'no' ?>"
+                                                                    title="<?= $is_favorited ? 'Unfavorite' : 'Favorite' ?>">
+
+                                                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M16.5 4.875C16.5 2.80417 14.7508 1.125 12.5933 1.125C10.9808 1.125 9.59583 2.06333 9 3.4025C8.40417 2.06333 7.01917 1.125 5.40583 1.125C3.25 1.125 1.5 2.80417 1.5 4.875C1.5 10.8917 9 14.875 9 14.875C9 14.875 16.5 10.8917 16.5 4.875Z"
+                                                                            stroke="CurrentColor" stroke-width="1.5" stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </a>
+                                                                
                                                             </div>
                                                             <div class="days-box flex justify-space align-center">
                                                                 <?php foreach ($added_by as $added) { ?>
@@ -2994,8 +3051,29 @@
                                                                     <span><?= $commercial->transmission; ?></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
-                                                                <?= $commercial->price; ?>
+                                                            <div class="justify-content-between d-flex">
+                                                                <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
+                                                                  <?= $commercial->price; ?>
+                                                                </div>
+                                                                <?php
+                                                                    $is_logged_in = isset($_SESSION['user_id']);
+                                                                    $is_favorited = $is_logged_in ? $this->WebsiteModel->is_favorited($_SESSION['user_id'], $commercial->id) : false;
+                                                                ?>
+                                                                 <a href="javascript:void(0);"
+                                                                    class="icon favorite-icon <?= $is_favorited ? 'favorited' : '' ?>"
+                                                                    data-vehicle-id="<?= $commercial->id; ?>"
+                                                                    data-logged-in="<?= $is_logged_in ? 'yes' : 'no' ?>"
+                                                                    title="<?= $is_favorited ? 'Unfavorite' : 'Favorite' ?>">
+
+                                                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M16.5 4.875C16.5 2.80417 14.7508 1.125 12.5933 1.125C10.9808 1.125 9.59583 2.06333 9 3.4025C8.40417 2.06333 7.01917 1.125 5.40583 1.125C3.25 1.125 1.5 2.80417 1.5 4.875C1.5 10.8917 9 14.875 9 14.875C9 14.875 16.5 10.8917 16.5 4.875Z"
+                                                                            stroke="CurrentColor" stroke-width="1.5" stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </a>
+                                                                
                                                             </div>
                                                             <div class="days-box flex justify-space align-center">
                                                                 <?php foreach ($added_by as $added) { ?>
@@ -12392,4 +12470,8 @@
                     }
                 });
             });
+            </script>
+
+              <script>
+            toggleUrl = '<?= base_url("toggle") ?>';
             </script>

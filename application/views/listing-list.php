@@ -11,7 +11,9 @@
         </div>
     </div>
 </section>
-
+  <!-- Message Placeholder -->
+       <div id="favorite-message" style="display: none;"></div>
+       
 <section class="listing-grid tf-section3">
     <div class="container">
         <div class="row">
@@ -23,6 +25,7 @@
                         perfect used car for your needs.</p>
                 </div>
             </div>
+  <div class="list-car-list-1">
             <div class="col-lg-12 flex gap-30 text-start">
                 <div class="sidebar-right-listing style-2  d-none">
                     <div class="sidebar-title flex-two flex-wrap">
