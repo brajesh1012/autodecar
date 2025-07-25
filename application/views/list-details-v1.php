@@ -16,6 +16,12 @@
     stroke: orange;
 }
 
+/* #favorite-message {
+    background-color: #e6ffe6;
+    border: 1px solid #00cc00;
+    padding: 10px;
+    border-radius: 5px;
+} */
 
     .star-rating span {
         font-size: 24px;
@@ -2014,6 +2020,8 @@
                                                 </a>
                                             </li> -->
                                     </ul>
+                                    <!-- Message Placeholder -->
+                                           <div id="favorite-message" style="display: none;"></div>
                                 </div>
 
                             </div>

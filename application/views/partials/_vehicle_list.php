@@ -14,8 +14,9 @@
 }
   </style>
 
-  <div class="list-car-list-1">
+
       <?php if(!empty($vehicles)){ foreach($vehicles as $vehicle){?>
+        
       <div class="box-car-list style-2 hv-one">
           <div class="image-group relative ">
               <ul class="change-heart flex">
@@ -76,6 +77,7 @@
 
                  ?>
           </div>
+         
           <div class="content">
               <div class="inner1">
                   <?php  foreach ($makes as $make) { 
