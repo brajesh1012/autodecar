@@ -437,8 +437,16 @@
                                                     <!-- Clean Dropdown Menu -->
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm p-0"
                                                         aria-labelledby="userDropdown">
+                                                         <?php if($_SESSION['role_name'] =="Buyer"){ ?>
                                                         <li><a class="dropdown-item py-2 px-3"
-                                                                href="<?= base_url('profile'); ?>">Profile</a></li>
+                                                        href="<?= base_url('profile'); ?>">Profile</a></li>
+                                                        <?php } elseif($_SESSION['role_name'] =="Dealer") { ?>
+                                                            <li><a class="dropdown-item py-2 px-3"
+                                                            href="<?= base_url(ADMIN_PATH  . '/dealer-profile'); ?>">Profile</a></li>
+                                                        <?php } else{?>
+                                                            <li><a class="dropdown-item py-2 px-3"
+                                                            href="<?= base_url(ADMIN_PATH  . '/my-profile'); ?>">Profile</a></li>
+                                                                      <?php } ?>
                                                         <li><a class="dropdown-item py-2 px-3"
                                                                 href="<?= base_url('logout'); ?>">Log Out</a></li>
                                                     </ul>
@@ -449,8 +457,8 @@
                                                 style="width: 140px; font-size: 14px; padding: 4px;">
                                                 <option value="">Select Location</option>
                                                 <?php  $cities= $this->db->get('cities')->result();  foreach($cities as $city){?>
-                                                <option value="<?= $city->city_name; ?>"
-                                                    <?php if($this->session->userdata('location')== $city->city_name){ echo "selected";}?>>
+                                                <option value="<?= $city->id; ?>"
+                                                    <?php if($this->session->userdata('location')== $city->id){ echo "selected";}?>>
                                                     <?= $city->city_name; ?></option>
                                                 <?php }?>
                                             </select></li>

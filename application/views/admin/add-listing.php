@@ -81,7 +81,7 @@ p {
                                                 <option value="">Select Make</option>
                                                 <?php  foreach($makes as $make){?>
                                                 <option value="<?= $make->id; ?>"
-                                                    <?php if(set_value('make')==$make->name){ echo "selected"; } ?>>
+                                                    <?php if(set_value('make')==$make->id){ echo "selected"; } ?>>
                                                     <?= $make->name; ?></option>
                                                 <?php }?>
                                             </select>
@@ -97,7 +97,7 @@ p {
                                                 <option value="">Select Model</option>
                                                 <?php  foreach($models as $model){?>
                                                 <option value="<?= $model->id; ?>"
-                                                    <?php if(set_value('model')==$model->name){ echo "selected"; } ?>>
+                                                    <?php if(set_value('model')==$model->id){ echo "selected"; } ?>>
                                                     <?= $model->name; ?></option>
                                                 <?php }?>
                                             </select>
@@ -113,7 +113,7 @@ p {
                                                 <option value="">Select Variant</option>
                                                 <?php  foreach($variants as $variant){?>
                                                 <option value="<?= $variant->id; ?>"
-                                                    <?php if(set_value('variant')==$variant->name){ echo "selected"; } ?>>
+                                                    <?php if(set_value('variant')==$variant->id){ echo "selected"; } ?>>
                                                     <?= $variant->name; ?></option>
                                                 <?php }?>
 
@@ -260,7 +260,7 @@ p {
                                         </div>
 
 
-                                        <div class="form-group">
+                                        <div class="form-group d-none">
                                             <label for="listing_title">KM Driven *</label>
                                             <input type="text" class="form-control" name="km" placeholder="Enter KM"
                                                 value="<?= set_value('km') ?>">
@@ -347,11 +347,12 @@ p {
                                         <h4>Comfort & Interior Features</h4>
                                     </div>
                                     <div class="form-group-4">
+                                        <?php $selected_comforts = set_value('comfort_and_interior') ?: []; ?>
                                         <?php foreach($comforts as $comfort){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="comfort_and_interior[]"
                                                 value="<?= $comfort->name ?>"
-                                                <?php if(set_value('comfort_and_interior')==  $comfort->name ){ echo "checked"; } ?>><?= $comfort->name ?>
+                                                <?php if(in_array($comfort->name, $selected_comforts)){ echo "checked"; } ?>><?= $comfort->name ?>
                                         </div>
                                         <?php } ?>
                                 </div>
@@ -360,11 +361,12 @@ p {
                                         <h4>Safety & Assistance</h4>
                                     </div>
                                     <div class="form-group-4">
+                                           <?php $selected_safety = set_value('safety_and_assistance') ?: []; ?>
                                         <?php foreach($safety_and_assistance as $safety){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="safety_and_assistance[]"
                                                 value="<?= $safety->name ?>"
-                                                <?php if(set_value('safety_and_assistance')==  $safety->name ){ echo "checked"; } ?>><?= $safety->name ?>
+                                            <?php if(in_array($safety->name, $selected_safety)){ echo "checked"; } ?>><?= $safety->name ?>
                                         </div>
                                         <?php } ?>
                                 </div>
@@ -373,11 +375,12 @@ p {
                                         <h4>Lighting & Visibility</h4>
                                     </div>
                                     <div class="form-group-4">
+                                        <?php $selected_lighting = set_value('lighting_and_visibility') ?: []; ?>
                                         <?php foreach($lighting_and_visibility as $lighting){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="lighting_and_visibility[]"
                                                 value="<?= $lighting->name ?>"
-                                                <?php if(set_value('lighting_and_visibility')==  $lighting->name ){ echo "checked"; } ?>><?= $lighting->name ?>
+                                               <?php if(in_array($lighting->name, $selected_lighting)){ echo "checked"; } ?> ><?= $lighting->name ?>
                                         </div>
                                         <?php } ?>
                                 </div>
@@ -386,11 +389,12 @@ p {
                                         <h4>Multimedia & Navigation</h4>
                                     </div>
                                     <div class="form-group-4">
+                                          <?php $selected_multimedia = set_value('multimedia_and_navigation') ?: []; ?>
                                         <?php foreach($multimedia_and_navigation as $multimedia){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="multimedia_and_navigation[]"
                                                 value="<?= $multimedia->name ?>"
-                                                <?php if(set_value('multimedia_and_navigation')==  $multimedia->name ){ echo "checked"; } ?>><?= $multimedia->name ?>
+                                                <?php if(in_array($multimedia->name, $selected_multimedia)){ echo "checked"; } ?>><?= $multimedia->name ?>
                                         </div>
                                         <?php } ?>
                                 </div>
@@ -399,11 +403,12 @@ p {
                                         <h4>Engine & Drive Technology</h4>
                                     </div>
                                     <div class="form-group-4">
+                                          <?php $selected_engine = set_value('engine_and_drive_technology') ?: []; ?>
                                         <?php foreach($engine_and_drive_technology as $engine){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="engine_and_drive_technology[]"
                                                 value="<?= $engine->name ?>"
-                                                <?php if(set_value('engine_and_drive_technology')==  $engine->name ){ echo "checked"; } ?>><?= $engine->name ?>
+                                                <?php if(in_array($engine->name, $selected_engine)){ echo "checked"; } ?>><?= $engine->name ?>
                                         </div>
                                         <?php } ?>
                                 </div>
@@ -414,11 +419,12 @@ p {
                                         <h4>Exterior & Design</h4>
                                     </div>
                                     <div class="form-group-4">
+                                          <?php $selected_exterior = set_value('exterior') ?: []; ?>
                                         <?php foreach($exterior_and_design as $exterior){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="exterior[]"
                                                 value="<?= $exterior->name ?>"
-                                                <?php if(set_value('exterior')==  $exterior->name ){ echo "checked"; } ?>><?= $exterior->name ?>
+                                             <?php if(in_array($exterior->name, $selected_exterior)){ echo "checked"; } ?>><?= $exterior->name ?>
                                         </div>
                                         <?php } ?>
                                 </div>
@@ -427,11 +433,12 @@ p {
                                         <h4>Other Features & Extras</h4>
                                     </div>
                                     <div class="form-group-4">
+                                        <?php $selected_other = set_value('other_features_and_extras') ?: []; ?>
                                         <?php foreach($other_features_and_extras as $other){ ?>
                                         <div class="form-group">
                                             <input type="checkbox" name="other_features_and_extras[]"
                                                 value="<?= $other->name ?>"
-                                                <?php if(set_value('other_features_and_extras')==  $other->name ){ echo "checked"; } ?>><?= $other->name ?>
+                                                <?php if(in_array($other->name, $selected_other)){ echo "checked"; } ?>><?= $other->name ?>
                                         </div>
                                         <?php } ?>
                                 </div>
@@ -484,7 +491,7 @@ p {
                                             <option value="">Select Location</option>
                                             <?php  foreach($states as $state){?>
                                             <option value="<?= $state->id; ?>"
-                                                <?php if(set_value('state')==$state->name){ echo "selected"; } ?>>
+                                                <?php if(set_value('state')==$state->id){ echo "selected"; } ?>>
                                                 <?= $state->name; ?>
                                             </option>
                                             <?php }?>
@@ -501,7 +508,7 @@ p {
                                             <option value="">Select City</option>
                                             <?php  foreach($cities as $city){?>
                                             <option value="<?= $city->id; ?>"
-                                                <?php if(set_value('location')==$city->city_name){ echo "selected"; } ?>>
+                                                <?php if(set_value('location')==$city->id){ echo "selected"; } ?>>
                                                 <?= $city->city_name; ?>
                                             </option>
                                             <?php }?>

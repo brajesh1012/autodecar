@@ -318,43 +318,43 @@ class AdminController extends CI_Controller
           
              $user_id = $_SESSION['user_id'];
 
-        $this->form_validation->set_rules("title", "Title", "required");
+        // $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
         $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
-        $this->form_validation->set_rules("variant", "variant", "required");
-        $this->form_validation->set_rules("color", "Color", "required");
-        $this->form_validation->set_rules("ownership", "Ownership", "required");
-        $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
-        $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
-        $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
-        $this->form_validation->set_rules("state", "Canton", "required");
-        $this->form_validation->set_rules("zipcode", "Zipcode", "required");
+        // $this->form_validation->set_rules("variant", "variant", "required");
+        // $this->form_validation->set_rules("color", "Color", "required");
+        // $this->form_validation->set_rules("ownership", "Ownership", "required");
+        // $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
+        // $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
+        // $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
+        // $this->form_validation->set_rules("state", "Canton", "required");
+        // $this->form_validation->set_rules("zipcode", "Zipcode", "required");
         // $this->form_validation->set_rules("mfk_date", "MFk", "required");
         // $this->form_validation->set_rules("tuv_date", "TUV", "required");
 
         $this->form_validation->set_rules("year", "Year", "required|numeric");
         $this->form_validation->set_rules("mileage", "Mileage", "required");
-        $this->form_validation->set_rules(
-            "vehicle_condition",
-            "Vehicle Condition",
-            "required"
-        );
+        // $this->form_validation->set_rules(
+        //     "vehicle_condition",
+        //     "Vehicle Condition",
+        //     "required"
+        // );
         $this->form_validation->set_rules("price", "Price", "required");
-        $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
-        $this->form_validation->set_rules(
-            "transmission",
-            "Transmission",
-            "required"
-        );
-        $this->form_validation->set_rules("location", "Location", "required");
-        $this->form_validation->set_rules("km", "Kilo Meter", "required");
-        $this->form_validation->set_rules(
-            "description",
-            "Description",
-            "required"
-        );
+        // $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
+        // $this->form_validation->set_rules(
+        //     "transmission",
+        //     "Transmission",
+        //     "required"
+        // );
+        // $this->form_validation->set_rules("location", "Location", "required");
+        // $this->form_validation->set_rules("km", "Kilo Meter", "required");
+        // $this->form_validation->set_rules(
+        //     "description",
+        //     "Description",
+        //     "required"
+        // );
 
         if ($this->form_validation->run() == false) {
             $data["categories"] = $this->WebsiteModel->get_data("categories");
@@ -551,35 +551,34 @@ class AdminController extends CI_Controller
 
             $data = [
 				"slug" => $slug,
-                "title" => $this->input->post("title"),
+                "title" => $this->input->post("title")?? '',
                 "vehicle_type" => $this->input->post("vehicle_type"),
                 "cat_id" => $this->input->post("cat_id"),
                 "make" => $this->input->post("make"),
                 "model" => $this->input->post("model"),
-                "variant" => $this->input->post("variant"),
-                "color" => $this->input->post("color"),
-                "year" => $this->input->post("year"),
+                "variant" => $this->input->post("variant") ?? '',
+                "color" => $this->input->post("color") ?? '',
+                "year" => $this->input->post("year") ,
                 "mileage" => $this->input->post("mileage"),
-                "vehicle_condition" => $this->input->post("vehicle_condition"),
+                "vehicle_condition" => $this->input->post("vehicle_condition") ?? '',
 
                 "price" => $price,
                 "total_price" => $total_price,
                 "tax" => $vat_amount ?? '' ,
-                "is_negotiable" => $this->input->post("is_negotiable"),
+                "is_negotiable" => $this->input->post("is_negotiable") ?? '',
 
-                "fuel_type" => $this->input->post("fuel_type"),
-                "transmission" => $this->input->post("transmission"),
-                "location" => $this->input->post("location"),
-                "description" => $this->input->post("description"),
-                "km" => $this->input->post("km"),
+                "fuel_type" => $this->input->post("fuel_type") ?? '',
+                "transmission" => $this->input->post("transmission") ?? '',
+                "location" => $this->input->post("location") ?? '',
+                "description" => $this->input->post("description") ?? '',
+                "km" => $this->input->post("km") ?? '' ,
 
-                "ownership" => $this->input->post("ownership"),
-                "euro_norm" => $this->input->post("euro_norm"),
-                "co2_emission" => $this->input->post("co2_emission"),
+                "ownership" => $this->input->post("ownership") ?? '',
+                "euro_norm" => $this->input->post("euro_norm") ?? '',
+                "co2_emission" => $this->input->post("co2_emission") ?? '',
 
-                "state" => $this->input->post("state"),
-                "zipcode" => $this->input->post("zipcode"),
-
+                "state" => $this->input->post("state") ?? '',
+                "zipcode" => $this->input->post("zipcode") ?? '',
 
                 "winter_tires" => $this->input->post("winter_tires")  ?? '',
                 "ac_type" => $this->input->post("ac_type") ?? '',
@@ -594,13 +593,13 @@ class AdminController extends CI_Controller
                 "emission_certificate" => $emission_certificate ?? '',
                 "added_by" => $this->session->userdata('user_id'),
 
-                "comfort_and_interior" => $comfort_and_interior_json,
-                "safety_and_assistance" => $safety_and_assistance_json,
-                "lighting_and_visibility" => $lighting_and_visibility_json,
-                "multimedia_and_navigation" => $multimedia_and_navigation_json,
-                "engine_and_drive_technology" => $engine_and_drive_technology_json,
-                "exterior_and_design" => $exterior_json,
-                "other_features_and_extras" => $other_features_json,
+                "comfort_and_interior" => $comfort_and_interior_json ?? '',
+                "safety_and_assistance" => $safety_and_assistance_json ?? '',
+                "lighting_and_visibility" => $lighting_and_visibility_json ?? '',
+                "multimedia_and_navigation" => $multimedia_and_navigation_json ?? '',
+                "engine_and_drive_technology" => $engine_and_drive_technology_json ?? '',
+                "exterior_and_design" => $exterior_json ?? '',
+                "other_features_and_extras" => $other_features_json ?? '',
                 // 'photos' => json_encode($photos)
             ];
             $this->db->insert("car_list", $data); // Save to database
