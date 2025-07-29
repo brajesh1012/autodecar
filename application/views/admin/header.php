@@ -8,7 +8,7 @@
                     <div class="inner-container flex justify-space align-center">
                         <!-- Logo Box -->
                         <div class="logo-box flex">
-                            <div class="logo"><a href="index.html"><img
+                            <div class="logo"><a href="#"><img
                                         src="<?= base_url();?>/assets/asset/simages/logo/logo.png" alt width="225"
                                         height="40"></a></div>
                         </div>
@@ -108,12 +108,17 @@
                             </nav>
                             <!-- Main Menu End-->
                         </div>
+                         <?php $user_profile = $this->db->where('id',$_SESSION['user_id'])->get('users')->row();?>
                         <div class="header-account flex align-center">
                             <a href="#" class="box-avatar dropdown-toggle" data-bs-toggle="dropdown">
                                 <div class="avatar avt-40 round">
-                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/agent1.jpg" alt="avt">
+                                    <?php  if(!empty($user_profile->profile)){?>
+                                    <img src="<?= base_url('uploads/profile/'.$user_profile->profile);?>" alt="avt">
+                                    <?php }else{?>
+                                        <img src="<?= base_url();?>/assets/assets/images/dashboard/agent1.jpg" alt="avt">
+                                        <?php } ?>
                                 </div>
-                                <p class="name">Themesflat <i class="fal fa-angle-down"></i></p>
+                                <p class="name"><?= $user_profile->username; ?> <i class="fal fa-angle-down"></i></p>
                             </a>
                             <div class="dropdown-menu dashboard-menu">
                                 <!-- <a class="dropdown-item" href="<?= base_url('admin'); ?>"><svg

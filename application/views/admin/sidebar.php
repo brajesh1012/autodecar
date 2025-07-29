@@ -73,11 +73,16 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <div class="db-content db-author pad-30">
-            <h6 class="db-title">Profile</h6>
+            <!-- <h6 class="db-title">Profile</h6> -->
             <div class="author">
                 <div class="avatar">
+                    <?php $user_profile = $this->db->where('id',$_SESSION['user_id'])->get('users')->row(); if(!empty($user_profile->profile)){?>
                     <img loading="lazy" id="tfre_avatar_thumbnail"
+                        src="<?= base_url('uploads/profile/'.$user_profile->profile);?>" alt="admin" title="admin">
+                        <?php }else{?>
+                        <img loading="lazy" id="tfre_avatar_thumbnail"
                         src="<?= base_url();?>/assets/assets/images/dashboard/avatar.png" alt="admin" title="admin">
+                     <?php } ?>
                 </div>
                 <div class="content">
                     <div class="name"><?= @$_SESSION['role_name']; ?></div>
@@ -263,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             <!-- Vehicle Bulk upload -->
 
+                              <?php if($_SESSION['role_name'] =="Admin"){ ?>
                              <li><a href="<?= base_url(ADMIN_PATH . '/add-categories'); ?>" class="<?= $this->uri->segment(1) == 'add-categories' ? 'active' : ''; ?>">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                                 fill="none">
@@ -312,6 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </g>
                             </svg>Add Models</a></li>
+                            <?php } ?>
                             <li><a href="<?= base_url(ADMIN_PATH . '/add-variant'); ?>" class="<?= $this->uri->segment(1) == 'add-variant' ? 'active' : ''; ?>"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                                 fill="none">
                                 <g opacity="0.2">
@@ -357,10 +364,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </g>
                             </svg>Add Fuel Type</a></li>
-                        </ul>
-                    </li>
 
-                     <li><a href="<?= base_url(ADMIN_PATH . '/features'); ?>" class="<?= $this->uri->segment(1) == 'features' ? 'active' : ''; ?>"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                            <li><a href="<?= base_url(ADMIN_PATH . '/features'); ?>" class="<?= $this->uri->segment(1) == 'features' ? 'active' : ''; ?>"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                                 fill="none">
                                 <g opacity="0.2">
                                     <path

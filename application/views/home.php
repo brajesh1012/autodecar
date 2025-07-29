@@ -439,8 +439,16 @@
                                                     <!-- Clean Dropdown Menu -->
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm p-0"
                                                         aria-labelledby="userDropdown">
+                                                        <?php if($_SESSION['role_name'] =="Buyer"){ ?>
                                                         <li><a class="dropdown-item py-2 px-3"
                                                                 href="<?= base_url('profile'); ?>">Profile</a></li>
+                                                                     <?php } elseif($_SESSION['role_name'] =="Dealer") { ?>
+                                                                     <li><a class="dropdown-item py-2 px-3"
+                                                                href="<?= base_url(ADMIN_PATH  . '/dealer-profile'); ?>">Profile</a></li>
+                                                              <?php }else{ ?>
+                                                              <li><a class="dropdown-item py-2 px-3"
+                                                                href="<?= base_url(ADMIN_PATH  . '/my-profile'); ?>">Profile</a></li>
+                                                                <?php } ?>
                                                         <li><a class="dropdown-item py-2 px-3"
                                                                 href="<?= base_url('logout'); ?>">Log Out</a></li>
                                                     </ul>

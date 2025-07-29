@@ -1,39 +1,36 @@
 
         <?php include('head.php'); ?>
 
-        <style>
-.favorite-icon {
-    color: inherit;
-    transition: color 0.3s ease;
-}
+<style>
+        .favorite-icon {
+            color: inherit;
+            transition: color 0.3s ease;
+        }
 
-.favorite-icon.favorited {
-    color: orange;
-}
+        .favorite-icon.favorited {
+            color: orange;
+        }
 
-.favorite-icon.favorited svg path {
-    fill: orange !important;
-    stroke: orange;
-}
+        .favorite-icon.favorited svg path {
+            fill: orange !important;
+            stroke: orange;
+        }
 
-/* #favorite-message {
-    background-color: #e6ffe6;
-    border: 1px solid #00cc00;
-    padding: 10px;
-    border-radius: 5px;
-} */
+        .star-rating span {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ccc;
+        }
 
-    .star-rating span {
-        font-size: 24px;
-        cursor: pointer;
-        color: #ccc;
-    }
+        .star-rating span.selected {
+            color: gold;
+        }
+        .image img {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
 
-    .star-rating span.selected {
-        color: gold;
-    }
-
-        </style>
+</style>
         <?php $users = $this->db->where('id',$details->added_by)->get('users')->row();?>
         <?php $roles = $this->db->where('id',$users->role)->get('roles')->row();?>
         <section class="flat-title mb-40">
@@ -60,13 +57,12 @@
                                         ?>
                                     <div class="swiper-slide">
                                         <div class="image-list-details ">
-                                            <a class="image" href="<?= base_url('uploads/'.$car_img->photos); ?>"
-                                                data-fancybox="gallery">
+                                            <a class="image" data-img="<?= base_url('uploads/'.$car_img->photos); ?>">
                                                 <img class="lazyload"
                                                     data-src="<?= base_url('uploads/'.$car_img->photos); ?>"
                                                     src="<?= base_url('uploads/'.$car_img->photos); ?>" alt="image">
                                             </a>
-                                            <div class="specs-features-wrap flex-three">
+                                            <!-- <div class="specs-features-wrap flex-three">
                                                 <a class="specs-features">
                                                     <div class="icon">
                                                         <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
@@ -94,7 +90,7 @@
                                                     </div>
                                                     <span class="fw-5 font text-color-2 lh-16">All image</span>
                                                 </a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <?php } ?>
@@ -2228,6 +2224,36 @@
 
         </section>
 
+
+<!-- Modal HTML -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 60vw;">
+    <div class="modal-content text-center position-relative" style="width: 60vw; height: 70vh;">
+      
+      <div class="modal-body p-0" style="height: calc(100% - 50px); overflow: hidden;">
+        <div id="zoom-container"
+             style="width: 100%; height: 100%; overflow: hidden; position: relative; cursor: grab;">
+          <img id="popup-image"
+               src=""
+               style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1); transform-origin: center center; transition: transform 0.2s ease;" />
+
+        </div>
+      </div>
+      <div class="d-flex justify-content-center gap-3 py-2 bg-light">
+        <button class="btn btn-sm btn-secondary" id="zoomInBtn">➕ Zoom In</button>
+        <button class="btn btn-sm btn-secondary" id="zoomOutBtn">➖ Zoom Out</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
         <?php include('footer.php'); ?>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -2353,4 +2379,143 @@ $(document).ready(function () {
              $('.alert').slideUp('slow'); 
         }, 5000); // 3000 milliseconds = 3 seconds
     });
+</script>
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".swiper-slide .image img");
+    const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+    const popupImg = document.getElementById("popup-image");
+    const zoomContainer = document.getElementById("zoom-container");
+
+    let zoomLevel = 1;
+    let clickTimer = null;
+    let isDragging = false;
+    let startX, startY, currentX = 0, currentY = 0;
+
+    // Handle single/double click
+    slides.forEach((img) => {
+        img.addEventListener("click", function () {
+            if (clickTimer !== null) {
+                clearTimeout(clickTimer);
+                clickTimer = null;
+
+                const imgSrc = img.closest('.image').getAttribute("data-img") || img.src;
+                popupImg.src = imgSrc;
+                resetZoom();
+                modal.show();
+            } else {
+                clickTimer = setTimeout(() => {
+                    const swiper = document.querySelector(".swiper").swiper;
+                    swiper.isEnd ? swiper.slideTo(0) : swiper.slideNext();
+                    clickTimer = null;
+                }, 250);
+            }
+        });
+    });
+
+    // Reset zoom and position
+    function resetZoom() {
+        zoomLevel = 1;
+        currentX = 0;
+        currentY = 0;
+        applyTransform();
+    }
+
+    // Apply scale and position
+    function applyTransform() {
+        popupImg.style.transform = `translate(-50%, -50%) translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+    }
+
+    // Zoom buttons
+    document.getElementById("zoomInBtn").addEventListener("click", () => {
+        zoomLevel += 0.2;
+        applyTransform();
+    });
+
+    document.getElementById("zoomOutBtn").addEventListener("click", () => {
+        if (zoomLevel > 0.4) {
+            zoomLevel -= 0.2;
+            applyTransform();
+        }
+    });
+
+    // Scroll Zoom
+    zoomContainer.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        zoomLevel += (e.deltaY < 0) ? 0.1 : (zoomLevel > 0.5 ? -0.1 : 0);
+        applyTransform();
+    });
+
+    // Drag Move
+    zoomContainer.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        zoomContainer.style.cursor = "grabbing";
+    });
+
+    zoomContainer.addEventListener("mouseup", () => {
+        isDragging = false;
+        zoomContainer.style.cursor = "grab";
+    });
+
+    zoomContainer.addEventListener("mouseleave", () => {
+        isDragging = false;
+        zoomContainer.style.cursor = "grab";
+    });
+
+    zoomContainer.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        startX = e.clientX;
+        startY = e.clientY;
+        currentX += dx;
+        currentY += dy;
+        applyTransform();
+    });
+});
+</script> -->
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let zoomed = false;
+    let clickTimeout = null;
+
+    document.querySelectorAll(".image img").forEach(function (img) {
+        img.style.cursor = "pointer";
+
+        img.addEventListener("click", function (e) {
+            if (clickTimeout !== null) {
+                // Double Click Detected
+                clearTimeout(clickTimeout);
+                clickTimeout = null;
+
+                if (!zoomed) {
+                    img.style.transform = "scale(2)";
+                    img.style.transition = "transform 0.3s ease";
+                    zoomed = true;
+                } else {
+                    img.style.transform = "scale(1)";
+                    zoomed = false;
+                }
+            } else {
+                clickTimeout = setTimeout(function () {
+                    const swiperInstance = document.querySelector(".swiper").swiper;
+                    if (swiperInstance) {
+                        if (swiperInstance.isEnd) {
+                            swiperInstance.slideTo(0); // Go to first image
+                        } else {
+                            swiperInstance.slideNext(); // Go to next image
+                        }
+                    }
+                    clickTimeout = null;
+                }, 250); // Wait to detect if double click is coming
+            }
+        });
+    });
+});
 </script>
