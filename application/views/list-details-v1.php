@@ -1956,25 +1956,15 @@
                                             <span><?php echo ($details->tax !== '0.00' && $details->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
                                         </div>
                                         
-                                    <div class="money text-color-3 font">CHF <?= $details->total_price; ?></div>
-                                    <!-- <div class="price-wrap">
-                                            <p class="fs-12 lh-16 text-color-2">Monthly installment payment: <span
-                                                    class="fs-14 fw-5 font">$4,000</span></p>
-                                            <p class="fs-12 lh-16">New car price: $100.000</p>
-                                        </div> -->
-                                    <ul class="action-icon flex flex-wrap">
-                                        <!-- <li>
-                                                <a href="#" class="icon">
-                                                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.75 4.1875C14.75 2.32375 13.1758 0.8125 11.234 0.8125C9.78275 0.8125 8.53625 1.657 8 2.86225C7.46375 1.657 6.21725 0.8125 4.76525 0.8125C2.825 0.8125 1.25 2.32375 1.25 4.1875C1.25 9.6025 8 13.1875 8 13.1875C8 13.1875 14.75 9.6025 14.75 4.1875Z"
-                                                            stroke="CurrentColor" stroke-width="1.5"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                </a>
-                                            </li> -->
+                                    <!-- <div class="money text-color-3 font">CHF <?= $details->total_price; ?></div> --><?php 
+                                    $chf = 'CHF ' . number_format($details->total_price, 0, '', '.');
+                                    // EUR: comma as thousand separator -> "EUR 28,880" 
+                                    $eur = 'EUR ' . number_format($details->total_price, 0, '.', ',');
 
+                                    ?>
+                                    <div class="money text-color-3 font"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?></div>
+                                    <ul class="action-icon flex flex-wrap">
+                                
                                         <?php
                                             $is_logged_in = isset($_SESSION['user_id']);
                                             $is_favorited = $is_logged_in ? $this->WebsiteModel->is_favorited($_SESSION['user_id'], $details->id) : false;
@@ -2035,6 +2025,71 @@
 
                             </div>
 
+                                                        <!-- Same Dealer/Seller Vehicle Start -->
+                              <div class="widget-listing">
+                                <div class="listing-header mb-30">
+                                    <h3>More Vehicles from this Dealer<?php //echo $_SESSION['role_name']; ?></h3>
+                                    <!-- <p>Showing 26 more cars you might like</p> -->
+                                </div>
+                                <div class="listing-recommended mb-30">
+
+                              <?php 
+                             $new_vehicles = $this->db->order_by('created_at', 'DESC')->limit(5)->where('added_by', $details->added_by)->where('id !=', $details->id)->get('car_list')->result();
+
+                             foreach($new_vehicles as $new) { 
+
+                             // CHF: dot as thousand separator -> "CHF 28.880"
+                                $chf = 'CHF ' . number_format($new->price, 0, '', '.');
+
+                                // EUR: comma as thousand separator -> "EUR 28,880"
+                                $eur = 'EUR ' . number_format($new->price, 0, '.', ',');
+
+                                        // Get make name
+                                        // if($new->vehicle_type == $details->vehicle_type && $new->id != ){
+                                        $make_row = $this->db->where('id', $new->make)->get('make')->row();
+                                        $make_name = $make_row ? $make_row->name : '';
+
+                                        // Get model name
+                                        $model_row = $this->db->where('id', $new->model)->get('model')->row();
+                                        $model_name = $model_row ? $model_row->name : '';
+
+                                        // Get variant name
+                                        $variant_row = $this->db->where('id', $new->variant)->get('model')->row();
+                                        $variant_name = $variant_row ? $variant_row->name : ''; // adjust column name if needed
+
+                                          // ✅ Get first image for this vehicle
+                                        $img_row = $this->db->where('car_list_id', $new->id)->order_by('id', 'ASC')->limit(1)->get('car_img')->row();
+                                        $vehicle_img = $img_row ? $img_row->photos : '';  // fallback image
+                                    ?>
+                                        <div class="item flex">
+                                            <div class="image">
+                                                <?php if($vehicle_img != '') { ?>
+                                                   <img class="lazyload"
+                                                    data-src="<?= base_url('uploads/' . $vehicle_img); ?>"
+                                                    src="<?= base_url('uploads/' . $vehicle_img); ?>"
+                                                    alt="Vehicle Image">
+                                                    <?php }else{ ?>
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
+                                                    src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
+                                                    alt="image">
+                                                    <?php }  ?>
+                                            </div>
+                                            <div class="content">
+                                                <h6>
+                                                    <a href="<?= base_url('list-details/'.$new->slug); ?>">
+                                                        <?= $new->year ?> <?= $make_name ?> <?= $model_name ?> <?= $variant_name ?>
+                                                    </a>
+                                                </h6>
+                                                <p class="fs-14 fw-7 text-color-2 font-1"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?></p>
+                                            </div>
+                                        </div>
+                                    <?php } //} ?>
+                                </div>
+                                <!-- <a href="#" class="fs-16 fw-5 font text-color-3 lh-22">View more reviews <i
+                                        class="icon-autodeal-view-more"></i></a> -->
+                            </div>
+                            <!-- Same Dealer/Seller Vehicle End -->
                             <div class="widget-listing mb-30">
                                 <div class="prolile-info flex-three mb-30">
                                     <div class="image">
@@ -2132,6 +2187,7 @@
                                 <i class="far fa-flag"></i>
                                 <p class="font-1">Report this listing</p>
                             </div>
+
                             <div class="widget-listing">
                                 <div class="listing-header mb-30">
                                     <h3>Recent Added Vehicle</h3>
@@ -2143,6 +2199,12 @@
                              $new_vehicles = $this->db->order_by('created_at', 'DESC')->limit(5)->where('vehicle_type', $details->vehicle_type)->where('id !=', $details->id)->get('car_list')->result();
 
                                     foreach($new_vehicles as $new) { 
+
+                                          // CHF: dot as thousand separator -> "CHF 28.880"
+                                            $chf = 'CHF ' . number_format($new->price, 0, '', '.');
+
+                                            // EUR: comma as thousand separator -> "EUR 28,880"
+                                            $eur = 'EUR ' . number_format($new->price, 0, '.', ',');
                                         // Get make name
                                         // if($new->vehicle_type == $details->vehicle_type && $new->id != ){
                                         $make_row = $this->db->where('id', $new->make)->get('make')->row();
@@ -2180,57 +2242,14 @@
                                                         <?= $new->year ?> <?= $make_name ?> <?= $model_name ?> <?= $variant_name ?>
                                                     </a>
                                                 </h6>
-                                                <p class="fs-14 fw-7 text-color-2 font-1">CHF <?= $new->price?></p>
+                                                <p class="fs-14 fw-7 text-color-2 font-1"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?></p>
                                             </div>
                                         </div>
                                     <?php } //} ?>
-                                    <!-- <div class="item flex">
-                                        <div class="image">
-                                            <img class="lazyload"
-                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                alt="image">
-                                        </div>
-                                        <div class="content">
-                                            <h6><a href="#">2021 Skoda Kushaq 1.0 TSI Style AT</a></h6>
-                                            <p class="fs-14 fw-7 text-color-2 font-1">$73,000</p>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="item flex">
-                                        <div class="image">
-                                            <img class="lazyload"
-                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
-                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
-                                                alt="image">
-                                        </div>
-                                        <div class="content">
-                                            <h6><a href="#">2012 Mercedes-Benz E-Class 2009-2013 E 200 CGI
-                                                    Avantgarde</a></h6>
-                                            <p class="fs-14 fw-7 text-color-2 font-1">$73,000</p>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="item flex">
-                                        <div class="image">
-                                            <img class="lazyload"
-                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                alt="image">
-                                        </div>
-                                        <div class="content">
-                                            <h6><a href="#">2014 Audi A4 2.0 TDI Multitronic</a></h6>
-                                            <p class="fs-14 fw-7 text-color-2 font-1">$73,000</p>
-
-                                        </div>
-
-                                    </div> -->
 
                                 </div>
-                                <a href="#" class="fs-16 fw-5 font text-color-3 lh-22">View more reviews <i
-                                        class="icon-autodeal-view-more"></i></a>
+                                <!-- <a href="#" class="fs-16 fw-5 font text-color-3 lh-22">View more reviews <i
+                                        class="icon-autodeal-view-more"></i></a> -->
                             </div>
 
                         </div>

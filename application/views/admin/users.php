@@ -108,7 +108,7 @@
                                                                     </span>
                                                                     <?php } ?>
 
-
+                                                                     
                                                                 </td>
 
                                                                  <td class="column-listing">
@@ -148,6 +148,7 @@
                                                                         </a>
                                                                     </div>
                                                                         <?php } } ?>
+                                                                          <a href="<?= base_url(ADMIN_PATH . '/edit-users?user_id='.$user->id); ?>">Update</a>
                                                                 </td>
 
                                                             </tr>

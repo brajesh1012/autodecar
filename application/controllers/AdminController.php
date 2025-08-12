@@ -427,6 +427,7 @@ class AdminController extends CI_Controller
                                $data["main"] = "add-listing";
                                  $this->load->view("admin/template", $data);
                         } else {
+
                             $this->session->set_flashdata('error', 'You have used all your listings. Please upgrade your plan.');
                             redirect(ADMIN_PATH  . '/add-plan');
                         }
@@ -988,7 +989,7 @@ class AdminController extends CI_Controller
     }
 
 
-    // /////////////////////////////////////////////////////Duplicate Start//////////////////////////////////////////////////////
+    //////////////////////////////////////////Duplicate Start//////////////////////////////////////////////////////
 
     public function duplicate_listing($id)
     {
@@ -1037,6 +1038,8 @@ class AdminController extends CI_Controller
         //     "Description",
         //     "required"
         // );
+
+         $user_id = $_SESSION['user_id'];
 		
 		$data["cars"] = $cars = $this->Common_model->getsingle('car_list', array('id' => $id));
 		$slug = $cars->slug;
@@ -1076,8 +1079,43 @@ class AdminController extends CI_Controller
             $data["other_features_and_extras"] = $this->AdminModel->get_data("other_features_and_extras");
 
 
-            $data["main"] = "duplicate-listing";
-            $this->load->view("admin/template", $data);
+              if($_SESSION["role_name"] != "Admin"){
+                    // Allow first vehicle without subscription
+                    $vehicle_count = $this->db->where('added_by', $user_id)->count_all_results('car_list');
+
+                    if ($vehicle_count == 0) {
+                          $data["main"] = "duplicate-listing";
+                           $this->load->view("admin/template", $data);
+                        return;
+                    }
+
+                    // Check subscription
+                    $sub = $this->db->where('user_id', $user_id)
+                        ->where('end_date >=', date('Y-m-d'))
+                        ->get('user_subscriptions')->row();
+
+                    if ($sub) {
+                        if ($sub->listings_used < get_plan_limit($sub->plan_id)) {
+                               $data["main"] = "duplicate-listing";
+                                 $this->load->view("admin/template", $data);
+                        } else {
+                            $this->session->set_flashdata('error', 'You have used all your listings. Please upgrade your plan.');
+                            redirect(ADMIN_PATH  . '/add-plan');
+                        }
+                    } else {
+                        $this->session->set_flashdata('error', 'Please purchase a subscription to add more vehicles.');
+                        redirect(ADMIN_PATH  . '/add-plan');
+                    }
+                }else{
+
+                    $data["main"] = "duplicate-listing";
+                    $this->load->view("admin/template", $data);
+
+                }
+
+
+            // $data["main"] = "duplicate-listing";
+            // $this->load->view("admin/template", $data);
         } else {
 	
             $title = $this->input->post('title');
@@ -2387,11 +2425,11 @@ public function delete_vehicle_record() {
             "required"
         );
 
-        // $this->form_validation->set_rules(
-        //     "listing_limit",
-        //     "Listing Limit",
-        //     "required"
-        // );
+        $this->form_validation->set_rules(
+            "listing_limit",
+            "Listing Limit",
+            "required"
+        );
 
 
 
@@ -2415,7 +2453,7 @@ public function delete_vehicle_record() {
                 "plan_name" => $this->input->post("plan_name"),
                 "price" => $this->input->post("price"),
                 "duration_days" => $this->input->post("duration_days"),
-                // "listing_limit" => $this->input->post("listing_limit"),
+                 "listing_limit" => $this->input->post("listing_limit"),
             ];
             $this->db->insert("subscription_plans", $data); // Save to database
 
@@ -2461,11 +2499,11 @@ public function delete_vehicle_record() {
             "required"
         );
 
-        // $this->form_validation->set_rules(
-        //     "listing_limit",
-        //     "Listing Limit",
-        //     "required"
-        // );
+        $this->form_validation->set_rules(
+            "listing_limit",
+            "Listing Limit",
+            "required"
+        );
 
 
 
@@ -2480,7 +2518,7 @@ public function delete_vehicle_record() {
                 "plan_name" => $this->input->post("plan_name"),
                 "price" => $this->input->post("price"),
                 "duration_days" => $this->input->post("duration_days"),
-                // "listing_limit" => $this->input->post("listing_limit"),
+                "listing_limit" => $this->input->post("listing_limit"),
             ];
             $this->Common_model->updateData('subscription_plans',$data, array('id' => $id));
 
@@ -2522,8 +2560,15 @@ public function delete_vehicle_record() {
                   ->row();
 
             if ($exists) {
-                $this->session->set_flashdata('error', 'You already have this plan active.');
-            redirect(ADMIN_PATH . '/add-plan');
+                $this->db->where('user_id', $user_id)
+                         ->where('plan_id', $plan_id)
+                         ->update('user_subscriptions', [
+                             'end_date' => date('Y-m-d', strtotime("+{$plan->duration_days} days")),
+                             'listings_used' => 0
+                         ]);
+                          $this->session->set_flashdata('success', 'Subscription Updated successfully!');
+            //     $this->session->set_flashdata('error', 'You already have this plan active.');
+                     redirect(ADMIN_PATH . '/add-plan');
             }
 
 
@@ -3178,5 +3223,98 @@ public function view_chat($vehicle_id, $other_user_id)
             redirect(ADMIN_PATH . "/contact-us");
         }
     }
+
+
+        public function edit_users()
+    {
+
+        $id = $this->input->get("user_id");
+          if (isset($_SESSION["role_name"]) &&
+            $_SESSION["role_name"] == "Buyer"
+        ) {
+            redirect(base_url());
+
+              } 
+
+
+        $this->form_validation->set_rules(
+            "username",
+            "Username",
+            "required"
+        );
+
+          $this->form_validation->set_rules(
+            "mobile",
+            "Mobile",
+            "required"
+        );
+
+          $this->form_validation->set_rules(
+            "email",
+            "Email",
+            "required"
+        );
+
+        //   $this->form_validation->set_rules(
+        //     "role",
+        //     "User Role",
+        //     "required"
+        // );
+
+        //   $this->form_validation->set_rules(
+        //     "description",
+        //     "Description",
+        //     "required"
+        // );
+
+        if ($this->form_validation->run() == false) {
+
+            $data["user"] = $this->Common_model->getsingle('users', array('id' => $id));
+            $data["main"] = "edit_users";
+            $this->load->view("admin/template", $data);
+        } else {
+
+            // print_r($_FILES);die;
+            // Upload About Image
+             $old_image = $this->input->post('old_image');
+             $profile_image = $old_image;
+
+        if (!empty($_FILES['img']['name'])) {
+            $config['upload_path'] = './uploads/profile';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 2048;
+            $config['file_name'] = time() . '_' . $_FILES['img']['name'];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('img')) {
+                $uploadData = $this->upload->data();
+                $profile_image = $uploadData['file_name'];
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect(ADMIN_PATH  . "/users");
+            }
+        }
+
+            // Prepare data to insert (example)
+            $data = [
+                "username" => $this->input->post("username"),
+                "mobile" => $this->input->post("mobile"),
+                "email" => $this->input->post("email"),
+                "profile" => $profile_image,
+            ];
+
+                    // print_r($id);die;
+            $this->Common_model->updateData('users',$data, array('id' => $id));
+
+            $this->session->set_flashdata(
+                "success",
+                "updated successfully!"
+            );
+            redirect(ADMIN_PATH . "/users");
+        }
+    }
+
+
 
 }

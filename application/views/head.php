@@ -521,13 +521,14 @@ $favorite_count = $this->db->count_all_results('favorites');
                                             <li> <select class="form-control" name="location" id="filter_by_location"
                                                     style="width: 140px; font-size: 14px; padding: 4px;">
                                                     <option value="">Select Location</option>
-                                                    <?php $cities = $this->db->get('cities')->result();
+                                                    <?php //$cities = $this->db->get('cities')->result();
+                                                    $cities = $this->db->get('countries')->result();
                                                     foreach ($cities as $city) { ?>
                                                         <option value="<?= $city->id; ?>"
                                                             <?php if ($this->session->userdata('location') == $city->id) {
                                                                 echo "selected";
                                                             } ?>>
-                                                            <?= $city->city_name; ?></option>
+                                                            <?= $city->name; ?></option>
                                                     <?php } ?>
                                                 </select></li>
 

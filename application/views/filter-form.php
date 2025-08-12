@@ -423,7 +423,7 @@ label::after {
                     <input type="number" min="0" class="form-control" name="zipcode" id="location" placeholder="Any">
                 </div>
 
-                  <div class="col-md-4 col-12">
+                  <!-- <div class="col-md-4 col-12">
                     <label class="form-label" for="km">KM From</label>
                      <input type="number" min="0" class="form-control" name="km" id="km" placeholder="Any">
                 </div>
@@ -431,7 +431,7 @@ label::after {
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="km">KM To</label>
                      <input type="number" min="0" class="form-control" name="km_to" id="km" placeholder="Any">
-                </div>
+                </div> -->
 
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="price">Price From</label>
@@ -625,4 +625,6 @@ truckBtn.addEventListener('click', () => {
             $('#variant_id').html('<option value="">Select Variant</option>');
         }
     }
+
+
 </script>

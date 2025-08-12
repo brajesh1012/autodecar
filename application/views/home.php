@@ -160,8 +160,6 @@
         .content {
             width: 100%;
         }
-
-        
     </style>
 
 
@@ -221,7 +219,7 @@
                                                         <div class="dropdown">
                                                             <button class="dropbtn text-white">
                                                                 <!-- Sell -->
-                                                                 Search
+                                                                Search
                                                             </button>
                                                             <div class="dropdown-content">
                                                                 <div class="arrow-up-sell"></div>
@@ -241,7 +239,7 @@
                                                         </div>
                                                     </li>
 
-                                                      <li>
+                                                    <li>
                                                         <div class="dropdown">
                                                             <button class="dropbtn text-white">
                                                                 <a href="<?= base_url('blog-grid'); ?>">Blogs</a>
@@ -265,21 +263,21 @@
                                         <!-- Main Menu End-->
                                     </div>
 
-                                    
+
                                     <div class="header-account flex align-center">
 
                                         <!-- <div id="google_translate_element" style="margin-top: 15px;"></div> -->
 
-                                         <select class="form-select bg-dark text-white" id="custom_translate_select" name="language">
-                                                 <option value="en">English</option>
-                                                <option value="de">German</option>
-                                                <option value="fr">French</option>
-                                                <option value="it">Italian</option>
-                                            </select>
+                                        <select class="form-select bg-dark text-white" id="custom_translate_select" name="language">
+                                            <option value="en">English</option>
+                                            <option value="de">German</option>
+                                            <option value="fr">French</option>
+                                            <option value="it">Italian</option>
+                                        </select>
 
                                         <!-- ✅ Hidden container just to initialize Google Translate -->
                                         <div id="google_translate_element" style="display: none;"></div>
-                                        
+
 
                                         <?php if (!$this->session->userdata('user_id')) { ?>
                                             <div class="register">
@@ -379,19 +377,20 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                             <li>
-                                                        <a href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt fs-4" style="color: white;"></i></i></a>
-                                                    </li>
+                                            <li>
+                                                <a href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt fs-4" style="color: white;"></i></i></a>
+                                            </li>
                                             <li> <select class="form-control" name="location" id="filter_by_location"
                                                     style="width: 140px; font-size: 14px; padding: 4px;">
-                                                    <option value="">Select Location</option>
-                                                    <?php $cities = $this->db->get('cities')->result();
+                                                    <option value="">Select Country</option>
+                                                    <?php //$cities = $this->db->get('cities')->result();
+                                                    $cities = $this->db->get('countries')->result();
                                                     foreach ($cities as $city) { ?>
                                                         <option value="<?= $city->id; ?>"
                                                             <?php if ($this->session->userdata('location') == $city->id) {
                                                                 echo "selected";
                                                             } ?>>
-                                                            <?= $city->city_name; ?></option>
+                                                            <?= $city->name; ?></option>
                                                     <?php } ?>
                                                 </select></li>
 
@@ -525,7 +524,11 @@
                                             data-space="15">
                                             <div class="swiper-wrapper">
                                                 <?php if (!empty($cars)) {
-                                                    foreach ($cars as $car) { ?>
+                                                    foreach ($cars as $car) {
+                                                         $chf = 'CHF ' . number_format($car->total_price, 0, '', '.');
+                                                        // EUR: comma as thousand separator -> "EUR 28,880" 
+                                                        $eur = 'EUR ' . number_format($car->total_price, 0, '.', ',');
+                                                        ?>
                                                         <div class="swiper-slide">
                                                             <div class="box-car-list hv-one">
                                                                 <div class="image-group relative ">
@@ -551,7 +554,7 @@
                                                                 </div>
                                                                 <div class="content">
                                                                     <?php
-                                                                    $selected_lang = $this->session->userdata('selected_lang');  
+                                                                    $selected_lang = $this->session->userdata('selected_lang');
 
                                                                     $makes = $this->db->where('id', $car->make)->get('make')->result();
 
@@ -560,9 +563,13 @@
                                                                     $added_by = $this->db->where('id', $car->added_by)->get('users')->result();
 
                                                                     foreach ($makes as $make) { ?>
-                                                                       <div class="text-address d-flex justify-content-between">
+                                                                        <div class="text-address d-flex justify-content-between">
                                                                             <p class="text-color-3 font mb-0"><?= $make->name; ?></p>
-                                                                            <p class="text-color-3 font mb-0"> <?php if($selected_lang == "fr" ||  $selected_lang == "it"){ echo " TUV ".$car->tuv_date; }else{echo " MFK ".$car->mfk_date; }?></p>
+                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_lang == "fr" ||  $selected_lang == "it") {
+                                                                                                                    echo " TUV " . $car->tuv_date;
+                                                                                                                } else {
+                                                                                                                    echo " MFK " . $car->mfk_date;
+                                                                                                                } ?></p>
                                                                         </div>
 
                                                                         <?php foreach ($models as $model) { ?>
@@ -586,13 +593,14 @@
                                                                             <span><?= $car->transmission; ?></span>
                                                                         </div>
                                                                     </div>
-                                                                     <div class="icons flex-three text-color-3">
-                                                                            <span><?php echo ($car->tax !== '0.00' && $car->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
-                                                                        </div>
+                                                                    <div class="icons flex-three text-color-3">
+                                                                        <span><?php echo ($car->tax !== '0.00' && $car->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
+                                                                    </div>
                                                                     <div class="justify-content-between d-flex">
-                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
-                                                                            <?php //echo $car->price; ?>
-                                                                            <?= $car->total_price; ?>
+                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3">
+                                                                            <?php //echo $car->price; 
+                                                                            ?>
+                                                                            <?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?>
                                                                         </div>
                                                                         <?php
                                                                         $is_logged_in = isset($_SESSION['user_id']);
@@ -678,7 +686,11 @@
                                             data-space="15">
                                             <div class="swiper-wrapper">
                                                 <?php if (!empty($bikes)) {
-                                                    foreach ($bikes as $bike) { ?>
+                                                    foreach ($bikes as $bike) { 
+                                                        $chf = 'CHF ' . number_format($bike->total_price, 0, '', '.');
+                                                        // EUR: comma as thousand separator -> "EUR 28,880" 
+                                                        $eur = 'EUR ' . number_format($bike->total_price, 0, '.', ',');
+                                                        ?>
                                                         <div class="swiper-slide">
                                                             <div class="box-car-list hv-one">
                                                                 <div class="image-group relative ">
@@ -710,9 +722,13 @@
                                                                     $added_by = $this->db->where('id', $bike->added_by)->get('users')->result();
 
                                                                     foreach ($makes as $make) { ?>
-                                                                           <div class="text-address d-flex justify-content-between">
+                                                                        <div class="text-address d-flex justify-content-between">
                                                                             <p class="text-color-3 font mb-0"><?= $make->name; ?></p>
-                                                                            <p class="text-color-3 font mb-0"> <?php if($selected_lang == "fr" ||  $selected_lang == "it"){ echo " TUV ".$bike->tuv_date; }else{echo " MFK ".$bike->mfk_date; }?></p>
+                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_lang == "fr" ||  $selected_lang == "it") {
+                                                                                                                    echo " TUV " . $bike->tuv_date;
+                                                                                                                } else {
+                                                                                                                    echo " MFK " . $bike->mfk_date;
+                                                                                                                } ?></p>
                                                                         </div>
 
                                                                         <?php foreach ($models as $model) { ?>
@@ -736,12 +752,12 @@
                                                                             <span><?= $bike->transmission; ?></span>
                                                                         </div>
                                                                     </div>
-                                                                     <div class="icons flex-three text-color-3">
-                                                                            <span><?php echo ($bike->tax !== '0.00' && $bike->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
-                                                                        </div>
+                                                                    <div class="icons flex-three text-color-3">
+                                                                        <span><?php echo ($bike->tax !== '0.00' && $bike->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
+                                                                    </div>
                                                                     <div class="justify-content-between d-flex">
-                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
-                                                                            <?= $bike->total_price; ?>
+                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3">
+                                                                            <?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?>
                                                                         </div>
                                                                         <?php
                                                                         $is_logged_in = isset($_SESSION['user_id']);
@@ -826,7 +842,11 @@
                                             data-space="15">
                                             <div class="swiper-wrapper">
                                                 <?php if (!empty($commercials)) {
-                                                    foreach ($commercials as $commercial) { ?>
+                                                    foreach ($commercials as $commercial) {
+                                                          $chf = 'CHF ' . number_format($commercial->total_price, 0, '', '.');
+                                                        // EUR: comma as thousand separator -> "EUR 28,880" 
+                                                        $eur = 'EUR ' . number_format($commercial->total_price, 0, '.', ',');
+                                                        ?>
                                                         <div class="swiper-slide">
                                                             <div class="box-car-list hv-one">
                                                                 <div class="image-group relative ">
@@ -860,9 +880,13 @@
                                                                     $added_by = $this->db->where('id', $commercial->added_by)->get('users')->result();
 
                                                                     foreach ($makes as $make) { ?>
-                                                                            <div class="text-address d-flex justify-content-between">
+                                                                        <div class="text-address d-flex justify-content-between">
                                                                             <p class="text-color-3 font mb-0"><?= $make->name; ?></p>
-                                                                            <p class="text-color-3 font mb-0"> <?php if($selected_lang == "fr" ||  $selected_lang == "it"){ echo " TUV ".$commercial->tuv_date; }else{echo " MFK ".$commercial->mfk_date; }?></p>
+                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_lang == "fr" ||  $selected_lang == "it") {
+                                                                                                                    echo " TUV " . $commercial->tuv_date;
+                                                                                                                } else {
+                                                                                                                    echo " MFK " . $commercial->mfk_date;
+                                                                                                                } ?></p>
                                                                         </div>
 
                                                                         <?php foreach ($models as $model) { ?>
@@ -886,12 +910,11 @@
                                                                             <span><?= $commercial->transmission; ?></span>
                                                                         </div>
                                                                     </div>
-                                                                     <div class="icons flex-three text-color-3">
-                                                                            <span><?php echo ($commercial->tax !== '0.00' && $commercial->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
-                                                                        </div>
+                                                                    <div class="icons flex-three text-color-3">
+                                                                        <span><?php echo ($commercial->tax !== '0.00' && $commercial->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
+                                                                    </div>
                                                                     <div class="justify-content-between d-flex">
-                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3">CHF
-                                                                            <?= $commercial->total_price; ?>
+                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?>
                                                                         </div>
                                                                         <?php
                                                                         $is_logged_in = isset($_SESSION['user_id']);
@@ -1164,7 +1187,7 @@
             </section>
             <!-- Popular Brands End -->
             <!-- logo -->
-            <section class="flat-brand tf-section3">
+            <!-- <section class="flat-brand tf-section3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -1239,7 +1262,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
 
             <section class="tf-section3">
@@ -1317,29 +1340,29 @@
 
 
             <script>
-    function equalizeCardHeights() {
-        const cards = document.querySelectorAll('.box-car-list');
-        let maxHeight = 0;
+                function equalizeCardHeights() {
+                    const cards = document.querySelectorAll('.box-car-list');
+                    let maxHeight = 0;
 
-        // Reset previous height
-        cards.forEach(card => {
-            card.style.height = 'auto';
-        });
+                    // Reset previous height
+                    cards.forEach(card => {
+                        card.style.height = 'auto';
+                    });
 
-        // Find max height
-        cards.forEach(card => {
-            if (card.offsetHeight > maxHeight) {
-                maxHeight = card.offsetHeight;
-            }
-        });
+                    // Find max height
+                    cards.forEach(card => {
+                        if (card.offsetHeight > maxHeight) {
+                            maxHeight = card.offsetHeight;
+                        }
+                    });
 
-        // Set all cards to max height
-        cards.forEach(card => {
-            card.style.height = maxHeight + 'px';
-        });
-    }
+                    // Set all cards to max height
+                    cards.forEach(card => {
+                        card.style.height = maxHeight + 'px';
+                    });
+                }
 
-    // Call on page load and resize
-    window.addEventListener('load', equalizeCardHeights);
-    window.addEventListener('resize', equalizeCardHeights);
-</script>
+                // Call on page load and resize
+                window.addEventListener('load', equalizeCardHeights);
+                window.addEventListener('resize', equalizeCardHeights);
+            </script>

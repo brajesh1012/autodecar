@@ -137,7 +137,7 @@
 </section>
 
 <!-- logo -->
-<section class="flat-brand tf-section3">
+<!-- <section class="flat-brand tf-section3">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -205,7 +205,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- jQuery required for hiding message -->
 <script>

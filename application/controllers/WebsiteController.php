@@ -44,14 +44,17 @@ class WebsiteController extends CI_Controller
         }
     }
 
+
    public function save_language()
 {
     $lang = $this->input->post('lang');
-    print_r($lang);
+    //print_r($lang);
     if ($lang) {
         $this->session->set_userdata('selected_lang', $lang);
     }
 }
+
+
 
     public function advance_filter()
     {
