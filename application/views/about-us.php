@@ -10,7 +10,7 @@
                                     <p class="text-color-1 fs-18 fw-4 lh-22 font">Leading online car buying and selling
                                         platform. helps users buy <br>
                                         cars that are right for them</p>
-                                    <a href="#" class="sc-button btn-svg">
+                                    <a href="<?= base_url(); ?>" class="sc-button btn-svg">
                                         <span>Search for your favorite car</span>
                                         <i class="icon-autodeal-next"></i>
                                     </a>
@@ -43,12 +43,16 @@
                                     </li>
                                 </ul>
                                 <div class="image-inner1 hover-img-wrap img-style-hover">
-                                    <img class=" ls-is-cached lazyloaded" data-src="<?= base_url(); ?>/assets/assets/images/section/wcu-1.jpg"
-                                        src="<?= base_url(); ?>/assets/assets/images/section/wcu-1.jpg" alt="images">
+                                    <img class=" ls-is-cached lazyloaded" data-src="<?= base_url('uploads/'.$about->img); ?>"
+                                        src="<?= base_url('uploads/'.$about->img); ?>" alt="images">
+                                    <!-- <img class=" ls-is-cached lazyloaded" data-src="<?= base_url(); ?>/assets/assets/images/section/wcu-1.jpg"
+                                        src="<?= base_url(); ?>/assets/assets/images/section/wcu-1.jpg" alt="images"> -->
                                 </div>
                                 <div class="image-inner2">
-                                    <img class=" ls-is-cached lazyloaded" data-src="<?= base_url(); ?>/assets/assets/images/section/wcu-2.png"
-                                        src="<?= base_url(); ?>/assets/assets/images/section/wcu-2.png" alt="images">
+                                    <!-- <img class=" ls-is-cached lazyloaded" data-src="<?= base_url(); ?>/assets/assets/images/section/wcu-2.png"
+                                        src="<?= base_url(); ?>/assets/assets/images/section/wcu-2.png" alt="images"> -->
+                                         <img class=" ls-is-cached lazyloaded" data-src="<?= base_url('uploads/'.$about->img2); ?>"
+                                        src="<?= base_url('uploads/'.$about->img2); ?>" alt="images">
                                 </div>
 
                             </div>
@@ -56,10 +60,12 @@
                         <div class="col-md-6">
                             <div class="content-wcs">
                                 <div class="heading-section">
-                                    <h2>Why Choose Auto Decar</h2>
-                                    <p class="mt-18">Our experienced team excels in car sales with many years of
+                                    <h2><?= $about->title; ?></h2>
+                                    <!-- <h2>Why Choose Auto Decar</h2> -->
+                                    <p class="mt-18"><?= $about->subtitle; ?></p>
+                                    <!-- <p class="mt-18">Our experienced team excels in car sales with many years of
                                         successfully navigating the market, delivering informed decisions and optimal
-                                        results.</p>
+                                        results.</p> -->
                                 </div>
                                 <div class="tf-icon-box-list">
                                     <div class="tf-icon-box style-2">
@@ -83,10 +89,12 @@
 
                                         </div>
                                         <div class="content">
-                                            <h5><a href="#">Proven Expertise</a></h5>
-                                            <p>Our experienced team excels in car sales with many years of successfully
+                                            <!-- <h5><a href="#">Proven Expertise</a></h5> -->
+                                            <h5><a href="#"><?= $about->title1; ?></a></h5>
+                                            <!-- <p>Our experienced team excels in car sales with many years of successfully
                                                 navigating the market, delivering informed decisions and optimal
-                                                results.</p>
+                                                results.</p> -->
+                                            <p><?= $about->description1; ?></p>
                                         </div>
                                     </div>
                                     <div class="tf-icon-box style-2">
@@ -110,9 +118,11 @@
 
                                         </div>
                                         <div class="content">
-                                            <h5><a href="#">Customized Solutions</a></h5>
-                                            <p>We pride ourselves on creating personalized strategies to suit your
-                                                unique goals, ensuring a seamless car selling journey.</p>
+                                            <h5><a href="#"><?= $about->title2; ?></a></h5>
+                                            <!-- <h5><a href="#">Customized Solutions</a></h5> -->
+                                            <!-- <p>We pride ourselves on creating personalized strategies to suit your
+                                                unique goals, ensuring a seamless car selling journey.</p> -->
+                                            <p><?= $about->description2; ?></p>
                                         </div>
                                     </div>
                                     <div class="tf-icon-box style-2">
@@ -135,22 +145,87 @@
 
                                         </div>
                                         <div class="content">
-                                            <h5><a href="#">Transparent Partnerships</a></h5>
-                                            <p>Transparency is key in our client relationships. We prioritize clear
+                                            <h5><a href="#"><?= $about->title3; ?></a></h5>
+                                            <!-- <h5><a href="#">Transparent Partnerships</a></h5> -->
+                                            <!-- <p>Transparency is key in our client relationships. We prioritize clear
                                                 communication and ethical practices, fostering trust and reliability
-                                                throughout.</p>
+                                                throughout.</p> -->
+                                            <p><?= $about->description3; ?></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </section>
 
+              <!-- logo -->
+            <!-- <section class="flat-brand tf-section3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="title-section center">
+                                <h2>Our partners</h2>
+                            </div>
+                            <div class="swiper-container carousel-5">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="slogan-logo">
+                                            <a href="#">
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par1.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par1.png" alt="images">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slogan-logo">
+                                            <a href="#">
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par2.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par2.png" alt="images">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slogan-logo">
+                                            <a href="#">
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par3.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par3.png" alt="images">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slogan-logo">
+                                            <a href="#">
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par4.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par4.png" alt="images">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slogan-logo">
+                                            <a href="#">
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par5.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par5.png" alt="images">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slogan-logo">
+                                            <a href="#">
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par6.png"
+                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par6.png" alt="images">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
             <!-- widegt team -->
-            <section class="tf-section3">
+            <!-- <section class="tf-section3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -273,75 +348,10 @@
                     </div>
 
                 </div>
-            </section>
-
-            <!-- logo -->
-            <section class="flat-brand tf-section3">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="title-section center">
-                                <h2>Our partners</h2>
-                            </div>
-                            <div class="swiper-container carousel-5">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="slogan-logo">
-                                            <a href="#">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par1.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par1.png" alt="images">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="slogan-logo">
-                                            <a href="#">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par2.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par2.png" alt="images">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="slogan-logo">
-                                            <a href="#">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par3.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par3.png" alt="images">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="slogan-logo">
-                                            <a href="#">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par4.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par4.png" alt="images">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="slogan-logo">
-                                            <a href="#">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par5.png" alt="images">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="slogan-logo">
-                                            <a href="#">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/partner/par6.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/partner/par6.png" alt="images">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </section> -->
 
             <!-- widegt tetimonial -->
-            <section class="tf-section3">
+            <!-- <section class="tf-section3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -352,156 +362,32 @@
                         <div class="col-lg-12">
                             <div class="swiper-container carousel-7 overflow-hidden">
                                 <div class="swiper-wrapper ">
+                                    <?php foreach($blogs as $blog) { ?>
                                     <div class="swiper-slide">
                                         <div class="tf-testimonial bg-4">
                                             <div class="inner-top flex-two">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/section/star-5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/section/star-5.png" alt="images">
-                                                <p class="fs-12">15 May 2020 9:30 am</p>
+                                                    <?php
+                                                        $date = $blog->created_at; 
+                                                        $formatted_date = date("j M Y g:i a", strtotime($date));
+                                                    ?>
+                                                <p class="fs-12"><?= $formatted_date; ?></p>
 
                                             </div>
-                                            <p class="fs-16 lh-22 text-color-2">"My experience with property management
-                                                services has exceeded expectations. They efficiently manage properties
-                                                with a professional and attentive approach in every situation. I feel
-                                                reassured that any issue will be resolved promptly and effectively."</p>
+                                            <p class="fs-16 lh-22 text-color-2"><?= $blog->description; ?></p>
                                             <div class="author-box flex">
                                                 <div class="images">
-                                                    <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
-                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg" alt="images">
+                                                    <img class="lazyload" data-src="<?= base_url('uploads/blogs/'.$blog->img); ?>"
+                                                        src="<?= base_url('uploads/blogs/'.$blog->img); ?>" alt="images">
                                                 </div>
                                                 <div class="content">
-                                                    <h5>Arlene McCoy</h5>
-                                                    <p class="fs-12 lh-16">CEO Themesflat</p>
+                                                    <h5><?= $blog->name; ?></h5>
+                                                    <p class="fs-12 lh-16"><?= $blog->title; ?></p>
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <div class="tf-testimonial bg-4">
-                                            <div class="inner-top flex-two">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/section/star-5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/section/star-5.png" alt="images">
-                                                <p class="fs-12">15 May 2020 9:30 am</p>
-
-                                            </div>
-                                            <p class="fs-16 lh-22 text-color-2">"My experience with property management
-                                                services has exceeded expectations. They efficiently manage properties
-                                                with a professional and attentive approach in every situation. I feel
-                                                reassured that any issue will be resolved promptly and effectively."</p>
-                                            <div class="author-box flex">
-                                                <div class="images">
-                                                    <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm2.jpg"
-                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm2.jpg" alt="images">
-                                                </div>
-                                                <div class="content">
-                                                    <h5>Arlene McCoy</h5>
-                                                    <p class="fs-12 lh-16">CEO Themesflat</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tf-testimonial bg-4">
-                                            <div class="inner-top flex-two">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/section/star-5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/section/star-5.png" alt="images">
-                                                <p class="fs-12">15 May 2020 9:30 am</p>
-
-                                            </div>
-                                            <p class="fs-16 lh-22 text-color-2">"My experience with property management
-                                                services has exceeded expectations. They efficiently manage properties
-                                                with a professional and attentive approach in every situation. I feel
-                                                reassured that any issue will be resolved promptly and effectively."</p>
-                                            <div class="author-box flex">
-                                                <div class="images">
-                                                    <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm3.jpg"
-                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm3.jpg" alt="images">
-                                                </div>
-                                                <div class="content">
-                                                    <h5>Arlene McCoy</h5>
-                                                    <p class="fs-12 lh-16">CEO Themesflat</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tf-testimonial bg-4">
-                                            <div class="inner-top flex-two">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/section/star-5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/section/star-5.png" alt="images">
-                                                <p class="fs-12">15 May 2020 9:30 am</p>
-
-                                            </div>
-                                            <p class="fs-16 lh-22 text-color-2">"My experience with property management
-                                                services has exceeded expectations. They efficiently manage properties
-                                                with a professional and attentive approach in every situation. I feel
-                                                reassured that any issue will be resolved promptly and effectively."</p>
-                                            <div class="author-box flex">
-                                                <div class="images">
-                                                    <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"
-                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg" alt="images">
-                                                </div>
-                                                <div class="content">
-                                                    <h5>Arlene McCoy</h5>
-                                                    <p class="fs-12 lh-16">CEO Themesflat</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tf-testimonial bg-4">
-                                            <div class="inner-top flex-two">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/section/star-5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/section/star-5.png" alt="images">
-                                                <p class="fs-12">15 May 2020 9:30 am</p>
-
-                                            </div>
-                                            <p class="fs-16 lh-22 text-color-2">"My experience with property management
-                                                services has exceeded expectations. They efficiently manage properties
-                                                with a professional and attentive approach in every situation. I feel
-                                                reassured that any issue will be resolved promptly and effectively."</p>
-                                            <div class="author-box flex">
-                                                <div class="images">
-                                                    <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm2.jpg"
-                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm2.jpg" alt="images">
-                                                </div>
-                                                <div class="content">
-                                                    <h5>Arlene McCoy</h5>
-                                                    <p class="fs-12 lh-16">CEO Themesflat</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="tf-testimonial bg-4">
-                                            <div class="inner-top flex-two">
-                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/section/star-5.png"
-                                                    src="<?= base_url(); ?>/assets/assets/images/section/star-5.png" alt="images">
-                                                <p class="fs-12">15 May 2020 9:30 am</p>
-
-                                            </div>
-                                            <p class="fs-16 lh-22 text-color-2">"My experience with property management
-                                                services has exceeded expectations. They efficiently manage properties
-                                                with a professional and attentive approach in every situation. I feel
-                                                reassured that any issue will be resolved promptly and effectively."</p>
-                                            <div class="author-box flex">
-                                                <div class="images">
-                                                    <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm3.jpg"
-                                                        src="<?= base_url(); ?>/assets/assets/images/author/avt-cm3.jpg" alt="images">
-                                                </div>
-                                                <div class="content">
-                                                    <h5>Arlene McCoy</h5>
-                                                    <p class="fs-12 lh-16">CEO Themesflat</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php } ?>
                                 </div>
                                 <div class="swiper-pagination3"></div>
                             </div>
@@ -510,9 +396,9 @@
                     </div>
 
                 </div>
-            </section>
+            </section> -->
             <!-- widegt List car -->
-            <section class="tf-section3">
+            <!-- <section class="tf-section3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -1219,5 +1105,5 @@
 
                     </div>
                 </div>
-            </section>
+            </section> -->
  <?php include('footer.php'); ?>

@@ -1,8 +1,8 @@
-<?php 
+<?php
 
-            $user_id = $this->session->userdata('user_id');
-            $this->db->where('user_id', $user_id);
-            $favorite_count = $this->db->count_all_results('favorites');
+$user_id = $this->session->userdata('user_id');
+$this->db->where('user_id', $user_id);
+$favorite_count = $this->db->count_all_results('favorites');
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AutoDeal</title>
+    <title>AutoKorb</title>
 
     <meta name="author" content="themesflat.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,116 +23,116 @@
     <link rel="shortcut icon" href="<?= base_url(); ?>assets/assets/images/logo/favicon.jpeg">
     <link rel="apple-touch-icon-precomposed" href="<?= base_url(); ?>assets/assets/images/logo/favicon.jpeg">
     <style>
-    .main-header .main-menu .navigation>li>a {
-        font-size: 14px;
-    }
+        .main-header .main-menu .navigation>li>a {
+            font-size: 14px;
+        }
     </style>
 
     <style>
-    .slider.home2 video {
-        width: 100%;
-        height: 900px;
-        object-fit: cover;
-    }
+        .slider.home2 video {
+            width: 100%;
+            height: 900px;
+            object-fit: cover;
+        }
 
-    .main-header .main-menu .navigation>li>a {
-        font-size: 14px;
-    }
+        .main-header .main-menu .navigation>li>a {
+            font-size: 14px;
+        }
 
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-    .dropbtn {
-        background-color: transparent;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
-        padding: 10px 20px;
-    }
+        .dropbtn {
+            background-color: transparent;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
 
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: white;
-        min-width: 160px;
-        top: 100%;
-        left: 0;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-        border-radius: 10px;
-        padding: 10px 0;
-        z-index: 1000;
-    }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            top: 100%;
+            left: 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            padding: 10px 0;
+            z-index: 1000;
+        }
 
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
-    /* The little arrow pointer */
-    .arrow-up {
-        position: absolute;
-        top: -10px;
-        left: 30%;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid white;
-    }
+        /* The little arrow pointer */
+        .arrow-up {
+            position: absolute;
+            top: -10px;
+            left: 30%;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid white;
+        }
 
-    .arrow-up-sell {
-        position: absolute;
-        top: -10px;
-        left: 20%;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid white;
-    }
+        .arrow-up-sell {
+            position: absolute;
+            top: -10px;
+            left: 20%;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid white;
+        }
 
-    .dropdown-content a {
-        color: #000;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        font-weight: 500;
-    }
+        .dropdown-content a {
+            color: #000;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+        }
 
-    .dropdown-content a:hover {
-        background-color: #f3f3f3;
-    }
+        .dropdown-content a:hover {
+            background-color: #f3f3f3;
+        }
 
-    .sidebar-icons button {
-        background: none;
-        border: none;
-        font-size: 24px;
-        opacity: 0.4;
-    }
+        .sidebar-icons button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            opacity: 0.4;
+        }
 
-    .sidebar-icons .active {
-        opacity: 1;
-        color: red;
-    }
+        .sidebar-icons .active {
+            opacity: 1;
+            color: red;
+        }
 
-    .filter-box {
-        border-radius: 15px;
-        padding: 20px;
-        background: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-left: 80px;
-    }
+        .filter-box {
+            border-radius: 15px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 80px;
+        }
 
-    .btn-red {
-        background-color: #d93226;
-        color: #fff;
-        border: none;
-    }
+        .btn-red {
+            background-color: #d93226;
+            color: #fff;
+            border: none;
+        }
 
-    .btn-red:hover {
-        background-color: #bb2a1f;
-    }
+        .btn-red:hover {
+            background-color: #bb2a1f;
+        }
     </style>
 
 </head>
@@ -149,7 +149,7 @@
     <div id="wrapper">
         <div id="pagee" class="clearfix">
             <!-- Main Header -->
-           
+
             <header class=" p-2">
                 <!-- Header Lower -->
                 <div class="header-lower">
@@ -159,7 +159,7 @@
                                 <div class="inner-container flex justify-space align-center">
                                     <!-- Logo Box -->
                                     <div class="logo-box flex">
-                                        <div class="logo"><a href="<?= base_url();?>">
+                                        <div class="logo"><a href="<?= base_url(); ?>">
                                                 <img class="lazyload"
                                                     data-src="<?= base_url(); ?>assets/assets/images/logo/tb_new.jpeg"
                                                     src="<?= base_url(); ?>assets/assets/images/logo/tb_new.jpeg" alt=""
@@ -171,7 +171,7 @@
                                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                 <ul class="navigation clearfix d-flex">
                                                     <!-- Updated Menu -->
-                                                    <li>
+                                                    <!-- <li>
                                                         <div class="dropdown">
                                                             <button class="dropbtn ">
                                                                 Search
@@ -181,12 +181,13 @@
                                                                 <a href="#">Used And New Cars</a>
                                                             </div>
                                                         </div>
-                                                    </li>
+                                                    </li> -->
 
                                                     <li>
                                                         <div class="dropdown">
                                                             <button class="dropbtn ">
-                                                                Sell
+                                                                <!-- Sell -->
+                                                                 Search
                                                             </button>
                                                             <div class="dropdown-content">
                                                                 <div class="arrow-up-sell"></div>
@@ -194,6 +195,33 @@
                                                                 <a href="<?= base_url('bike'); ?>">Motorcycle</a>
                                                                 <a href="<?= base_url('commercial'); ?>">Commercial Vehicle</a>
                                                             </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <button class="dropbtn ">
+                                                                <a href="<?= base_url('about-us'); ?>">About Us</a>
+                                                            </button>
+
+                                                        </div>
+                                                    </li>
+
+
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <button class="dropbtn ">
+                                                                <a href="<?= base_url('blog-grid'); ?>">Blogs</a>
+                                                            </button>
+
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <button class="dropbtn ">
+                                                                <a href="<?= base_url('contact'); ?>">Contact Us</a>
+                                                            </button>
+
                                                         </div>
                                                     </li>
 
@@ -223,7 +251,7 @@
 
 
 
-                                                    <!-- <li class=""><a href="<?= base_url();?>">Home</a> -->
+                                                    <!-- <li class=""><a href="<?= base_url(); ?>">Home</a> -->
                                                     <!-- <ul>
                                                             <li><a href="index.html">Home Page 01</a></li>
                                                             <li class="current"><a href="home02.html">Home Page 02</a>
@@ -349,34 +377,47 @@
                                             <option value="de">Ger</option>
                                         </select></li> -->
                                         <!-- <div id="google_translate_element" style="margin-top: 15px;"></div> -->
+
+                            
+                                            <select class="form-select bg-dark text-white" id="custom_translate_select" name="language">
+                                                 <option value="en">English</option>
+                                                <option value="de">German</option>
+                                                <option value="fr">French</option>
+                                                <option value="it">Italian</option>
+                                            </select>
+
+                                        <!-- ✅ Hidden container just to initialize Google Translate -->
+                                        <div id="google_translate_element" style="display: none;"></div>
+
+
                                         <!-- Translate Element -->
                                         <!-- <div id="google_translate_element"></div> -->
 
 
                                         <?php if (!$this->session->userdata('user_id')) { ?>
-                                        <div class="register">
-                                            <ul class="flex align-center">
-                                                <li>
-                                                  <i class="icon-autodeal-user fs-20" style="color: black;"></i>
-                                                </li>
-                                                <li class="">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#popup_bid">Login</a>
-                                                </li>
-                                                <li>
-                                                    <span>/</span>
-                                                </li>
-                                                <li class="">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#popup_bid2">Register</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <?php }else{ ?>
+                                            <div class="register">
+                                                <ul class="flex align-center">
+                                                    <li>
+                                                        <i class="icon-autodeal-user fs-20" style="color: black;"></i>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#popup_bid">Login</a>
+                                                    </li>
+                                                    <li>
+                                                        <span>/</span>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#popup_bid2">Register</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        <?php } else { ?>
 
-                                              <!-- Favorite Start -->
+                                            <!-- Favorite Start -->
 
-                                           <li class="nav-item dropdown">
+                                            <li class="nav-item ">
                                                 <a class="nav-link position-relative" href="<?= base_url('favorite-list'); ?>" title="My Favorites">
                                                     <!-- White Heart Icon -->
                                                     <svg width="20" height="18" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -388,7 +429,7 @@
                                                             stroke-linecap="round"
                                                             stroke-linejoin="round" />
                                                     </svg>
-
+                                                    <!-- <button style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 16px; cursor: pointer;">❤️ Favorite</button> -->
                                                     <?php if ($favorite_count > 0): ?>
                                                         <span
                                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
@@ -397,75 +438,103 @@
                                                         </span>
                                                     <?php endif; ?>
                                                 </a>
+
                                             </li>
 
 
                                             <!-- Favorite End -->
 
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle position-relative" href="#"
-                                                id="messageDropdown" role="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <!-- <i class="bi bi-envelope fs-4" ></i> -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="black" stroke-width="1.5" viewBox="0 0 16 16">
-                                                <path d="M2 2h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
-                                                <path d="M2 3l6 5 6-5" />
-                                                </svg>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle position-relative" href="#"
+                                                    id="messageDropdown" role="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false" title="Message">
+                                                    <!-- <i class="bi bi-envelope fs-4" ></i> -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="black" stroke-width="1.5" viewBox="0 0 16 16">
+                                                        <path d="M2 2h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
+                                                        <path d="M2 3l6 5 6-5" />
+                                                    </svg>
+
+                                                    <!-- <button style="background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                                                ✉️ Message
+                                                </button> -->
+
+                                                    <span
+                                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                        id="unreadCount" style="display: none;">0</span>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end p-2"
+                                                    aria-labelledby="messageDropdown"
+                                                    style="width: 300px; max-height: 400px; overflow-y: auto;"
+                                                    id="messageDropdownContent">
+                                                    <li class="text-center text-muted">Loading...</li>
+                                                </ul>
+                                            </li>
+                                            <div class="register">
+                                                <ul class="nav">
+                                                    <li class="nav-item dropdown">
+                                                        <!-- Icon as Toggle -->
+                                                        <?php if ($_SESSION['role_name'] == "Buyer") { ?>
+
+                                                            <a class="nav-link d-flex align-items-center"
+                                                                href="<?= base_url('profile'); ?>" title="My Profile">
+                                                                <i class="icon-autodeal-user fs-4" style="color: black;"></i>
+                                                            </a>
+
+                                                        <?php } elseif ($_SESSION['role_name'] == "Dealer") { ?>
+                                                            <a class="nav-link d-flex align-items-center"
+                                                                href="<?= base_url(ADMIN_PATH  . '/dealer-profile'); ?>" title="My Profile">
+                                                                <i class="icon-autodeal-user fs-4" style="color: black;"></i>
+                                                            </a>
+                                                        <?php } else { ?>
+                                                            <a class="nav-link d-flex align-items-center"
+                                                                href="<?= base_url(ADMIN_PATH  . '/my-profile'); ?>" title="My Profile">
+                                                                <i class="icon-autodeal-user fs-4" style="color: black;"></i>
+                                                            </a>
 
 
-                                                <span
-                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                                    id="unreadCount" style="display: none;">0</span>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end p-2"
-                                                aria-labelledby="messageDropdown"
-                                                style="width: 300px; max-height: 400px; overflow-y: auto;"
-                                                id="messageDropdownContent">
-                                                <li class="text-center text-muted">Loading...</li>
-                                            </ul>
-                                        </li>
-                                        <div class="register">
-                                            <ul class="nav">
-                                                <li class="nav-item dropdown">
-                                                    <!-- Icon as Toggle -->
-                                                    <a class="nav-link dropdown-toggle d-flex align-items-center"
-                                                        href="#" id="userDropdown" role="button"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="icon-autodeal-user fs-4" style="color: black;"></i>
-                                                    </a>
+                                                        <?php } ?>
 
-                                                    <!-- Clean Dropdown Menu -->
-                                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm p-0"
+                                                        <!-- Clean Dropdown Menu -->
+                                                        <!-- <ul class="dropdown-menu dropdown-menu-end shadow-sm p-0"
                                                         aria-labelledby="userDropdown">
-                                                         <?php if($_SESSION['role_name'] =="Buyer"){ ?>
+                                                         <?php if ($_SESSION['role_name'] == "Buyer") { ?>
                                                         <li><a class="dropdown-item py-2 px-3"
                                                         href="<?= base_url('profile'); ?>">Profile</a></li>
-                                                        <?php } elseif($_SESSION['role_name'] =="Dealer") { ?>
+                                                        <?php } elseif ($_SESSION['role_name'] == "Dealer") { ?>
                                                             <li><a class="dropdown-item py-2 px-3"
                                                             href="<?= base_url(ADMIN_PATH  . '/dealer-profile'); ?>">Profile</a></li>
-                                                        <?php } else{?>
+                                                        <?php } else { ?>
                                                             <li><a class="dropdown-item py-2 px-3"
                                                             href="<?= base_url(ADMIN_PATH  . '/my-profile'); ?>">Profile</a></li>
                                                                       <?php } ?>
                                                         <li><a class="dropdown-item py-2 px-3"
                                                                 href="<?= base_url('logout'); ?>">Log Out</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <li> <select class="form-control" name="location" id="filter_by_location"
-                                                style="width: 140px; font-size: 14px; padding: 4px;">
-                                                <option value="">Select Location</option>
-                                                <?php  $cities= $this->db->get('cities')->result();  foreach($cities as $city){?>
-                                                <option value="<?= $city->id; ?>"
-                                                    <?php if($this->session->userdata('location')== $city->id){ echo "selected";}?>>
-                                                    <?= $city->city_name; ?></option>
-                                                <?php }?>
-                                            </select></li>
+                                                    </ul> -->
+                                                    </li>
+                                                </ul>
+                                            </div>
 
-                                        <?php } if (isset($_SESSION['role']) && $_SESSION['role'] == 1) {?>
+                                            
+                                                    <li>
+                                                        <a href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt fs-4" style="color: black;"></i></a>
+                                                    </li>
+                                            <li> <select class="form-control" name="location" id="filter_by_location"
+                                                    style="width: 140px; font-size: 14px; padding: 4px;">
+                                                    <option value="">Select Location</option>
+                                                    <?php $cities = $this->db->get('cities')->result();
+                                                    foreach ($cities as $city) { ?>
+                                                        <option value="<?= $city->id; ?>"
+                                                            <?php if ($this->session->userdata('location') == $city->id) {
+                                                                echo "selected";
+                                                            } ?>>
+                                                            <?= $city->city_name; ?></option>
+                                                    <?php } ?>
+                                                </select></li>
 
-                                        <!-- <div class="flat-bt-top">
+                                        <?php }
+                                        if (isset($_SESSION['role']) && $_SESSION['role'] == 1) { ?>
+
+                                            <!-- <div class="flat-bt-top">
                                             <a class="sc-button" href="<?= base_url('admin/add-listing'); ?>">
 
                                                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
@@ -551,21 +620,21 @@
             </header>
             <!-- End Main Header -->
 
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-            $('#filter_by_location').on('change', function() {
-                // console.log('hello');
-                var selectlocation = $(this).val();
-                $.ajax({
-                    url: '<?= base_url("set-location") ?>',
-                    type: 'POST',
-                    data: {
-                        location: selectlocation
-                    },
-                    success: function(response) {
-                        console.log('Location set in session:', response);
-                        location.reload();
-                    }
+                $('#filter_by_location').on('change', function() {
+                    // console.log('hello');
+                    var selectlocation = $(this).val();
+                    $.ajax({
+                        url: '<?= base_url("set-location") ?>',
+                        type: 'POST',
+                        data: {
+                            location: selectlocation
+                        },
+                        success: function(response) {
+                            console.log('Location set in session:', response);
+                            location.reload();
+                        }
+                    });
                 });
-            });
-            </script>
+            </script> -->

@@ -430,6 +430,7 @@
                                                                 </svg>
                                                             </div>
                                                             <?php  // Format the MFK date
+                                                              $selected_lang = $this->session->userdata('selected_lang');  
                                                                     $mfk_value = '';
                                                                     if (!empty($details->mfk_date)) {
                                                                         $dateObj = DateTime::createFromFormat('m/y', $details->mfk_date);
@@ -439,8 +440,16 @@
                                                                     }
                                                               ?>
                                                             <div class="content-listing-info">
-                                                                <span class="listing-info-title"> MFK :</span>
+                                                                <?php if($selected_lang == "fr" ||  $selected_lang == "it"){ ?> 
+
+                                                                     <span class="listing-info-title"> TUV :</span>
+                                                                <p class="listing-info-value"><?= $details->tuv_date; ?></p>
+
+                                                                    <?php }else{ ?>
+                                                                  <span class="listing-info-title"> MFK :</span>
                                                                 <p class="listing-info-value"><?= $mfk_value; ?></p>
+
+                                                                        <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1943,7 +1952,11 @@
                                                 <span>1st owner</span>
                                             </div> -->
                                     </div>
-                                    <div class="money text-color-3 font">CHF <?= $details->price; ?></div>
+                                       <div class="icons flex-three text-color-3">
+                                            <span><?php echo ($details->tax !== '0.00' && $details->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
+                                        </div>
+                                        
+                                    <div class="money text-color-3 font">CHF <?= $details->total_price; ?></div>
                                     <!-- <div class="price-wrap">
                                             <p class="fs-12 lh-16 text-color-2">Monthly installment payment: <span
                                                     class="fs-14 fw-5 font">$4,000</span></p>
@@ -1982,7 +1995,7 @@
                                                 </a>
                                             </li>
 
-                                        <li>
+                                        <!-- <li>
                                             <a href="#" class="icon">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -1992,7 +2005,7 @@
                                                         stroke-linejoin="round" />
                                                 </svg>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <!-- <li>
                                                 <a href="#" class="icon">
                                                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none"
@@ -2025,10 +2038,13 @@
                             <div class="widget-listing mb-30">
                                 <div class="prolile-info flex-three mb-30">
                                     <div class="image">
-                                        <img class="lazyload"
-                                            data-src="<?= base_url(); ?>/assets/assets/images/author/avt1.jpg"
-                                            src="<?= base_url(); ?>/assets/assets/images/author/avt1.jpg" alt="image">
-                                    </div>
+                                        <?php 
+                                
+                                        if (!empty($added_by->profile)) { ?>
+                                            <img class="lazyload" data-src="<?= base_url(); ?>uploads/profile/<?= $added_by->profile; ?>" src="<?= base_url(); ?>uploads/profile/<?= $added_by->profile; ?>"alt="image">
+                                        <?php } else { ?>
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg" alt="image">
+                                    <?php } ?>
                                     <div class="content">
                                         <p> <?= $roles->role; ?></p>
                                         <h4><?= $users->username; ?></h4>

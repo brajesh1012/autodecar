@@ -14,7 +14,7 @@
                         </div>
                         <div class="nav-outer flex align-center">
                             <!-- Main Menu -->
-                            <nav class="main-menu show navbar-expand-md">
+                            <nav class="main-menu show navbar-expand-md d-none">
                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
                                         <li class=""><a href="<?= base_url();?>">Home</a>
