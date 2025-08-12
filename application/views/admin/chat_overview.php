@@ -21,6 +21,51 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
 </head>
 
+<style>
+
+    /*# sourceMappingURL=styles.css.map */
+/* pagination  */
+
+.custom-pagination .page-item {
+    margin: 0 4px;
+}
+
+.custom-pagination .page-link {
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.custom-pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+#chatTable {
+    font-family: 'Segoe UI', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#chatTable th, #example td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#chatTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+#chatTable th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+</style>
 <body>
     <h2>Message List</h2>
 

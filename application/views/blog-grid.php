@@ -1,18 +1,26 @@
-  <?php include('head.php'); ?>
+ 
 
+ <?php include('head.php'); ?>
             <section class="flat-title ">
                 <div class="container2">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="title-inner style">
                                 <div class="title-group fs-12"><a class="home fw-6 text-color-3"
-                                        href="<?= base_url(); ?>">Home</a><span>Used cars for sale</span></div>
+                                        href="<?= base_url(); ?>">Home</a><span>Vehicles for sale</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+ <style>
 
+    .hover-img .img-style img {
+    width: 75%;
+    object-fit: cover;
+    transition: transform 500ms ease;
+}
+ </style>
             <section class="tf-section3 flat-blog-grid flat-blog-list flat-property">
                 <div class="container">
                     <div class="inner-heading flex-two flex-wrap">
@@ -32,7 +40,7 @@
                             <div class="post">
                                 <div class="flat-blog">
                                     <div class="row ">
-                                        <div class="col-lg-4 col-md-6" >
+                                        <!-- <div class="col-lg-4 col-md-6" >
                                             <div class="box hover-img ">
                                                 <div class="images img-style relative flex-none">
                                                     <img src="<?= base_url(); ?>/assets/assets/images/blog/blog-6.jpg" alt="images">
@@ -48,8 +56,8 @@
                                                     <p>The average contract interest rate for 30-year fixed-rate mortgages with conforming loan balances...</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6" >
+                                        </div> -->
+                                        <!-- <div class="col-lg-4 col-md-6" >
                                             <div class="box hover-img ">
                                                 <div class="images img-style relative flex-none">
                                                     <img src="<?= base_url(); ?>/assets/assets/images/blog/blog-7.jpg" alt="images">
@@ -65,25 +73,32 @@
                                                     <p>The average contract interest rate for 30-year fixed-rate mortgages with conforming loan balances...</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <?php foreach($blogs as $blog) {
+                                               $date = $blog->created_at; 
+                                               $formatted_date = date("j M Y g:i a", strtotime($date));
+                                            ?>
                                         <div class="col-lg-4 col-md-6" >
                                             <div class="box hover-img ">
                                                 <div class="images img-style relative flex-none">
-                                                    <img src="<?= base_url(); ?>/assets/assets/images/blog/blog-8.jpg" alt="images">
-                                                    <div class="date">January 28, 2024</div>
+                                                    <!-- <img src="<?= base_url(); ?>/assets/assets/images/blog/blog-8.jpg" alt="images"> -->
+                                                    <img src="<?= base_url('uploads/blogs/'. $blog->img); ?>" alt="images">
+                                                    <div class="date"><?= $formatted_date; ?></div>
                                                 </div>
                                                 <div class="content">
                                                     <div class="sub-box flex align-center fs-13 fw-6">                                                     
-                                                        <a href="#" class="admin fw-7 text-color-2">Jerome Bell</a>
-                                                        <a href="#" class="category text-color-3">Technology</a>
+                                                        <a href="#" class="admin fw-7 text-color-2"><?= $blog->name ; ?></a>
+                                                        <a href="#" class="category text-color-3"><?= $blog->title ; ?></a>
                                                     </div>
-                                                    <h3><a href="<?= base_url('blog-details'); ?>">Building gains into housing stocks and how to trade the sector</a></h3>
+                                                    <p style = "width: 340px !impotant;"><a href="<?= base_url('blog-details/' . $blog->id); ?>" ><?= $blog->description ; ?></a></p>
+                                                    <!-- <h3><a href="<?= base_url('blog-details'); ?>">Building gains into housing stocks and how to trade the sector</a></h3>
                                                     
-                                                    <p>The average contract interest rate for 30-year fixed-rate mortgages with conforming loan balances...</p>
+                                                    <p>The average contract interest rate for 30-year fixed-rate mortgages with conforming loan balances...</p> -->
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6" >
+                                        <?php } ?>
+                                        <!-- <div class="col-lg-4 col-md-6" >
                                             <div class="box hover-img ">
                                                 <div class="images img-style relative flex-none">
                                                     <img src="<?= base_url(); ?>/assets/assets/images/blog/blog-9.jpg" alt="images">
@@ -184,10 +199,10 @@
                                                     <p>The average contract interest rate for 30-year fixed-rate mortgages with conforming loan balances...</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
-                                <div class="themesflat-pagination clearfix center">
+                                <!-- <div class="themesflat-pagination clearfix center">
                                     <ul>
                                         <li><a href="#" class="page-numbers style"><i class="far fa-angle-left"></i></a>
                                         </li>
@@ -199,7 +214,7 @@
                                         <li><a href="#" class="page-numbers style"><i
                                                     class="far fa-angle-right"></i></a></li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

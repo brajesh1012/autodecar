@@ -1,7 +1,6 @@
-
-  <!-- Firebase must be loaded BEFORE your script -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+<!-- Firebase must be loaded BEFORE your script -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
 <style>
     .notification-box {
@@ -13,7 +12,7 @@
         font-family: Arial, sans-serif;
         font-size: 16px;
         color: #333;
-        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
 
     .notification-box .icon {
@@ -33,26 +32,26 @@
         font-weight: bold;
     }
 </style>
-        <div id="themesflat-content">
-            <div class="dashboard-toggle">Show DashBoard</div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="content-area">
-                             <?php if ($this->session->flashdata('success')): ?>
-                            <div class="alert alert-success" id="success-msg">
-                                <?= $this->session->flashdata('success') ?></div>
-                            <?php endif; ?>
-                            <main id="main" class="main-content">
-                                <div class="tfcl-dashboard">
-                                    <h1 class="admin-title">Dashboard</h1>
-                                    <div class="tfcl-dashboard-overview">
-                                        <div class="row">
-                                                <div class="col-sm-6 col-xl-3">
-                                        <a class="tfcl-card" href="#">
+<div id="themesflat-content">
+    <div class="dashboard-toggle">Show DashBoard</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content-area">
+                    <?php if ($this->session->flashdata('success')): ?>
+                        <div class="alert alert-success" id="success-msg">
+                            <?= $this->session->flashdata('success') ?></div>
+                    <?php endif; ?>
+                    <main id="main" class="main-content">
+                        <div class="tfcl-dashboard">
+                            <h1 class="admin-title">Dashboard</h1>
+                            <div class="tfcl-dashboard-overview">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xl-3">
+                                        <a class="tfcl-card" href="<?= base_url(ADMIN_PATH . '/my-listing'); ?>">
                                             <div class="card-body">
                                                 <div class="tfcl-icon-overview">
-                                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/overview1.svg"
+                                                    <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview1.svg"
                                                         alt="icon">
                                                 </div>
                                                 <div class="content-overview">
@@ -70,76 +69,105 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 col-xl-3">
-                                        <a class="tfcl-card" href="#">
-                                            <div class="card-body">
-                                                <div class="tfcl-icon-overview">
-                                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/overview4.svg"
-                                                        alt="icon">
-                                                </div>
-                                                <div class="content-overview">
-                                                    <h5>Under Review Vehicle</h5>
-                                                    <div class="tfcl-dashboard-title">
-                                                        <span><b><?= $under_review; ?></b></span>
+                                        <form action="<?= base_url(ADMIN_PATH . '/my-listing'); ?>" method="post" id="underReviewForm">
+                                            <input type="hidden" name="post_status" value="0">
+                                            <div class="tfcl-card" onclick="document.getElementById('underReviewForm').submit();" style="cursor: pointer;">
+                                                <div class="card-body">
+                                                    <div class="tfcl-icon-overview">
+                                                        <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview4.svg" alt="icon">
+                                                    </div>
+                                                    <div class="content-overview">
+                                                        <h5>Under Review Vehicle</h5>
+                                                        <div class="tfcl-dashboard-title">
+                                                            <span><b><?= $under_review; ?></b></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </form>
                                     </div>
                                     <div class="col-sm-6 col-xl-3">
-                                        <a class="tfcl-card" href="#">
-                                            <div class="card-body">
-                                                <div class="tfcl-icon-overview">
-                                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/overview3.svg"
-                                                        alt="icon">
-                                                </div>
-                                                <div class="content-overview">
-                                                    <h5>Active Vehicle</h5>
-                                                    <div class="tfcl-dashboard-title">
-                                                        <span><b><?= $active; ?></b></span>
+                                        <form action="<?= base_url(ADMIN_PATH . '/my-listing'); ?>" method="post" id="activeForm">
+                                            <input type="hidden" name="post_status" value="1">
+                                            <div class="tfcl-card" onclick="document.getElementById('activeForm').submit();" style="cursor: pointer;">
+                                                <div class="card-body">
+                                                    <div class="tfcl-icon-overview">
+                                                        <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview3.svg"
+                                                            alt="icon">
+                                                    </div>
+                                                    <div class="content-overview">
+                                                        <h5>Active Vehicle</h5>
+                                                        <div class="tfcl-dashboard-title">
+                                                            <span><b><?= $active; ?></b></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </form>
                                     </div>
                                     <div class="col-sm-6 col-xl-3">
-                                        <a class="tfcl-card" href="#">
-                                            <div class="card-body">
-                                                <div class="tfcl-icon-overview">
-                                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/overview2.svg"
-                                                        alt="icon">
-                                                </div>
-                                                <div class="content-overview">
-                                                    <h5>Reserved</h5>
-                                                    <div class="tfcl-dashboard-title">
-                                                        <span><b><?= $reserved; ?></b></span>
+                                        <form action="<?= base_url(ADMIN_PATH . '/my-listing'); ?>" method="post" id="reservedForm">
+                                            <input type="hidden" name="post_status" value="2">
+                                            <div class="tfcl-card" onclick="document.getElementById('reservedForm').submit();" style="cursor: pointer;">
+                                                <div class="card-body">
+                                                    <div class="tfcl-icon-overview">
+                                                        <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview2.svg"
+                                                            alt="icon">
+                                                    </div>
+                                                    <div class="content-overview">
+                                                        <h5>Reserved</h5>
+                                                        <div class="tfcl-dashboard-title">
+                                                            <span><b><?= $reserved; ?></b></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-sm-6 col-xl-3">
-                                        <a class="tfcl-card" href="#">
-                                            <div class="card-body">
-                                                <div class="tfcl-icon-overview">
-                                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/overview2.svg"
-                                                        alt="icon">
-                                                </div>
-                                                <div class="content-overview">
-                                                    <h5>Sold</h5>
-                                                    <div class="tfcl-dashboard-title">
-                                                        <span><b><?= $sold; ?></b></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
+                                        </form>
                                     </div>
 
                                     <div class="col-sm-6 col-xl-3">
+                                        <form action="<?= base_url(ADMIN_PATH . '/my-listing'); ?>" method="post" id="soldForm">
+                                            <input type="hidden" name="post_status" value="3">
+                                            <div class="tfcl-card" onclick="document.getElementById('soldForm').submit();" style="cursor: pointer;">
+                                                <div class="card-body">
+                                                    <div class="tfcl-icon-overview">
+                                                        <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview2.svg"
+                                                            alt="icon">
+                                                    </div>
+                                                    <div class="content-overview">
+                                                        <h5>Sold</h5>
+                                                        <div class="tfcl-dashboard-title">
+                                                            <span><b><?= $sold; ?></b></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                      <div class="col-sm-6 col-xl-3">
+                                        <form action="<?= base_url(ADMIN_PATH . '/my-listing'); ?>" method="post" id="expiredForm">
+                                            <input type="hidden" name="post_status" value="4">
+                                            <div class="tfcl-card" onclick="document.getElementById('expiredForm').submit();" style="cursor: pointer;">
+                                                <div class="card-body">
+                                                    <div class="tfcl-icon-overview">
+                                                          <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview2.svg"
+                                                        alt="icon">
+                                                    </div>
+                                                    <div class="content-overview">
+                                                        <h5>Expired</h5>
+                                                        <div class="tfcl-dashboard-title">
+                                                            <span><b><?= $expired; ?></b></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- <div class="col-sm-6 col-xl-3">
                                         <a class="tfcl-card" href="#">
                                             <div class="card-body">
                                                 <div class="tfcl-icon-overview">
-                                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/overview2.svg"
+                                                    <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview2.svg"
                                                         alt="icon">
                                                 </div>
                                                 <div class="content-overview">
@@ -150,39 +178,39 @@
                                                 </div>
                                             </div>
                                         </a>
-                                    </div>
+                                    </div> -->
 
                                     <div class="col-sm-6 col-xl-3">
                                         <a class="tfcl-card" href="<?= base_url(ADMIN_PATH . '/chat-overview'); ?>">
                                             <div class="card-body">
                                                 <div class="tfcl-icon-overview">
-                                                    <img src="<?= base_url();?>/assets/assets/images/dashboard/overview2.svg"
+                                                    <img src="<?= base_url(); ?>/assets/assets/images/dashboard/overview2.svg"
                                                         alt="icon">
                                                 </div>
-                                               
+
                                                 <div class="content-overview">
                                                     <!-- <h5>Activity</h5> -->
                                                     <div class="tfcl-dashboard-title">
-                                                       <div class="notification-box">
-                                                        <span class="icon">📩</span>
-                                                        <span class="label">Messages</span>
-                                                        <span class="badge" id="unreadCount">0</span>
+                                                        <div class="notification-box">
+                                                            <span class="icon">📩</span>
+                                                            <span class="label">Messages</span>
+                                                            <span class="badge" id="unreadCount">0</span>
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
 
-                                    <div class="tfcl-dashboard-middle mt-2">
-                                        <div class="row">
-                                            <div class="tfcl-dashboard-middle-left col-md-12">
-                                                <div class="tfcl-dashboard-listing">
-                                                    <h5 class="title-dashboard-table">New listing</h5>
-                                                    <div class="row">
-                                                        <!-- <div class="col-xl-3 col-lg-6 mb-2">
+                            <div class="tfcl-dashboard-middle mt-2">
+                                <div class="row">
+                                    <div class="tfcl-dashboard-middle-left col-md-12">
+                                        <div class="tfcl-dashboard-listing">
+                                            <h5 class="title-dashboard-table">New listing</h5>
+                                            <div class="row">
+                                                <!-- <div class="col-xl-3 col-lg-6 mb-2">
                                                             <div class="group-input-icon search">
                                                                 <input type="text" name="title_search" id="title_search"
                                                                     value placeholder="Search...">
@@ -230,214 +258,242 @@
                                                                 </span>
                                                             </div>
                                                         </div> -->
-                                                        <div class="col-xl-3 col-lg-6 mb-2">
-                                                    
-                                              <?php
-                                                $status_options = [
-                                                    'all' => 'All Statuses',
-                                                    0 => 'Under Review',
-                                                    1 => 'Active',
-                                                    2 => 'Reserved',
-                                                    3 => 'Sold',
-                                                    4 => 'Expired'
-                                                ];
-                                                // $current_status = $this->input->get('post_status');
-                                                $current_status = isset($current_status) ? $current_status : 'all';
-                                                ?>
-                                                <form method="post" action="" class="mb-3">
-                                                            <select name="post_status" class="nice-select form-control" onchange="this.form.submit()">
-                                                                <?php foreach ($status_options as $key => $label): ?>
-                                                                    <option value="<?= $key ?>" <?= ($current_status !== null && $current_status !== '' && $current_status == $key) ? 'selected' : '' ?>>
-                                                                        <?= $label ?>
-                                                                    </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                </form>
-                                            </div>
-                                                    </div>
+                                                <div class="col-xl-3 col-lg-6 mb-2">
 
-                                                    <div class="tfcl-table-listing">
-                                                        <div class="table-responsive">
-                                                            <!-- <span class="result-text"><b>16</b> results found</span> -->
-                                                             <table id="example" class="cell-border">
+                                                    <?php
+                                                    $status_options = [
+                                                        'all' => 'All Statuses',
+                                                        0 => 'Under Review',
+                                                        1 => 'Active',
+                                                        2 => 'Reserved',
+                                                        3 => 'Sold',
+                                                        4 => 'Expired'
+                                                    ];
+                                                    $current_status = isset($_POST['post_status']) ? $_POST['post_status'] : 'all';
+                                                    ?>
+                                                    <form method="post" action="" class="mb-3">
+                                                        <select name="post_status" class="nice-select form-control" onchange="this.form.submit()">
+                                                            <?php foreach ($status_options as $key => $label): ?>
+                                                                <option value="<?= $key ?>" <?= ((string)$current_status === (string)$key) ? 'selected' : '' ?>>
+                                                                    <?= $label ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div class="tfcl-table-listing">
+                                                <div class="table-responsive">
+                                                    <!-- <span class="result-text"><b>16</b> results found</span> -->
+                                                    <table id="example" class="cell-border">
                                                         <thead>
                                                             <tr>
                                                                 <th>Listing</th>
+                                                                <?php if ($_SESSION["role_name"] != 'Seller') { ?>
+                                                                    <th>Tax (7.7%)</th>
+                                                                <?php }
+                                                                if ($_SESSION["role_name"] == 'Admin') { ?>
+                                                                    <th>Added By</th>
+                                                                <?php } ?>
                                                                 <th>Status</th>
                                                                 <th>Posting date</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php foreach($details as $detail){  
-                                                            $original_date = $detail->created_at;
-                                                            $posting_date = date("F d, Y", strtotime($original_date));
-                                                            
-                                                             $vehicle_images = $this->db->get_where('car_img', ['car_list_id' => $detail->id])->result();
-                                                            
-                                                           $makes = $this->db
-                                                            ->select('make.name as make_name, model.name as model_name, variants.name as variant_name')
-                                                            ->from('variants')
-                                                            ->join('model', 'variants.model_id = model.id')
-                                                            ->join('make', 'model.make_id = make.id')
-                                                            ->where('variants.id', $detail->variant) // yahaan variant ID match karo
-                                                            ->get()
-                                                            ->result();
+                                                            <?php foreach ($details as $detail) {
+                                                                $original_date = $detail->created_at;
+                                                                $posting_date = date("F d, Y", strtotime($original_date));
+
+                                                                $vehicle_images = $this->db->get_where('car_img', ['car_list_id' => $detail->id])->result();
+
+                                                                $makes = $this->db
+                                                                    ->select('make.name as make_name, model.name as model_name, variants.name as variant_name')
+                                                                    ->from('variants')
+                                                                    ->join('model', 'variants.model_id = model.id')
+                                                                    ->join('make', 'model.make_id = make.id')
+                                                                    ->where('variants.id', $detail->variant) // yahaan variant ID match karo
+                                                                    ->get()
+                                                                    ->result();
 
                                                             ?>
-                                                            <tr>
-                                                                <td class="column-listing">
-                                                                    <div class="tfcl-listing-product">
-                                                                        <a href="#">
-                                                                            <img src="<?= base_url('uploads/'. @$vehicle_images[0]->photos); ?>"
-                                                                                        alt="image">
-                                                                        </a>
-                                                                        <div class="tfcl-listing-summary">
-                                                                            <h4 class="tfcl-listing-title"> 
-                                                                                <?php foreach($makes as $make): ?>
-                                                                                    <a target="_blank" href="listing-detail-v1.html">
+                                                                <tr>
+                                                                    <td class="column-listing">
+                                                                        <div class="tfcl-listing-product">
+                                                                            <a href="#">
+                                                                                <img src="<?= base_url('uploads/' . @$vehicle_images[0]->photos); ?>"
+                                                                                    alt="image">
+                                                                            </a>
+                                                                            <div class="tfcl-listing-summary">
+                                                                                <h4 class="tfcl-listing-title">
+                                                                                    <?php foreach ($makes as $make): ?>
+                                                                                        <!-- <a target="_blank" href="#"> -->
                                                                                         <?= $detail->year . " " ?>
                                                                                         <?= $make->make_name . " " ?>
                                                                                         <?= $make->model_name . " " ?>
                                                                                         <?= $detail->mileage . "km" ?>
-                                                                                    </a>
-                                                                                <?php endforeach; ?>
-                                                                            </h4>
-                                                                            <div class="features-text">
-                                                                                <?= $detail->vehicle_condition , " "; ?>
-                                                                                <?= $detail->transmission; ?>
-                                                                            </div>
-                                                                            <div class="price">
-                                                                                <div class="inner tfcl-listing-price">
-                                                                                    CHF <?= $detail->price; ?>
+                                                                                        <!-- </a> -->
+                                                                                    <?php endforeach; ?>
+                                                                                </h4>
+                                                                                <div class="features-text">
+                                                                                    <?= $detail->vehicle_condition, " "; ?>
+                                                                                    <?= $detail->transmission; ?>
+                                                                                </div>
+                                                                                <div class="price">
+                                                                                    <div class="inner tfcl-listing-price">
+                                                                                        CHF <?= $detail->price; ?>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="column-status">
-                                                                    <?php if($detail->status==0){?>
-                                                                    <span class="tfcl-listing-status status-publish">
-                                                                        Under Review
-                                                                    </span>
-                                                                    <?php }elseif($detail->status==1){ ?>
-                                                                    <span class="tfcl-listing-status status-publish">
-                                                                        Active
-                                                                    </span>
-                                                                    <?php }elseif($detail->status==2){ ?>
-                                                                    <span class="tfcl-listing-status status-publish">
-                                                                        Reserved
-                                                                    </span>
-                                                                    <?php  }elseif($detail->status==3){ ?>
-                                                                    <span class="tfcl-listing-status status-publish">
-                                                                        Sold
-                                                                    </span>
-                                                                    <?php } elseif($detail->status==4){ ?>
-                                                                    <span class="tfcl-listing-status status-publish">
-                                                                        Expired
-                                                                    </span>
+                                                                    </td>
+
+                                                                    <?php if ($_SESSION["role_name"] != 'Seller') { ?>
+                                                                        <td class="column-tax">
+                                                                            <div class="tfcl-listing-tax">
+                                                                                <?php
+                                                                                $tax = $detail->tax;
+                                                                                if ($tax != 0) {
+                                                                                    echo "CHF " . $tax;
+                                                                                } else {
+                                                                                    echo "N/A";
+                                                                                }
+                                                                                ?>
+                                                                            </div>
+                                                                        </td>
+                                                                    <?php }
+                                                                    $user = $this->db->where('id', $detail->added_by)->get('users')->row();
+                                                                    $role = $this->db->where('id', $user->role)->get('roles')->row();
+                                                                    if ($_SESSION["role_name"] == 'Admin') {
+                                                                    ?>
+                                                                        <td class="column-added_by"><?= $user->username; ?><br><?= $role->role; ?></td>
                                                                     <?php } ?>
 
-
-                                                                </td>
-                                                                <td class="column-date">
-                                                                    <div class="tfcl-listing-date"><?= $posting_date; ?>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="column-controller">
-                                                                    <div class="inner-controller">
-                                                                        <span class="icon">
-                                                                            <img src="<?= base_url(); ?>/assets/assets/images/dashboard/pen.svg"
-                                                                                alt="icon">
-                                                                        </span>
-                                                                        <a href="<?= base_url(ADMIN_PATH . '/'); ?>edit-listing/<?php echo $detail->id; ?>"
-                                                                            class="btn-action tfcl-dashboard-action-edit">Edit</a>
-                                                                    </div>
-
-                                                                       <div class="inner-controller">
-                                                                        <span class="icon">
-                                                                            <img src="<?= base_url(); ?>/assets/assets/images/dashboard/pen.svg"
-                                                                                alt="icon">
-                                                                        </span>
-                                                                        <a href="<?= base_url(ADMIN_PATH . '/'); ?>duplicate-listing/<?php echo $detail->id; ?>"
-                                                                            class="btn-action tfcl-dashboard-action-edit">Duplicate</a>
-                                                                    </div>
+                                                                    <td class="column-status">
+                                                                        <?php if ($detail->status == 0) { ?>
+                                                                            <span class="tfcl-listing-status status-publish">
+                                                                                Under Review
+                                                                            </span>
+                                                                        <?php } elseif ($detail->status == 1) { ?>
+                                                                            <span class="tfcl-listing-status status-publish">
+                                                                                Active
+                                                                            </span>
+                                                                        <?php } elseif ($detail->status == 2) { ?>
+                                                                            <span class="tfcl-listing-status status-publish">
+                                                                                Reserved
+                                                                            </span>
+                                                                        <?php  } elseif ($detail->status == 3) { ?>
+                                                                            <span class="tfcl-listing-status status-publish">
+                                                                                Sold
+                                                                            </span>
+                                                                        <?php } elseif ($detail->status == 4) { ?>
+                                                                            <span class="tfcl-listing-status status-publish">
+                                                                                Expired
+                                                                            </span>
+                                                                        <?php } ?>
 
 
-                                                                      <?php 
-                                                                      if($_SESSION['role_name']== "Admin"){
-                                                                      if($detail->status==0){ ?>  
-                                                                    <div class="inner-controller">
-                                                                        <span class="icon">
-                                                                            <img src="<?= base_url(); ?>/assets/assets/images/dashboard/hide.svg"
-                                                                                alt="icon">
-                                                                        </span>
-                                                                        <a href="javascript:void(0);"
-                                                                            class="btn-action tfcl-dashboard-action-edit update-status-btn"
-                                                                            data-id="<?= $detail->id ?>"
-                                                                            data-table="car_list" data-key="id"
-                                                                            data-status="1"
-                                                                            data-redirect="<?= base_url(ADMIN_PATH  . '/my-listing') ?>"
-                                                                            data-message="Are you sure you want to mark this vehicle as Active?">
-                                                                            Active
-                                                                        </a>
-                                                                    </div>
-                                                                    <?php }else{ ?>
+                                                                    </td>
+                                                                    <td class="column-date">
+                                                                        <div class="tfcl-listing-date"><?= $posting_date; ?>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="column-controller">
+                                                                        <div class="inner-controller">
+                                                                            <span class="icon">
+                                                                                <img src="<?= base_url(); ?>/assets/assets/images/dashboard/pen.svg"
+                                                                                    alt="icon">
+                                                                            </span>
+                                                                            <a href="<?= base_url(ADMIN_PATH . '/'); ?>edit-listing/<?php echo $detail->id; ?>"
+                                                                                class="btn-action tfcl-dashboard-action-edit">Edit</a>
+                                                                        </div>
 
-                                                                         <div class="inner-controller">
-                                                                        <span class="icon">
-                                                                            <img src="<?= base_url(); ?>/assets/assets/images/dashboard/hide.svg"
-                                                                                alt="icon">
-                                                                        </span>
-                                                                        <a href="javascript:void(0);"
-                                                                            class="btn-action tfcl-dashboard-action-edit update-status-btn"
-                                                                            data-id="<?= $detail->id ?>"
-                                                                            data-table="car_list" data-key="id"
-                                                                            data-status="0"
-                                                                            data-redirect="<?= base_url(ADMIN_PATH  . '/my-listing') ?>"
-                                                                            data-message="Are you sure you want to mark this vehicle as Inactive?">
-                                                                            Inactive
-                                                                        </a>
-                                                                    </div>
-                                                                        <?php } } ?>
+                                                                        <div class="inner-controller">
+                                                                            <span class="icon">
+                                                                                <img src="<?= base_url(); ?>/assets/assets/images/dashboard/pen.svg"
+                                                                                    alt="icon">
+                                                                            </span>
+                                                                            <a href="<?= base_url(ADMIN_PATH . '/'); ?>duplicate-listing/<?php echo $detail->id; ?>"
+                                                                                class="btn-action tfcl-dashboard-action-edit">Duplicate</a>
+                                                                        </div>
+
+
+                                                                        <?php
+                                                                        if ($_SESSION['role_name'] == "Admin") {
+                                                                            if ($detail->status == 0) { ?>
+                                                                                <div class="inner-controller">
+                                                                                    <span class="icon">
+                                                                                        <img src="<?= base_url(); ?>/assets/assets/images/dashboard/hide.svg"
+                                                                                            alt="icon">
+                                                                                    </span>
+                                                                                    <a href="javascript:void(0);"
+                                                                                        class="btn-action tfcl-dashboard-action-edit update-status-btn"
+                                                                                        data-id="<?= $detail->id ?>"
+                                                                                        data-table="car_list" data-key="id"
+                                                                                        data-status="1"
+                                                                                        data-redirect="<?= base_url(ADMIN_PATH  . '/my-listing') ?>"
+                                                                                        data-message="Are you sure you want to mark this vehicle as Active?">
+                                                                                        Active
+                                                                                    </a>
+                                                                                </div>
+                                                                            <?php } else { ?>
+
+                                                                                <div class="inner-controller">
+                                                                                    <span class="icon">
+                                                                                        <img src="<?= base_url(); ?>/assets/assets/images/dashboard/hide.svg"
+                                                                                            alt="icon">
+                                                                                    </span>
+                                                                                    <a href="javascript:void(0);"
+                                                                                        class="btn-action tfcl-dashboard-action-edit update-status-btn"
+                                                                                        data-id="<?= $detail->id ?>"
+                                                                                        data-table="car_list" data-key="id"
+                                                                                        data-status="0"
+                                                                                        data-redirect="<?= base_url(ADMIN_PATH  . '/my-listing') ?>"
+                                                                                        data-message="Are you sure you want to mark this vehicle as Inactive?">
+                                                                                        Inactive
+                                                                                    </a>
+                                                                                </div>
+                                                                        <?php }
+                                                                        } ?>
                                                                         <!-- under review:0 , active: 1, reserved:2, sold:3, expired:4 -->
-                                                                         <?php
-                                                                         if(($_SESSION['role_name'] != "Seller") && ($detail->status != 3)){ ?>  
-                                                                    <div class="inner-controller">
-                                                                        <span class="icon">
-                                                                            <img src="<?= base_url(); ?>/assets/assets/images/dashboard/hide.svg"
-                                                                                alt="icon">
-                                                                        </span>
-                                                                        <a href="javascript:void(0);"
-                                                                            class="btn-action tfcl-dashboard-action-edit update-status-btn"
-                                                                            data-id="<?= $detail->id ?>"
-                                                                            data-table="car_list" data-key="id"
-                                                                            data-status="3"
-                                                                            data-redirect="<?= base_url(ADMIN_PATH  . '/my-listing') ?>"
-                                                                            data-message="Are you sure you want to mark this vehicle as Sold?">
-                                                                            Sold
-                                                                        </a>
-                                                                    </div>
-                                                                    <?php } ?>
+                                                                        <?php
+                                                                        if (($_SESSION['role_name'] != "Seller") && ($detail->status != 3)) { ?>
+                                                                            <div class="inner-controller">
+                                                                                <span class="icon">
+                                                                                    <img src="<?= base_url(); ?>/assets/assets/images/dashboard/hide.svg"
+                                                                                        alt="icon">
+                                                                                </span>
+                                                                                <a href="javascript:void(0);"
+                                                                                    class="btn-action tfcl-dashboard-action-edit update-status-btn"
+                                                                                    data-id="<?= $detail->id ?>"
+                                                                                    data-table="car_list" data-key="id"
+                                                                                    data-status="3"
+                                                                                    data-redirect="<?= base_url(ADMIN_PATH  . '/my-listing') ?>"
+                                                                                    data-message="Are you sure you want to mark this vehicle as Sold?">
+                                                                                    Sold
+                                                                                </a>
+                                                                            </div>
+                                                                        <?php } ?>
 
-                                                                    <div class="inner-controller">
-                                                                        <span class="icon">
-                                                                            <img src="<?= base_url(); ?>/assets/assets/images/dashboard/trash.svg"
-                                                                                alt="icon">
-                                                                        </span>
-                                                                        <a href="javascript:void(0);" 
-                                                                                class="btn-action delete-record" 
-                                                                                data-id="<?= $detail->id ?>" 
-                                                                                data-url="<?= base_url('dealer/delete-vehicle-record') ?>" 
-                                                                                data-table="car_list" 
-                                                                                data-key="id" 
+                                                                        <div class="inner-controller">
+                                                                            <span class="icon">
+                                                                                <img src="<?= base_url(); ?>/assets/assets/images/dashboard/trash.svg"
+                                                                                    alt="icon">
+                                                                            </span>
+                                                                            <a href="javascript:void(0);"
+                                                                                class="btn-action delete-record"
+                                                                                data-id="<?= $detail->id ?>"
+                                                                                data-url="<?= base_url('dealer/delete-vehicle-record') ?>"
+                                                                                data-table="car_list"
+                                                                                data-key="id"
                                                                                 data-redirect="<?= base_url(ADMIN_PATH  . '/my-listing') ?>">
                                                                                 Delete
-                                                                                </a>
-                                                                    </div>
-                                                                </td>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
 
-                                                            </tr>
+                                                                </tr>
 
                                                             <?php } ?>
                                                         </tbody>
@@ -450,8 +506,8 @@
                                                             </tr>
                                                         </tfoot>
                                                     </table>
-                                                        </div>
-                                                        <!-- <div class="tfcl-pagination paging-navigation clearfix">
+                                                </div>
+                                                <!-- <div class="tfcl-pagination paging-navigation clearfix">
                                                             <a class="prev page-numbers" href="#"><i
                                                                     class="far fa-angle-left"></i></a>
                                                             <a class="page-numbers" href="#">1</a>
@@ -462,14 +518,14 @@
                                                             <a class="next page-numbers" href="#"><i
                                                                     class="far fa-angle-right"></i></a>
                                                         </div> -->
-                                                    </div>
-
-                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <!-- <div class="tfcl-page-insight tfcl-dashboard-listing">
+                            <!-- <div class="tfcl-page-insight tfcl-dashboard-listing">
                                         <h5 class="mb-2">Page Insights</h5>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -528,7 +584,7 @@
                                                 <li class="comment-by-user">
                                                     <div class="group-author">
                                                         <img loading="lazy" class="avatar" width="56" height="56"
-                                                            src="<?= base_url();?>/assets/assets/images/dashboard/rate4.png" alt="avatar">
+                                                            src="<?= base_url(); ?>/assets/assets/images/dashboard/rate4.png" alt="avatar">
                                                         <div class="group-name">
                                                             <div class="review-name">
                                                                 <b>Bessie Cooper</b> <span class="review-date">3 days
@@ -560,7 +616,7 @@
                                                 <li class="comment-by-user">
                                                     <div class="group-author">
                                                         <img loading="lazy" class="avatar" width="56" height="56"
-                                                            src="<?= base_url();?>/assets/assets/images/dashboard/rate3.png" alt="avatar">
+                                                            src="<?= base_url(); ?>/assets/assets/images/dashboard/rate3.png" alt="avatar">
                                                         <div class="group-name">
                                                             <div class="review-name">
                                                                 <b>Annette Black</b> <span class="review-date">3 days
@@ -593,7 +649,7 @@
                                                 <li class="comment-by-user">
                                                     <div class="group-author">
                                                         <img loading="lazy" class="avatar" width="56" height="56"
-                                                            src="<?= base_url();?>/assets/assets/images/dashboard/rate2.png" alt="avatar">
+                                                            src="<?= base_url(); ?>/assets/assets/images/dashboard/rate2.png" alt="avatar">
                                                         <div class="group-name">
                                                             <div class="review-name">
                                                                 <b>Ralph Edwards</b> <span class="review-date">3 days
@@ -626,7 +682,7 @@
                                                 <li class="comment-by-user">
                                                     <div class="group-author">
                                                         <img loading="lazy" class="avatar" width="56" height="56"
-                                                            src="<?= base_url();?>/assets/assets/images/dashboard/rate1.png" alt="avatar">
+                                                            src="<?= base_url(); ?>/assets/assets/images/dashboard/rate1.png" alt="avatar">
                                                         <div class="group-name">
                                                             <div class="review-name">
                                                                 <b>Jerome Bell</b> <span class="review-date">3 days
@@ -660,31 +716,31 @@
                                         </div>
                                     </div> -->
 
-                                </div>
-                            </main>
                         </div>
-                    </div>
+                    </main>
                 </div>
             </div>
         </div>
-
     </div>
+</div>
+
+</div>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.css">
 <script>
-new DataTable('#example');
+    new DataTable('#example');
 </script>
 
 <script>
     const updateStatusUrl = "<?= base_url('dealer/update-status') ?>";
 </script>
 <script>
-$(document).ready(function() {
-    setTimeout(function() {
-        $('#success-msg').fadeOut('slow');
-    }, 3000); // 3000ms = 3 seconds
-});
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('#success-msg').fadeOut('slow');
+        }, 3000); // 3000ms = 3 seconds
+    });
 </script>
 
 <script>
@@ -722,19 +778,19 @@ $(document).ready(function() {
 
         chats.forEach(chat => {
             db.collection("chats")
-              .doc(chat.id)
-              .collection("messages")
-              .where("receiver_id", "==", currentUserId)
-              .where("is_read", "==", false)
-              .get()
-              .then(querySnapshot => {
-                  totalUnread += querySnapshot.size;
-                  processed++;
+                .doc(chat.id)
+                .collection("messages")
+                .where("receiver_id", "==", currentUserId)
+                .where("is_read", "==", false)
+                .get()
+                .then(querySnapshot => {
+                    totalUnread += querySnapshot.size;
+                    processed++;
 
-                  if (processed === chats.length) {
-                      updateUnreadCount(totalUnread);
-                  }
-              });
+                    if (processed === chats.length) {
+                        updateUnreadCount(totalUnread);
+                    }
+                });
         });
 
         if (chats.length === 0) {

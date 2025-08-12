@@ -82,10 +82,13 @@
               <div class="inner1">
                   <?php  foreach ($makes as $make) { 
                             foreach ($models as $model) { 
+
+                                   $selected_lang = $this->session->userdata('selected_lang');  
                             ?>
-                  <div class="text-address">
-                      <p class="text-color-3 font"><?= $make->name; ?></p>
-                  </div>
+                <div class="text-address d-flex justify-content-between">
+                <p class="text-color-3 font mb-0"><?= $make->name; ?></p>
+                <p class="text-color-3 font mb-0"> <?php if($selected_lang == "fr" ||  $selected_lang == "it"){ echo " TUV ".$vehicle->tuv_date; }else{echo " MFK ".$vehicle->mfk_date; }?></p>
+            </div>
                   <h5 class="link-style-1">
                       <a
                           href="<?= base_url('list-details-v1'); ?>"><?= $vehicle->year. " " .$make->name. " " .$model->name ; ?></a>

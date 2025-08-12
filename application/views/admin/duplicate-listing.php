@@ -286,7 +286,7 @@ p {
                                         </div>
 
 
-                                        <div class="form-group">
+                                        <div class="form-group d-none">
                                             <label for="listing_title">KM Driven *</label>
                                             <input type="text" class="form-control" name="km" placeholder="Enter KM"
                                                 value="<?= $cars->km ?>">
@@ -387,6 +387,7 @@ p {
                                     </div>
 
                                     <!-- //////////////////////////////////////////Features/////////////////////////////////////////////// -->
+                                   <div class="feature-car feature-commercial">
                                     <div class="form-group">
                                         <h4>Comfort & Interior Features</h4>
                                     </div>
@@ -505,7 +506,9 @@ p {
                                         </div>
                                         <?php } ?>
                                     </div>
+                                    </div>
                                     <!-- //////////////////////////////////////Features///////////////////////////////////////////////// -->
+                                   
                                     <div class="form-group">
                                         <h4>Pricing & Description</h4>
                                     </div>
@@ -548,7 +551,7 @@ p {
                                     </div>
                                     <div class="form-group-4">
                                         <div class="form-group">
-                                            <label for="listing_title">Canton *</label>
+                                            <label for="listing_title">Country *</label>
 
                                             <select class="form-control" name="state" id="state">
                                                 <option value="">Select Location</option>

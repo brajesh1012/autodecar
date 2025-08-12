@@ -19,7 +19,8 @@ class AdminModel extends CI_Model {
     if ($status !== null && $status !== '' && $status !== 'all') {
         $this->db->where('status', $status);
     }
-    return $this->db->get($table)->result();
+   return $this->db->order_by('id','desc')->get($table)->result();
+    //  echo $this->db->last_query();die;
 }
 
      public function get_data_by_id($id, $table) {

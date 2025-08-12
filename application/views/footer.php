@@ -1,50 +1,50 @@
  <style>
-.custom-modal-forgot {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
+     .custom-modal-forgot {
+         display: none;
+         position: fixed;
+         z-index: 1000;
+         left: 0;
+         top: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0, 0, 0, 0.4);
+     }
 
-.custom-modal-content-forgot {
-    background-color: #FFFFFF;
-    margin: 15% auto;
-    padding: 20px;
-    /* border-radius: 8px; */
-    width: 500px;
-    /* box-shadow: 0 0 10px rgba(0,0,0,0.2); */
-}
+     .custom-modal-content-forgot {
+         background-color: #FFFFFF;
+         margin: 15% auto;
+         padding: 20px;
+         /* border-radius: 8px; */
+         width: 500px;
+         /* box-shadow: 0 0 10px rgba(0,0,0,0.2); */
+     }
 
-.custom-modal-close-forgot {
-    color: #aaa;
-    float: right;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
+     .custom-modal-close-forgot {
+         color: #aaa;
+         float: right;
+         font-size: 20px;
+         font-weight: bold;
+         cursor: pointer;
+     }
 
-.custom-modal-close-forgot:hover {
-    color: #000;
-}
+     .custom-modal-close-forgot:hover {
+         color: #000;
+     }
 
 
-.flash-message {
-    background-color: #e6f7ff;
-    color: #0066cc;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-}
+     .flash-message {
+         background-color: #e6f7ff;
+         color: #0066cc;
+         padding: 10px;
+         margin-bottom: 10px;
+         border-radius: 5px;
+         text-align: center;
+         font-weight: bold;
+     }
 
-.weglot-container {
-    display: none !important;
-}
+     .weglot-container {
+         display: none !important;
+     }
  </style>
 
  <!-- Footer -->
@@ -52,7 +52,7 @@
      <div class="container">
          <div class="footer-top">
              <div class="row">
-                 <div class="col-lg-3 col-6">
+                 <div class="col-lg-6 col-12">
                      <div class="box-footer-top flex-three">
                          <div class="icon">
                              <svg width="70" height="70" viewBox="0 0 70 70" fill="none"
@@ -71,7 +71,7 @@
                          </div>
                      </div>
                  </div>
-                 <div class="col-lg-3 col-6">
+                 <div class="col-lg-6 col-12">
                      <div class="box-footer-top flex-three">
                          <div class="icon">
                              <svg width="70" height="70" viewBox="0 0 70 70" fill="none"
@@ -132,7 +132,7 @@
                          </div>
                      </div>
                  </div>
-                 <div class="col-lg-3 col-6">
+                 <!-- <div class="col-lg-3 col-6">
                      <div class="box-footer-top flex-three">
                          <div class="icon">
                              <svg width="70" height="70" viewBox="0 0 70 70" fill="none"
@@ -150,8 +150,8 @@
                              <p>Stay updated pay less</p>
                          </div>
                      </div>
-                 </div>
-                 <div class="col-lg-3 col-6">
+                 </div> -->
+                 <!-- <div class="col-lg-3 col-6">
                      <div class="box-footer-top flex-three">
                          <div class="icon">
                              <svg width="70" height="70" viewBox="0 0 70 70" fill="none"
@@ -172,28 +172,28 @@
                              <p>Decode the right car</p>
                          </div>
                      </div>
-                 </div>
+                 </div> -->
              </div>
          </div>
          <div class="footer-main">
-            <div class="d-flex justify-content-evenly align-items-center">
-                <div>
-                <label class="form-label fw-bold">Language</label>
-                <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>  -->
-    <select class="form-select bg-dark text-white" name="language">
-      <option value="">German</option>
-      <option value="en">English</option>
-      
-      <option value="fr">French</option>
-     
-      <option value="es">Italian</option>
-    </select>
-                </div>
-                    <a href="#">About Us</a>
-                    <a href="#">Contact Us</a>
+             <div class="d-flex justify-content-evenly align-items-center">
+                 <!-- <div> -->
+                     <!-- <label class="form-label fw-bold">Language</label> -->
+                     <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>  -->
+                     <!-- <select class="form-select bg-dark text-white" name="language">
+                         <option value="">German</option>
+                         <option value="en">English</option>
+
+                         <option value="fr">French</option>
+
+                         <option value="es">Italian</option>
+                     </select> -->
+                     <!-- </div>
+                    <a href="<?= base_url('about-us'); ?>">About Us</a>
+                    <a href="<?= base_url('contact'); ?>">Contact Us</a>
                     <a href="#">Compare</a>
-            </div>
-             <!-- <div class="row">
+            </div> -->
+                     <!-- <div class="row">
                  <div class="col-lg-3 col-sm-6 col-12">
                      <div class="widget widget-menu footer-col-block">
                          <div class="footer-heading-desktop">
@@ -281,34 +281,34 @@
                      </div>
                  </div>
              </div> -->
-         </div>
-         <div class="footer-bottom">
-             <div class="row">
-                 <!-- <div class="col-lg-4 col-md-12">
+                 <!-- </div> -->
+                 <div class="footer-bottom">
+                     <div class="row">
+                         <!-- <div class="col-lg-4 col-md-12">
                      <div class="logo-footer style box-1">
                          <a href="index.html">
                              <img class="lazyload"
-                                 data-src="<?= base_url();?>/assets/assets/images/logo/logo-footer@2x.png"
-                                 src="<?= base_url();?>/assets/assets/images/logo/logo-footer@2x.png" alt="img"
+                                 data-src="<?= base_url(); ?>/assets/assets/images/logo/logo-footer@2x.png"
+                                 src="<?= base_url(); ?>/assets/assets/images/logo/logo-footer@2x.png" alt="img"
                                  width="225" height="40">
                          </a>
                      </div>
                  </div> -->
-                 <div class="col-lg-8 col-md-12">
-                     <div class="footer-bottom-right flex-six flex-wrap ">
-                         <div class="title-bottom center">© 2024 Auto Decar. All rights reserved</div>
-                         <div class="icon-social box-3 text-color-1">
-                             <a href="#"><i class="icon-autodeal-facebook"></i></a>
-                             <a href="#"><i class="icon-autodeal-linkedin"></i></a>
-                             <a href="#"><i class="icon-autodeal-twitter"></i></a>
-                             <a href="#"><i class="icon-autodeal-instagram"></i></a>
-                             <a href="#"><i class="icon-autodeal-youtube"></i></a>
+                         <div class="col-lg-8 col-md-12">
+                             <div class="footer-bottom-right flex-six flex-wrap ">
+                                 <div class="title-bottom center">© 2024 Auto Decar. All rights reserved</div>
+                                 <div class="icon-social box-3 text-color-1">
+                                     <a href="#"><i class="icon-autodeal-facebook"></i></a>
+                                     <a href="#"><i class="icon-autodeal-linkedin"></i></a>
+                                     <!-- <a href="#"><i class="icon-autodeal-twitter"></i></a> -->
+                                     <a href="#"><i class="icon-autodeal-instagram"></i></a>
+                                     <a href="#"><i class="icon-autodeal-youtube"></i></a>
+                                 </div>
+                             </div>
                          </div>
                      </div>
                  </div>
              </div>
-         </div>
-     </div>
  </footer><!-- /#footer -->
 
  <!-- Bottom -->
@@ -328,7 +328,7 @@
              <div class="modal-body space-y-20 pd-40">
                  <div class="wrap-modal flex">
                      <div class="images flex-none">
-                         <img src="<?= base_url();?>/assets/assets/images/section/login.jpg" alt="images">
+                         <img src="<?= base_url(); ?>/assets/assets/images/section/login.jpg" alt="images">
                      </div>
                      <div class="content">
                          <h1 class="title-login">Login</h1>
@@ -429,8 +429,8 @@
              <div class="modal-body space-y-20 pd-40 style2">
                  <div class="wrap-modal flex">
                      <div class="images flex-none relative">
-                         <img class="lazyload" data-src="<?= base_url();?>/assets/assets/images/section/register.jpg"
-                             src="<?= base_url();?>/assets/assets/images/section/register.jpg" alt="images">
+                         <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/section/register.jpg"
+                             src="<?= base_url(); ?>/assets/assets/images/section/register.jpg" alt="images">
                      </div>
                      <div class="content">
 
@@ -441,18 +441,18 @@
 
                                  <form method="POST" class="comment-form form-submit" id="registerForm"
                                      accept-charset="utf-8" novalidate="novalidate" autocomplete="off">
-                                     <?php $roles = $this->db->where('type !=',1)->get('roles')->result_array(); ?>
+                                     <?php $roles = $this->db->where('type !=', 1)->get('roles')->result_array(); ?>
                                      <fieldset class="">
                                          <div class="form-group-1 flex radio-wrap">
-                                             <?php foreach($roles as $index => $role){ 
+                                             <?php foreach ($roles as $index => $role) {
                                                     $id = 'role_' . $index; // unique ID for each radio
                                                 ?>
-                                             <div class="group">
-                                                 <label for="<?= $id ?>"> <input type="radio" id="<?= $id ?>" value="<?= $role['id']; ?>"
-                                                     name="role" >
-                                                <?= $role['role']?></label>
-                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                             </div>
+                                                 <div class="group">
+                                                     <label for="<?= $id ?>"> <input type="radio" id="<?= $id ?>" value="<?= $role['id']; ?>"
+                                                             name="role">
+                                                         <?= $role['role'] ?></label>
+                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                 </div>
                                              <?php } ?>
                                          </div>
 
@@ -482,10 +482,10 @@
                                              </svg>
                                          </div>
                                      </fieldset>
-                                             <fieldset class="t">
+                                     <fieldset class="t">
                                          <label class="fw-6">Mobile</label>
-                                             <input type="text" class="tb-my-input" name="mobile" placeholder="Mobile Number"
-                                               minlength="0"  maxlength="10"    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" required>
+                                         <input type="text" class="tb-my-input" name="mobile" placeholder="Mobile Number"
+                                             minlength="0" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" required>
 
                                          <small id="mobile_error" class="text-danger"></small>
                                          <div class="icon">
@@ -620,7 +620,7 @@
                                      </svg>
                                  </button>
                                  <img loading="lazy" class="compare-listing-img" alt="image"
-                                     src="<?= base_url();?>/assets/assets/images/dashboard/compare1.jpg">
+                                     src="<?= base_url(); ?>/assets/assets/images/dashboard/compare1.jpg">
                                  <div class="content">
                                      <h3 class="tfcl-listing-title title">
                                          <a title="Leslie Alexander"
@@ -643,7 +643,7 @@
                                      </svg>
                                  </button>
                                  <img loading="lazy" class="compare-listing-img" alt="image"
-                                     src="<?= base_url();?>assets/assets/images/dashboard/compare2.jpg">
+                                     src="<?= base_url(); ?>assets/assets/images/dashboard/compare2.jpg">
                                  <div class="content">
                                      <h3 class="tfcl-listing-title title">
                                          <a title="Leslie Alexander"
@@ -703,117 +703,183 @@
 
  <!-- ...existing code... -->
  <script>
-$(document).ready(function() {
-    // Register se Login
-    $('[data-target="#popup_bid"]').on('click', function(e) {
-        e.preventDefault();
-        $('#popup_bid2').modal('hide');
-        setTimeout(function() {
-            $('#popup_bid').modal('show');
-        }, 400);
-    });
+     $(document).ready(function() {
+         // Register se Login
+         $('[data-target="#popup_bid"]').on('click', function(e) {
+             e.preventDefault();
+             $('#popup_bid2').modal('hide');
+             setTimeout(function() {
+                 $('#popup_bid').modal('show');
+             }, 400);
+         });
 
-    // Login se Register
-    $('[data-target="#popup_bid2"]').on('click', function(e) {
-        e.preventDefault();
-        $('#popup_bid').modal('hide');
-        setTimeout(function() {
-            $('#popup_bid2').modal('show');
-        }, 400);
-    });
+         // Login se Register
+         $('[data-target="#popup_bid2"]').on('click', function(e) {
+             e.preventDefault();
+             $('#popup_bid').modal('hide');
+             setTimeout(function() {
+                 $('#popup_bid2').modal('show');
+             }, 400);
+         });
 
-    // 🧽 Backdrop remove on modal close
-    $('.modal').on('hidden.bs.modal', function() {
-        $('.modal-backdrop').remove(); // removes shadow
-        $('body').removeClass('modal-open'); // allows body scroll again
-    });
-});
+         // 🧽 Backdrop remove on modal close
+         $('.modal').on('hidden.bs.modal', function() {
+             $('.modal-backdrop').remove(); // removes shadow
+             $('body').removeClass('modal-open'); // allows body scroll again
+         });
+     });
  </script>
 
  <script>
-document.getElementById('openForgotPasswordModal').onclick = function() {
+     document.getElementById('openForgotPasswordModal').onclick = function() {
 
-    //    document.getElementById('popup_bid').style.display = 'none';
+         //    document.getElementById('popup_bid').style.display = 'none';
 
-    $('#popup_bid').modal('hide');
-    document.getElementById('forgotPasswordModal').style.display = 'block';
-};
+         $('#popup_bid').modal('hide');
+         document.getElementById('forgotPasswordModal').style.display = 'block';
+     };
 
-document.getElementById('closeForgotPasswordModal').onclick = function() {
-    document.getElementById('forgotPasswordModal').style.display = 'none';
-};
+     document.getElementById('closeForgotPasswordModal').onclick = function() {
+         document.getElementById('forgotPasswordModal').style.display = 'none';
+     };
 
-window.onclick = function(event) {
-    const modal = document.getElementById('forgotPasswordModal');
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-};
+     window.onclick = function(event) {
+         const modal = document.getElementById('forgotPasswordModal');
+         if (event.target === modal) {
+             modal.style.display = 'none';
+         }
+     };
  </script>
 
 
  <script>
-document.getElementById("forgotPasswordForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+     document.getElementById("forgotPasswordForm").addEventListener("submit", function(e) {
+         e.preventDefault();
 
-    let email = document.getElementById("forgotEmail").value;
+         let email = document.getElementById("forgotEmail").value;
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "<?= base_url('forgot-password') ?>", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"); // ✅ Important!
+         let xhr = new XMLHttpRequest();
+         xhr.open("POST", "<?= base_url('forgot-password') ?>", true);
+         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"); // ✅ Important!
 
-    xhr.onload = function() {
-        if (xhr.status == 200) {
-            const res = JSON.parse(xhr.responseText);
-            const msg = document.getElementById("forgotMsg");
+         xhr.onload = function() {
+             if (xhr.status == 200) {
+                 const res = JSON.parse(xhr.responseText);
+                 const msg = document.getElementById("forgotMsg");
 
-            msg.style.display = "block";
-            msg.innerText = res.message;
+                 msg.style.display = "block";
+                 msg.innerText = res.message;
 
-            setTimeout(() => {
-                msg.style.display = "none";
-                document.getElementById("forgotPasswordModal").style.display = "none";
-            }, 3000);
-        }
-    };
+                 setTimeout(() => {
+                     msg.style.display = "none";
+                     document.getElementById("forgotPasswordModal").style.display = "none";
+                 }, 3000);
+             }
+         };
 
-    xhr.send("email=" + encodeURIComponent(email));
-});
+         xhr.send("email=" + encodeURIComponent(email));
+     });
  </script>
 
 
 
  <script>
-$('#registerForm').on('submit', function(e) {
+    //  $('#registerForm').on('submit', function(e) {
+    //      e.preventDefault();
+    //      let valid = true;
+    //      $('#username_error, #email_error, #password_error, #cpassword_error, #role_error').text('');
+
+    //      //         console.log($('input[name="email"]').length); // should be 1
+    //      // console.log($('input[name="email"]').val()); // should show value
+    //      let role = $('[name="role"]').val().trim();
+    //      let username = $('[name="username"]').val().trim();
+    //      // let email = $('[name="email"]').val().trim();
+    //      const email = $('#registerForm input[name="email"]').val().trim();
+    //      let password = $('[name="password"]').val().trim();
+    //      let cpassword = $('[name="cpassword"]').val().trim();
+
+    //      // console.log(password, cpassword);
+
+    //      console.log("Password field value = ", $('[name="password"]').val());
+    //      console.log("Confirm Password field value = ", $('[name="cpassword"]').val());
+
+    //      if (role === "") {
+    //          $('#role_error').text('Please select a role');
+    //          valid = false;
+    //      }
+
+    //      if (username === "") {
+    //          $('#username_error').text('Please enter username');
+    //          valid = false;
+    //      }
+
+    //      if (email == "") {
+    //          $('#email_error').text('Please enter email');
+    //          valid = false;
+    //      } else if (!validateEmail(email)) {
+    //          $('#email_error').text('Invalid email format');
+    //          valid = false;
+    //      }
+
+    //      // if (password == "") {
+    //      //     $('#password_error').text('Please enter password');
+    //      //     valid = false;
+    //      // }
+
+    //      // if (cpassword == "") {
+    //      //     $('#cpassword_error').text('Please confirm password');
+    //      //     valid = false;
+    //      // } else if (password != cpassword) {
+    //      //     $('#cpassword_error').text("Passwords don't match");
+    //      //     valid = false;
+    //      // }
+
+    //      if (valid) {
+    //          $.ajax({
+    //              url: '<?= base_url('register'); ?>', // change to your actual controller URL
+    //              method: 'POST',
+    //              data: $('#registerForm').serialize(),
+    //              success: function(response) {
+    //                  // handle success (e.g., close modal, show success message)
+    //                  $('#modalMsg').html(
+    //                      '<div class="alert alert-success">Registered successfully!</div>');
+    //                  $('#registerForm')[0].reset();
+    //                  $('.modal').modal('hide'); // close current open modal
+
+    //                  setTimeout(function() {
+    //                      $('#modalMsg').html('');
+    //                      $('#popup_bid').modal('show'); // open login modal
+    //                  }, 1000);
+    //              },
+    //              error: function(xhr) {
+    //                  // handle errors
+    //                  $('#modalMsg').html(
+    //                      '<div class="alert alert-danger">Something went wrong. Try again.</div>');
+    //              }
+    //          });
+    //      }
+    //  });
+
+    $('#registerForm').on('submit', function(e) {
     e.preventDefault();
     let valid = true;
     $('#username_error, #email_error, #password_error, #cpassword_error, #role_error').text('');
 
-    //         console.log($('input[name="email"]').length); // should be 1
-    // console.log($('input[name="email"]').val()); // should show value
-    let role = $('[name="role"]').val().trim();
+    let role = $('[name="role"]:checked').val(); // checked radio value
     let username = $('[name="username"]').val().trim();
-    // let email = $('[name="email"]').val().trim();
     const email = $('#registerForm input[name="email"]').val().trim();
     let password = $('[name="password"]').val().trim();
     let cpassword = $('[name="cpassword"]').val().trim();
 
-    // console.log(password, cpassword);
-
-    console.log("Password field value = ", $('[name="password"]').val());
-console.log("Confirm Password field value = ", $('[name="cpassword"]').val());
-
-    if (role === "") {
+    if (!role) {
         $('#role_error').text('Please select a role');
         valid = false;
     }
-
     if (username === "") {
         $('#username_error').text('Please enter username');
         valid = false;
     }
-
     if (email == "") {
         $('#email_error').text('Please enter email');
         valid = false;
@@ -822,49 +888,35 @@ console.log("Confirm Password field value = ", $('[name="cpassword"]').val());
         valid = false;
     }
 
-    if (password == "") {
-        $('#password_error').text('Please enter password');
-        valid = false;
-    }
-
-    if (cpassword == "") {
-        $('#cpassword_error').text('Please confirm password');
-        valid = false;
-    } else if (password != cpassword) {
-        $('#cpassword_error').text("Passwords don't match");
-        valid = false;
-    }
-
     if (valid) {
         $.ajax({
-            url: '<?= base_url('register'); ?>', // change to your actual controller URL
+            url: '<?= base_url('register'); ?>',
             method: 'POST',
             data: $('#registerForm').serialize(),
             success: function(response) {
-                // handle success (e.g., close modal, show success message)
-                $('#modalMsg').html(
-                    '<div class="alert alert-success">Registered successfully!</div>');
+                // Show success message in register modal
+                $('#modalMsg').html('<div class="alert alert-success">Registered successfully!</div>');
                 $('#registerForm')[0].reset();
-                 $('.modal').modal('hide'); // close current open modal
 
+                // Wait 3 seconds, then open login modal
                 setTimeout(function() {
                     $('#modalMsg').html('');
-                    $('#popup_bid').modal('show'); // open login modal
-                }, 1000);
+                    $('#popup_bid2').modal('hide'); // close register modal
+                    $('#popup_bid').modal('show');  // open login modal
+                }, 3000); // 3 seconds delay
             },
             error: function(xhr) {
-                // handle errors
-                $('#modalMsg').html(
-                    '<div class="alert alert-danger">Something went wrong. Try again.</div>');
+                $('#modalMsg').html('<div class="alert alert-danger">Something went wrong. Try again.</div>');
             }
         });
     }
 });
 
-function validateEmail(email) {
-    let re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    return re.test(email);
-}
+
+     function validateEmail(email) {
+         let re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+         return re.test(email);
+     }
  </script>
 
 
@@ -872,99 +924,75 @@ function validateEmail(email) {
 
  <!-- Scripts -->
  <script>
-$(document).ready(function() {
-    $('#loginForm').on('submit', function(e) {
-        e.preventDefault();
+     $(document).ready(function() {
+         $('#loginForm').on('submit', function(e) {
+             e.preventDefault();
 
-        $.ajax({
-            url: '<?= base_url('login'); ?>',
-            type: 'POST',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                let alertType = (response.status === 'success') ? 'alert-success' :
-                    'alert-danger';
-                $('#loginMsg').html(`
+             $.ajax({
+                 url: '<?= base_url('login'); ?>',
+                 type: 'POST',
+                 data: $(this).serialize(),
+                 dataType: 'json',
+                 success: function(response) {
+                     let alertType = (response.status === 'success') ? 'alert-success' :
+                         'alert-danger';
+                     $('#loginMsg').html(`
           <div class="alert ` + alertType + ` alert-dismissible fade show" role="alert">
             ` + response.message + `
             <button type="button" class="close" data-dismiss="alert">&times;</button>
           </div>
         `);
 
-                setTimeout(function() {
-                    $('#loginMsg .alert').fadeOut('slow', function() {
-                        $(this).remove();
-                    });
+                     setTimeout(function() {
+                         $('#loginMsg .alert').fadeOut('slow', function() {
+                             $(this).remove();
+                         });
 
-                }, 3000);
+                     }, 3000);
 
-                if (response.status === 'success') {
-                    console.log(response.role_name);
-                    $('#loginForm')[0].reset();
+                     if (response.status === 'success') {
+                         console.log(response.role_name);
+                         $('#loginForm')[0].reset();
 
-                    if (response.role_name == "Buyer") {
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000);
-                        
-                    } 
-                    // else if (response.role_name == "Dealer") {
-                    //     console.log(response.role);
-                    //     setTimeout(function() {
-                    //         window.location.href =
-                    //             "<?= base_url('dealer'); ?>"; 
-                    //     }, 1000);
-                    // } else if (response.role_name == "Seller") {
-                    //     console.log(response.role);
-                    //     setTimeout(function() {
-                    //         window.location.href =
-                    //             "<?= base_url('seller'); ?>"; 
-                    //     }, 1000);
-                    //  } 
-                     else {
-                        // Just reload for other roles
-                        setTimeout(function() {
-                            window.location.href =
-                                "<?= base_url('dashboard'); ?>"; 
-                        }, 1000);
-                    }
-                }
-            }
-        });
+                         if (response.role_name == "Buyer") {
+                             setTimeout(function() {
+                                 location.reload();
+                             }, 1000);
 
-        return false;
-    });
-});
+                         }
+                         // else if (response.role_name == "Dealer") {
+                         //     console.log(response.role);
+                         //     setTimeout(function() {
+                         //         window.location.href =
+                         //             "<?= base_url('dealer'); ?>"; 
+                         //     }, 1000);
+                         // } else if (response.role_name == "Seller") {
+                         //     console.log(response.role);
+                         //     setTimeout(function() {
+                         //         window.location.href =
+                         //             "<?= base_url('seller'); ?>"; 
+                         //     }, 1000);
+                         //  } 
+                         else {
+                             // Just reload for other roles
+                             setTimeout(function() {
+                                 window.location.href =
+                                     "<?= base_url('dashboard'); ?>";
+                             }, 1000);
+                         }
+                     }
+                 }
+             });
+
+             return false;
+         });
+     });
  </script>
 
- <!-- <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_571328fa4141e932e911fa190eae4d946'
-    });
-</script>
 
-<script>
-  // Wait for Weglot to initialize
-  document.addEventListener("DOMContentLoaded", function () {
-    // Set current selected language in dropdown
-    Weglot.on("initialized", function () {
-      var currentLang = Weglot.getCurrentLang();
-      document.getElementById("languageSwitcher").value = currentLang;
-    });
-
-    // Change language on selection
-    document.getElementById("languageSwitcher").addEventListener("change", function () {
-      var selectedLang = this.value;
-      Weglot.switchTo(selectedLang);
-    });
-  });
-</script> -->
-
-
- <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>
- <script type="text/javascript">
+ <!-- <script type="text/javascript">
 function googleTranslateElementInit() {
+console.log('hello');
     new google.translate.TranslateElement({
         pageLanguage: 'en',
          includedLanguages: 'de,en,fr,it',
@@ -975,104 +1003,195 @@ function googleTranslateElementInit() {
  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
  </script> -->
 
- <!-- <div id="google_translate_element" style="margin-top: 15px;"></div>
 
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'de,en,fr,it',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'google_translate_element');
+ <!-- <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+ <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+ <script>
+     // function sonamwork()
+     // {
+     // 	console.log("ddddddd");
+     //         const catId = $("#cat_id").val();
 
-    // Try selecting German after initialization
-    triggerGermanTranslation();
-  }
-
-  function triggerGermanTranslation() {
-    let maxAttempts = 30; // Try for 15 seconds
-    let attempts = 0;
-
-    const interval = setInterval(function () {
-      const iframe = document.querySelector('iframe.goog-te-menu-frame');
-
-      if (iframe) {
-        let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        let select = innerDoc.querySelector('.goog-te-combo');
-
-        if (select) {
-          select.value = 'de';
-          select.dispatchEvent(new Event('change'));
-          console.log('✅ German language triggered');
-          clearInterval(interval);
-        } else {
-          console.log('⏳ Dropdown not yet inside iframe');
-        }
-      } else {
-        console.log('⏳ Waiting for iframe...');
-      }
-
-      attempts++;
-      if (attempts >= maxAttempts) {
-        clearInterval(interval);
-        console.warn('❌ Could not find the language dropdown inside iframe');
-      }
-    }, 500); // check every 500ms
-  }
-</script>
+     //         if (catId !== "") {
+     //             $.ajax({
+     //                 url: "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>",
+     //                 type: 'POST',
+     //                 data: { cat_id: catId },
+     //                 dataType: 'json',
+     //                 success: function (response) {
+     //                     $('#make_id').html('<option value="">Select Make</option>');
+     //                     $.each(response, function (index, item) {
+     //                         $('#make_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+     //                     });
+     //                 },
+     //                 error: function () {
+     //                     alert('Error loading make list.');
+     //                 }
+     //             });
+     //         } else {
+     //             $('#make_id').html('<option value="">Select Make</option>');
+     //         }
+     // }
 
 
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyD0TUv5KLfBy6qCfVNwOaaf98-AU813x7I",
-  authDomain: "autokorb-f0b82.firebaseapp.com",
-  projectId: "autokorb-f0b82"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
 
-const currentUserId = "<?= $_SESSION['user_id'] ?>";
-const msgContent = document.getElementById("messageDropdownContent");
-const unreadBadge = document.getElementById("unreadCount");
+     // $(document).ready(function () {
+     //     $('#vehicle_type_id').on('change', function () { console.log("aaaaaa");
+     //         const vehicleTypeId = $(this).val();
 
-function loadUnreadMessagesDropdown() {
-  db.collection("chats").where("participants", "array-contains", currentUserId).onSnapshot(snapshot => {
-    msgContent.innerHTML = "";
-    let items = [];
-    let unreadTotal = 0;
+     //         if (vehicleTypeId !== "") {
+     //             $.ajax({
+     //                 url: "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>",
+     //                 type: 'POST',
+     //                 data: { vehicle_type_id: vehicleTypeId },
+     //                 dataType: 'json',
+     //                 success: function (response) {
+     //                     $('#cat_id').html('<option value="">Select Category</option>');
+     //                     $.each(response, function (index, item) {
+     //                         $('#cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+     //                     });
+     //                 },
+     //                 error: function () {
+     //                     alert('Error loading cat_id list.');
+     //                 }
+     //             });
+     //         } else {
+     //             $('#cat_id').html('<option value="">Select Category</option>');
+     //         }
+     //     });
 
-    const promises = snapshot.docs.map(doc => {
-      const chatId = doc.id;
-      const chatData = doc.data();
-      const otherUserId = chatData.participants.find(id => id !== currentUserId);
+     // 	$('#cat_id').on('change', function () {
+     // 		console.log("ddddddd");
+     //         const catId = $(this).val();
 
-      return db.collection("chats").doc(chatId).collection("messages")
-        .orderBy("timestamp", "desc").limit(1).get()
-        .then(lastMsgs => {
-          const lastMsgData = lastMsgs.docs[0]?.data() || {};
-          const text = lastMsgData.text || "📎 File";
-          const timestamp = lastMsgData.timestamp?.toDate?.() || new Date();
-          const formattedTime = timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+     //         if (catId !== "") {
+     //             $.ajax({
+     //                 url: "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>",
+     //                 type: 'POST',
+     //                 data: { cat_id: catId },
+     //                 dataType: 'json',
+     //                 success: function (response) {
+     //                     $('#make_id').html('<option value="">Select Make</option>');
+     //                     $.each(response, function (index, item) {
+     //                         $('#make_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+     //                     });
+     //                 },
+     //                 error: function () {
+     //                     alert('Error loading make list.');
+     //                 }
+     //             });
+     //         } else {
+     //             $('#make_id').html('<option value="">Select Make</option>');
+     //         }
+     //     });
 
-          return db.collection("chats").doc(chatId).collection("messages")
-            .where("receiver_id", "==", currentUserId)
-            .where("is_read", "==", false).get()
-            .then(unreadSnap => {
-              const unreadCount = unreadSnap.size;
-              unreadTotal += unreadCount;
+     // 	$('#make_id').on('change', function () {
+     //         const makeId = $(this).val();
 
-              return $.ajax({
-                url: "<?= base_url(ADMIN_PATH . '/get-user-info') ?>",
-                method: "GET",
-                data: { id: otherUserId },
-                dataType: "json"
-              }).then(user => {
-                const username = user.username || 'Unknown';
-                const badge = unreadCount > 0 ? `<span class="badge bg-danger ms-1">${unreadCount}</span>` : '';
-                const item = `
+     //         if (makeId !== "") {
+     //             $.ajax({
+     //                 url: "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>",
+     //                 type: 'POST',
+     //                 data: { make_id: makeId },
+     //                 dataType: 'json',
+     //                 success: function (response) {
+     //                     $('#model_id').html('<option value="">Select Model</option>');
+     //                     $.each(response, function (index, item) {
+     //                         $('#model_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+     //                     });
+     //                 },
+     //                 error: function () {
+     //                     alert('Error loading make list.');
+     //                 }
+     //             });
+     //         } else {
+     //             $('#model_id').html('<option value="">Select Model</option>');
+     //         }
+     //     });
+
+     // 	$('#model_id').on('change', function () {
+     //         const modelId = $(this).val();
+
+     //         if (modelId !== "") {
+     //             $.ajax({
+     //                 url: "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>",
+     //                 type: 'POST',
+     //                 data: { model_id: modelId },
+     //                 dataType: 'json',
+     //                 success: function (response) {
+     //                     $('#variant_id').html('<option value="">Select Variant</option>');
+     //                     $.each(response, function (index, item) {
+     //                         $('#variant_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+     //                     });
+     //                 },
+     //                 error: function () {
+     //                     alert('Error loading make list.');
+     //                 }
+     //             });
+     //         } else {
+     //             $('#variant_id').html('<option value="">Select Variant</option>');
+     //         }
+     //     });
+
+
+
+     // });
+
+
+
+     const firebaseConfig = {
+         apiKey: "AIzaSyD0TUv5KLfBy6qCfVNwOaaf98-AU813x7I",
+         authDomain: "autokorb-f0b82.firebaseapp.com",
+         projectId: "autokorb-f0b82"
+     };
+     firebase.initializeApp(firebaseConfig);
+     const db = firebase.firestore();
+
+     const currentUserId = "<?= $_SESSION['user_id'] ?>";
+     const msgContent = document.getElementById("messageDropdownContent");
+     const unreadBadge = document.getElementById("unreadCount");
+
+     function loadUnreadMessagesDropdown() {
+         db.collection("chats").where("participants", "array-contains", currentUserId).onSnapshot(snapshot => {
+             msgContent.innerHTML = "";
+             let items = [];
+             let unreadTotal = 0;
+
+             const promises = snapshot.docs.map(doc => {
+                 const chatId = doc.id;
+                 const chatData = doc.data();
+                 const otherUserId = chatData.participants.find(id => id !== currentUserId);
+
+                 return db.collection("chats").doc(chatId).collection("messages")
+                     .orderBy("timestamp", "desc").limit(1).get()
+                     .then(lastMsgs => {
+                         const lastMsgData = lastMsgs.docs[0]?.data() || {};
+                         const text = lastMsgData.text || "📎 File";
+                         const timestamp = lastMsgData.timestamp?.toDate?.() || new Date();
+                         const formattedTime = timestamp.toLocaleTimeString([], {
+                             hour: '2-digit',
+                             minute: '2-digit'
+                         });
+
+                         return db.collection("chats").doc(chatId).collection("messages")
+                             .where("receiver_id", "==", currentUserId)
+                             .where("is_read", "==", false).get()
+                             .then(unreadSnap => {
+                                 const unreadCount = unreadSnap.size;
+                                 unreadTotal += unreadCount;
+
+                                 return $.ajax({
+                                     url: "<?= base_url(ADMIN_PATH . '/get-user-info') ?>",
+                                     method: "GET",
+                                     data: {
+                                         id: otherUserId
+                                     },
+                                     dataType: "json"
+                                 }).then(user => {
+                                     const username = user.username || 'Unknown';
+                                     const badge = unreadCount > 0 ? `<span class="badge bg-danger ms-1">${unreadCount}</span>` : '';
+                                     const item = `
                   <li class="dropdown-item d-flex justify-content-between align-items-start">
                     <div class="me-2">
                       <div class="fw-bold">${username}</div>
@@ -1080,41 +1199,152 @@ function loadUnreadMessagesDropdown() {
                     </div>
                     <a href="<?= base_url(ADMIN_PATH) ?>/view-chat/${chatData.vehicle_id}/${otherUserId}" class="btn btn-sm btn-outline-primary">Chat</a>
                   </li>`;
-                items.push({ html: item, time: timestamp });
-              });
-            });
-        });
+                                     items.push({
+                                         html: item,
+                                         time: timestamp
+                                     });
+                                 });
+                             });
+                     });
+             });
+
+             Promise.all(promises).then(() => {
+                 items.sort((a, b) => b.time - a.time);
+                 msgContent.innerHTML = items.map(i => i.html).join("") || "<li class='text-center text-muted'>No messages</li>";
+                 unreadBadge.textContent = unreadTotal;
+                 unreadBadge.style.display = unreadTotal > 0 ? 'inline-block' : 'none';
+             });
+         });
+     }
+
+     loadUnreadMessagesDropdown();
+ </script>
+
+<!-- Your JS -->
+<script>
+    const currentSessionLang = "<?= $this->session->userdata('selected_lang') ?? 'en' ?>";
+    const selectElement = document.getElementById('custom_translate_select');
+
+    // 🔁 Get language from cookie if available
+    function getSelectedLanguageFromCookie() {
+        const match = document.cookie.match(/googtrans=\/[a-z]{2}\/([a-z]{2})/);
+        return match ? match[1] : 'en';
+    }
+
+    // ✅ Set dropdown to actual translated language on load
+    window.addEventListener('DOMContentLoaded', () => {
+        const cookieLang = getSelectedLanguageFromCookie();
+        selectElement.value = cookieLang;
     });
 
-    Promise.all(promises).then(() => {
-      items.sort((a, b) => b.time - a.time);
-      msgContent.innerHTML = items.map(i => i.html).join("") || "<li class='text-center text-muted'>No messages</li>";
-      unreadBadge.textContent = unreadTotal;
-      unreadBadge.style.display = unreadTotal > 0 ? 'inline-block' : 'none';
+    // ✅ On dropdown change
+    selectElement.addEventListener('change', function () {
+        const selectedLang = this.value;
+        const currentLang = getSelectedLanguageFromCookie();
+
+        if (!selectedLang || selectedLang === currentLang) {
+            console.log("✅ Language already active, no reload");
+            return;
+        }
+
+        // Set Google Translate cookie
+        setTranslateCookie('en', selectedLang);
+
+        // Save language to session
+        saveLanguageToSession(selectedLang);
     });
-  });
+
+    function setTranslateCookie(fromLang, toLang) {
+        const cookieValue = `/${fromLang}/${toLang}`;
+        document.cookie = `googtrans=${cookieValue};path=/`;
+        document.cookie = `googtrans=${cookieValue};domain=.` + window.location.hostname + `;path=/`;
+    }
+
+    function saveLanguageToSession(lang) {
+        fetch("<?= base_url('save-language'); ?>", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'lang=' + lang
+        }).then(() => {
+            console.log("✅ Language saved to session, reloading...");
+            location.reload();
+        }).catch(err => {
+            console.error("❌ Error saving language:", err);
+        });
+    }
+
+    // ✅ Google Translate init (invisible)
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'de,en,fr,it',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+
+
+
+
+    // 👁️ Watch if user closes Google Translate banner and reset dropdown
+function observeTranslateReset() {
+    const observer = new MutationObserver(() => {
+        const currentLang = getSelectedLanguageFromCookie();
+        if (selectElement.value !== currentLang) {
+            console.log("🔁 Language reverted to:", currentLang);
+            selectElement.value = currentLang;
+
+            // Optional: reload only if you want page re-translated
+            // location.reload();
+        }
+    });
+
+    // Google Translate adds an iframe to body when active
+    observer.observe(document.body, { childList: true, subtree: true });
 }
 
-loadUnreadMessagesDropdown();
+observeTranslateReset(); // ✅ Call after DOM loaded
 </script>
 
+<!-- ✅ Load Google Translate Script -->
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
- 
+
+<!-- Filter by location -->
+   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+            <script>
+                $('#filter_by_location').on('change', function() {
+                    // console.log('hello');
+                    var selectlocation = $(this).val();
+                    $.ajax({
+                        url: '<?= base_url("set-location") ?>',
+                        type: 'POST',
+                        data: {
+                            location: selectlocation
+                        },
+                        success: function(response) {
+                            console.log('Location set in session:', response);
+                            location.reload();
+                        }
+                    });
+                });
+            </script>
 
  <!-- Javascript -->
- <script src="<?= base_url();?>assets/app/js/jquery.min.js"></script>
- <script src="<?= base_url();?>assets/app/js/jquery.easing.js"></script>
- <script src="<?= base_url();?>assets/app/js/jquery.nice-select.min.js"></script>
- <script src="<?= base_url();?>assets/app/js/bootstrap.min.js"></script>
- <script src="<?= base_url();?>assets/app/js/plugin.js"></script>
- <script src="<?= base_url();?>assets/app/js/shortcodes.js"></script>
- <script src="<?= base_url();?>assets/app/js/main.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/jquery.min.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/jquery.easing.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/jquery.nice-select.min.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/bootstrap.min.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/plugin.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/shortcodes.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/main.js"></script>
 
  <!-- Javascript -->
- <script src="<?= base_url();?>assets/app/js/swiper-bundle.min.js"></script>
- <script src="<?= base_url();?>assets/app/js/swiper.js"></script>
- <script src="<?= base_url();?>assets/app/js/jquery-validate.js"></script>
- <script src="<?= base_url();?>assets/app/js/price-ranger.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/swiper-bundle.min.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/swiper.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/jquery-validate.js"></script>
+ <script src="<?= base_url(); ?>assets/app/js/price-ranger.js"></script>
 
 
 
