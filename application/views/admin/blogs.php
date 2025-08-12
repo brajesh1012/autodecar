@@ -45,8 +45,8 @@
                                             <td><?= $blog->name; ?></td>
                                             <td><?= $blog->title; ?></td>
                                             <td>
-                                                <a href="<?= base_url(ADMIN_PATH . '/delete-blog?b_id='.$blog->id); ?>">Delete</a>
                                                 <a href="<?= base_url(ADMIN_PATH . '/edit-blog?b_id='.$blog->id); ?>">Update</a>
+                                                <a href="<?= base_url(ADMIN_PATH . '/delete-blog?b_id='.$blog->id); ?>">Delete</a>
                                             </td>
                                         </tr>
                                         <?php } ?>

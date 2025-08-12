@@ -211,7 +211,7 @@
                 </div>
 
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="listing_title">KM Driven From</label>
                     <input type="text" class="form-control" name="km" placeholder="Any"
                         value="<?= isset($_GET['km']) ? $_GET['km'] : '' ?>">
@@ -221,7 +221,7 @@
                     <label for="listing_title">KM Driven To</label>
                     <input type="text" class="form-control" name="km_to" placeholder="Any"
                         value="<?= isset($_GET['km_to']) ? $_GET['km_to'] : '' ?>">
-                </div>
+                </div> -->
             </div>
             <!-- Photos -->
 

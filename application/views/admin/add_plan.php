@@ -68,11 +68,11 @@ p {
                                         <small class="text-danger"><?= form_error('duration_days') ?></small>   
                                     </div>
 
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                        <label for="listing_limit">Listing Limit *</label>
                                        <input type="number" name="listing_limit" class="form-control"  value="<?= set_value('listing_limit') ?>" placeholder="Enter number of vehicles allowed">
                                        <small class="text-danger"><?= form_error('listing_limit') ?></small>
-                                   </div> -->
+                                   </div>
                                 </div>
                                 </div>
 
@@ -121,10 +121,18 @@ p {
                                     </thead>
                                     <tbody>
                                         <?php foreach($plans as $plan){
-
+                                              $user_id = $_SESSION['user_id'];
+                                              $sub = $this->db->where('user_id', $user_id)
+                                                ->where('end_date >=', date('Y-m-d'))
+                                                ->get('user_subscriptions')->row();
+                                                
                                              $is_active = false;
                                             if(isset($active_subscription) && $active_subscription && $active_subscription->plan_id == $plan->id){
-                                                $is_active = true;
+
+                                                if($sub->listings_used < get_plan_limit($sub->plan_id)){
+
+                                                    $is_active = true;
+                                                }
                                             }
 
                                             ?>

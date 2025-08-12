@@ -98,6 +98,7 @@ $route['contact'] = 'WebsiteController/contact';
 $route['enquiry'] = 'WebsiteController/enquiry';
 $route['profile'] = 'WebsiteController/profile';
 $route['update-profile'] = 'WebsiteController/update_profile';
+// $route['get-cities'] = 'WebsiteController/get_cities';
 
 
 
@@ -160,6 +161,7 @@ $route[trim(ADMIN_PATH  . '/download-csv', '/')] = 'AdminController/download_csv
 
 
 $route[trim(ADMIN_PATH  . '/users', '/')] = 'AdminController/users_list';
+$route[trim(ADMIN_PATH  . '/edit-users', '/')] = 'AdminController/edit_users';
 
 $route[trim(ADMIN_PATH  . '/subscribed-users', '/')] = 'AdminController/subscribed_users';
 
