@@ -55,6 +55,9 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'WebsiteController/register';
 $route['login'] = 'WebsiteController/login';
+$route['seller'] = 'WebsiteController';
+$route['admin'] = 'WebsiteController';
+$route['dealer'] = 'WebsiteController';
 $route['logout'] = 'WebsiteController/logout';
 $route['forgot-password'] = 'WebsiteController/forgot_password';
 $route['reset-password/(:any)'] = 'WebsiteController/reset_password/$1';
@@ -67,7 +70,8 @@ $route['listing-grid2'] = 'WebsiteController/listing_grid2';
 $route['listing-grid-map'] = 'WebsiteController/listing_grid_map';
 $route['listing-details'] = 'WebsiteController/listing_details';
 $route['blog-grid'] = 'WebsiteController/blog_grid';
-$route['blog-details'] = 'WebsiteController/blog_details';
+// $route['blog-details'] = 'WebsiteController/blog_details';
+$route['blog-details/(:any)'] = 'WebsiteController/blog_details/$1';
 $route['listing-details-v3'] = 'WebsiteController/listing_details_v3';
 $route['listing-details-v4'] = 'WebsiteController/listing_details_v4';
 $route['about-us'] = 'WebsiteController/about_us';
@@ -80,6 +84,7 @@ $route['dealer-details'] = 'WebsiteController/dealer_details';
 $route['sale-agent'] = 'WebsiteController/sale_agent';
 $route['sale-agent-details'] = 'WebsiteController/sale_agent_details';
 $route['set-location'] = 'WebsiteController/set_location';
+$route['save-language'] = 'WebsiteController/save_language';
 
 
 $route['toggle'] = 'WebsiteController/toggle';
@@ -90,8 +95,10 @@ $route['delete-review-ajax'] = 'WebsiteController/delete_review_ajax';
 
 $route['compare'] = 'WebsiteController/compare';
 $route['contact'] = 'WebsiteController/contact';
+$route['enquiry'] = 'WebsiteController/enquiry';
 $route['profile'] = 'WebsiteController/profile';
 $route['update-profile'] = 'WebsiteController/update_profile';
+// $route['get-cities'] = 'WebsiteController/get_cities';
 
 
 
@@ -154,6 +161,7 @@ $route[trim(ADMIN_PATH  . '/download-csv', '/')] = 'AdminController/download_csv
 
 
 $route[trim(ADMIN_PATH  . '/users', '/')] = 'AdminController/users_list';
+$route[trim(ADMIN_PATH  . '/edit-users', '/')] = 'AdminController/edit_users';
 
 $route[trim(ADMIN_PATH  . '/subscribed-users', '/')] = 'AdminController/subscribed_users';
 
@@ -172,6 +180,16 @@ $route[trim(ADMIN_PATH  . '/get-user-info', '/')] = 'AdminController/get_user_in
 $route['messages'] = 'WebsiteController/chat_list';
 // $route['buyer/view-chat/(:num)/(:num)'] = 'chat/view_chat/$1/$2';
 // $route['get-user-info'] = 'chat/get_user_info';
+$route[trim(ADMIN_PATH  . '/test', '/')] = 'AdminController/test';
+$route[trim(ADMIN_PATH  . '/about', '/')] = 'AdminController/about';
+$route[trim(ADMIN_PATH  . '/blogs', '/')] = 'AdminController/blogs';
+$route[trim(ADMIN_PATH  . '/add-blog', '/')] = 'AdminController/add_blog';
+$route[trim(ADMIN_PATH  . '/edit-blog', '/')] = 'AdminController/edit_blog';
+$route[trim(ADMIN_PATH  . '/delete-blog', '/')] = 'AdminController/delete_blog';
+$route[trim(ADMIN_PATH  . '/enquiry-list', '/')] = 'AdminController/enquiry_list';
+$route[trim(ADMIN_PATH  . '/contact-us', '/')] = 'AdminController/contact_us';
+$route[trim(ADMIN_PATH  . '/features', '/')] = 'AdminController/features';
+$route[trim(ADMIN_PATH  . '/delete-features', '/')] = 'AdminController/delete_features';
 
 // ////////////////////////////////////////////Dealer//////////////////////////////////////////////////////
 $route['advance-filter'] = 'WebsiteController/advance_filter';

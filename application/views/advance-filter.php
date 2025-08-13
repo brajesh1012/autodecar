@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label for="listing_title">Vehicle Type</label>
 
-                    <select class="form-control" name="vehicle_type" id="vehicle_type_id">
+                    <select class="form-control" name="vehicle_type" onchange="ad_vehicle_type();"  id="vehicle_type_id">
                         <option value="">Select Vehicle Type</option>
                         <?php foreach($vehicle_types as $vehicle_type){
                                     $type_key = strtolower(str_replace(' ', '_', $vehicle_type->name)); 
@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label for="listing_title">Category</label>
 
-                    <select class="form-control" name="cat_id" id="cat_id">
+                    <select class="form-control" name="cat_id" onchange="ad_category();" id="cat_id">
                         <option value="">Select Category</option>
                         <?php foreach($categories as $cat){
                                                 $cat_key = strtolower(str_replace(' ', '_', $cat->name)); 
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label for="listing_title">Make *</label>
 
-                    <select class="form-control" name="make" id="make_id">
+                    <select class="form-control" name="make" onchange="ad_make();" id="make_id">
                         <option value="">Select Make</option>
                         <?php  foreach($makes as $make){?>
                         <option value="<?= $make->id; ?>"
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label for="listing_title">Model *</label>
 
-                    <select class="form-control" name="model" id="model_id">
+                    <select class="form-control" name="model" onchange="ad_model();" id="model_id">
                         <option value="">Select Model</option>
                         <?php  foreach($models as $model){?>
                         <option value="<?= $model->id; ?>"
@@ -211,7 +211,7 @@
                 </div>
 
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="listing_title">KM Driven From</label>
                     <input type="text" class="form-control" name="km" placeholder="Any"
                         value="<?= isset($_GET['km']) ? $_GET['km'] : '' ?>">
@@ -221,7 +221,7 @@
                     <label for="listing_title">KM Driven To</label>
                     <input type="text" class="form-control" name="km_to" placeholder="Any"
                         value="<?= isset($_GET['km_to']) ? $_GET['km_to'] : '' ?>">
-                </div>
+                </div> -->
             </div>
             <!-- Photos -->
 
@@ -463,10 +463,10 @@ $('#filter_by_location').on('change', function() {
 
 
 <script>
-    var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
-    var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
-var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
-var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
+//     var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
+//     var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
+// var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
+// var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
 
 // Location
 var URL4 = "<?= base_url(ADMIN_PATH . "/get-city-by-state") ?>";
@@ -510,4 +510,109 @@ var URL4 = "<?= base_url(ADMIN_PATH . "/get-city-by-state") ?>";
         $('.exterior').prop('checked', false);
         $('.other_features_and_extras').prop('checked', false);
     });
+</script>
+
+
+<script>
+function ad_vehicle_type()
+{
+         const vehicleTypeId = $("#vehicle_type_id").val();
+
+        if (vehicleTypeId !== "") {
+            $.ajax({
+                url: "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>",
+                type: 'POST',
+                data: { vehicle_type_id: vehicleTypeId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#cat_id').html('<option value="">Select Category</option>');
+                    $.each(response, function (index, item) {
+                        $('#cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading cat_id list.');
+                }
+            });
+        } else {
+            $('#cat_id').html('<option value="">Select Category</option>');
+        } 
+    }
+
+     function ad_category()
+{
+	// console.log("ddddddd");
+        const catId = $("#cat_id").val();
+
+        if (catId !== "") {
+            $.ajax({
+                url: "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>",
+                type: 'POST',
+                data: { cat_id: catId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#make_id').html('<option value="">Select Make</option>');
+                    $.each(response, function (index, item) {
+                        $('#make_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading make list.');
+                }
+            });
+        } else {
+            $('#make_id').html('<option value="">Select Make</option>');
+        }
+}
+
+  function ad_make()
+{ 
+
+ const makeId = $("#make_id").val();
+
+        if (makeId !== "") {
+            $.ajax({
+                url: "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>",
+                type: 'POST',
+                data: { make_id: makeId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#model_id').html('<option value="">Select Model</option>');
+                    $.each(response, function (index, item) {
+                        $('#model_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading make list.');
+                }
+            });
+        } else {
+            $('#model_id').html('<option value="">Select Model</option>');
+        }
+}
+
+  function ad_model()
+{ 
+ const modelId = $("#model_id").val();
+
+        if (modelId !== "") {
+            $.ajax({
+                url: "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>",
+                type: 'POST',
+                data: { model_id: modelId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#variant_id').html('<option value="">Select Variant</option>');
+                    $.each(response, function (index, item) {
+                        $('#variant_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading make list.');
+                }
+            });
+        } else {
+            $('#variant_id').html('<option value="">Select Variant</option>');
+        }
+    }
 </script>

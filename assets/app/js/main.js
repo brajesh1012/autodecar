@@ -472,126 +472,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-// /////////////////////////////////////////////////////get_category_by_vehicle_type///////////////////////////////////////////////////////////////////
-
-
-$(document).ready(function () {
-    $('#vehicle_type_id').on('change', function () {
-        const vehicleTypeId = $(this).val();
-
-        if (vehicleTypeId !== "") {
-            $.ajax({
-                url: URL,
-                type: 'POST',
-                data: { vehicle_type_id: vehicleTypeId },
-                dataType: 'json',
-                success: function (response) {
-                    $('#cat_id').html('<option value="">Select Category</option>');
-                    $.each(response, function (index, item) {
-                        $('#cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                },
-                error: function () {
-                    alert('Error loading cat_id list.');
-                }
-            });
-        } else {
-            $('#cat_id').html('<option value="">Select Category</option>');
-        }
-    });
-});
-
-
-// /////////////////////////////////////////////////////get_makes_by_category_type///////////////////////////////////////////////////////////////////
-
-
-$(document).ready(function () {
-    $('#cat_id').on('change', function () {
-        const catId = $(this).val();
-
-        if (catId !== "") {
-            $.ajax({
-                url: URL1,
-                type: 'POST',
-                data: { cat_id: catId },
-                dataType: 'json',
-                success: function (response) {
-                    $('#make_id').html('<option value="">Select Make</option>');
-                    $.each(response, function (index, item) {
-                        $('#make_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                },
-                error: function () {
-                    alert('Error loading make list.');
-                }
-            });
-        } else {
-            $('#make_id').html('<option value="">Select Make</option>');
-        }
-    });
-});
-
-
-// //////////////////////////////////////////////////get_model_by_make_type/////////////////////////////////////////////////////////////////////
-
-
-$(document).ready(function () {
-    $('#make_id').on('change', function () {
-        const makeId = $(this).val();
-
-        if (makeId !== "") {
-            $.ajax({
-                url: URL2,
-                type: 'POST',
-                data: { make_id: makeId },
-                dataType: 'json',
-                success: function (response) {
-                    $('#model_id').html('<option value="">Select Model</option>');
-                    $.each(response, function (index, item) {
-                        $('#model_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                },
-                error: function () {
-                    alert('Error loading make list.');
-                }
-            });
-        } else {
-            $('#model_id').html('<option value="">Select Model</option>');
-        }
-    });
-});
-
-// //////////////////////////////////////////////////////////get_variant_by_model//////////////////////////////////////////////////////
-
-$(document).ready(function () {
-    $('#model_id').on('change', function () {
-        const modelId = $(this).val();
-
-        if (modelId !== "") {
-            $.ajax({
-                url: URL3,
-                type: 'POST',
-                data: { model_id: modelId },
-                dataType: 'json',
-                success: function (response) {
-                    $('#variant_id').html('<option value="">Select Variant</option>');
-                    $.each(response, function (index, item) {
-                        $('#variant_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                },
-                error: function () {
-                    alert('Error loading make list.');
-                }
-            });
-        } else {
-            $('#variant_id').html('<option value="">Select Variant</option>');
-        }
-    });
-});
-
-// //////////////////////////////////////////////////////////get_city_by_canton//////////////////////////////////////////////////////
-
 $(document).ready(function () {
     $('#state').on('change', function () {
         const stateId = $(this).val();
@@ -624,9 +504,13 @@ $(document).ready(function () {
 $(document).ready(function(){
     var $vt = $('#vehicle_type_id');
 
+    console.log('hello');
     function toggleFields() {
-        // Read data-type attribute of selected <option>
+        // Read data-type attribute of 
+        // selected <option>
+      
         var typeKey = $vt.find('option:selected').data('type'); // e.g., "car", "bike", "bus"
+        //    console.log(typeKey);
         // Hide all feature blocks
         $('.feature-car, .feature-bike, .feature-bus').hide();
         // Show matching ones
@@ -661,14 +545,45 @@ $(document).ready(function(){
                     if (response.action === 'added') {
                         icon.addClass('favorited');
                         icon.attr('title', 'Unfavorite');
+
+                          // ✅ Show "added" message
+                    $('#favorite-message').text('Wishlist added successfully.').css({
+                        'position': 'fixed',
+                        'top': '80px',
+                        'right': '40px',
+                        'z-index': '9999',
+                        'color': 'green',
+                        'background-color': '#e6ffe6',
+                        'border': '1px solid #00cc00',
+                        'padding': '8px 12px',
+                        'border-radius': '5px',
+                        'display': 'inline-block'
+                    }).fadeIn();
+
                     } else if (response.action === 'removed') {
                         icon.removeClass('favorited');
                         icon.attr('title', 'Favorite');
+                         // ✅ Show "removed" message
+                    $('#favorite-message').text('Wishlist removed successfully.').css({
+                        'position': 'fixed',
+                        'top': '80px',
+                        'right': '40px',
+                        'z-index': '9999',
+                        'color': 'red',
+                        'background-color': '#ffe6e6',
+                        'border': '1px solid #cc0000',
+                        'padding': '8px 12px',
+                        'border-radius': '5px',
+                        'display': 'inline-block'
+                    }).fadeIn();
                     }
+                    
+                // ✅ Hide message after 5 seconds
+                setTimeout(function () {
+                    $('#favorite-message').fadeOut();
+                }, 3000);
+
                 }
-                //  else {
-                //     alert(response.message || 'Something went wrong!');
-                // }
             }
         });
     });
@@ -721,4 +636,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+///////////////////////////////////////////////////////Ck Editor///////////////////////////////////////////////////////
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const editors = document.querySelectorAll(".editor");
+
+        editors.forEach((textarea) => {
+            ClassicEditor
+                .create(textarea)
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    });
 

@@ -76,17 +76,17 @@
                                                     4 => 'Expired'
                                                 ];
                                                 // $current_status = $this->input->get('post_status');
-                                                $current_status = isset($current_status) ? $current_status : 'all';
+                                                 $current_status = isset($_POST['post_status']) ? $_POST['post_status'] : 'all';
                                                 ?>
                                                 <form method="post" action="" class="mb-3">
-                                                            <select name="post_status" class="nice-select form-control" onchange="this.form.submit()">
-                                                                <?php foreach ($status_options as $key => $label): ?>
-                                                                    <option value="<?= $key ?>" <?= ($current_status !== null && $current_status !== '' && $current_status == $key) ? 'selected' : '' ?>>
-                                                                        <?= $label ?>
-                                                                    </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                </form>
+                                                        <select name="post_status" class="nice-select form-control" onchange="this.form.submit()">
+                                                            <?php foreach ($status_options as $key => $label): ?>
+                                                                <option value="<?= $key ?>" <?= ((string)$current_status === (string)$key) ? 'selected' : '' ?>>
+                                                                    <?= $label ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </form>
                                             </div>
                                             <div class="tfcl-table-listing">
                                                 <div class="table-responsive">
@@ -97,6 +97,8 @@
                                                                 <th>Listing</th>
                                                                  <?php if($_SESSION["role_name"] != 'Seller'){ ?>
                                                                 <th>Tax (7.7%)</th>
+                                                                <?php } if($_SESSION["role_name"] == 'Admin'){ ?>
+                                                                <th>Added By</th>
                                                                 <?php } ?>
                                                                 <th>Status</th>
                                                                 <th>Posting date</th>
@@ -162,6 +164,12 @@
                                                                         ?>
                                                                     </div>
                                                                 </td>
+                                                                <?php } 
+                                                                $user = $this->db->where('id',$detail->added_by)->get('users')->row();
+                                                                $role = $this->db->where('id',$user->role)->get('roles')->row();
+                                                                        if($_SESSION["role_name"] == 'Admin'){ 
+                                                                ?>
+                                                                <td class="column-added_by"><?= $user->username; ?><br><?= $role->role; ?></td>
                                                                 <?php } ?>
                                                                 <td class="column-status">
                                                                     <?php if($detail->status==0){?>

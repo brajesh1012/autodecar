@@ -42,7 +42,7 @@ p {
                                             <th>Price</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
-                                            <th>Listings Used</th>
+                                            <!-- <th>Listings Used</th> -->
                                         </tr>
                                     </thead>
                                      <tbody>
@@ -56,7 +56,7 @@ p {
                                                     <td>₹<?= $sub->price ?></td>
                                                     <td><?= date('d-m-Y', strtotime($sub->start_date)) ?></td>
                                                     <td><?= date('d-m-Y', strtotime($sub->end_date)) ?></td>
-                                                    <td><?= $sub->listings_used ?></td>
+                                                    <!-- <td><?= $sub->listings_used ?></td> -->
                                                 </tr>
                                         <?php }
                                         } else { ?>
