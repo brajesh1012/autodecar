@@ -1,33 +1,36 @@
 
         <?php include('head.php'); ?>
 
-        <style>
-.favorite-icon {
-    color: inherit;
-    transition: color 0.3s ease;
-}
+<style>
+        .favorite-icon {
+            color: inherit;
+            transition: color 0.3s ease;
+        }
 
-.favorite-icon.favorited {
-    color: orange;
-}
+        .favorite-icon.favorited {
+            color: orange;
+        }
 
-.favorite-icon.favorited svg path {
-    fill: orange !important;
-    stroke: orange;
-}
+        .favorite-icon.favorited svg path {
+            fill: orange !important;
+            stroke: orange;
+        }
 
+        .star-rating span {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ccc;
+        }
 
-    .star-rating span {
-        font-size: 24px;
-        cursor: pointer;
-        color: #ccc;
-    }
+        .star-rating span.selected {
+            color: gold;
+        }
+        .image img {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
 
-    .star-rating span.selected {
-        color: gold;
-    }
-
-        </style>
+</style>
         <?php $users = $this->db->where('id',$details->added_by)->get('users')->row();?>
         <?php $roles = $this->db->where('id',$users->role)->get('roles')->row();?>
         <section class="flat-title mb-40">
@@ -54,13 +57,12 @@
                                         ?>
                                     <div class="swiper-slide">
                                         <div class="image-list-details ">
-                                            <a class="image" href="<?= base_url('uploads/'.$car_img->photos); ?>"
-                                                data-fancybox="gallery">
+                                            <a class="image" data-img="<?= base_url('uploads/'.$car_img->photos); ?>">
                                                 <img class="lazyload"
                                                     data-src="<?= base_url('uploads/'.$car_img->photos); ?>"
                                                     src="<?= base_url('uploads/'.$car_img->photos); ?>" alt="image">
                                             </a>
-                                            <div class="specs-features-wrap flex-three">
+                                            <!-- <div class="specs-features-wrap flex-three">
                                                 <a class="specs-features">
                                                     <div class="icon">
                                                         <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
@@ -88,7 +90,7 @@
                                                     </div>
                                                     <span class="fw-5 font text-color-2 lh-16">All image</span>
                                                 </a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <?php } ?>
@@ -428,6 +430,7 @@
                                                                 </svg>
                                                             </div>
                                                             <?php  // Format the MFK date
+                                                              $selected_lang = $this->session->userdata('selected_lang');  
                                                                     $mfk_value = '';
                                                                     if (!empty($details->mfk_date)) {
                                                                         $dateObj = DateTime::createFromFormat('m/y', $details->mfk_date);
@@ -437,8 +440,16 @@
                                                                     }
                                                               ?>
                                                             <div class="content-listing-info">
-                                                                <span class="listing-info-title"> MFK :</span>
+                                                                <?php if($selected_lang == "fr" ||  $selected_lang == "it"){ ?> 
+
+                                                                     <span class="listing-info-title"> TUV :</span>
+                                                                <p class="listing-info-value"><?= $details->tuv_date; ?></p>
+
+                                                                    <?php }else{ ?>
+                                                                  <span class="listing-info-title"> MFK :</span>
                                                                 <p class="listing-info-value"><?= $mfk_value; ?></p>
+
+                                                                        <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1941,25 +1952,19 @@
                                                 <span>1st owner</span>
                                             </div> -->
                                     </div>
-                                    <div class="money text-color-3 font">CHF <?= $details->price; ?></div>
-                                    <!-- <div class="price-wrap">
-                                            <p class="fs-12 lh-16 text-color-2">Monthly installment payment: <span
-                                                    class="fs-14 fw-5 font">$4,000</span></p>
-                                            <p class="fs-12 lh-16">New car price: $100.000</p>
-                                        </div> -->
-                                    <ul class="action-icon flex flex-wrap">
-                                        <!-- <li>
-                                                <a href="#" class="icon">
-                                                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.75 4.1875C14.75 2.32375 13.1758 0.8125 11.234 0.8125C9.78275 0.8125 8.53625 1.657 8 2.86225C7.46375 1.657 6.21725 0.8125 4.76525 0.8125C2.825 0.8125 1.25 2.32375 1.25 4.1875C1.25 9.6025 8 13.1875 8 13.1875C8 13.1875 14.75 9.6025 14.75 4.1875Z"
-                                                            stroke="CurrentColor" stroke-width="1.5"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                </a>
-                                            </li> -->
+                                       <div class="icons flex-three text-color-3">
+                                            <span><?php echo ($details->tax !== '0.00' && $details->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
+                                        </div>
+                                        
+                                    <!-- <div class="money text-color-3 font">CHF <?= $details->total_price; ?></div> --><?php 
+                                    $chf = 'CHF ' . number_format($details->total_price, 0, '', '.');
+                                    // EUR: comma as thousand separator -> "EUR 28,880" 
+                                    $eur = 'EUR ' . number_format($details->total_price, 0, '.', ',');
 
+                                    ?>
+                                    <div class="money text-color-3 font"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?></div>
+                                    <ul class="action-icon flex flex-wrap">
+                                
                                         <?php
                                             $is_logged_in = isset($_SESSION['user_id']);
                                             $is_favorited = $is_logged_in ? $this->WebsiteModel->is_favorited($_SESSION['user_id'], $details->id) : false;
@@ -1980,7 +1985,7 @@
                                                 </a>
                                             </li>
 
-                                        <li>
+                                        <!-- <li>
                                             <a href="#" class="icon">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -1990,7 +1995,7 @@
                                                         stroke-linejoin="round" />
                                                 </svg>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <!-- <li>
                                                 <a href="#" class="icon">
                                                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none"
@@ -2014,17 +2019,87 @@
                                                 </a>
                                             </li> -->
                                     </ul>
+                                    <!-- Message Placeholder -->
+                                           <div id="favorite-message" style="display: none;"></div>
                                 </div>
 
                             </div>
 
+                                                        <!-- Same Dealer/Seller Vehicle Start -->
+                              <div class="widget-listing">
+                                <div class="listing-header mb-30">
+                                    <h3>More Vehicles from this Dealer<?php //echo $_SESSION['role_name']; ?></h3>
+                                    <!-- <p>Showing 26 more cars you might like</p> -->
+                                </div>
+                                <div class="listing-recommended mb-30">
+
+                              <?php 
+                             $new_vehicles = $this->db->order_by('created_at', 'DESC')->limit(5)->where('added_by', $details->added_by)->where('id !=', $details->id)->get('car_list')->result();
+
+                             foreach($new_vehicles as $new) { 
+
+                             // CHF: dot as thousand separator -> "CHF 28.880"
+                                $chf = 'CHF ' . number_format($new->price, 0, '', '.');
+
+                                // EUR: comma as thousand separator -> "EUR 28,880"
+                                $eur = 'EUR ' . number_format($new->price, 0, '.', ',');
+
+                                        // Get make name
+                                        // if($new->vehicle_type == $details->vehicle_type && $new->id != ){
+                                        $make_row = $this->db->where('id', $new->make)->get('make')->row();
+                                        $make_name = $make_row ? $make_row->name : '';
+
+                                        // Get model name
+                                        $model_row = $this->db->where('id', $new->model)->get('model')->row();
+                                        $model_name = $model_row ? $model_row->name : '';
+
+                                        // Get variant name
+                                        $variant_row = $this->db->where('id', $new->variant)->get('model')->row();
+                                        $variant_name = $variant_row ? $variant_row->name : ''; // adjust column name if needed
+
+                                          // ✅ Get first image for this vehicle
+                                        $img_row = $this->db->where('car_list_id', $new->id)->order_by('id', 'ASC')->limit(1)->get('car_img')->row();
+                                        $vehicle_img = $img_row ? $img_row->photos : '';  // fallback image
+                                    ?>
+                                        <div class="item flex">
+                                            <div class="image">
+                                                <?php if($vehicle_img != '') { ?>
+                                                   <img class="lazyload"
+                                                    data-src="<?= base_url('uploads/' . $vehicle_img); ?>"
+                                                    src="<?= base_url('uploads/' . $vehicle_img); ?>"
+                                                    alt="Vehicle Image">
+                                                    <?php }else{ ?>
+                                                <img class="lazyload"
+                                                    data-src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
+                                                    src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
+                                                    alt="image">
+                                                    <?php }  ?>
+                                            </div>
+                                            <div class="content">
+                                                <h6>
+                                                    <a href="<?= base_url('list-details/'.$new->slug); ?>">
+                                                        <?= $new->year ?> <?= $make_name ?> <?= $model_name ?> <?= $variant_name ?>
+                                                    </a>
+                                                </h6>
+                                                <p class="fs-14 fw-7 text-color-2 font-1"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?></p>
+                                            </div>
+                                        </div>
+                                    <?php } //} ?>
+                                </div>
+                                <!-- <a href="#" class="fs-16 fw-5 font text-color-3 lh-22">View more reviews <i
+                                        class="icon-autodeal-view-more"></i></a> -->
+                            </div>
+                            <!-- Same Dealer/Seller Vehicle End -->
                             <div class="widget-listing mb-30">
                                 <div class="prolile-info flex-three mb-30">
                                     <div class="image">
-                                        <img class="lazyload"
-                                            data-src="<?= base_url(); ?>/assets/assets/images/author/avt1.jpg"
-                                            src="<?= base_url(); ?>/assets/assets/images/author/avt1.jpg" alt="image">
-                                    </div>
+                                        <?php 
+                                
+                                        if (!empty($added_by->profile)) { ?>
+                                            <img class="lazyload" data-src="<?= base_url(); ?>uploads/profile/<?= $added_by->profile; ?>" src="<?= base_url(); ?>uploads/profile/<?= $added_by->profile; ?>"alt="image">
+                                        <?php } else { ?>
+                                                <img class="lazyload" data-src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg"src="<?= base_url(); ?>/assets/assets/images/author/avt-cm1.jpg" alt="image">
+                                    <?php } ?>
                                     <div class="content">
                                         <p> <?= $roles->role; ?></p>
                                         <h4><?= $users->username; ?></h4>
@@ -2112,6 +2187,7 @@
                                 <i class="far fa-flag"></i>
                                 <p class="font-1">Report this listing</p>
                             </div>
+
                             <div class="widget-listing">
                                 <div class="listing-header mb-30">
                                     <h3>Recent Added Vehicle</h3>
@@ -2123,6 +2199,12 @@
                              $new_vehicles = $this->db->order_by('created_at', 'DESC')->limit(5)->where('vehicle_type', $details->vehicle_type)->where('id !=', $details->id)->get('car_list')->result();
 
                                     foreach($new_vehicles as $new) { 
+
+                                          // CHF: dot as thousand separator -> "CHF 28.880"
+                                            $chf = 'CHF ' . number_format($new->price, 0, '', '.');
+
+                                            // EUR: comma as thousand separator -> "EUR 28,880"
+                                            $eur = 'EUR ' . number_format($new->price, 0, '.', ',');
                                         // Get make name
                                         // if($new->vehicle_type == $details->vehicle_type && $new->id != ){
                                         $make_row = $this->db->where('id', $new->make)->get('make')->row();
@@ -2160,57 +2242,14 @@
                                                         <?= $new->year ?> <?= $make_name ?> <?= $model_name ?> <?= $variant_name ?>
                                                     </a>
                                                 </h6>
-                                                <p class="fs-14 fw-7 text-color-2 font-1">CHF <?= $new->price?></p>
+                                                <p class="fs-14 fw-7 text-color-2 font-1"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?></p>
                                             </div>
                                         </div>
                                     <?php } //} ?>
-                                    <!-- <div class="item flex">
-                                        <div class="image">
-                                            <img class="lazyload"
-                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                alt="image">
-                                        </div>
-                                        <div class="content">
-                                            <h6><a href="#">2021 Skoda Kushaq 1.0 TSI Style AT</a></h6>
-                                            <p class="fs-14 fw-7 text-color-2 font-1">$73,000</p>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="item flex">
-                                        <div class="image">
-                                            <img class="lazyload"
-                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
-                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car29.jpg"
-                                                alt="image">
-                                        </div>
-                                        <div class="content">
-                                            <h6><a href="#">2012 Mercedes-Benz E-Class 2009-2013 E 200 CGI
-                                                    Avantgarde</a></h6>
-                                            <p class="fs-14 fw-7 text-color-2 font-1">$73,000</p>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="item flex">
-                                        <div class="image">
-                                            <img class="lazyload"
-                                                data-src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                src="<?= base_url(); ?>/assets/assets/images/car-list/car34.jpg"
-                                                alt="image">
-                                        </div>
-                                        <div class="content">
-                                            <h6><a href="#">2014 Audi A4 2.0 TDI Multitronic</a></h6>
-                                            <p class="fs-14 fw-7 text-color-2 font-1">$73,000</p>
-
-                                        </div>
-
-                                    </div> -->
 
                                 </div>
-                                <a href="#" class="fs-16 fw-5 font text-color-3 lh-22">View more reviews <i
-                                        class="icon-autodeal-view-more"></i></a>
+                                <!-- <a href="#" class="fs-16 fw-5 font text-color-3 lh-22">View more reviews <i
+                                        class="icon-autodeal-view-more"></i></a> -->
                             </div>
 
                         </div>
@@ -2219,6 +2258,36 @@
             </div>
 
         </section>
+
+
+<!-- Modal HTML -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 60vw;">
+    <div class="modal-content text-center position-relative" style="width: 60vw; height: 70vh;">
+      
+      <div class="modal-body p-0" style="height: calc(100% - 50px); overflow: hidden;">
+        <div id="zoom-container"
+             style="width: 100%; height: 100%; overflow: hidden; position: relative; cursor: grab;">
+          <img id="popup-image"
+               src=""
+               style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1); transform-origin: center center; transition: transform 0.2s ease;" />
+
+        </div>
+      </div>
+      <div class="d-flex justify-content-center gap-3 py-2 bg-light">
+        <button class="btn btn-sm btn-secondary" id="zoomInBtn">➕ Zoom In</button>
+        <button class="btn btn-sm btn-secondary" id="zoomOutBtn">➖ Zoom Out</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
         <?php include('footer.php'); ?>
 
@@ -2345,4 +2414,143 @@ $(document).ready(function () {
              $('.alert').slideUp('slow'); 
         }, 5000); // 3000 milliseconds = 3 seconds
     });
+</script>
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".swiper-slide .image img");
+    const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+    const popupImg = document.getElementById("popup-image");
+    const zoomContainer = document.getElementById("zoom-container");
+
+    let zoomLevel = 1;
+    let clickTimer = null;
+    let isDragging = false;
+    let startX, startY, currentX = 0, currentY = 0;
+
+    // Handle single/double click
+    slides.forEach((img) => {
+        img.addEventListener("click", function () {
+            if (clickTimer !== null) {
+                clearTimeout(clickTimer);
+                clickTimer = null;
+
+                const imgSrc = img.closest('.image').getAttribute("data-img") || img.src;
+                popupImg.src = imgSrc;
+                resetZoom();
+                modal.show();
+            } else {
+                clickTimer = setTimeout(() => {
+                    const swiper = document.querySelector(".swiper").swiper;
+                    swiper.isEnd ? swiper.slideTo(0) : swiper.slideNext();
+                    clickTimer = null;
+                }, 250);
+            }
+        });
+    });
+
+    // Reset zoom and position
+    function resetZoom() {
+        zoomLevel = 1;
+        currentX = 0;
+        currentY = 0;
+        applyTransform();
+    }
+
+    // Apply scale and position
+    function applyTransform() {
+        popupImg.style.transform = `translate(-50%, -50%) translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+    }
+
+    // Zoom buttons
+    document.getElementById("zoomInBtn").addEventListener("click", () => {
+        zoomLevel += 0.2;
+        applyTransform();
+    });
+
+    document.getElementById("zoomOutBtn").addEventListener("click", () => {
+        if (zoomLevel > 0.4) {
+            zoomLevel -= 0.2;
+            applyTransform();
+        }
+    });
+
+    // Scroll Zoom
+    zoomContainer.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        zoomLevel += (e.deltaY < 0) ? 0.1 : (zoomLevel > 0.5 ? -0.1 : 0);
+        applyTransform();
+    });
+
+    // Drag Move
+    zoomContainer.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        zoomContainer.style.cursor = "grabbing";
+    });
+
+    zoomContainer.addEventListener("mouseup", () => {
+        isDragging = false;
+        zoomContainer.style.cursor = "grab";
+    });
+
+    zoomContainer.addEventListener("mouseleave", () => {
+        isDragging = false;
+        zoomContainer.style.cursor = "grab";
+    });
+
+    zoomContainer.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        startX = e.clientX;
+        startY = e.clientY;
+        currentX += dx;
+        currentY += dy;
+        applyTransform();
+    });
+});
+</script> -->
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let zoomed = false;
+    let clickTimeout = null;
+
+    document.querySelectorAll(".image img").forEach(function (img) {
+        img.style.cursor = "pointer";
+
+        img.addEventListener("click", function (e) {
+            if (clickTimeout !== null) {
+                // Double Click Detected
+                clearTimeout(clickTimeout);
+                clickTimeout = null;
+
+                if (!zoomed) {
+                    img.style.transform = "scale(2)";
+                    img.style.transition = "transform 0.3s ease";
+                    zoomed = true;
+                } else {
+                    img.style.transform = "scale(1)";
+                    zoomed = false;
+                }
+            } else {
+                clickTimeout = setTimeout(function () {
+                    const swiperInstance = document.querySelector(".swiper").swiper;
+                    if (swiperInstance) {
+                        if (swiperInstance.isEnd) {
+                            swiperInstance.slideTo(0); // Go to first image
+                        } else {
+                            swiperInstance.slideNext(); // Go to next image
+                        }
+                    }
+                    clickTimeout = null;
+                }, 250); // Wait to detect if double click is coming
+            }
+        });
+    });
+});
 </script>

@@ -117,6 +117,28 @@ class AdminController extends CI_Controller
         $this->load->view("admin/template", $data);
     }
 
+      public function enquiry_list()
+    {
+        // if (!has_permission("Car List")) {
+        //     show_error("Unauthorized access");
+        // }
+
+       
+             if (!isset($_SESSION['role_name'])) {
+                redirect(base_url()); // or homepage
+            }
+
+            if ($_SESSION["role_name"] == "Buyer") {
+                redirect(base_url());
+            }
+
+
+         $data["users"] = $this->db->order_by('id DESC')->get('enquiry')->result(); 
+        $data["main"] = "enquiry";
+        $this->load->view("admin/template", $data);
+    }
+
+
 
 
 
@@ -318,43 +340,43 @@ class AdminController extends CI_Controller
           
              $user_id = $_SESSION['user_id'];
 
-        $this->form_validation->set_rules("title", "Title", "required");
+         $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
         $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
-        $this->form_validation->set_rules("variant", "variant", "required");
-        $this->form_validation->set_rules("color", "Color", "required");
-        $this->form_validation->set_rules("ownership", "Ownership", "required");
-        $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
-        $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
-        $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
-        $this->form_validation->set_rules("state", "Canton", "required");
-        $this->form_validation->set_rules("zipcode", "Zipcode", "required");
+        // $this->form_validation->set_rules("variant", "variant", "required");
+        // $this->form_validation->set_rules("color", "Color", "required");
+        // $this->form_validation->set_rules("ownership", "Ownership", "required");
+        // $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
+        // $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
+        // $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
+         $this->form_validation->set_rules("state", "Country", "required");
+        // $this->form_validation->set_rules("zipcode", "Zipcode", "required");
         // $this->form_validation->set_rules("mfk_date", "MFk", "required");
         // $this->form_validation->set_rules("tuv_date", "TUV", "required");
 
         $this->form_validation->set_rules("year", "Year", "required|numeric");
         $this->form_validation->set_rules("mileage", "Mileage", "required");
-        $this->form_validation->set_rules(
-            "vehicle_condition",
-            "Vehicle Condition",
-            "required"
-        );
+        // $this->form_validation->set_rules(
+        //     "vehicle_condition",
+        //     "Vehicle Condition",
+        //     "required"
+        // );
         $this->form_validation->set_rules("price", "Price", "required");
-        $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
-        $this->form_validation->set_rules(
-            "transmission",
-            "Transmission",
-            "required"
-        );
-        $this->form_validation->set_rules("location", "Location", "required");
-        $this->form_validation->set_rules("km", "Kilo Meter", "required");
-        $this->form_validation->set_rules(
-            "description",
-            "Description",
-            "required"
-        );
+        // $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
+        // $this->form_validation->set_rules(
+        //     "transmission",
+        //     "Transmission",
+        //     "required"
+        // );
+        // $this->form_validation->set_rules("location", "Location", "required");
+        // $this->form_validation->set_rules("km", "Kilo Meter", "required");
+        // $this->form_validation->set_rules(
+        //     "description",
+        //     "Description",
+        //     "required"
+        // );
 
         if ($this->form_validation->run() == false) {
             $data["categories"] = $this->WebsiteModel->get_data("categories");
@@ -368,7 +390,8 @@ class AdminController extends CI_Controller
             );
             $data["vehicle_types"] = $this->AdminModel->get_data("vehicle_type");
             $data["cities"] = $this->AdminModel->get_data("cities");
-            $data["states"] = $this->AdminModel->get_data("states");
+            // $data["states"] = $this->AdminModel->get_data("states");
+            $data["states"] = $this->AdminModel->get_data("countries");
 
 
             $data["comforts"] = $this->AdminModel->get_data("comfort_and_interior");
@@ -404,6 +427,7 @@ class AdminController extends CI_Controller
                                $data["main"] = "add-listing";
                                  $this->load->view("admin/template", $data);
                         } else {
+
                             $this->session->set_flashdata('error', 'You have used all your listings. Please upgrade your plan.');
                             redirect(ADMIN_PATH  . '/add-plan');
                         }
@@ -551,35 +575,34 @@ class AdminController extends CI_Controller
 
             $data = [
 				"slug" => $slug,
-                "title" => $this->input->post("title"),
+                "title" => $this->input->post("title")?? '',
                 "vehicle_type" => $this->input->post("vehicle_type"),
                 "cat_id" => $this->input->post("cat_id"),
                 "make" => $this->input->post("make"),
                 "model" => $this->input->post("model"),
-                "variant" => $this->input->post("variant"),
-                "color" => $this->input->post("color"),
-                "year" => $this->input->post("year"),
+                "variant" => $this->input->post("variant") ?? '',
+                "color" => $this->input->post("color") ?? '',
+                "year" => $this->input->post("year") ,
                 "mileage" => $this->input->post("mileage"),
-                "vehicle_condition" => $this->input->post("vehicle_condition"),
+                "vehicle_condition" => $this->input->post("vehicle_condition") ?? '',
 
                 "price" => $price,
                 "total_price" => $total_price,
                 "tax" => $vat_amount ?? '' ,
-                "is_negotiable" => $this->input->post("is_negotiable"),
+                "is_negotiable" => $this->input->post("is_negotiable") ?? '',
 
-                "fuel_type" => $this->input->post("fuel_type"),
-                "transmission" => $this->input->post("transmission"),
-                "location" => $this->input->post("location"),
-                "description" => $this->input->post("description"),
-                "km" => $this->input->post("km"),
+                "fuel_type" => $this->input->post("fuel_type") ?? '',
+                "transmission" => $this->input->post("transmission") ?? '',
+                "location" => $this->input->post("location") ?? '',
+                "description" => $this->input->post("description") ?? '',
+                "km" => $this->input->post("km") ?? '' ,
 
-                "ownership" => $this->input->post("ownership"),
-                "euro_norm" => $this->input->post("euro_norm"),
-                "co2_emission" => $this->input->post("co2_emission"),
+                "ownership" => $this->input->post("ownership") ?? '',
+                "euro_norm" => $this->input->post("euro_norm") ?? '',
+                "co2_emission" => $this->input->post("co2_emission") ?? '',
 
-                "state" => $this->input->post("state"),
-                "zipcode" => $this->input->post("zipcode"),
-
+                "state" => $this->input->post("state") ?? '',
+                "zipcode" => $this->input->post("zipcode") ?? '',
 
                 "winter_tires" => $this->input->post("winter_tires")  ?? '',
                 "ac_type" => $this->input->post("ac_type") ?? '',
@@ -594,13 +617,13 @@ class AdminController extends CI_Controller
                 "emission_certificate" => $emission_certificate ?? '',
                 "added_by" => $this->session->userdata('user_id'),
 
-                "comfort_and_interior" => $comfort_and_interior_json,
-                "safety_and_assistance" => $safety_and_assistance_json,
-                "lighting_and_visibility" => $lighting_and_visibility_json,
-                "multimedia_and_navigation" => $multimedia_and_navigation_json,
-                "engine_and_drive_technology" => $engine_and_drive_technology_json,
-                "exterior_and_design" => $exterior_json,
-                "other_features_and_extras" => $other_features_json,
+                "comfort_and_interior" => $comfort_and_interior_json ?? '',
+                "safety_and_assistance" => $safety_and_assistance_json ?? '',
+                "lighting_and_visibility" => $lighting_and_visibility_json ?? '',
+                "multimedia_and_navigation" => $multimedia_and_navigation_json ?? '',
+                "engine_and_drive_technology" => $engine_and_drive_technology_json ?? '',
+                "exterior_and_design" => $exterior_json ?? '',
+                "other_features_and_extras" => $other_features_json ?? '',
                 // 'photos' => json_encode($photos)
             ];
             $this->db->insert("car_list", $data); // Save to database
@@ -648,49 +671,54 @@ class AdminController extends CI_Controller
                 redirect(base_url());
             }
 
-        $this->form_validation->set_rules("title", "Title", "required");
+               
+
+         $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
         $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
-        $this->form_validation->set_rules("variant", "variant", "required");
-        $this->form_validation->set_rules("color", "Color", "required");
-        $this->form_validation->set_rules("ownership", "Ownership", "required");
-        $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
-        $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
-        $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
-        $this->form_validation->set_rules("state", "Canton", "required");
-        $this->form_validation->set_rules("zipcode", "Zipcode", "required");
-        $this->form_validation->set_rules("mfk_date", "MFk", "required");
-        $this->form_validation->set_rules("tuv_date", "TUV", "required");
+        // $this->form_validation->set_rules("variant", "variant", "required");
+        // $this->form_validation->set_rules("color", "Color", "required");
+        // $this->form_validation->set_rules("ownership", "Ownership", "required");
+        // $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
+        // $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
+        // $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
+         $this->form_validation->set_rules("state", "Country", "required");
+        // $this->form_validation->set_rules("zipcode", "Zipcode", "required");
+        // $this->form_validation->set_rules("mfk_date", "MFk", "required");
+        // $this->form_validation->set_rules("tuv_date", "TUV", "required");
 
         $this->form_validation->set_rules("year", "Year", "required|numeric");
         $this->form_validation->set_rules("mileage", "Mileage", "required");
-        $this->form_validation->set_rules(
-            "vehicle_condition",
-            "Vehicle Condition",
-            "required"
-        );
+        // $this->form_validation->set_rules(
+        //     "vehicle_condition",
+        //     "Vehicle Condition",
+        //     "required"
+        // );
         $this->form_validation->set_rules("price", "Price", "required");
-        $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
-        $this->form_validation->set_rules(
-            "transmission",
-            "Transmission",
-            "required"
-        );
-        $this->form_validation->set_rules("location", "Location", "required");
-        $this->form_validation->set_rules("km", "Kilo Meter", "required");
-        $this->form_validation->set_rules(
-            "description",
-            "Description",
-            "required"
-        );
+        // $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
+        // $this->form_validation->set_rules(
+        //     "transmission",
+        //     "Transmission",
+        //     "required"
+        // );
+        // $this->form_validation->set_rules("location", "Location", "required");
+        // // $this->form_validation->set_rules("km", "Kilo Meter", "required");
+        // $this->form_validation->set_rules(
+        //     "description",
+        //     "Description",
+        //     "required"
+        // );
 		
 		$data["cars"] = $cars = $this->Common_model->getsingle('car_list', array('id' => $id));
 		$slug = $cars->slug;
 		// $oldmake = $cars->make;
 		$oldtitle = $cars->title;
-		
+		            // print_r($id);die;
+
+        if ($_SESSION["role_name"] == "Admin" || $cars->added_by == $_SESSION["user_id"] ) {
+
         if ($this->form_validation->run() == false) {
 
             $data["categories"] = $this->WebsiteModel->get_data("categories");
@@ -704,7 +732,7 @@ class AdminController extends CI_Controller
             );
             $data["vehicle_types"] = $this->AdminModel->get_data("vehicle_type");
             $data["cities"] = $this->AdminModel->get_data("cities");
-            $data["states"] = $this->AdminModel->get_data("states");
+            $data["states"] = $this->AdminModel->get_data("countries");
 
 
              $data["comforts"] = $this->AdminModel->get_data("comfort_and_interior");
@@ -886,32 +914,32 @@ class AdminController extends CI_Controller
                 "cat_id" => $this->input->post("cat_id"),
                 "make" => $this->input->post("make"),
                 "model" => $this->input->post("model"),
-                "variant" => $this->input->post("variant"),
-                "color" => $this->input->post("color"),
-                "year" => $this->input->post("year"),
-                "mileage" => $this->input->post("mileage"),
-                "vehicle_condition" => $this->input->post("vehicle_condition"),
+                "variant" => $this->input->post("variant")??'',
+                "color" => $this->input->post("color")??'',
+                "year" => $this->input->post("year")??'',
+                "mileage" => $this->input->post("mileage")??'',
+                "vehicle_condition" => $this->input->post("vehicle_condition")??'',
 
-                "price" => $new_price,
+                "price" => $new_price??'',
 
-                "total_price" => $total_price,
+                "total_price" => $total_price??'',
 
                 "tax" => $vat ?? '' ,
 
-                "is_negotiable" => $this->input->post("is_negotiable"),
+                "is_negotiable" => $this->input->post("is_negotiable")??'',
 
-                "fuel_type" => $this->input->post("fuel_type"),
-                "transmission" => $this->input->post("transmission"),
+                "fuel_type" => $this->input->post("fuel_type")??'',
+                "transmission" => $this->input->post("transmission")??'',
                 "location" => $this->input->post("location"),
-                "description" => $this->input->post("description"),
-                "km" => $this->input->post("km"),
+                "description" => $this->input->post("description")??'',
+                // "km" => $this->input->post("km"),
 
-                "ownership" => $this->input->post("ownership"),
-                "euro_norm" => $this->input->post("euro_norm"),
-                "co2_emission" => $this->input->post("co2_emission"),
+                "ownership" => $this->input->post("ownership")??'',
+                "euro_norm" => $this->input->post("euro_norm")??'',
+                "co2_emission" => $this->input->post("co2_emission")??'',
 
-                "state" => $this->input->post("state"),
-                "zipcode" => $this->input->post("zipcode"),
+                "state" => $this->input->post("state")??'',
+                "zipcode" => $this->input->post("zipcode")??'',
 
 
                 "winter_tires" => $this->input->post("winter_tires") ?? '',
@@ -955,10 +983,13 @@ class AdminController extends CI_Controller
             );
             redirect(ADMIN_PATH . "/my-listing");
         }
+      }else{
+          redirect(ADMIN_PATH . "/my-listing");
+      }
     }
 
 
-    // /////////////////////////////////////////////////////Duplicate Start//////////////////////////////////////////////////////
+    //////////////////////////////////////////Duplicate Start//////////////////////////////////////////////////////
 
     public function duplicate_listing($id)
     {
@@ -970,48 +1001,53 @@ class AdminController extends CI_Controller
                 redirect(base_url());
             }
 
-        $this->form_validation->set_rules("title", "Title", "required");
+         $this->form_validation->set_rules("title", "Title", "required");
         $this->form_validation->set_rules("vehicle_type", "Vehicle Type", "required");
          $this->form_validation->set_rules("cat_id", "Category", "required");
         $this->form_validation->set_rules("make", "Make By", "required");
         $this->form_validation->set_rules("model", "Model", "required");
-        $this->form_validation->set_rules("variant", "variant", "required");
-        $this->form_validation->set_rules("color", "Color", "required");
-        $this->form_validation->set_rules("ownership", "Ownership", "required");
-        $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
-        $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
-        $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
-        $this->form_validation->set_rules("state", "Canton", "required");
-        $this->form_validation->set_rules("zipcode", "Zipcode", "required");
-        $this->form_validation->set_rules("mfk_date", "MFk", "required");
-        $this->form_validation->set_rules("tuv_date", "TUV", "required");
+        // $this->form_validation->set_rules("variant", "variant", "required");
+        // $this->form_validation->set_rules("color", "Color", "required");
+        // $this->form_validation->set_rules("ownership", "Ownership", "required");
+        // $this->form_validation->set_rules("euro_norm", "Euro Norm", "required");
+        // $this->form_validation->set_rules("co2_emission", "co2 Emission", "required");
+        // $this->form_validation->set_rules("is_negotiable", "Is Price Negotiable", "required");
+         $this->form_validation->set_rules("state", "Country", "required");
+        // $this->form_validation->set_rules("zipcode", "Zipcode", "required");
+        // $this->form_validation->set_rules("mfk_date", "MFk", "required");
+        // $this->form_validation->set_rules("tuv_date", "TUV", "required");
 
         $this->form_validation->set_rules("year", "Year", "required|numeric");
         $this->form_validation->set_rules("mileage", "Mileage", "required");
-        $this->form_validation->set_rules(
-            "vehicle_condition",
-            "Vehicle Condition",
-            "required"
-        );
+        // $this->form_validation->set_rules(
+        //     "vehicle_condition",
+        //     "Vehicle Condition",
+        //     "required"
+        // );
         $this->form_validation->set_rules("price", "Price", "required");
-        $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
-        $this->form_validation->set_rules(
-            "transmission",
-            "Transmission",
-            "required"
-        );
-        $this->form_validation->set_rules("location", "Location", "required");
-        $this->form_validation->set_rules("km", "Kilo Meter", "required");
-        $this->form_validation->set_rules(
-            "description",
-            "Description",
-            "required"
-        );
+        // $this->form_validation->set_rules("fuel_type", "Fuel Type", "required");
+        // $this->form_validation->set_rules(
+        //     "transmission",
+        //     "Transmission",
+        //     "required"
+        // );
+        // $this->form_validation->set_rules("location", "Location", "required");
+        // $this->form_validation->set_rules("km", "Kilo Meter", "required");
+        // $this->form_validation->set_rules(
+        //     "description",
+        //     "Description",
+        //     "required"
+        // );
+
+         $user_id = $_SESSION['user_id'];
 		
 		$data["cars"] = $cars = $this->Common_model->getsingle('car_list', array('id' => $id));
 		$slug = $cars->slug;
 		// $oldmake = $cars->make;
 		$oldtitle = $cars->title;
+
+        if ($_SESSION["role_name"] == "Admin" || $cars->added_by == $_SESSION["user_id"] ) {
+
 		
         if ($this->form_validation->run() == false) {
 
@@ -1026,7 +1062,8 @@ class AdminController extends CI_Controller
             $data["vehicle_types"] = $this->AdminModel->get_data("vehicle_type");
               $data["categories"] = $this->WebsiteModel->get_data("categories");
             $data["cities"] = $this->AdminModel->get_data("cities");
-            $data["states"] = $this->AdminModel->get_data("states");
+            // $data["states"] = $this->AdminModel->get_data("states");
+            $data["states"] = $this->AdminModel->get_data("countries");
 
 
              $data["comforts"] = $this->AdminModel->get_data("comfort_and_interior");
@@ -1042,8 +1079,43 @@ class AdminController extends CI_Controller
             $data["other_features_and_extras"] = $this->AdminModel->get_data("other_features_and_extras");
 
 
-            $data["main"] = "duplicate-listing";
-            $this->load->view("admin/template", $data);
+              if($_SESSION["role_name"] != "Admin"){
+                    // Allow first vehicle without subscription
+                    $vehicle_count = $this->db->where('added_by', $user_id)->count_all_results('car_list');
+
+                    if ($vehicle_count == 0) {
+                          $data["main"] = "duplicate-listing";
+                           $this->load->view("admin/template", $data);
+                        return;
+                    }
+
+                    // Check subscription
+                    $sub = $this->db->where('user_id', $user_id)
+                        ->where('end_date >=', date('Y-m-d'))
+                        ->get('user_subscriptions')->row();
+
+                    if ($sub) {
+                        if ($sub->listings_used < get_plan_limit($sub->plan_id)) {
+                               $data["main"] = "duplicate-listing";
+                                 $this->load->view("admin/template", $data);
+                        } else {
+                            $this->session->set_flashdata('error', 'You have used all your listings. Please upgrade your plan.');
+                            redirect(ADMIN_PATH  . '/add-plan');
+                        }
+                    } else {
+                        $this->session->set_flashdata('error', 'Please purchase a subscription to add more vehicles.');
+                        redirect(ADMIN_PATH  . '/add-plan');
+                    }
+                }else{
+
+                    $data["main"] = "duplicate-listing";
+                    $this->load->view("admin/template", $data);
+
+                }
+
+
+            // $data["main"] = "duplicate-listing";
+            // $this->load->view("admin/template", $data);
         } else {
 	
             $title = $this->input->post('title');
@@ -1206,32 +1278,32 @@ class AdminController extends CI_Controller
                 "cat_id" => $this->input->post("cat_id"),
                 "make" => $this->input->post("make"),
                 "model" => $this->input->post("model"),
-                "variant" => $this->input->post("variant"),
-                "color" => $this->input->post("color"),
+                "variant" => $this->input->post("variant")??'',
+                "color" => $this->input->post("color")??'',
                 "year" => $this->input->post("year"),
                 "mileage" => $this->input->post("mileage"),
-                "vehicle_condition" => $this->input->post("vehicle_condition"),
+                "vehicle_condition" => $this->input->post("vehicle_condition")??'',
 
-                "price" => $new_price,
+                "price" => $new_price??'',
 
-                "total_price" => $total_price,
+                "total_price" => $total_price??'',
 
                 "tax" => $vat ?? '' ,
 
-                "is_negotiable" => $this->input->post("is_negotiable"),
+                "is_negotiable" => $this->input->post("is_negotiable")??'',
 
-                "fuel_type" => $this->input->post("fuel_type"),
-                "transmission" => $this->input->post("transmission"),
-                "location" => $this->input->post("location"),
-                "description" => $this->input->post("description"),
-                "km" => $this->input->post("km"),
+                "fuel_type" => $this->input->post("fuel_type")??'',
+                "transmission" => $this->input->post("transmission")??'',
+                "location" => $this->input->post("location")??'',
+                "description" => $this->input->post("description")??'',
+                "km" => $this->input->post("km")??'',
 
-                "ownership" => $this->input->post("ownership"),
-                "euro_norm" => $this->input->post("euro_norm"),
-                "co2_emission" => $this->input->post("co2_emission"),
+                "ownership" => $this->input->post("ownership")??'',
+                "euro_norm" => $this->input->post("euro_norm")??'',
+                "co2_emission" => $this->input->post("co2_emission")??'',
 
-                "state" => $this->input->post("state"),
-                "zipcode" => $this->input->post("zipcode"),
+                "state" => $this->input->post("state")??'',
+                "zipcode" => $this->input->post("zipcode")??'',
 
 
                 "winter_tires" => $this->input->post("winter_tires") ?? '' ,
@@ -1241,8 +1313,8 @@ class AdminController extends CI_Controller
                 "parking_sensors" => $this->input->post("parking_sensors") ?? '' ,
 
 
-                "mfk_date" => $mfk_date,
-                "tuv_date" => $tuv_date,
+                "mfk_date" => $mfk_date??'',
+                "tuv_date" => $tuv_date??'',
 
                 "emission_certificate" => $emission_certificate ?? '',
                 "added_by" => $this->session->userdata('user_id'),
@@ -1279,6 +1351,9 @@ class AdminController extends CI_Controller
             );
             redirect(ADMIN_PATH . "/my-listing");
         }
+    }else{
+        redirect(ADMIN_PATH . "/my-listing");
+    }
     }
 
 
@@ -2272,11 +2347,14 @@ public function delete_vehicle_record() {
             redirect(base_url());
         }
 
-    $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['id'];
+        $data = json_decode(file_get_contents("php://input"), true);
+        $id = $data['id'];
+        print_r($id); die;
     $table = $data['table'];
     $key = $data['key'];
-
+    $cars = $this->Common_model->getsingle('car_list', array('id' => $id));
+    if ($_SESSION["role_name"] == "Admin" || $cars->added_by == $_SESSION["user_id"] ) {
+        echo"hello"; die;
     if ($id && $table && $key) {
         // Step 1: Delete from main table
         $this->db->where($key, $id);
@@ -2306,6 +2384,9 @@ public function delete_vehicle_record() {
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Invalid data']);
     }
+}else{ 
+    redirect(ADMIN_PATH . "/my-listing");
+}
 }
 
 
@@ -2372,7 +2453,7 @@ public function delete_vehicle_record() {
                 "plan_name" => $this->input->post("plan_name"),
                 "price" => $this->input->post("price"),
                 "duration_days" => $this->input->post("duration_days"),
-                "listing_limit" => $this->input->post("listing_limit"),
+                 "listing_limit" => $this->input->post("listing_limit"),
             ];
             $this->db->insert("subscription_plans", $data); // Save to database
 
@@ -2479,8 +2560,15 @@ public function delete_vehicle_record() {
                   ->row();
 
             if ($exists) {
-                $this->session->set_flashdata('error', 'You already have this plan active.');
-            redirect(ADMIN_PATH . '/add-plan');
+                $this->db->where('user_id', $user_id)
+                         ->where('plan_id', $plan_id)
+                         ->update('user_subscriptions', [
+                             'end_date' => date('Y-m-d', strtotime("+{$plan->duration_days} days")),
+                             'listings_used' => 0
+                         ]);
+                          $this->session->set_flashdata('success', 'Subscription Updated successfully!');
+            //     $this->session->set_flashdata('error', 'You already have this plan active.');
+                     redirect(ADMIN_PATH . '/add-plan');
             }
 
 
@@ -2640,10 +2728,593 @@ public function view_chat($vehicle_id, $other_user_id)
     }
 }
 
-    public function test()
+    // public function test()
+    // {
+    //     if (!has_permission("Car List")) {
+    //         show_error("Unauthorized access");
+    //     }
+    // }
+
+     public function features()
+     {    
+        if (!isset($_SESSION['role_name'])) {
+                redirect(base_url()); // or homepage
+            }
+
+         if ($_SESSION["role_name"] == "Buyer") {
+                redirect(base_url());
+            }
+
+        $this->form_validation->set_rules(
+            "feature",
+            "Feature Name",
+            "required"
+        );
+         $this->form_validation->set_rules(
+            "type",
+            "Type",
+            "required"
+        );
+
+        if ($this->form_validation->run() == false) {
+            $data["comfort_and_interior"] = $this->WebsiteModel->get_data("comfort_and_interior");
+            $data["safety_and_assistance"] = $this->WebsiteModel->get_data("safety_and_assistance");
+            $data["lighting_and_visibility"] = $this->WebsiteModel->get_data("lighting_and_visibility");
+            $data["multimedia_and_navigation"] = $this->WebsiteModel->get_data("multimedia_and_navigation");
+            $data["engine_and_drive_technology"] = $this->WebsiteModel->get_data("engine_and_drive_technology");
+            $data["exterior_and_design"] = $this->WebsiteModel->get_data("exterior_and_design");
+            $data["other_features_and_extras"] = $this->WebsiteModel->get_data("other_features_and_extras");
+           $data["main"] = "features";
+        $this->load->view("admin/template", $data);
+        } else {
+
+            $type = $this->input->post("type");
+            // Prepare data to insert (example)
+            $data = [
+                "name" => $this->input->post("feature"),
+            ];
+
+            if($type == 'Comfort & Interior'){
+
+                $this->db->insert("comfort_and_interior", $data);
+
+            }elseif ($type == 'Safety & Assistance') {
+
+              $this->db->insert("safety_and_assistance", $data);
+
+            }elseif ($type == 'Lighting & Visibility') {
+
+                $this->db->insert("lighting_and_visibility", $data);
+
+            }elseif ($type == 'Multimedia & Navigation') {
+
+                $this->db->insert("multimedia_and_navigation", $data);
+
+            }elseif ($type == 'Engine & Drive Technology') {
+
+                $this->db->insert("engine_and_drive_technology", $data);
+
+            }elseif ($type == 'Exterior & Design') {
+
+                $this->db->insert("exterior_and_design", $data);
+
+            }elseif ($type == 'Other Features & Extras') {
+
+                $this->db->insert("other_features_and_extras", $data);
+                
+            }
+
+            $this->session->set_flashdata(
+                "success",
+                "Features added successfully!"
+            );
+            redirect(ADMIN_PATH . "/features");
+        }
+
+}
+
+
+   public function delete_features()
     {
-        if (!has_permission("Car List")) {
-            show_error("Unauthorized access");
+         
+
+        if(!empty($_GET["comfort"])){
+            $comfort = $_GET["comfort"];
+            $delete = $this->db->where("id", $comfort)->delete("comfort_and_interior");
+        }elseif (!empty($_GET["safety"])) {
+             $safety = $_GET["safety"];
+            $delete = $this->db->where("id", $safety)->delete("safety_and_assistance");
+        }elseif (!empty($_GET["lighting"])) {
+            $lighting = $_GET["lighting"];
+            $delete = $this->db->where("id", $lighting)->delete("lighting_and_visibility");
+        }elseif (!empty($_GET["multimedia"])) {
+            $multimedia = $_GET["multimedia"];
+            $delete = $this->db->where("id", $multimedia)->delete("multimedia_and_navigation");
+        }elseif (!empty($_GET["engine"])) {
+            $engine = $_GET["engine"];
+            $delete = $this->db->where("id", $engine)->delete("engine_and_drive_technology");
+        }elseif (!empty($_GET["exterior"])) {
+            $exterior = $_GET["exterior"];
+            $delete = $this->db->where("id", $exterior)->delete("exterior_and_design");
+        }elseif (!empty($_GET["other"])) {
+        $other = $_GET["other"];
+            $delete = $this->db->where("id", $other)->delete("other_features_and_extras");
+        }
+
+        if ($delete) {
+            $this->session->set_flashdata(
+                "success",
+                "Feature Delete successfully!"
+            );
+            redirect(ADMIN_PATH . "/features");
         }
     }
+
+    // public function about()
+    // {
+    //     $data["main"] = "about";
+    //     $this->load->view("admin/template", $data);
+    // }
+
+
+
+    public function about()
+    {
+
+        //  if (!has_permission("Add Model")) {
+        //     show_error("Unauthorized access");
+        // }
+
+          if (isset($_SESSION["role_name"]) &&
+            $_SESSION["role_name"] == "Buyer"
+        ) {
+            redirect(base_url());
+
+              } 
+
+
+        $this->form_validation->set_rules(
+            "title",
+            "Title",
+            "required"
+        );
+
+          $this->form_validation->set_rules(
+            "subtitle",
+            "Description",
+            "required"
+        );
+
+        //   $this->form_validation->set_rules(
+        //     "duration_days",
+        //     "Duration Days",
+        //     "required"
+        // );
+
+        // $id = $this->input->post("a_id");
+
+        if ($this->form_validation->run() == false) {
+
+            $data["about"] = $this->Common_model->getsingle('aboutus', array('id' => 1));
+            $data["main"] = "about";
+            $this->load->view("admin/template", $data);;
+        } else {
+
+            // Upload About Image
+             $old_image = $this->input->post('old_image');
+             $about_image = $old_image;
+
+        if (!empty($_FILES['img']['name'])) {
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 2048;
+            $config['file_name'] = time() . '_' . $_FILES['img']['name'];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('img')) {
+                $uploadData = $this->upload->data();
+                $about_image = $uploadData['file_name'];
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect(ADMIN_PATH  . "/about");
+            }
+        }
+
+
+          // Upload About Image 2
+             $old_image2 = $this->input->post('old_image2');
+             $about_image2 = $old_image2;
+
+        if (!empty($_FILES['img2']['name'])) {
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 2048;
+            $config['file_name'] = time() . '_' . $_FILES['img2']['name'];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('img2')) {
+                $uploadData = $this->upload->data();
+                $about_image2 = $uploadData['file_name'];
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect(ADMIN_PATH  . "/about");
+            }
+        }
+
+
+        // Upload About Icon 1
+             $old_icon1 = $this->input->post('old_icon1');
+             $about_icon1 = $old_icon1;
+
+        if (!empty($_FILES['icon1']['name'])) {
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 2048;
+            $config['file_name'] = time() . '_' . $_FILES['icon1']['name'];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('icon1')) {
+                $uploadData = $this->upload->data();
+                $about_icon1 = $uploadData['file_name'];
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect(ADMIN_PATH  . "/about");
+            }
+        }
+
+
+
+            // Prepare data to insert (example)
+            $data = [
+                "title" => $this->input->post("title"),
+                "subtitle" => $this->input->post("subtitle"),
+                "img" => $about_image,
+                "img2" => $about_image2,
+                "title1" => $this->input->post("title1"),
+                "description1" => $this->input->post("description1"),
+                // "img2" => $about_icon1,
+
+                "title2" => $this->input->post("title2"),
+                "description2" => $this->input->post("description2"),
+
+                "title3" => $this->input->post("title3"),
+                "description3" => $this->input->post("description3"),
+
+
+            ];
+            $this->Common_model->updateData('aboutus',$data, array('id' => 1));
+
+            $this->session->set_flashdata(
+                "success",
+                "updated successfully!"
+            );
+            redirect(ADMIN_PATH . "/about");
+        }
+    }
+
+  public function blogs()
+    {
+        $data["blogs"] = $this->db->order_by('id DESC')->get('blogs')->result();
+        // print_r($data["blogs"]);die;
+         $data["main"] = "blogs";
+            $this->load->view("admin/template", $data);
+    }
+
+     public function add_blog()
+    {
+          if (isset($_SESSION["role_name"]) &&
+            $_SESSION["role_name"] == "Buyer"
+        ) {
+            redirect(base_url());
+
+              } 
+
+
+        $this->form_validation->set_rules(
+            "title",
+            "Title",
+            "required"
+        );
+
+        //   $this->form_validation->set_rules(
+        //     "name",
+        //     "Name",
+        //     "required"
+        // );
+
+          $this->form_validation->set_rules(
+            "description",
+            "Description",
+            "required"
+        );
+
+        if ($this->form_validation->run() == false) {
+            $data["main"] = "add_blog";
+            $this->load->view("admin/template", $data);
+        } else {
+
+            // Upload About Image
+
+
+        if (!empty($_FILES['img']['name'])) {
+            $config['upload_path'] = './uploads/blogs';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 2048;
+            $config['file_name'] = time() . '_' . $_FILES['img']['name'];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('img')) {
+                $uploadData = $this->upload->data();
+                $blog_image = $uploadData['file_name'];
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect(ADMIN_PATH  . "/blogs");
+            }
+        }
+
+            // Prepare data to insert (example)
+            $data = [
+                "name" => $this->input->post("name") ?? '',
+                "title" => $this->input->post("title"),
+                "description" => $this->input->post("description"),
+                "img" => $blog_image ?? '',
+            ];
+
+            $this->Common_model->insertData('blogs',$data);
+
+            $this->session->set_flashdata(
+                "success",
+                "Insert successfully!"
+            );
+            redirect(ADMIN_PATH . "/blogs");
+        }
+    }
+
+
+    
+    public function edit_blog()
+    {
+
+        $id = $this->input->get("b_id");
+          if (isset($_SESSION["role_name"]) &&
+            $_SESSION["role_name"] == "Buyer"
+        ) {
+            redirect(base_url());
+
+              } 
+
+
+        $this->form_validation->set_rules(
+            "title",
+            "Title",
+            "required"
+        );
+
+        //   $this->form_validation->set_rules(
+        //     "name",
+        //     "Name",
+        //     "required"
+        // );
+
+          $this->form_validation->set_rules(
+            "description",
+            "Description",
+            "required"
+        );
+
+        if ($this->form_validation->run() == false) {
+
+            $data["about"] = $this->Common_model->getsingle('blogs', array('id' => $id));
+            $data["main"] = "edit_blog";
+            $this->load->view("admin/template", $data);
+        } else {
+
+            // print_r($_FILES);die;
+            // Upload About Image
+             $old_image = $this->input->post('old_image');
+             $blog_image = $old_image;
+
+        if (!empty($_FILES['img']['name'])) {
+            $config['upload_path'] = './uploads/blogs';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 2048;
+            $config['file_name'] = time() . '_' . $_FILES['img']['name'];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('img')) {
+                $uploadData = $this->upload->data();
+                $blog_image = $uploadData['file_name'];
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect(ADMIN_PATH  . "/blogs");
+            }
+        }
+
+            // Prepare data to insert (example)
+            $data = [
+                "name" => $this->input->post("name")?? '',
+                "title" => $this->input->post("title"),
+                "description" => $this->input->post("description"),
+                "img" => $blog_image ?? '',
+            ];
+
+                    // print_r($id);die;
+            $this->Common_model->updateData('blogs',$data, array('id' => $id));
+
+            $this->session->set_flashdata(
+                "success",
+                "updated successfully!"
+            );
+            redirect(ADMIN_PATH . "/blogs");
+        }
+    }
+
+  public function delete_blog()
+    {
+        $bid = $_GET["b_id"];
+        $delete = $this->db->where("id", $bid)->delete("blogs");
+
+        if ($delete) {
+            $this->session->set_flashdata(
+                "success",
+                "Blog Delete successfully!"
+            );
+            redirect(ADMIN_PATH . "/blogs");
+        }
+    }
+
+
+
+     public function contact_us()
+    {
+
+          if (isset($_SESSION["role_name"]) &&
+            $_SESSION["role_name"] == "Buyer"
+        ) {
+            redirect(base_url());
+
+              } 
+
+
+        $this->form_validation->set_rules(
+            "mobile",
+            "Mobile",
+            "required"
+        );
+
+          $this->form_validation->set_rules(
+            "email",
+            "Email",
+            "required"
+        );
+
+          $this->form_validation->set_rules(
+            "address",
+            "Address",
+            "required"
+        );
+
+        if ($this->form_validation->run() == false) {
+
+            $data["contact"] = $this->Common_model->getsingle('contectus', array('id' => 1));
+            $data["main"] = "contact";
+            $this->load->view("admin/template", $data);
+        } else {
+
+            // Prepare data to insert (example)
+            $data = [
+                "mobile" => $this->input->post("mobile"),
+                "email" => $this->input->post("email"),
+                "address" => $this->input->post("address")
+            ];
+
+                    // print_r($id);die;
+            $this->Common_model->updateData('contectus',$data, array('id' => 1));
+
+            $this->session->set_flashdata(
+                "success",
+                "updated successfully!"
+            );
+            redirect(ADMIN_PATH . "/contact-us");
+        }
+    }
+
+
+        public function edit_users()
+    {
+
+        $id = $this->input->get("user_id");
+          if (isset($_SESSION["role_name"]) &&
+            $_SESSION["role_name"] == "Buyer"
+        ) {
+            redirect(base_url());
+
+              } 
+
+
+        $this->form_validation->set_rules(
+            "username",
+            "Username",
+            "required"
+        );
+
+          $this->form_validation->set_rules(
+            "mobile",
+            "Mobile",
+            "required"
+        );
+
+          $this->form_validation->set_rules(
+            "email",
+            "Email",
+            "required"
+        );
+
+        //   $this->form_validation->set_rules(
+        //     "role",
+        //     "User Role",
+        //     "required"
+        // );
+
+        //   $this->form_validation->set_rules(
+        //     "description",
+        //     "Description",
+        //     "required"
+        // );
+
+        if ($this->form_validation->run() == false) {
+
+            $data["user"] = $this->Common_model->getsingle('users', array('id' => $id));
+            $data["main"] = "edit_users";
+            $this->load->view("admin/template", $data);
+        } else {
+
+            // print_r($_FILES);die;
+            // Upload About Image
+             $old_image = $this->input->post('old_image');
+             $profile_image = $old_image;
+
+        if (!empty($_FILES['img']['name'])) {
+            $config['upload_path'] = './uploads/profile';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 2048;
+            $config['file_name'] = time() . '_' . $_FILES['img']['name'];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('img')) {
+                $uploadData = $this->upload->data();
+                $profile_image = $uploadData['file_name'];
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect(ADMIN_PATH  . "/users");
+            }
+        }
+
+            // Prepare data to insert (example)
+            $data = [
+                "username" => $this->input->post("username"),
+                "mobile" => $this->input->post("mobile"),
+                "email" => $this->input->post("email"),
+                "profile" => $profile_image,
+            ];
+
+                    // print_r($id);die;
+            $this->Common_model->updateData('users',$data, array('id' => $id));
+
+            $this->session->set_flashdata(
+                "success",
+                "updated successfully!"
+            );
+            redirect(ADMIN_PATH . "/users");
+        }
+    }
+
+
+
 }

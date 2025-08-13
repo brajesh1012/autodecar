@@ -379,7 +379,7 @@ label::after {
 
              <div class="col-md-4 col-12">
                     <label class="form-label" for="cat_id">Category</label>
-                    <select class="form-select" name="cat_id" id="cat_id">
+                    <select class="form-select" onchange="on_change_cat();" name="cat_id" id="cat_id">
                         <option>Any</option>
                       <?php foreach($categories as $cat){ ?>
                         <option value="<?= $cat->id; ?>"><?= $cat->name; ?></option>
@@ -388,7 +388,7 @@ label::after {
                 </div>
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="brand">Brand</label>
-                    <select class="form-select" name="make" id="make_id">
+                    <select class="form-select" name="make" onchange="on_change_make();" id="make_id">
                         <option>Any</option>
                       <?php foreach($brands as $brand){ ?>
                         <option value="<?= $brand->id; ?>"><?= $brand->name; ?></option>
@@ -399,7 +399,7 @@ label::after {
 
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="model">Model</label>
-                    <select class="form-select" name="model" id="model_id">
+                    <select class="form-select" onchange="on_change_model();" name="model" id="model_id">
                         <option>Any</option>
                         <?php foreach($models as $model){ ?>
                         <option value="<?= $model->id; ?>"><?= $model->name; ?></option>
@@ -418,11 +418,12 @@ label::after {
                 </div>
 
                 <div class="col-md-4 col-12">
-                    <label class="form-label" for="location">City / PIN</label>
+                    <!-- <label class="form-label" for="location">City / PIN</label> -->
+                    <label class="form-label" for="location">Zipcode</label>
                     <input type="number" min="0" class="form-control" name="zipcode" id="location" placeholder="Any">
                 </div>
 
-                  <div class="col-md-4 col-12">
+                  <!-- <div class="col-md-4 col-12">
                     <label class="form-label" for="km">KM From</label>
                      <input type="number" min="0" class="form-control" name="km" id="km" placeholder="Any">
                 </div>
@@ -430,7 +431,7 @@ label::after {
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="km">KM To</label>
                      <input type="number" min="0" class="form-control" name="km_to" id="km" placeholder="Any">
-                </div>
+                </div> -->
 
                 <div class="col-md-4 col-12">
                     <label class="form-label" for="price">Price From</label>
@@ -442,33 +443,12 @@ label::after {
                     <input type="text" class="form-control" name="price_to" id="price" placeholder="Any">
                 </div>
 
-                <!-- <div class="col-md-12 col-12">
-                    <label class="form-label">Payment</label>
-                    <div class="btn-toggle-group d-flex gap-2">
-                        <div>
-                            <input type="radio" name="payment" id="buy" value="buy" checked>
-                            <label for="buy">Buy</label>
-                        </div>
-                        <div>
-                            <input type="radio" name="payment" id="lease" value="lease">
-                            <label for="lease">Lease</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-12">
-                    <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="online" name="online">
-                        <label class="form-check-label" for="online">Online Purchase</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-12">
-                    <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="electric" name="electric">
-                        <label class="form-check-label" for="electric">Only electric cars ⚡</label>
-                    </div>
+                <!-- <div class="col-md-4 col-12">
+                    <label class="form-label" for="price">Zipcode</label>
+                    <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Any">
                 </div> -->
+
+
 
                 <div class="col-12 d-flex flex-wrap align-items-end gap-3 action-buttons">
                     <button type="submit" class="btn search-btn full-width-btn">
@@ -480,218 +460,22 @@ label::after {
                         <i class="bi bi-arrow-counterclockwise"></i> Reset
                     </button>
                     <button type="button" class="btn text-primary additional-options" id="toggleAdvFilters">
-                         <!-- <a href="<?= base_url('advance-filter') ?>"> -->
+                         <a href="<?= base_url('advance-filter') ?>"> 
                         <i class="bi bi-sliders"></i> Additional Filters
-                   <!-- </a>  -->
+                   </a> 
                 </button>
                 </div>
         </form>
 
 
     </div>
-    <!-- box end -->
-
-    <!-- commercial form -->
-
-    <!-- <form id="commercial-form" action="<?= site_url('search') ?>" method="get" autocomplete="off">
-        <div class="row g-3">
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="brand">Brand</label>
-                <select class="form-select" name="brand" id="brand">
-                    <option>Any</option>
-                    <option>Audi</option>
-                    <option>BMW</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="model">Model</label>
-                <select class="form-select" name="model" id="model">
-                    <option>Any</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="reg_date">Reg. From</label>
-                <select class="form-select" name="reg_date" id="reg_date">
-                    <option>Any</option>
-                    <option>2024</option>
-                    <option>2023</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="location">City / PIN</label>
-                <input type="text" class="form-control" name="location" id="location" placeholder="Any">
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="km">KM To</label>
-                <select class="form-select" name="km" id="km">
-                    <option>Any</option>
-                    <option>50,000</option>
-                    <option>100,000</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="price">Price To</label>
-                <select class="form-select" name="price" id="price">
-                    <option>Any</option>
-                    <option>10,000</option>
-                    <option>20,000</option>
-                </select>
-            </div>
-
-            <div class="col-md-12 col-12">
-                <label class="form-label">Payment</label>
-                <div class="btn-toggle-group d-flex gap-2">
-                    <div>
-                        <input type="radio" name="payment" id="buy" value="buy" checked>
-                        <label for="buy">Buy</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="payment" id="lease" value="lease">
-                        <label for="lease">Lease</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" id="online" name="online">
-                    <label class="form-check-label" for="online">Online Purchase</label>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" id="electric" name="electric">
-                    <label class="form-check-label" for="electric">Only electric cars ⚡</label>
-                </div>
-            </div>
-
-            <div class="col-12 d-flex flex-wrap align-items-end gap-3 action-buttons">
-                <button type="submit" class="btn search-btn full-width-btn">
-                    <i class="bi bi-search me-2"></i> Search
-                </button>
-            </div>
-            <div class="col-12 half-btn-row">
-                <button type="reset" class="btn additional-options text-secondary" id="resetBtn">
-                    <i class="bi bi-arrow-counterclockwise"></i> Reset
-                </button>
-                <button type="button" class="btn p-2 text-primary additional-options" id="toggleAdvFilters">
-                    <i class="bi bi-sliders"></i> Additional Filters
-                </button>
-
-
-            </div>
-
-
-        </div>
-    </form> -->
-    <!-- <form id="truck-form" action="<?= site_url('search') ?>" method="get" autocomplete="off">
-        <div class="row g-3">
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="brand">Brand</label>
-                <select class="form-select" name="brand" id="brand">
-                    <option>Any</option>
-                    <option>Audi</option>
-                    <option>BMW</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="model">Model</label>
-                <select class="form-select" name="model" id="model">
-                    <option>Any</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="reg_date">Reg. From</label>
-                <select class="form-select" name="reg_date" id="reg_date">
-                    <option>Any</option>
-                    <option>2024</option>
-                    <option>2023</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="location">City / PIN</label>
-                <input type="text" class="form-control" name="location" id="location" placeholder="Any">
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="km">KM To</label>
-                <select class="form-select" name="km" id="km">
-                    <option>Any</option>
-                    <option>50,000</option>
-                    <option>100,000</option>
-                </select>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <label class="form-label" for="price">Price To</label>
-                <select class="form-select" name="price" id="price">
-                    <option>Any</option>
-                    <option>10,000</option>
-                    <option>20,000</option>
-                </select>
-            </div>
-
-            <div class="col-md-12 col-12">
-                <label class="form-label">Payment</label>
-                <div class="btn-toggle-group d-flex gap-2">
-                    <div>
-                        <input type="radio" name="payment" id="buy" value="buy" checked>
-                        <label for="buy">Buy</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="payment" id="lease" value="lease">
-                        <label for="lease">Lease</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" id="online" name="online">
-                    <label class="form-check-label" for="online">Online Purchase</label>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" id="electric" name="electric">
-                    <label class="form-check-label" for="electric">Only electric cars ⚡</label>
-                </div>
-            </div>
-
-            <div class="col-12 d-flex flex-wrap align-items-end gap-3 action-buttons">
-                <button type="submit" class="btn search-btn full-width-btn">
-                    <i class="bi bi-search me-2"></i> Search
-                </button>
-            </div>
-            <div class="col-12 half-btn-row">
-                <button type="reset" class="btn additional-options text-secondary" id="resetBtn">
-                    <i class="bi bi-arrow-counterclockwise"></i> Reset
-                </button>
-                <button type="button" class="btn text-primary additional-options" id="toggleAdvFilters">
-                    <i class="bi bi-sliders"></i> Additional Filters
-                </button>
-            </div>
-
-        </div>
-      </div>
-
-
-</form> -->
-
+   
 </div>
 
 </div>
+
 <script>
+
 const carBtn = document.getElementById('car-button');
 const commercialBtn = document.getElementById('commercial-button');
 const truckBtn = document.getElementById('truck-button');
@@ -744,6 +528,7 @@ function fetchCategories(vehicleType) {
     });
 }
 
+
 // Events
 carBtn.addEventListener('click', () => {
     updateForm('car-form', '2');
@@ -759,14 +544,87 @@ truckBtn.addEventListener('click', () => {
     updateForm('truck-form', '1');
     truckBtn.classList.add('active');
 });
+
 </script>
 
 
 <script>
-        var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
-    var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
-var URL2 = "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>";
-var URL3 = "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>";
+     function on_change_cat()
+{
+	// console.log("ddddddd");
+        const catId = $("#cat_id").val();
 
- const baseUrl = "<?= base_url(); ?>";
+        if (catId !== "") {
+            $.ajax({
+                url: "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>",
+                type: 'POST',
+                data: { cat_id: catId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#make_id').html('<option value="">Select Make</option>');
+                    $.each(response, function (index, item) {
+                        $('#make_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading make list.');
+                }
+            });
+        } else {
+            $('#make_id').html('<option value="">Select Make</option>');
+        }
+}
+
+  function on_change_make()
+{ 
+
+ const makeId = $("#make_id").val();
+
+        if (makeId !== "") {
+            $.ajax({
+                url: "<?= base_url(ADMIN_PATH . "/get-modal-by-make") ?>",
+                type: 'POST',
+                data: { make_id: makeId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#model_id').html('<option value="">Select Model</option>');
+                    $.each(response, function (index, item) {
+                        $('#model_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading make list.');
+                }
+            });
+        } else {
+            $('#model_id').html('<option value="">Select Model</option>');
+        }
+}
+
+  function on_change_model()
+{ 
+ const modelId = $("#model_id").val();
+
+        if (modelId !== "") {
+            $.ajax({
+                url: "<?= base_url(ADMIN_PATH . "/get-variant-by-model") ?>",
+                type: 'POST',
+                data: { model_id: modelId },
+                dataType: 'json',
+                success: function (response) {
+                    $('#variant_id').html('<option value="">Select Variant</option>');
+                    $.each(response, function (index, item) {
+                        $('#variant_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error loading make list.');
+                }
+            });
+        } else {
+            $('#variant_id').html('<option value="">Select Variant</option>');
+        }
+    }
+
+
 </script>

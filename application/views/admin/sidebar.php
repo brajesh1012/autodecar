@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="<?= base_url();?>/assets/app/css/font-awesome.css">
     <link rel="stylesheet" href="<?= base_url();?>/assets/app/css/styles.css">
+<!-- CKEditor 5 Classic Build -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="<?= base_url();?>/assets/assets/images/logo/favicon.jpeg">
@@ -67,17 +69,22 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="dashboard-overlay"></div>
     <aside class="sidebar-dashboard">
         <div class="db-content db-logo pad-30">
-            <a href="<?= base_url('dashboard'); ?>" title="autodecar">
+            <a href="<?= base_url();?>" title="autodecar">
                 <img class="site-logo" src="<?= base_url();?>/assets/assets/images/dashboard/tlogo.png" alt="autodecar">
             </a>
         </div>
 
         <div class="db-content db-author pad-30">
-            <h6 class="db-title">Profile</h6>
+            <!-- <h6 class="db-title">Profile</h6> -->
             <div class="author">
                 <div class="avatar">
+                    <?php $user_profile = $this->db->where('id',$_SESSION['user_id'])->get('users')->row(); if(!empty($user_profile->profile)){?>
                     <img loading="lazy" id="tfre_avatar_thumbnail"
+                        src="<?= base_url('uploads/profile/'.$user_profile->profile);?>" alt="admin" title="admin">
+                        <?php }else{?>
+                        <img loading="lazy" id="tfre_avatar_thumbnail"
                         src="<?= base_url();?>/assets/assets/images/dashboard/avatar.png" alt="admin" title="admin">
+                     <?php } ?>
                 </div>
                 <div class="content">
                     <div class="name"><?= @$_SESSION['role_name']; ?></div>
@@ -192,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <?php } ?> -->
                     <!-- Vehicle Attributes Parent Menu -->
                    <?php
-                        $vehicleAttrActive = in_array($this->uri->segment(1), ['add-model', 'add-make', 'add-transmission', 'add-fuel-type', 'my-listing', 'bulk-upload-view']);
+                        $vehicleAttrActive = in_array($this->uri->segment(1), ['add-model', 'add-make', 'add-transmission', 'add-fuel-type', 'my-listing', 'bulk-upload-view', 'features', 'add-categories']);
                         ?>
                         <li class="has-submenu <?= $vehicleAttrActive ? 'open' : ''; ?>">
                         <a href="javascript:void(0);" class="menu-index-3 <?= $vehicleAttrActive ? 'active' : ''; ?>">
@@ -263,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             <!-- Vehicle Bulk upload -->
 
+                              <?php if($_SESSION['role_name'] =="Admin"){ ?>
                              <li><a href="<?= base_url(ADMIN_PATH . '/add-categories'); ?>" class="<?= $this->uri->segment(1) == 'add-categories' ? 'active' : ''; ?>">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                                 fill="none">
@@ -312,6 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </g>
                             </svg>Add Models</a></li>
+                          
                             <li><a href="<?= base_url(ADMIN_PATH . '/add-variant'); ?>" class="<?= $this->uri->segment(1) == 'add-variant' ? 'active' : ''; ?>"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                                 fill="none">
                                 <g opacity="0.2">
@@ -357,10 +366,107 @@ document.addEventListener('DOMContentLoaded', function() {
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </g>
                             </svg>Add Fuel Type</a></li>
+
+                            <li><a href="<?= base_url(ADMIN_PATH . '/features'); ?>" class="<?= $this->uri->segment(1) == 'features' ? 'active' : ''; ?>"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                fill="none">
+                                <g opacity="0.2">
+                                    <path
+                                        d="M10.0135 2.55687H6.58608C3.76733 2.55687 2 4.55245 2 7.37762V14.9988C2 17.824 3.75908 19.8195 6.58608 19.8195H14.6747C17.5027 19.8195 19.2617 17.824 19.2617 14.9988V11.3065"
+                                        stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7.57059 10.0111L14.4208 3.16086C15.2743 2.30836 16.6575 2.30836 17.5109 3.16086L18.6265 4.27644C19.4799 5.12986 19.4799 6.51403 18.6265 7.36653L11.7433 14.2498C11.3702 14.6229 10.8642 14.8328 10.3362 14.8328H6.90234L6.98851 11.3678C7.00134 10.8581 7.20943 10.3723 7.57059 10.0111Z"
+                                        stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M13.3789 4.21875L17.5644 8.40425" stroke="#F1FAEE" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>Features</a></li>
+                              <?php } ?>
                         </ul>
                     </li>
+
                     <!-- End Vehicle Attributes Parent Menu -->
 
+                    <?php if($_SESSION['role_name'] =="Admin"){ ?>
+
+                         <li>
+                                    <a href="<?= base_url(ADMIN_PATH  . '/enquiry-list'); ?>" class="<?= $this->uri->segment(1) == 'enquiry-list' ? 'active' : ''; ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                            fill="none">
+                                            <g opacity="0.2">
+                                                <path
+                                                    d="M10.0135 2.55687H6.58608C3.76733 2.55687 2 4.55245 2 7.37762V14.9988C2 17.824 3.75908 19.8195 6.58608 19.8195H14.6747C17.5027 19.8195 19.2617 17.824 19.2617 14.9988V11.3065"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.57059 10.0111L14.4208 3.16086C15.2743 2.30836 16.6575 2.30836 17.5109 3.16086L18.6265 4.27644C19.4799 5.12986 19.4799 6.51403 18.6265 7.36653L11.7433 14.2498C11.3702 14.6229 10.8642 14.8328 10.3362 14.8328H6.90234L6.98851 11.3678C7.00134 10.8581 7.20943 10.3723 7.57059 10.0111Z"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M13.3789 4.21875L17.5644 8.40425" stroke="#F1FAEE" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>Enquiry</a>
+                                </li>
+
+
+                         <li>
+                                    <a href="<?= base_url(ADMIN_PATH  . '/blogs'); ?>" class="<?= $this->uri->segment(1) == 'blogs' ? 'active' : ''; ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                            fill="none">
+                                            <g opacity="0.2">
+                                                <path
+                                                    d="M10.0135 2.55687H6.58608C3.76733 2.55687 2 4.55245 2 7.37762V14.9988C2 17.824 3.75908 19.8195 6.58608 19.8195H14.6747C17.5027 19.8195 19.2617 17.824 19.2617 14.9988V11.3065"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.57059 10.0111L14.4208 3.16086C15.2743 2.30836 16.6575 2.30836 17.5109 3.16086L18.6265 4.27644C19.4799 5.12986 19.4799 6.51403 18.6265 7.36653L11.7433 14.2498C11.3702 14.6229 10.8642 14.8328 10.3362 14.8328H6.90234L6.98851 11.3678C7.00134 10.8581 7.20943 10.3723 7.57059 10.0111Z"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M13.3789 4.21875L17.5644 8.40425" stroke="#F1FAEE" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>Blogs</a>
+                                </li>
+
+                                    <li>
+                                    <a href="<?= base_url(ADMIN_PATH  . '/about'); ?>" class="<?= $this->uri->segment(1) == 'about' ? 'active' : ''; ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                            fill="none">
+                                            <g opacity="0.2">
+                                                <path
+                                                    d="M10.0135 2.55687H6.58608C3.76733 2.55687 2 4.55245 2 7.37762V14.9988C2 17.824 3.75908 19.8195 6.58608 19.8195H14.6747C17.5027 19.8195 19.2617 17.824 19.2617 14.9988V11.3065"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.57059 10.0111L14.4208 3.16086C15.2743 2.30836 16.6575 2.30836 17.5109 3.16086L18.6265 4.27644C19.4799 5.12986 19.4799 6.51403 18.6265 7.36653L11.7433 14.2498C11.3702 14.6229 10.8642 14.8328 10.3362 14.8328H6.90234L6.98851 11.3678C7.00134 10.8581 7.20943 10.3723 7.57059 10.0111Z"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M13.3789 4.21875L17.5644 8.40425" stroke="#F1FAEE" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>About Us</a>
+                                </li>
+                                
+                                    <li>
+                                    <a href="<?= base_url(ADMIN_PATH  . '/contact-us'); ?>" class="<?= $this->uri->segment(1) == 'contact-us' ? 'active' : ''; ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                            fill="none">
+                                            <g opacity="0.2">
+                                                <path
+                                                    d="M10.0135 2.55687H6.58608C3.76733 2.55687 2 4.55245 2 7.37762V14.9988C2 17.824 3.75908 19.8195 6.58608 19.8195H14.6747C17.5027 19.8195 19.2617 17.824 19.2617 14.9988V11.3065"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.57059 10.0111L14.4208 3.16086C15.2743 2.30836 16.6575 2.30836 17.5109 3.16086L18.6265 4.27644C19.4799 5.12986 19.4799 6.51403 18.6265 7.36653L11.7433 14.2498C11.3702 14.6229 10.8642 14.8328 10.3362 14.8328H6.90234L6.98851 11.3678C7.00134 10.8581 7.20943 10.3723 7.57059 10.0111Z"
+                                                    stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M13.3789 4.21875L17.5644 8.40425" stroke="#F1FAEE" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>Contact Us</a>
+                                </li>
+                            <?php } ?>
 
                     <!-- Permissions -->
                  <?php if(@$_SESSION['role_name']=="Admin"){ ?>
