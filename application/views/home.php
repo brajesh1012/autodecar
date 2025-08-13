@@ -1290,8 +1290,14 @@
                                                 <p class="fs-16 lh-22 text-color-2"> <a href="<?= base_url('blog-details/' . $blog->id); ?>"><?= $blog->description; ?></a></p>
                                                 <div class="author-box flex">
                                                     <div class="images">
+                                                        <?php if($blog->img) { ?>
                                                         <img class="lazyload" data-src="<?= base_url('uploads/blogs/' . $blog->img); ?>"
                                                             src="<?= base_url('uploads/blogs/' . $blog->img); ?>" alt="images">
+                                                            <?php }else{ ?>
+                                                                <img class="lazyload" data-src="<?= base_url('uploads/blogs/blog.jpg'); ?>"
+                                                            src="<?= base_url('uploads/blogs/blog.jpg'); ?>" alt="images">
+
+                                                                <?php } ?>
                                                     </div>
                                                     <div class="content">
                                                         <h5><?= $blog->name; ?></h5>
@@ -1365,4 +1371,81 @@
                 // Call on page load and resize
                 window.addEventListener('load', equalizeCardHeights);
                 window.addEventListener('resize', equalizeCardHeights);
+
+
+
+
+// Sidebar button click
+$(document).on("click", ".sidebar-icon", function () {
+    let form = $("#car-form");
+    if (form.length === 0) {
+        console.warn("Filter form not loaded yet, cannot set vehicle type.");
+        return;
+    }
+
+    $(".sidebar-icon").removeClass("active");
+    $(this).addClass("active");
+
+    let btnId = $(this).attr("id");
+    let typeValue = 2; // Default Car
+
+    if (btnId === "truck-button") {
+        typeValue = 1;
+    } else if (btnId === "commercial-button") {
+        typeValue = 3;
+    }
+
+    $("#vehicle_type").val(typeValue);
+    console.log("Vehicle type set to:", typeValue);
+
+    updateVehicleCount();
+});
+
+// Filter change event
+$(document).on("change keyup", "#car-form select, #car-form input", function () {
+    updateVehicleCount();
+});
+
+// Function to fetch vehicle count
+function updateVehicleCount() {
+    let form = $("#car-form");
+    if (form.length === 0) {
+        console.warn("Form not found in DOM, skipping count update.");
+        return;
+    }
+
+    let formData = form.serialize();
+    let url = form.data("url");
+
+    console.log("Sending data:", formData);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        dataType: "json",
+        success: function (response) {
+            if (response.count !== undefined) {
+                $("#vehicleCount").text(response.count);
+            } else {
+                console.error("Count not found in response:", response);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response:", xhr.responseText);
+        }
+    });
+}
+
+// Jab filter form load ho jaye (AJAX ya partial view se)
+$(document).on("DOMNodeInserted", function (e) {
+    if ($(e.target).find("#car-form").length > 0) {
+        console.log("Filter form loaded, updating count...");
+        updateVehicleCount();
+    }
+});
+
+
+
             </script>

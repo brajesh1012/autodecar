@@ -368,7 +368,7 @@ label::after {
             </div>
         </div>
         <!-- Main Car Filter Row -->
-        <form id="car-form" action="<?= base_url('listing-list') ?>" method="get" autocomplete="off">
+        <form id="car-form" action="<?= base_url('listing-list') ?>"   data-url="<?= base_url('get-vehicle-count') ?>" method="get" autocomplete="off">
           <?php $brands = $this->db->get('make')->result(); ?>
           <?php $models = $this->db->get('model')->result(); ?>
           <?php $categories = $this->db->get('categories')->result(); ?>
@@ -454,6 +454,9 @@ label::after {
                     <button type="submit" class="btn search-btn full-width-btn">
                         <i class="bi bi-search me-2"></i> Search
                     </button>
+                    <div class="col-12 mb-2">
+                    <strong id="vehicleCount">Loading...</strong> vehicles found
+                </div>
                 </div>
                 <div class="col-12 half-btn-row">
                     <button type="reset" class="btn additional-options text-secondary" id="resetBtn">
@@ -476,6 +479,35 @@ label::after {
 
 <script>
 
+// const carBtn = document.getElementById('car-button');
+// const commercialBtn = document.getElementById('commercial-button');
+// const truckBtn = document.getElementById('truck-button');
+
+// const vehicleTypeInput = document.getElementById('vehicle_type');
+// const categorySelect = document.getElementById('cat_id');
+
+// const form = document.getElementById('car-form'); // 🟡 Reuse same form
+// const sidebarIcons = document.querySelectorAll('.sidebar-icon');
+
+// function updateForm(formId, vehicleTypeValue) {
+//     console.log('Updating form to:', formId, 'with vehicle type:', vehicleTypeValue);
+//     // Remove active class
+//     sidebarIcons.forEach(icon => icon.classList.remove('active'));
+
+//     // ✅ Show the form and update ID
+//     form.style.display = 'block';
+//     form.setAttribute('id', formId);
+
+//     // ✅ Update hidden vehicle_type
+//     const vehicleTypeInput = form.querySelector('#vehicle_type');
+//     if (vehicleTypeInput) {
+//         vehicleTypeInput.value = vehicleTypeValue;
+//     }
+
+//     // ✅ Call AJAX to get categories
+//     fetchCategories(vehicleTypeValue)
+// }
+
 const carBtn = document.getElementById('car-button');
 const commercialBtn = document.getElementById('commercial-button');
 const truckBtn = document.getElementById('truck-button');
@@ -483,26 +515,45 @@ const truckBtn = document.getElementById('truck-button');
 const vehicleTypeInput = document.getElementById('vehicle_type');
 const categorySelect = document.getElementById('cat_id');
 
-const form = document.getElementById('car-form'); // 🟡 Reuse same form
+const form = document.getElementById('car-form'); // 🟡 Always keep same ID
 const sidebarIcons = document.querySelectorAll('.sidebar-icon');
 
-function updateForm(formId, vehicleTypeValue) {
-    // Remove active class
+function updateForm(vehicleTypeValue) {
+    console.log('Updating form with vehicle type:', vehicleTypeValue);
+
+    // Remove active class from all sidebar buttons
     sidebarIcons.forEach(icon => icon.classList.remove('active'));
 
-    // ✅ Show the form and update ID
-    form.style.display = 'block';
-    form.setAttribute('id', formId);
+    // Show the form if it’s hidden
+    if (form) {
+        form.style.display = 'block';
+    }
 
-    // ✅ Update hidden vehicle_type
-    const vehicleTypeInput = form.querySelector('#vehicle_type');
+    // Update hidden vehicle_type value
     if (vehicleTypeInput) {
         vehicleTypeInput.value = vehicleTypeValue;
     }
 
-    // ✅ Call AJAX to get categories
-    fetchCategories(vehicleTypeValue)
+    // ✅ Purani functionality ka AJAX call
+    fetchCategories(vehicleTypeValue);
 }
+
+// ✅ Button click handlers — purane behaviour ke saath
+carBtn?.addEventListener('click', () => {
+    carBtn.classList.add('active');
+    updateForm(2); // Car
+});
+
+truckBtn?.addEventListener('click', () => {
+    truckBtn.classList.add('active');
+    updateForm(1); // Truck
+});
+
+commercialBtn?.addEventListener('click', () => {
+    commercialBtn.classList.add('active');
+    updateForm(3); // Commercial
+});
+
 
 function fetchCategories(vehicleType) {
     fetch('<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>', {
@@ -625,6 +676,5 @@ truckBtn.addEventListener('click', () => {
             $('#variant_id').html('<option value="">Select Variant</option>');
         }
     }
-
 
 </script>

@@ -1168,4 +1168,37 @@ class WebsiteController extends CI_Controller
 
          send_subscription_reminders();
     }
+
+
+    public function get_vehicle_count()
+{
+    // print_r($_POST);die;
+    $vehicle_type = $this->input->post('vehicle_type');
+    $cat_id       = $this->input->post('cat_id');
+    $make         = $this->input->post('make');
+    $model        = $this->input->post('model');
+    $year         = $this->input->post('year');
+    $year_to      = $this->input->post('year_to');
+    $zipcode      = $this->input->post('zipcode');
+    $price        = $this->input->post('price');
+    $price_to     = $this->input->post('price_to');
+
+    $this->db->from('car_list');
+
+    if (!empty($vehicle_type)) $this->db->where('vehicle_type', $vehicle_type);
+    if (!empty($cat_id) && $cat_id != 'Any') $this->db->where('cat_id', $cat_id);
+    if (!empty($make) && $make != 'Any') $this->db->where('make', $make);
+    if (!empty($model) && $model != 'Any') $this->db->where('model', $model);
+    if (!empty($year)) $this->db->where('year >=', $year);
+    if (!empty($year_to)) $this->db->where('year <=', $year_to);
+    if (!empty($zipcode)) $this->db->where('zipcode', $zipcode);
+    if (!empty($price)) $this->db->where('total_price >=', $price);
+    if (!empty($price_to)) $this->db->where('total_price <=', $price_to);
+
+    $count = $this->db->count_all_results();
+
+    echo json_encode(['count' => $count]);
+}
+
+
 }
