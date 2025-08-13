@@ -31,15 +31,15 @@
                                 <ul class="icon-list">
                                     <li class="tf-icon-list ani5">
                                         <i class="icon-autodeal-check"></i>
-                                        <span class="fs-18 fw-6 lh-25 text-color-2">Proven Expertise</span>
+                                        <span class="fs-18 fw-6 lh-25 text-color-2">Kostenlos für Private – Inserieren ohne Gebühren</span>
                                     </li>
                                     <li class="tf-icon-list ani4">
                                         <i class="icon-autodeal-check"></i>
-                                        <span class="fs-18 fw-6 lh-25 text-color-2">1 million visits per day</span>
+                                        <span class="fs-18 fw-6 lh-25 text-color-2">Attraktive Angebote für Händler – Beste Konditionen im Markt</span>
                                     </li>
                                     <li class="tf-icon-list ani5">
                                         <i class="icon-autodeal-check"></i>
-                                        <span class="fs-18 fw-6 lh-25 text-color-2">7,800 car sellers</span>
+                                        <span class="fs-18 fw-6 lh-25 text-color-2">24/7 Online – Jederzeit kaufen und verkaufen</span>
                                     </li>
                                 </ul>
                                 <div class="image-inner1 hover-img-wrap img-style-hover">

@@ -39,7 +39,7 @@ p {
                                     <div class="form-group-2">
 
                                         <div class="form-group">
-                                            <label for="name">Name *</label>
+                                            <label for="name">Name</label>
 
 
                                             <input type="text" class="form-control" name="name" placeholder="Enter Name"

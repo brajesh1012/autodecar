@@ -115,7 +115,7 @@ p {
                                             <th>Plan Name</th>
                                             <th>Price</th>
                                             <th>Duration</th>
-                                            <!-- <th>Listing Limit</th> -->
+                                            <th>Listing Limit</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -140,7 +140,7 @@ p {
                                             <td><?= $plan->plan_name; ?></td>
                                             <td><?= $plan->price; ?></td>
                                             <td><?= $plan->duration_days; ?></td>
-                                            <!-- <td><?= $plan->listing_limit; ?></td> -->
+                                            <td><?= $plan->listing_limit; ?></td>
                                             <td>
                                             <?php if($_SESSION['role_name'] =="Admin"){ ?>    
                                             <a href="<?= base_url(ADMIN_PATH . '/'); ?>update-plan/<?php echo $plan->id; ?>" >Update</a>

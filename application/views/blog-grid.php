@@ -82,7 +82,9 @@
                                             <div class="box hover-img ">
                                                 <div class="images img-style relative flex-none">
                                                     <!-- <img src="<?= base_url(); ?>/assets/assets/images/blog/blog-8.jpg" alt="images"> -->
+                                                     <?php if(!empty($blog->img)){?>
                                                     <img src="<?= base_url('uploads/blogs/'. $blog->img); ?>" alt="images">
+                                                    <?php }else{ ?><img src="<?= base_url('uploads/blogs/blog.jpg'); ?>" alt="images"><?php } ?>
                                                     <div class="date"><?= $formatted_date; ?></div>
                                                 </div>
                                                 <div class="content">
