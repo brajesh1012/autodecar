@@ -3019,11 +3019,11 @@ public function view_chat($vehicle_id, $other_user_id)
             "required"
         );
 
-          $this->form_validation->set_rules(
-            "name",
-            "Name",
-            "required"
-        );
+        //   $this->form_validation->set_rules(
+        //     "name",
+        //     "Name",
+        //     "required"
+        // );
 
           $this->form_validation->set_rules(
             "description",
@@ -3058,7 +3058,7 @@ public function view_chat($vehicle_id, $other_user_id)
 
             // Prepare data to insert (example)
             $data = [
-                "name" => $this->input->post("name"),
+                "name" => $this->input->post("name") ?? '',
                 "title" => $this->input->post("title"),
                 "description" => $this->input->post("description"),
                 "img" => $blog_image ?? '',
@@ -3094,11 +3094,11 @@ public function view_chat($vehicle_id, $other_user_id)
             "required"
         );
 
-          $this->form_validation->set_rules(
-            "name",
-            "Name",
-            "required"
-        );
+        //   $this->form_validation->set_rules(
+        //     "name",
+        //     "Name",
+        //     "required"
+        // );
 
           $this->form_validation->set_rules(
             "description",
@@ -3137,10 +3137,10 @@ public function view_chat($vehicle_id, $other_user_id)
 
             // Prepare data to insert (example)
             $data = [
-                "name" => $this->input->post("name"),
+                "name" => $this->input->post("name")?? '',
                 "title" => $this->input->post("title"),
                 "description" => $this->input->post("description"),
-                "img" => $blog_image,
+                "img" => $blog_image ?? '',
             ];
 
                     // print_r($id);die;

@@ -28,8 +28,8 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Image</th>
-                                            <th>Name</th>
                                             <th>Title</th>
+                                            <th>Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -41,9 +41,9 @@
                                         foreach($blogs as $blog){?>
                                         <tr>
                                             <td><?= $blog->id; ?></td>
-                                            <td><img src="<?= base_url('uploads/blogs/').$blog->img; ?>" alt=""></td>
-                                            <td><?= $blog->name; ?></td>
+                                            <td><?php if(!empty($blog->img)){?><img src="<?= base_url('uploads/blogs/').$blog->img; ?>" alt=""><?php }else{ ?><img src="<?= base_url('uploads/profile/no-image.jpg'); ?>" alt=""><?php }?></td>
                                             <td><?= $blog->title; ?></td>
+                                            <td><?= $blog->name; ?></td>
                                             <td>
                                                 <a href="<?= base_url(ADMIN_PATH . '/edit-blog?b_id='.$blog->id); ?>">Update</a>
                                                 <a href="<?= base_url(ADMIN_PATH . '/delete-blog?b_id='.$blog->id); ?>">Delete</a>

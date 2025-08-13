@@ -8,6 +8,14 @@ p {
     font-family: "Inter", sans-serif;
 }
 
+/* .text-danger, p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19.6px;
+    color: #e90f0f;
+    font-family: "Inter", sans-serif;
+} */
+
 /* .tfcl-add-listing .form-group-2 > * {
     width: calc(80% - 30px);
     margin-left: 30px;
@@ -37,7 +45,7 @@ p {
                                     <div class="form-group-2">
 
                                         <div class="form-group">
-                                            <label for="name">Name *</label>
+                                            <label for="name">Name</label>
 
 
                                             <input type="text" class="form-control" name="name" placeholder="Enter Name"

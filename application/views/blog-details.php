@@ -19,9 +19,15 @@
                             <div class="card flex-row shadow" style="overflow: hidden;">
                                 <!-- Image section -->
                                 <div class="col-md-5 p-0">
+                                    <?php if(!empty($blog->img)){ ?>
                                     <img src="<?= base_url('uploads/blogs/' . $blog->img); ?>"
                                         alt="blog image"
                                         style="height: 100%; width: 100%; object-fit: cover;">
+                                        <?php }else{?>
+                                            <img src="<?= base_url('uploads/blogs/blog.jpg'); ?>"
+                                        alt="blog image"
+                                       >
+                                            <?php } ?>
                                 </div>
 
                                 <!-- Content section -->
