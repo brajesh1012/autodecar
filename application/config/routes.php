@@ -98,7 +98,7 @@ $route['contact'] = 'WebsiteController/contact';
 $route['enquiry'] = 'WebsiteController/enquiry';
 $route['profile'] = 'WebsiteController/profile';
 $route['update-profile'] = 'WebsiteController/update_profile';
-// $route['get-cities'] = 'WebsiteController/get_cities';
+$route['get-vehicle-count'] = 'WebsiteController/get_vehicle_count';
 
 
 

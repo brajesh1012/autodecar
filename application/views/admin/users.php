@@ -48,6 +48,7 @@
                                                                 <th>Username</th>
                                                                 <th>Mobile</th>
                                                                 <th>Email</th>
+                                                                <th>Country</th>
                                                                 <th>Register Date</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
@@ -93,6 +94,11 @@
                                                                     </div>
                                                                 </td>
 
+                                                                <td class="column-date">
+                                                                    <?php $cou = $this->db->where('id', $user->country)->get('countries')->row();?>
+                                                                    <div class="tfcl-listing-date"><?= $cou->name; ?>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="column-date">
                                                                     <div class="tfcl-listing-date"><?= $register_date; ?>
                                                                     </div>
@@ -162,6 +168,7 @@
                                                                 <th>Username</th>
                                                                 <th>Mobile</th>
                                                                 <th>Email</th>
+                                                                <th>Country</th>
                                                                 <th>Register Date</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>

@@ -354,6 +354,7 @@
                             <?php } ?>
                         </select>
                     </div>
+
                 </div>
 
                 <div class="form-row">
@@ -394,18 +395,20 @@
                     </div>
                 </div>
 
+
                                  <!-- Search Button -->
                  <button type="submit" class="search-btn">
                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                      </svg>
-                     Search 45,200 cars
+                     Search <strong id="vehicleCount"></strong>
                  </button>
 
                 <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button type="reset" class="action-btn">Reset filters</button>
                     <a href="<?= base_url('advance-filter') ?>" class="action-btn">More options</a>
+
                 </div>
             </form>
         </div>
@@ -427,6 +430,104 @@
 </div>
 
 <script>
+
+  // const carBtn = document.getElementById('car-button');
+// const commercialBtn = document.getElementById('commercial-button');
+// const truckBtn = document.getElementById('truck-button');
+
+// const vehicleTypeInput = document.getElementById('vehicle_type');
+// const categorySelect = document.getElementById('cat_id');
+
+// const form = document.getElementById('car-form'); // 🟡 Reuse same form
+// const sidebarIcons = document.querySelectorAll('.sidebar-icon');
+
+// function updateForm(formId, vehicleTypeValue) {
+//     console.log('Updating form to:', formId, 'with vehicle type:', vehicleTypeValue);
+//     // Remove active class
+//     sidebarIcons.forEach(icon => icon.classList.remove('active'));
+
+//     // ✅ Show the form and update ID
+//     form.style.display = 'block';
+//     form.setAttribute('id', formId);
+
+//     // ✅ Update hidden vehicle_type
+//     const vehicleTypeInput = form.querySelector('#vehicle_type');
+//     if (vehicleTypeInput) {
+//         vehicleTypeInput.value = vehicleTypeValue;
+//     }
+
+//     // ✅ Call AJAX to get categories
+//     fetchCategories(vehicleTypeValue)
+// }
+
+const carBtn = document.getElementById('car-button');
+const commercialBtn = document.getElementById('commercial-button');
+const truckBtn = document.getElementById('truck-button');
+
+const vehicleTypeInput = document.getElementById('vehicle_type');
+const categorySelect = document.getElementById('cat_id');
+
+const form = document.getElementById('car-form'); // 🟡 Always keep same ID
+const sidebarIcons = document.querySelectorAll('.sidebar-icon');
+
+function updateForm(vehicleTypeValue) {
+    console.log('Updating form with vehicle type:', vehicleTypeValue);
+
+    // Remove active class from all sidebar buttons
+    sidebarIcons.forEach(icon => icon.classList.remove('active'));
+
+    // Show the form if it’s hidden
+    if (form) {
+        form.style.display = 'block';
+    }
+
+    // Update hidden vehicle_type value
+    if (vehicleTypeInput) {
+        vehicleTypeInput.value = vehicleTypeValue;
+    }
+
+    // ✅ Purani functionality ka AJAX call
+    fetchCategories(vehicleTypeValue);
+}
+
+// ✅ Button click handlers — purane behaviour ke saath
+carBtn?.addEventListener('click', () => {
+    carBtn.classList.add('active');
+    updateForm(2); // Car
+});
+
+truckBtn?.addEventListener('click', () => {
+    truckBtn.classList.add('active');
+    updateForm(1); // Truck
+});
+
+commercialBtn?.addEventListener('click', () => {
+    commercialBtn.classList.add('active');
+    updateForm(3); // Commercial
+});
+
+
+function fetchCategories(vehicleType) {
+    fetch('<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'vehicle_type_id=' + vehicleType
+    })
+    .then(response => response.json())
+    .then(data => {
+        // ✅ Clear existing options
+        categorySelect.innerHTML = '<option>Any</option>';
+        data.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.id;
+            option.textContent = cat.name;
+            categorySelect.appendChild(option);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching categories:', error);
  // Vehicle type selector functionality
  document.querySelectorAll('.vehicle-type-btn').forEach(btn => {
      btn.addEventListener('click', function() {
@@ -512,6 +613,7 @@ function on_change_cat() {
     }
 }
 
+
  function on_change_make() {
      const makeId = $("#make_id").val();
      if (makeId !== "") {
@@ -557,4 +659,5 @@ function on_change_cat() {
          $('#variant_id').html('<option value="">Select Variant</option>');
      }
  }
+
 </script>
