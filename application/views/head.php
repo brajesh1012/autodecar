@@ -520,7 +520,7 @@ $favorite_count = $this->db->count_all_results('favorites');
                                                     </li>
                                             <li> <select class="form-control" name="location" id="filter_by_location"
                                                     style="width: 140px; font-size: 14px; padding: 4px;">
-                                                    <option value="">Select Location</option>
+                                                    <option value="">All Country</option>
                                                     <?php //$cities = $this->db->get('cities')->result();
                                                     $cities = $this->db->get('countries')->result();
                                                     foreach ($cities as $city) { ?>

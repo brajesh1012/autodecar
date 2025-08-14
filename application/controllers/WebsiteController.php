@@ -24,6 +24,7 @@ class WebsiteController extends CI_Controller
         $data['commercials'] = $this->WebsiteModel->filter_vehicles(3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         $data['categories'] = $this->WebsiteModel->getCategories();
         $data['blogs'] = $this->db->get('blogs')->result();
+        $data['countries'] = $this->db->get('countries')->result();
         $user_id = $this->session->userdata('user_id');
         $this->db->where('user_id', $user_id);
         $fav_count = $this->db->count_all_results('favorites');
@@ -95,6 +96,7 @@ class WebsiteController extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|matches[password]');
+        $this->form_validation->set_rules('country', 'Country', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(['status' => false, 'errors' => validation_errors()]);
@@ -105,6 +107,7 @@ class WebsiteController extends CI_Controller
                 'email' => $this->input->post('email'),
                 'mobile' => $this->input->post('mobile'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+                'country' => $this->input->post('country'),
             ];
 
             $this->db->insert('users', $data);
@@ -389,7 +392,7 @@ class WebsiteController extends CI_Controller
     {
         $data['user'] = $this->db->get_where('users', ['id' => $_SESSION['user_id']])->row();
         //  print_r($data['user']);die;
-
+        $data['countries'] = $this->db->get('countries')->result();
         $this->load->view('profile', $data);
     }
 
@@ -399,6 +402,7 @@ class WebsiteController extends CI_Controller
         // $this->load->library('form_validation');
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('country', 'Country', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             $this->session->set_flashdata('error', validation_errors());
@@ -406,6 +410,8 @@ class WebsiteController extends CI_Controller
         } else {
             $username = $this->input->post('username');
             $email = $this->input->post('email');
+            $country = $this->input->post('country');
+            $mobile = $this->input->post('mobile');
             $old_image = $this->input->post('old_image');
             $profile_image = $old_image;
 
@@ -431,6 +437,8 @@ class WebsiteController extends CI_Controller
             $data = [
                 'username' => $username,
                 'email'    => $email,
+                'country'    => $country,
+                'mobile'    => $mobile,
                 'profile'  => $profile_image
             ];
 
@@ -490,6 +498,7 @@ class WebsiteController extends CI_Controller
         $min_price = str_replace(',', '', $this->input->get('price'));
         $max_price = str_replace(',', '', $this->input->get('price_to'));
 
+         $more_vehicle = $this->input->get('more');
 
 
         // Step 2: Pagination Configuration
@@ -523,7 +532,8 @@ class WebsiteController extends CI_Controller
             $multimedia_and_navigation,
             $engine_and_drive_technology,
             $exteriors,
-            $other_features_and_extras
+            $other_features_and_extras,
+            $more_vehicle
         );
 
         $config['per_page'] = 5;
@@ -592,7 +602,8 @@ class WebsiteController extends CI_Controller
             $exteriors,
             $other_features_and_extras,
             $config['per_page'],
-            $page
+            $page,
+            $more_vehicle
         );
     // echo $this->db->last_query();die;
         // Step 5: Send Pagination Links to View

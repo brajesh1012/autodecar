@@ -60,6 +60,16 @@ p {
                                                 placeholder="Enter Email" value="<?= $user->email; ?>">
                                             <small class="text-danger"><?= form_error('email') ?></small>
                                         </div>
+                                         <div class="form-group">
+                                            <label for="country">Country*</label>
+                                            <select name="country" id="country" class="form-control">
+                                             <option value="">Select Country</option>
+                                             <?php foreach($countries as $country) { ?>
+                                                <option value="<?= $country->id; ?>" <?php if($country->id == $user->country){ echo "selected";}?>><?= $country->name; ?></option>
+                                                <?php } ?>
+                                             </select>
+                                            <small class="text-danger"><?= form_error('country') ?></small>
+                                        </div>
                                        
 
                                         <div class="form-group">

@@ -203,11 +203,13 @@ class AdminController extends CI_Controller
          $this->form_validation->set_rules("username", "User Name", "required");
         $this->form_validation->set_rules("mobile", "Mobile", "required");
         $this->form_validation->set_rules("email", "Email", "required");
+        $this->form_validation->set_rules("country", "Country", "required");
 		
         if ($this->form_validation->run() == false) {	
             
          $data["profile"] = $this->Common_model->getsingle('users', array('id' => $this->session->userdata('user_id')));
-        $data["main"] = "my-profile";
+         $data['countries'] = $this->db->get('countries')->result();
+         $data["main"] = "my-profile";
         $this->load->view("admin/template", $data);
 
         } else {
@@ -239,6 +241,7 @@ class AdminController extends CI_Controller
                 "username" => $this->input->post("username"),
                 "mobile" => $this->input->post("mobile"),
                 "email" => $this->input->post("email"),
+                "country" => $this->input->post("country"),
                  'profile'  => $profile_image
             ];
             
@@ -2071,12 +2074,14 @@ class AdminController extends CI_Controller
         $this->form_validation->set_rules("contact_email", "Contact Email", "required");
         $this->form_validation->set_rules("contact_phone", "Contact Phone", "required");
         $this->form_validation->set_rules("address", "Address", "required");
+        $this->form_validation->set_rules("country", "Country", "required");
 
 		
         if ($this->form_validation->run() == false) {	
             
          $data["profile"] = $this->Common_model->getsingle('users', array('id' => $this->session->userdata('user_id')));
          $data["dealer_data"] = $this->Common_model->getsingle('dealer_profile', array('user_id' => $this->session->userdata('user_id')));
+             $data['countries'] = $this->db->get('countries')->result();
         //  print_r($data["dealer_data"]);die;
         $data["main"] = "my-profile";
         $this->load->view("dealer/template", $data);
@@ -2156,6 +2161,7 @@ class AdminController extends CI_Controller
                 "username" => $this->input->post("username"),
                 "mobile" => $this->input->post("mobile"),
                 "email" => $this->input->post("email"),
+                "country" => $this->input->post("country"),
                  'profile'  => $profile_image
             ];
             
@@ -3255,11 +3261,11 @@ public function view_chat($vehicle_id, $other_user_id)
             "required"
         );
 
-        //   $this->form_validation->set_rules(
-        //     "role",
-        //     "User Role",
-        //     "required"
-        // );
+          $this->form_validation->set_rules(
+            "country",
+            "Country",
+            "required"
+        );
 
         //   $this->form_validation->set_rules(
         //     "description",
@@ -3270,6 +3276,7 @@ public function view_chat($vehicle_id, $other_user_id)
         if ($this->form_validation->run() == false) {
 
             $data["user"] = $this->Common_model->getsingle('users', array('id' => $id));
+            $data['countries'] = $this->db->get('countries')->result();
             $data["main"] = "edit_users";
             $this->load->view("admin/template", $data);
         } else {
@@ -3301,6 +3308,7 @@ public function view_chat($vehicle_id, $other_user_id)
                 "username" => $this->input->post("username"),
                 "mobile" => $this->input->post("mobile"),
                 "email" => $this->input->post("email"),
+                "country" => $this->input->post("country"),
                 "profile" => $profile_image,
             ];
 

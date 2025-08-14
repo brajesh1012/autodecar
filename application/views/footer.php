@@ -552,6 +552,20 @@
                                          </div>
 
                                      </fieldset>
+                                      <fieldset class="">
+                                         <label class="fw-6">Country</label>
+                                         <select name="country" id="country" class="form-control">
+                                             <option value="">Select Country</option>
+                                             <?php foreach($countries as $country) { ?>
+                                                <option value="<?= $country->id; ?>"><?= $country->name; ?></option>
+                                                <?php } ?>
+                                             </select>
+                                         <small id="country_error" class="text-danger"></small>
+                                        
+                                         
+
+                                     </fieldset>
+
                                      <button class="sc-button" name="submit" type="submit">
                                          <span>Sign Up</span>
                                      </button>
@@ -864,13 +878,14 @@
     $('#registerForm').on('submit', function(e) {
     e.preventDefault();
     let valid = true;
-    $('#username_error, #email_error, #password_error, #cpassword_error, #role_error').text('');
+    $('#username_error, #email_error, #password_error, #cpassword_error, #role_error', '#country_error').text('');
 
     let role = $('[name="role"]:checked').val(); // checked radio value
     let username = $('[name="username"]').val().trim();
     const email = $('#registerForm input[name="email"]').val().trim();
     let password = $('[name="password"]').val().trim();
     let cpassword = $('[name="cpassword"]').val().trim();
+    let country = $('[name="country"]').val().trim();
 
     if (!role) {
         $('#role_error').text('Please select a role');
@@ -885,6 +900,10 @@
         valid = false;
     } else if (!validateEmail(email)) {
         $('#email_error').text('Invalid email format');
+        valid = false;
+    }
+      if (!country) {
+        $('#country_error').text('Please select a Country');
         valid = false;
     }
 
