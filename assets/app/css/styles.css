@@ -184,12 +184,14 @@
 
 .main-header.style2 .is-fixed.is-small {
   background-color: #24272C !important;
+  padding-bottom: 14px !important;
 }
 
 .header-lower.is-fixed.is-small {
   top: 0px;
   opacity: 1;
   visibility: visible;
+  padding-bottom: 14px !important;
   box-shadow: 0px 4px 18px 0px rgba(0, 0, 0, 0.0784313725);
   background-color: #FFFFFF;
 }
@@ -15500,4 +15502,342 @@ fieldset input:focus {
     background-color: #f5f5f5;
     font-weight: bold;
     color: #333;
+}
+
+/* Car Image Consistency Fix */
+.car-image {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+.swiper-container.carousel-2.img-style {
+    height: 250px !important;
+    overflow: hidden;
+}
+
+.swiper-container.carousel-2.img-style .swiper-wrapper {
+    height: 100% !important;
+}
+
+.swiper-container.carousel-2.img-style .swiper-slide {
+    height: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-group {
+    height: 250px !important;
+    overflow: hidden;
+}
+
+.box-car-list.hv-one {
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-car-list.hv-one .image-group {
+    flex-shrink: 0;
+}
+
+.box-car-list.hv-one .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive Design for Mobile Devices */
+@media only screen and (max-width: 768px) {
+    /* Mobile-specific car image sizing */
+    .car-image {
+        height: 200px !important;
+    }
+
+    .swiper-container.carousel-2.img-style {
+        height: 200px !important;
+    }
+
+    .image-group {
+        height: 200px !important;
+    }
+
+    /* Adjust card layout for mobile */
+    .box-car-list {
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    .box-car-list .content {
+        padding: 15px 10px !important;
+    }
+
+    /* Adjust swiper for mobile */
+    .swiper.tf-sw-mobile {
+        padding: 0 10px;
+    }
+
+    /* Adjust text sizes for mobile */
+    .box-car-list .content h5 {
+        font-size: 16px !important;
+        line-height: 20px !important;
+    }
+
+    .box-car-list .content .money {
+        font-size: 18px !important;
+    }
+
+    .box-car-list .content .icon-box {
+        gap: 10px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .box-car-list .content .icon-box .icons {
+        font-size: 12px !important;
+    }
+
+    /* Adjust days box for mobile */
+    .box-car-list .content .days-box {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start !important;
+    }
+
+    .box-car-list .content .days-box .img-author {
+        margin-bottom: 10px;
+    }
+
+    .box-car-list .content .days-box .view-car {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    /* Adjust favorite icon position */
+    .box-car-list .content .justify-content-between {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .box-car-list .content .favorite-icon {
+        align-self: flex-end;
+    }
+}
+
+/* Tablet Responsive */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .car-image {
+        height: 220px !important;
+    }
+
+    .swiper-container.carousel-2.img-style {
+        height: 220px !important;
+    }
+
+    .image-group {
+        height: 220px !important;
+    }
+
+    .box-car-list .content {
+        padding: 20px 15px !important;
+    }
+
+    .box-car-list .content h5 {
+        font-size: 18px !important;
+    }
+}
+
+/* Small Mobile Devices */
+@media only screen and (max-width: 480px) {
+    .car-image {
+        height: 180px !important;
+    }
+
+    .swiper-container.carousel-2.img-style {
+        height: 180px !important;
+    }
+
+    .image-group {
+        height: 180px !important;
+    }
+
+    .box-car-list {
+        padding: 8px;
+    }
+
+    .box-car-list .content {
+        padding: 12px 8px !important;
+    }
+
+    .box-car-list .content h5 {
+        font-size: 14px !important;
+        line-height: 18px !important;
+    }
+
+    .box-car-list .content .money {
+        font-size: 16px !important;
+    }
+
+    .box-car-list .content .icon-box {
+        gap: 8px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .box-car-list .content .icon-box .icons {
+        font-size: 11px !important;
+    }
+}
+
+/* Ensure proper grid layout on different screen sizes */
+@media only screen and (max-width: 1200px) {
+    .swiper.tf-sw-mobile[data-preview="3"] {
+        --swiper-navigation-size: 30px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .swiper.tf-sw-mobile[data-preview="3"] {
+        --swiper-navigation-size: 25px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .swiper.tf-sw-mobile[data-preview="3"] {
+        --swiper-navigation-size: 20px;
+    }
+}
+
+/* Additional Responsive Fixes for Overall Layout */
+@media only screen and (max-width: 768px) {
+    /* Container adjustments */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Section spacing */
+    .tf-section {
+        padding: 40px 0;
+    }
+
+    .tf-section2 {
+        padding: 40px 0;
+    }
+
+    .tf-section3 {
+        padding: 40px 0;
+    }
+
+    /* Grid adjustments */
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .col-lg-12, .col-md-12, .col-sm-12, .col-12 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Heading adjustments */
+    .heading-section h2 {
+        font-size: 24px !important;
+        line-height: 30px !important;
+    }
+
+    .heading-section p {
+        font-size: 14px !important;
+    }
+
+    /* Swiper navigation adjustments */
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 16px !important;
+    }
+
+    /* Flat tabs adjustments */
+    .flat-tabs .content-tab {
+        padding: 0 10px;
+    }
+
+    /* Image feature specs adjustments */
+    .section-feature-specs .image-feature-specs {
+        margin-bottom: 30px;
+    }
+
+    .section-feature-specs .content-feature-specs {
+        padding-left: 0;
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    /* Further mobile adjustments */
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .tf-section,
+    .tf-section2,
+    .tf-section3 {
+        padding: 30px 0;
+    }
+
+    .heading-section h2 {
+        font-size: 20px !important;
+        line-height: 26px !important;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 14px !important;
+    }
+
+    /* Ensure proper spacing */
+    .row {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    .col-lg-12, .col-md-12, .col-sm-12, .col-12 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+/* Fix for very small screens */
+@media only screen and (max-width: 360px) {
+    .container {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .box-car-list {
+        margin-bottom: 15px;
+    }
+
+    .heading-section h2 {
+        font-size: 18px !important;
+        line-height: 24px !important;
+    }
+}
+.language-select {
+  background-color:#25272c ;
+  color: #fff !important;
+  width: 100px;
 }

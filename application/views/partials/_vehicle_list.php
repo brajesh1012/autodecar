@@ -69,7 +69,7 @@
                   <?php $car_img = $this->db->where('car_list_id', $vehicle->id)->get('car_img')->result();
                     if (!empty($car_img)) { ?>
                       <div class="img-style">
-                          <img class="lazyload" data-src="<?= base_url('uploads/' . $car_img[0]->photos); ?>"
+                          <img class="lazyload car-image" data-src="<?= base_url('uploads/' . $car_img[0]->photos); ?>"
                               src="<?= base_url('uploads/' . $car_img[0]->photos); ?>" alt="image">
                       </div>
 

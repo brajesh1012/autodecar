@@ -1,0 +1,40 @@
+<div class="slider home2">
+    <div class="swiper mainslider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <div class="img-slider">
+                        <img class="img-item lazyload"
+                            data-src="<?= base_url(); ?>/assets/assets/images/slider/slide2.jpg"
+                            src="<?= base_url(); ?>/assets/assets/images/slider/slide2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div>
+
+    </div>
+    <div class="slider-item-content position-relative">
+        <div class="container">
+            <div class="position-absolute" style="bottom: 80px; display: flex; flex-direction: column; align-items: center;">
+
+
+
+                <!-- Fileter -->
+                <?php $this->load->view('filter-form'); ?>
+
+                <div class="wrap-icon trending2 mt-2">
+                    <div class="icon-box text-color-1 fs-14 fw-4 flex align-center font">
+                        <span class="icon-autodeal-trending"></span>
+                        <a href="#"><strong class="font-2 fw-7">Trending:</strong> Volkswagen Scirocco,
+                            Honda Civic, Audi A3, Toyota Vios, Nissan GTR, Subaru Impreza</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

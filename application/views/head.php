@@ -171,7 +171,7 @@ $favorite_count = $this->db->count_all_results('favorites');
                                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                 <ul class="navigation clearfix d-flex">
                                                     <!-- Updated Menu -->
-                                                    <!-- <li>
+                                                    <li>
                                                         <div class="dropdown">
                                                             <button class="dropbtn ">
                                                                 Search
@@ -181,7 +181,7 @@ $favorite_count = $this->db->count_all_results('favorites');
                                                                 <a href="#">Used And New Cars</a>
                                                             </div>
                                                         </div>
-                                                    </li> -->
+                                                    </li>
 
                                                     <li>
                                                         <div class="dropdown">
