@@ -184,12 +184,14 @@
 
 .main-header.style2 .is-fixed.is-small {
   background-color: #24272C !important;
+  padding-bottom: 14px !important;
 }
 
 .header-lower.is-fixed.is-small {
   top: 0px;
   opacity: 1;
   visibility: visible;
+  padding-bottom: 14px !important;
   box-shadow: 0px 4px 18px 0px rgba(0, 0, 0, 0.0784313725);
   background-color: #FFFFFF;
 }
