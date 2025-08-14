@@ -1260,7 +1260,47 @@
           <?php $this->load->view('filter-form'); ?>
           </div>
             <!-- widegt categori -->
+         <!-- Popular Brands Start -->
 
+         <section class="tf-section2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading-section flex align-center justify-space flex-wrap gap-20">
+                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">Popular
+                                    Brands</h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="swiper partner-slide overflow-hidden">
+                                <div class="swiper-wrapper">
+                                    <?php foreach ($brands as $brand) {
+                                        if ($brand->logo != "") {
+                                    ?>
+                                            <div class="swiper-slide">
+                                                <a href="<?= base_url('listing-list?make=' . $brand->id); ?>" class="partner-item style-1">
+                                                    <div class="image">
+                                                        <img class="lazyload"
+                                                            data-src="<?= base_url('uploads/brands/' . $brand->logo); ?>"
+                                                            src="<?= base_url('uploads/brands/' . $brand->logo); ?>"
+                                                            alt="images">
+                                                    </div>
+                                                    <div class="content center">
+                                                        <div class="fs-16 fw-6 title text-color-2 font-2"><?= $brand->name ?></div>
+                                                        <!-- <span class="sub-title fs-12 fw-4 font-2">271 Car</span> -->
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } ?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
             <!-- widegt List car -->
             <section class="tf-section">
                 <div class="container">
@@ -1906,47 +1946,7 @@
             </section>
 
 
-            <!-- Popular Brands Start -->
-
-            <section class="tf-section2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="heading-section flex align-center justify-space flex-wrap gap-20">
-                                <h2 class="wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration="1000ms">Popular
-                                    Brands</h2>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="swiper partner-slide overflow-hidden">
-                                <div class="swiper-wrapper">
-                                    <?php foreach ($brands as $brand) {
-                                        if ($brand->logo != "") {
-                                    ?>
-                                            <div class="swiper-slide">
-                                                <a href="<?= base_url('listing-list?make=' . $brand->id); ?>" class="partner-item style-1">
-                                                    <div class="image">
-                                                        <img class="lazyload"
-                                                            data-src="<?= base_url('uploads/brands/' . $brand->logo); ?>"
-                                                            src="<?= base_url('uploads/brands/' . $brand->logo); ?>"
-                                                            alt="images">
-                                                    </div>
-                                                    <div class="content center">
-                                                        <div class="fs-16 fw-6 title text-color-2 font-2"><?= $brand->name ?></div>
-                                                        <!-- <span class="sub-title fs-12 fw-4 font-2">271 Car</span> -->
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        <?php } ?>
-                                    <?php } ?>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
+           
             <!-- Popular Brands End -->
             <!-- logo -->
             <!-- <section class="flat-brand tf-section3">
