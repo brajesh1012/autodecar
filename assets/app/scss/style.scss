@@ -2145,3 +2145,48 @@ fieldset {
         transition-delay: 0.4s;
     }
 }
+
+// Car Image Consistency Fix
+.car-image {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+.swiper-container.carousel-2.img-style {
+    height: 250px !important;
+    overflow: hidden;
+}
+
+.swiper-container.carousel-2.img-style .swiper-wrapper {
+    height: 100% !important;
+}
+
+.swiper-container.carousel-2.img-style .swiper-slide {
+    height: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-group {
+    height: 250px !important;
+    overflow: hidden;
+}
+
+.box-car-list.hv-one {
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-car-list.hv-one .image-group {
+    flex-shrink: 0;
+}
+
+.box-car-list.hv-one .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}

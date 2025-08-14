@@ -99,6 +99,219 @@
             opacity: 0.4;
         }
 
+        /* User Dropdown Custom Styles */
+        .user-dropdown-toggle {
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-dropdown-toggle:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+            transform: scale(1.05);
+        }
+
+        .user-dropdown-menu {
+            animation: dropdownFadeIn 0.3s ease-out;
+            transform-origin: top right;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            z-index: 1050;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .user-dropdown-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-dropdown-item:hover {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            transform: translateX(5px);
+        }
+
+        .user-dropdown-item:hover .icon-wrapper {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            transform: scale(1.1);
+        }
+
+        .user-dropdown-item:hover .icon-wrapper i {
+            color: white !important;
+        }
+
+        .user-dropdown-item:active {
+            transform: translateX(2px);
+        }
+
+        /* Logout item special styling */
+        .user-dropdown-item[href*="logout"]:hover .icon-wrapper {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+        }
+
+        .user-dropdown-item[href*="logout"]:hover .icon-wrapper i {
+            color: white !important;
+        }
+
+        /* Navigation alignment fixes */
+        .header-account {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-account .nav-item {
+            display: flex;
+            align-items: center;
+            margin: 0 5px;
+        }
+
+        .header-account .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+        }
+
+        /* Country Selector Styling */
+        .country-selector {
+            flex-shrink: 0;
+        }
+
+        .country-selector select {
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .country-selector select:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(244, 121, 45, 0.3);
+        }
+
+        .country-selector select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 121, 45, 0.2);
+        }
+
+        /* Auth Links Styling */
+        .auth-links {
+            flex-shrink: 0;
+        }
+
+        .auth-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f4792d 0%, #f4792b 100%);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .auth-link:hover::before {
+            left: 0;
+        }
+
+        .auth-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(244, 121, 45, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .header-account {
+                gap: 10px;
+            }
+            
+            .country-selector select {
+                width: 120px !important;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-account {
+                gap: 8px;
+            }
+            
+            .country-selector select {
+                width: 110px !important;
+                font-size: 12px;
+            }
+            
+            .auth-link {
+                padding: 6px 12px !important;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .user-dropdown-menu {
+                min-width: 200px !important;
+                margin-top: 5px !important;
+                right: -10px !important;
+            }
+            
+            .header-account .nav-item {
+                margin: 0 2px;
+            }
+            
+            .header-account {
+                gap: 6px;
+            }
+            
+            .country-selector select {
+                width: 100px !important;
+                font-size: 11px;
+                padding: 3px !important;
+            }
+            
+            .auth-link {
+                padding: 5px 10px !important;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-account {
+                gap: 4px;
+            }
+            
+            .country-selector select {
+                width: 90px !important;
+                font-size: 10px;
+            }
+            
+            .auth-link {
+                padding: 4px 8px !important;
+                font-size: 11px;
+            }
+        }
+
         .sidebar-icons .active {
             opacity: 1;
             color: red;
@@ -160,6 +373,575 @@
         .content {
             width: 100%;
         }
+
+        /* Fix car image sizing to ensure consistent dimensions */
+        .car-image {
+            width: 100% !important;
+            height: 250px !important;
+            object-fit: cover !important;
+            object-position: center !important;
+        }
+
+        /* Ensure swiper container maintains consistent height */
+        .swiper-container.carousel-2.img-style {
+            height: 250px !important;
+            overflow: hidden;
+        }
+
+        .swiper-container.carousel-2.img-style .swiper-wrapper {
+            height: 100% !important;
+        }
+
+        .swiper-container.carousel-2.img-style .swiper-slide {
+            height: 100% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ensure image group maintains consistent dimensions */
+        .image-group {
+            height: 250px !important;
+            overflow: hidden;
+        }
+
+        /* Make sure all car cards have consistent height */
+        .box-car-list.hv-one {
+            height: auto !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box-car-list.hv-one .image-group {
+            flex-shrink: 0;
+        }
+
+        .box-car-list.hv-one .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive Design for Mobile Devices */
+        @media only screen and (max-width: 768px) {
+            /* Mobile-specific car image sizing */
+            .car-image {
+                height: 200px !important;
+            }
+
+            .swiper-container.carousel-2.img-style {
+                height: 200px !important;
+            }
+
+            .image-group {
+                height: 200px !important;
+            }
+
+            /* Adjust card layout for mobile */
+            .box-car-list {
+                margin-bottom: 20px;
+                padding: 10px;
+            }
+
+            .box-car-list .content {
+                padding: 15px 10px !important;
+            }
+
+            /* Adjust swiper for mobile */
+            .swiper.tf-sw-mobile {
+                padding: 0 10px;
+            }
+
+            /* Adjust text sizes for mobile */
+            .box-car-list .content h5 {
+                font-size: 16px !important;
+                line-height: 20px !important;
+            }
+
+            .box-car-list .content .money {
+                font-size: 18px !important;
+            }
+
+            .box-car-list .content .icon-box {
+                gap: 10px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .box-car-list .content .icon-box .icons {
+                font-size: 12px !important;
+            }
+
+            /* Adjust days box for mobile */
+            .box-car-list .content .days-box {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start !important;
+            }
+
+            .box-car-list .content .days-box .img-author {
+                margin-bottom: 10px;
+            }
+
+            .box-car-list .content .days-box .view-car {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+
+            /* Adjust favorite icon position */
+            .box-car-list .content .justify-content-between {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .box-car-list .content .favorite-icon {
+                align-self: flex-end;
+            }
+        }
+
+        /* Tablet Responsive */
+        @media only screen and (min-width: 769px) and (max-width: 1024px) {
+            .car-image {
+                height: 220px !important;
+            }
+
+            .swiper-container.carousel-2.img-style {
+                height: 220px !important;
+            }
+
+            .image-group {
+                height: 220px !important;
+            }
+
+            .box-car-list .content {
+                padding: 20px 15px !important;
+            }
+
+            .box-car-list .content h5 {
+                font-size: 18px !important;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media only screen and (max-width: 480px) {
+            .car-image {
+                height: 180px !important;
+            }
+
+            .swiper-container.carousel-2.img-style {
+                height: 180px !important;
+            }
+
+            .image-group {
+                height: 180px !important;
+            }
+
+            .box-car-list {
+                padding: 8px;
+            }
+
+            .box-car-list .content {
+                padding: 12px 8px !important;
+            }
+
+            .box-car-list .content h5 {
+                font-size: 14px !important;
+                line-height: 18px !important;
+            }
+
+            .box-car-list .content .money {
+                font-size: 16px !important;
+            }
+
+            .box-car-list .content .icon-box {
+                gap: 8px !important;
+                margin-bottom: 12px !important;
+            }
+
+            .box-car-list .content .icon-box .icons {
+                font-size: 11px !important;
+            }
+        }
+
+        /* Ensure proper grid layout on different screen sizes */
+        @media only screen and (max-width: 1200px) {
+            .swiper.tf-sw-mobile[data-preview="3"] {
+                --swiper-navigation-size: 30px;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .swiper.tf-sw-mobile[data-preview="3"] {
+                --swiper-navigation-size: 25px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .swiper.tf-sw-mobile[data-preview="3"] {
+                --swiper-navigation-size: 20px;
+            }
+        }
+
+        /* Additional Responsive Fixes for Overall Layout */
+        @media only screen and (max-width: 768px) {
+            /* Container adjustments */
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            /* Section spacing */
+            .tf-section {
+                padding: 40px 0;
+            }
+
+            .tf-section2 {
+                padding: 40px 0;
+            }
+
+            .tf-section3 {
+                padding: 40px 0;
+            }
+
+            /* Grid adjustments */
+            .row {
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+
+            .col-lg-12, .col-md-12, .col-sm-12, .col-12 {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            /* Heading adjustments */
+            .heading-section h2 {
+                font-size: 24px !important;
+                line-height: 30px !important;
+            }
+
+            .heading-section p {
+                font-size: 14px !important;
+            }
+
+            /* Swiper navigation adjustments */
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 35px !important;
+                height: 35px !important;
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 16px !important;
+            }
+
+            /* Flat tabs adjustments */
+            .flat-tabs .content-tab {
+                padding: 0 10px;
+            }
+
+            /* Image feature specs adjustments */
+            .section-feature-specs .image-feature-specs {
+                margin-bottom: 30px;
+            }
+
+            .section-feature-specs .content-feature-specs {
+                padding-left: 0;
+                margin-top: 30px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            /* Further mobile adjustments */
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .tf-section,
+            .tf-section2,
+            .tf-section3 {
+                padding: 30px 0;
+            }
+
+            .heading-section h2 {
+                font-size: 20px !important;
+                line-height: 26px !important;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 30px !important;
+                height: 30px !important;
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 14px !important;
+            }
+
+            /* Ensure proper spacing */
+            .row {
+                margin-left: -5px;
+                margin-right: -5px;
+            }
+
+            .col-lg-12, .col-md-12, .col-sm-12, .col-12 {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+        /* Fix for very small screens */
+        @media only screen and (max-width: 360px) {
+            .container {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .box-car-list {
+                margin-bottom: 15px;
+            }
+
+            .heading-section h2 {
+                font-size: 18px !important;
+                line-height: 24px !important;
+            }
+        }
+
+        /* Responsive Fixes for Filter Form */
+        @media only screen and (max-width: 768px) {
+            .form-section {
+                flex-direction: column !important;
+                padding: 15px !important;
+                gap: 15px !important;
+            }
+
+            .sidebar {
+                flex-direction: row !important;
+                border-right: none !important;
+                border-bottom: 1px solid #e0e0e0 !important;
+                padding-right: 0 !important;
+                padding-bottom: 15px !important;
+                margin-bottom: 15px !important;
+                width: 100% !important;
+                justify-content: space-around !important;
+                gap: 10px !important;
+            }
+
+            .sidebar-icon {
+                padding: 10px 5px !important;
+                font-size: 12px !important;
+            }
+
+            .sidebar-icon svg {
+                width: 30px !important;
+                height: 15px !important;
+            }
+
+            .sidebar-label {
+                font-size: 11px !important;
+                margin-top: 5px !important;
+            }
+
+            .form-body .row.g-3 {
+                flex-direction: column !important;
+                gap: 10px 0 !important;
+            }
+
+            .form-body .col-md-4,
+            .form-body .col-md-3,
+            .form-body .col-md-2 {
+                flex: 1 1 100% !important;
+                min-width: 100% !important;
+                margin-bottom: 10px !important;
+            }
+
+            .action-buttons {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
+
+            .half-btn-row {
+                flex-direction: column !important;
+                gap: 10px !important;
+            }
+
+            .half-btn-row > button {
+                width: 100% !important;
+            }
+
+            .search-btn {
+                width: 100% !important;
+                padding: 12px !important;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .form-section {
+                padding: 10px !important;
+                gap: 10px !important;
+            }
+
+            .sidebar {
+                gap: 5px !important;
+                padding-bottom: 10px !important;
+                margin-bottom: 10px !important;
+            }
+
+            .sidebar-icon {
+                padding: 8px 3px !important;
+            }
+
+            .sidebar-icon svg {
+                width: 25px !important;
+                height: 12px !important;
+            }
+
+            .sidebar-label {
+                font-size: 10px !important;
+            }
+
+            .form-label {
+                font-size: 14px !important;
+            }
+
+            .form-control,
+            .form-select {
+                height: 40px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        /* Responsive Fixes for Navbar */
+        @media only screen and (max-width: 768px) {
+            .main-header {
+                padding: 10px !important;
+            }
+
+            .main-header .inner-container {
+                flex-direction: column !important;
+                gap: 15px !important;
+                align-items: stretch !important;
+            }
+
+            .logo-box {
+                justify-content: center !important;
+            }
+
+            .logo img {
+                width: 180px !important;
+                height: auto !important;
+            }
+
+            .nav-outer {
+                order: 3 !important;
+                width: 100% !important;
+            }
+
+            .main-menu .navigation {
+                flex-direction: column !important;
+                gap: 10px !important;
+                align-items: center !important;
+            }
+
+            .main-menu .navigation li {
+                width: 100% !important;
+                text-align: center !important;
+            }
+
+            .dropdown .dropbtn {
+                width: 100% !important;
+                padding: 12px !important;
+                font-size: 16px !important;
+            }
+
+            .dropdown-content {
+                position: static !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                margin-top: 5px !important;
+            }
+
+            .header-account {
+                order: 2 !important;
+                justify-content: center !important;
+                gap: 15px !important;
+                flex-wrap: wrap !important;
+            }
+
+            .header-account select {
+                width: 120px !important;
+                font-size: 12px !important;
+            }
+
+            .register ul {
+                gap: 10px !important;
+            }
+
+            .register ul li {
+                font-size: 14px !important;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .main-header {
+                padding: 5px !important;
+            }
+
+            .logo img {
+                width: 150px !important;
+            }
+
+            .header-account {
+                gap: 10px !important;
+            }
+
+            .header-account select {
+                width: 100px !important;
+                font-size: 11px !important;
+            }
+
+            .register ul {
+                gap: 8px !important;
+            }
+
+            .register ul li {
+                font-size: 12px !important;
+            }
+
+            .dropdown .dropbtn {
+                padding: 10px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        /* Mobile menu toggle for very small screens */
+        @media only screen and (max-width: 360px) {
+            .main-header .inner-container {
+                gap: 10px !important;
+            }
+
+            .logo img {
+                width: 120px !important;
+            }
+
+            .header-account {
+                gap: 8px !important;
+            }
+
+            .register ul {
+                gap: 5px !important;
+            }
+
+            .register ul li {
+                font-size: 11px !important;
+            }
+        }
     </style>
 
 
@@ -182,7 +964,7 @@
         <div id="pagee" class="clearfix">
 
             <!-- Main Header -->
-            <header class="main-header style2 p-3">
+            <header class="main-header  p-3">
                 <!-- Header Lower -->
                 <div class="header-lower">
                     <div class="container2">
@@ -217,7 +999,7 @@
 
                                                     <li>
                                                         <div class="dropdown">
-                                                            <button class="dropbtn text-white">
+                                                            <button class="dropbtn ">
                                                                 <!-- Sell -->
                                                                 Search
                                                             </button>
@@ -232,7 +1014,7 @@
 
                                                     <li>
                                                         <div class="dropdown">
-                                                            <button class="dropbtn text-white">
+                                                            <button class="dropbtn ">
                                                                 <a href="<?= base_url('about-us'); ?>">About Us</a>
                                                             </button>
 
@@ -241,7 +1023,7 @@
 
                                                     <li>
                                                         <div class="dropdown">
-                                                            <button class="dropbtn text-white">
+                                                            <button class="dropbtn ">
                                                                 <a href="<?= base_url('blog-grid'); ?>">Blogs</a>
                                                             </button>
 
@@ -250,7 +1032,7 @@
 
                                                     <li>
                                                         <div class="dropdown">
-                                                            <button class="dropbtn text-white">
+                                                            <button class="dropbtn ">
                                                                 <a href="<?= base_url('contact'); ?>">Contact Us</a>
                                                             </button>
 
@@ -264,52 +1046,58 @@
                                     </div>
 
 
-                                    <div class="header-account flex align-center">
+                                    <div class="header-account d-flex">
 
                                         <!-- <div id="google_translate_element" style="margin-top: 15px;"></div> -->
 
-                                        <select class="form-select bg-dark text-white" id="custom_translate_select" name="language">
-                                            <option value="en">English</option>
-                                            <option value="de">German</option>
-                                            <option value="fr">French</option>
-                                            <option value="it">Italian</option>
-                                        </select>
+                                        
 
-                                        <!-- ✅ Hidden container just to initialize Google Translate -->
-                                        <div id="google_translate_element" style="display: none;"></div>
 
+                                        <!-- Country Selector - Always Visible -->
+                                        <div class="country-selector me-3">
+                                            <label for="filter_by_location" style="display: block; font-size: 12px; font-weight: 600; color: #333; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                Filter by Country
+                                            </label>
+                                            <select class="form-control" name="location" id="filter_by_location"
+                                                style="width: 140px; background: #eaeaea; color: #333333; font-size: 14px; padding: 4px; border: none; border-radius: 4px;">
+                                                <option value="">All Country</option>
+                                                <?php 
+                                                $cities = $this->db->get('countries')->result();
+                                                foreach ($cities as $city) { ?>
+                                                    <option value="<?= $city->id; ?>"
+                                                        <?php if ($this->session->userdata('location') == $city->id) {
+                                                            echo "selected";
+                                                        } ?>>
+                                                        <?= $city->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
 
                                         <?php if (!$this->session->userdata('user_id')) { ?>
-                                            <div class="register">
-                                                <ul class="flex align-center">
-                                                    <li>
-                                                        <i class="icon-autodeal-user fs-20"></i>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#popup_bid">Login</a>
-                                                    </li>
-                                                    <li>
-                                                        <span>/</span>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#popup_bid2">Register</a>
-                                                    </li>
-                                                </ul>
+                                            <!-- Login/Register for Non-logged Users -->
+                                            <div class="auth-links d-flex align-items-center">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#popup_bid" 
+                                                   class="auth-link me-2" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 6px; transition: all 0.3s ease;">
+                                                    Login
+                                                </a>
+                                                <span style="color: #666; margin: 0 8px;">/</span>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#popup_bid2" 
+                                                   class="auth-link" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 6px; transition: all 0.3s ease;">
+                                                    Register
+                                                </a>
                                             </div>
                                         <?php } else { ?>
 
                                             <!-- Favorite Start -->
 
                                             <li class="nav-item">
-                                                <a class="nav-link position-relative" href="<?= base_url('favorite-list'); ?>" title="My Favorites">
+                                                <a class=" position-relative" href="<?= base_url('favorite-list'); ?>" title="My Favorites">
                                                     <!-- White Heart Icon -->
-                                                    <svg width="20" height="18" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg class="text-dark" width="20" height="18" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M14.75 4.1875C14.75 2.32375 13.1758 0.8125 11.234 0.8125C9.78275 0.8125 8.53625 1.657 8 2.86225C7.46375 1.657 6.21725 0.8125 4.76525 0.8125C2.825 0.8125 1.25 2.32375 1.25 4.1875C1.25 9.6025 8 13.1875 8 13.1875C8 13.1875 14.75 9.6025 14.75 4.1875Z"
                                                             fill="none"
-                                                            stroke="white"
+                                                            stroke="black"
                                                             stroke-width="1.5"
                                                             stroke-linecap="round"
                                                             stroke-linejoin="round" />
@@ -318,7 +1106,7 @@
                                                     <?php if ($favorite_count > 0): ?>
                                                         <span
                                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                                            style="font-size: 12px;">
+                                                            style="font-size: 10px;">
                                                             <?= $favorite_count ?>
                                                         </span>
                                                     <?php endif; ?>
@@ -329,10 +1117,10 @@
                                             <!-- Favorite End -->
 
                                             <li class="nav-item">
-                                                <a class="nav-link dropdown-toggle position-relative" href="#"
+                                                <a class=" dropdown-toggle position-relative" href="#"
                                                     id="messageDropdown" role="button" data-bs-toggle="dropdown"
                                                     aria-expanded="false" title="Message">
-                                                    <i class="bi bi-envelope fs-4 text-white"></i>
+                                                    <i class="bi bi-envelope fs-4 text-dark"></i>
                                                     <!-- <button style="background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 16px; cursor: pointer;">
                                                 ✉️ Message
                                                 </button> -->
@@ -347,52 +1135,63 @@
                                                     <li class="text-center text-muted">Loading...</li>
                                                 </ul>
                                             </li>
-                                            <div class="register">
-
-
-                                                <ul class="nav">
-                                                    <li class="nav-item">
-                                                        <!-- Icon as Toggle -->
-                                                        <?php if ($_SESSION['role_name'] == "Buyer") { ?>
-
-                                                            <a class="nav-link d-flex align-items-center"
-                                                                href="<?= base_url('profile'); ?>" title="My Profile">
-                                                                <i class="icon-autodeal-user fs-4" style="color: white;"></i>
-                                                            </a>
-
-                                                        <?php } elseif ($_SESSION['role_name'] == "Dealer") { ?>
-                                                            <a class="nav-link d-flex align-items-center"
-                                                                href="<?= base_url(ADMIN_PATH  . '/dealer-profile'); ?>" title="My Profile">
-                                                                <i class="icon-autodeal-user fs-4" style="color: white;"></i>
-                                                            </a>
-                                                        <?php } else { ?>
-                                                            <a class="nav-link d-flex align-items-center"
-                                                                href="<?= base_url(ADMIN_PATH  . '/my-profile'); ?>" title="My Profile">
-                                                                <i class="icon-autodeal-user fs-4" style="color: white;"></i>
-                                                            </a>
-
-
-                                                        <?php } ?>
-
+                                            <li class="nav-item dropdown">
+                                                <!-- User Icon as Dropdown Toggle -->
+                                                <a class=" d-flex align-items-center dropdown-toggle user-dropdown-toggle" 
+                                                   href="#" 
+                                                   role="button" 
+                                                   data-bs-toggle="dropdown" 
+                                                   aria-expanded="false" 
+                                                   title="User Menu">
+                                                    <i class="icon-autodeal-user fs-4" style="color: black;"></i>
+                                                </a>
+                                                
+                                                <!-- Dropdown Menu -->
+                                                <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" style="min-width: 220px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 12px; padding: 0; margin-top: 10px;">
+                                                    <li style="margin:0px">
+                                                        <div class="dropdown-header user-dropdown-header" style="    background: linear-gradient(135deg, #f4782f 0%, #f4782b 100%); color: white; padding: 15px 20px; border-radius: 12px 12px 0 0; border: none;">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="user-avatar me-3" style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                                    <i class="icon-autodeal-user" style="color: white; font-size: 18px;"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h6 class="mb-0" style="font-weight: 600; font-size: 14px; color: #fff;"><?= $_SESSION['role_name']; ?></h6>
+                                                                    <small style="opacity: 0.8; font-size: 12px;">User Account</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item user-dropdown-item" href="<?= base_url('dashboard'); ?>" style="padding: 12px 20px; border: none; transition: all 0.3s ease;">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-wrapper me-3" style="width: 32px; height: 32px; background: #f8f9fa; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                                                                    <i class="fas fa-tachometer-alt" style="color: #667eea; font-size: 14px;"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <span style="font-weight: 500; color: #333; font-size: 14px;">Dashboard</span>
+                                                                    <br>
+                                                                    <small style="color: #6c757d; font-size: 12px;">Manage your account</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item user-dropdown-item" href="<?= base_url('logout'); ?>" style="padding: 12px 20px; border: none; transition: all 0.3s ease;">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="icon-wrapper me-3" style="width: 32px; height: 32px; background: #f8f9fa; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                                                                    <i class="fas fa-sign-out-alt" style="color: #dc3545; font-size: 14px; padding-left: 8px; padding-right: 8px;"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <span style="font-weight: 500; color: #333; font-size: 14px;">Logout</span>
+                                                                    <br>
+                                                                    <small style="color: #6c757d; font-size: 12px;">Sign out of your account</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
                                                     </li>
                                                 </ul>
-                                            </div>
-                                            <li>
-                                                <a href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt fs-4" style="color: white;"></i></i></a>
                                             </li>
-                                            <li> <select class="form-control" name="location" id="filter_by_location"
-                                                    style="width: 140px; font-size: 14px; padding: 4px;">
-                                                    <option value="">Select Country</option>
-                                                    <?php //$cities = $this->db->get('cities')->result();
-                                                    $cities = $this->db->get('countries')->result();
-                                                    foreach ($cities as $city) { ?>
-                                                        <option value="<?= $city->id; ?>"
-                                                            <?php if ($this->session->userdata('location') == $city->id) {
-                                                                echo "selected";
-                                                            } ?>>
-                                                            <?= $city->name; ?></option>
-                                                    <?php } ?>
-                                                </select></li>
+                                            <li> </li>
 
                                         <?php }
                                         if (isset($_SESSION['role']) && $_SESSION['role'] == 1) { ?>
@@ -457,46 +1256,9 @@
 
             </header>
             <!-- End Main Header -->
-            <div class="slider home2">
-                <div class="swiper mainslider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="slider-item">
-                                <div class="img-slider">
-                                    <img class="img-item lazyload"
-                                        data-src="<?= base_url(); ?>/assets/assets/images/slider/slide2.jpg"
-                                        src="<?= base_url(); ?>/assets/assets/images/slider/slide2.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div>
-
-                </div>
-                <div class="slider-item-content position-relative">
-                    <div class="container">
-                        <div class="position-absolute" style="bottom: 80px; display: flex; flex-direction: column; align-items: center;">
-
-
-
-                            <!-- Fileter -->
-                            <?php $this->load->view('filter-form'); ?>
-
-                            <div class="wrap-icon trending2 mt-2">
-                                <div class="icon-box text-color-1 fs-14 fw-4 flex align-center font">
-                                    <span class="icon-autodeal-trending"></span>
-                                    <a href="#"><strong class="font-2 fw-7">Trending:</strong> Volkswagen Scirocco,
-                                        Honda Civic, Audi A3, Toyota Vios, Nissan GTR, Subaru Impreza</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div>
+          <?php $this->load->view('filter-form'); ?>
+          </div>
             <!-- widegt categori -->
 
             <!-- widegt List car -->
@@ -539,7 +1301,7 @@
                                                                             <?php $car_img = $this->db->where('car_list_id', $car->id)->get('car_img')->result();
                                                                             foreach ($car_img as $c_img) { ?>
                                                                                 <div class="swiper-slide">
-                                                                                    <img class="lazyload"
+                                                                                    <img class="lazyload car-image"
                                                                                         data-src="<?= base_url('uploads/' . $c_img->photos); ?>"
                                                                                         src="<?= base_url('uploads/' . $c_img->photos); ?>"
                                                                                         alt="image">
@@ -699,7 +1461,7 @@
                                                                             <?php $car_img = $this->db->where('car_list_id', $bike->id)->get('car_img')->result();
                                                                             foreach ($car_img as $c_img) { ?>
                                                                                 <div class="swiper-slide">
-                                                                                    <img class="lazyload"
+                                                                                    <img class="lazyload car-image"
                                                                                         data-src="<?= base_url('uploads/' . $c_img->photos); ?>"
                                                                                         src="<?= base_url('uploads/' . $c_img->photos); ?>"
                                                                                         alt="image">
@@ -855,7 +1617,7 @@
                                                                             <?php $car_img = $this->db->where('car_list_id', $commercial->id)->get('car_img')->result();
                                                                             foreach ($car_img as $c_img) { ?>
                                                                                 <div class="swiper-slide">
-                                                                                    <img class="lazyload"
+                                                                                    <img class="lazyload car-image"
                                                                                         data-src="<?= base_url('uploads/' . $c_img->photos); ?>"
                                                                                         src="<?= base_url('uploads/' . $c_img->photos); ?>"
                                                                                         alt="image">
