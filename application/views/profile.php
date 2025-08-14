@@ -1,114 +1,113 @@
+<?php include('head.php'); ?>
 
-  <?php include('head.php'); ?>
-
-  <style>
-    /* body {
+<style>
+  /* body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6f8;
       margin: 0;
       padding: 0;
     } */
 
-    .container1 {
-      
-        /* margin-top: 1500px; */
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-    }
+  .container1 {
 
-    .card {
-          margin-top: 10px;
-      background-color: white;
-      padding: 30px 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+    /* margin-top: 1500px; */
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+  }
 
-    .tab-buttons {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 30px;
-    }
+  .card {
+    margin-top: 10px;
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
 
-    .tab-buttons button {
-      padding: 10px 20px;
-      border: none;
-      background-color: #2d3e50;
-      color: white;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: 0.3s;
-    }
+  .tab-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+  }
 
-    .tab-buttons button.active,
-    .tab-buttons button:hover {
-      background-color: #FF7101;
-      /* background-color: #1abc9c; */
-    }
+  .tab-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #2d3e50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
 
-    .tab-content {
-      display: none;
-      text-align: left;
-    }
+  .tab-buttons button.active,
+  .tab-buttons button:hover {
+    background-color: #FF7101;
+    /* background-color: #1abc9c; */
+  }
 
-    .tab-content.active {
-      display: block;
-    }
+  .tab-content {
+    display: none;
+    text-align: left;
+  }
 
-    .profile-img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 20px;
-      border: 3px solid #1abc9c;
-    }
+  .tab-content.active {
+    display: block;
+  }
 
-    .form-group {
-      margin-bottom: 15px;
-    }
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    border: 3px solid #1abc9c;
+  }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
+  .form-group {
+    margin-bottom: 15px;
+  }
 
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
 
-    .btn-save {
-      background-color: #1abc9c;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      margin-top: 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
 
-    .btn-save:hover {
-      background-color: #17a589;
-    }
+  .btn-save {
+    background-color: #1abc9c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-    .listing-item,
-    .favorite-item {
-      background-color: #f0f0f0;
-      padding: 12px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-  </style>
-  <!-- update_profile_view.php -->
+  .btn-save:hover {
+    background-color: #17a589;
+  }
+
+  .listing-item,
+  .favorite-item {
+    background-color: #f0f0f0;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+</style>
+<!-- update_profile_view.php -->
 <section class="container1">
   <div class="card">
-    
+
     <!-- Flash Messages -->
     <?php if ($this->session->flashdata('success')): ?>
       <div class="alert alert-success"><?= $this->session->flashdata('success'); ?></div>
@@ -132,8 +131,25 @@
         </div>
 
         <div class="form-group">
+          <label for="mobile">Mobile</label>
+          <input type="text" name="mobile" id="mobile" value="<?= set_value('mobile', $user->mobile); ?>" required />
+        </div>
+        <div class="form-group">
           <label for="email">Email</label>
           <input type="email" name="email" id="email" value="<?= set_value('email', $user->email); ?>" required />
+        </div>
+
+
+        <div class="form-group">
+          <label for="country">Country*</label>
+          <select name="country" id="country" class="form-control">
+            <option value="">Select Country</option>
+            <?php foreach ($countries as $country) { ?>
+              <option value="<?= $country->id; ?>" <?php if ($country->id == $user->country) {
+                 echo "selected"; } ?>><?= $country->name; ?></option>
+            <?php } ?>
+          </select>
+          <small class="text-danger"><?= form_error('country') ?></small>
         </div>
 
         <div class="form-group">
@@ -148,43 +164,43 @@
       </form>
     </div>
 
-     <!-- Listings Tab -->
-      <div id="listings" class="tab-content">
-        <div class="listing-item">Listing 1 - Edit</div>
-        <div class="listing-item">Listing 2 - Edit</div>
-        <div class="listing-item">Listing 3 - Edit</div>
-      </div>
-
-      <!-- Favorites Tab -->
-      <div id="favorites" class="tab-content">
-        <div class="favorite-item">Favorite 1 - Remove</div>
-        <div class="favorite-item">Favorite 2 - Remove</div>
-      </div>
+    <!-- Listings Tab -->
+    <div id="listings" class="tab-content">
+      <div class="listing-item">Listing 1 - Edit</div>
+      <div class="listing-item">Listing 2 - Edit</div>
+      <div class="listing-item">Listing 3 - Edit</div>
     </div>
+
+    <!-- Favorites Tab -->
+    <div id="favorites" class="tab-content">
+      <div class="favorite-item">Favorite 1 - Remove</div>
+      <div class="favorite-item">Favorite 2 - Remove</div>
+    </div>
+  </div>
   </div>
 </section>
 
 
-     
-  </section>
 
-  <script>
-    function showTab(tabId) {
-      const allTabs = document.querySelectorAll('.tab-content');
-      const allButtons = document.querySelectorAll('.tab-btn');
+</section>
 
-      allTabs.forEach(tab => tab.classList.remove('active'));
-      allButtons.forEach(btn => btn.classList.remove('active'));
+<script>
+  function showTab(tabId) {
+    const allTabs = document.querySelectorAll('.tab-content');
+    const allButtons = document.querySelectorAll('.tab-btn');
 
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
-  </script>
+    allTabs.forEach(tab => tab.classList.remove('active'));
+    allButtons.forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
 
 <script>
   setTimeout(function() {
     const alert = document.querySelector('.alert');
-    if(alert) {
+    if (alert) {
       alert.style.transition = "opacity 0.5s";
       alert.style.opacity = 0;
       setTimeout(() => alert.remove(), 500);

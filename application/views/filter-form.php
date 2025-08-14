@@ -452,11 +452,8 @@ label::after {
 
                 <div class="col-12 d-flex flex-wrap align-items-end gap-3 action-buttons">
                     <button type="submit" class="btn search-btn full-width-btn">
-                        <i class="bi bi-search me-2"></i> Search
+                        <i class="bi bi-search me-2"></i> Search   <strong id="vehicleCount"></strong> vehicles
                     </button>
-                    <div class="col-12 mb-2">
-                    <strong id="vehicleCount">Loading...</strong> vehicles found
-                </div>
                 </div>
                 <div class="col-12 half-btn-row">
                     <button type="reset" class="btn additional-options text-secondary" id="resetBtn">

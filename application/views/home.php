@@ -382,7 +382,7 @@
                                             </li>
                                             <li> <select class="form-control" name="location" id="filter_by_location"
                                                     style="width: 140px; font-size: 14px; padding: 4px;">
-                                                    <option value="">Select Country</option>
+                                                    <option value="">All Country</option>
                                                     <?php //$cities = $this->db->get('cities')->result();
                                                     $cities = $this->db->get('countries')->result();
                                                     foreach ($cities as $city) { ?>
@@ -525,10 +525,10 @@
                                             <div class="swiper-wrapper">
                                                 <?php if (!empty($cars)) {
                                                     foreach ($cars as $car) {
-                                                         $chf = 'CHF ' . number_format($car->total_price, 0, '', '.');
+                                                        $chf = "CHF " . number_format($car->total_price, 0, '.', ".") . ",–"; //'CHF ' . number_format($car->total_price, 0, '', '.');
                                                         // EUR: comma as thousand separator -> "EUR 28,880" 
-                                                        $eur = 'EUR ' . number_format($car->total_price, 0, '.', ',');
-                                                        ?>
+                                                        $eur = "EUR " . number_format($car->total_price, 0, ',', '.') . ",--";//'EUR ' . number_format($car->total_price, 0, '.', ',');
+                                                ?>
                                                         <div class="swiper-slide">
                                                             <div class="box-car-list hv-one">
                                                                 <div class="image-group relative ">
@@ -554,7 +554,7 @@
                                                                 </div>
                                                                 <div class="content">
                                                                     <?php
-                                                                    $selected_lang = $this->session->userdata('selected_lang');
+                                                                    $selected_location = $this->session->userdata('location');
 
                                                                     $makes = $this->db->where('id', $car->make)->get('make')->result();
 
@@ -565,11 +565,12 @@
                                                                     foreach ($makes as $make) { ?>
                                                                         <div class="text-address d-flex justify-content-between">
                                                                             <p class="text-color-3 font mb-0"><?= $make->name; ?></p>
-                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_lang == "fr" ||  $selected_lang == "it") {
-                                                                                                                    echo " TUV " . $car->tuv_date;
-                                                                                                                } else {
-                                                                                                                    echo " MFK " . $car->mfk_date;
-                                                                                                                } ?></p>
+                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_location == 2 ||  $selected_location == 3) {
+                                                                                echo " TUV " . $car->tuv_date;
+                                                                             } else {
+                                                                               echo " MFK " . $car->mfk_date;
+                                                                            } ?></p>
+                                                                           
                                                                         </div>
 
                                                                         <?php foreach ($models as $model) { ?>
@@ -582,15 +583,19 @@
                                                                     <div class="icon-box flex flex-wrap">
                                                                         <div class="icons flex-three">
                                                                             <i class="icon-autodeal-km1"></i>
-                                                                            <span><?= $car->mileage; ?> kms</span>
+                                                                            <span><?= $car->mileage; ?> km</span>
                                                                         </div>
                                                                         <div class="icons flex-three">
                                                                             <i class="icon-autodeal-diesel"></i>
                                                                             <span><?= $car->fuel_type; ?></span>
                                                                         </div>
                                                                         <div class="icons flex-three">
-                                                                            <i class="icon-autodeal-automatic"></i>
-                                                                            <span><?= $car->transmission; ?></span>
+                                                                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                    <path d="M16.25 2.5H14.375V1.875C14.375 1.70924 14.3092 1.55027 14.1919 1.43306C14.0747 1.31585 13.9158 1.25 13.75 1.25C13.5842 1.25 13.4253 1.31585 13.3081 1.43306C13.1908 1.55027 13.125 1.70924 13.125 1.875V2.5H6.875V1.875C6.875 1.70924 6.80915 1.55027 6.69194 1.43306C6.57473 1.31585 6.41576 1.25 6.25 1.25C6.08424 1.25 5.92527 1.31585 5.80806 1.43306C5.69085 1.55027 5.625 1.70924 5.625 1.875V2.5H3.75C3.41848 2.5 3.10054 2.6317 2.86612 2.86612C2.6317 3.10054 2.5 3.41848 2.5 3.75V16.25C2.5 16.5815 2.6317 16.8995 2.86612 17.1339C3.10054 17.3683 3.41848 17.5 3.75 17.5H16.25C16.5815 17.5 16.8995 17.3683 17.1339 17.1339C17.3683 16.8995 17.5 16.5815 17.5 16.25V3.75C17.5 3.41848 17.3683 3.10054 17.1339 2.86612C16.8995 2.6317 16.5815 2.5 16.25 2.5ZM5.625 3.75V4.375C5.625 4.54076 5.69085 4.69973 5.80806 4.81694C5.92527 4.93415 6.08424 5 6.25 5C6.41576 5 6.57473 4.93415 6.69194 4.81694C6.80915 4.69973 6.875 4.54076 6.875 4.375V3.75H13.125V4.375C13.125 4.54076 13.1908 4.69973 13.3081 4.81694C13.4253 4.93415 13.5842 5 13.75 5C13.9158 5 14.0747 4.93415 14.1919 4.81694C14.3092 4.69973 14.375 4.54076 14.375 4.375V3.75H16.25V6.25H3.75V3.75H5.625ZM16.25 16.25H3.75V7.5H16.25V16.25ZM13.2547 9.55781C13.3128 9.61586 13.3589 9.68479 13.3904 9.76066C13.4218 9.83654 13.438 9.91787 13.438 10C13.438 10.0821 13.4218 10.1635 13.3904 10.2393C13.3589 10.3152 13.3128 10.3841 13.2547 10.4422L9.50469 14.1922C9.44664 14.2503 9.37771 14.2964 9.30184 14.3279C9.22596 14.3593 9.14463 14.3755 9.0625 14.3755C8.98037 14.3755 8.89904 14.3593 8.82316 14.3279C8.74729 14.2964 8.67836 14.2503 8.62031 14.1922L6.74531 12.3172C6.62804 12.1999 6.56215 12.0409 6.56215 11.875C6.56215 11.7091 6.62804 11.5501 6.74531 11.4328C6.86259 11.3155 7.02165 11.2497 7.1875 11.2497C7.35335 11.2497 7.51241 11.3155 7.62969 11.4328L9.0625 12.8664L12.3703 9.55781C12.4284 9.4997 12.4973 9.4536 12.5732 9.42215C12.649 9.3907 12.7304 9.37451 12.8125 9.37451C12.8946 9.37451 12.976 9.3907 13.0518 9.42215C13.1277 9.4536 13.1966 9.4997 13.2547 9.55781Z" fill="#B6B6B6"></path>
+                                                                </svg>
+                                                                            <span><?= $car->year; ?></span>
+                                                                            <!-- <i class="icon-autodeal-automatic"></i>
+                                                                            <span><?= $car->transmission; ?></span> -->
                                                                         </div>
                                                                     </div>
                                                                     <div class="icons flex-three text-color-3">
@@ -600,7 +605,11 @@
                                                                         <div class="money fs-20 fw-5 lh-25 text-color-3">
                                                                             <?php //echo $car->price; 
                                                                             ?>
-                                                                            <?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?>
+                                                                            <?php if (isset($_SESSION['location']) && ($_SESSION['location'] == 2 || $_SESSION['location'] == 3)) {
+                                                                                echo $eur;
+                                                                            } else {
+                                                                                echo $chf;
+                                                                            } ?>
                                                                         </div>
                                                                         <?php
                                                                         $is_logged_in = isset($_SESSION['user_id']);
@@ -686,11 +695,11 @@
                                             data-space="15">
                                             <div class="swiper-wrapper">
                                                 <?php if (!empty($bikes)) {
-                                                    foreach ($bikes as $bike) { 
-                                                        $chf = 'CHF ' . number_format($bike->total_price, 0, '', '.');
+                                                    foreach ($bikes as $bike) {
+                                                        $chf = "CHF " . number_format($bike->total_price, 0, '.', ".") . ",–"; //'CHF ' . number_format($bike->total_price, 0, '', '.');
                                                         // EUR: comma as thousand separator -> "EUR 28,880" 
-                                                        $eur = 'EUR ' . number_format($bike->total_price, 0, '.', ',');
-                                                        ?>
+                                                        $eur = "EUR " . number_format($bike->total_price, 0, ',', '.') . ",--";//'EUR ' . number_format($bike->total_price, 0, '.', ',');
+                                                ?>
                                                         <div class="swiper-slide">
                                                             <div class="box-car-list hv-one">
                                                                 <div class="image-group relative ">
@@ -724,13 +733,12 @@
                                                                     foreach ($makes as $make) { ?>
                                                                         <div class="text-address d-flex justify-content-between">
                                                                             <p class="text-color-3 font mb-0"><?= $make->name; ?></p>
-                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_lang == "fr" ||  $selected_lang == "it") {
-                                                                                                                    echo " TUV " . $bike->tuv_date;
-                                                                                                                } else {
-                                                                                                                    echo " MFK " . $bike->mfk_date;
-                                                                                                                } ?></p>
+                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_location == 2 ||  $selected_location == 3) {
+                                                                            echo " TUV " . $bike->tuv_date;
+                                                                            } else {
+                                                                            echo " MFK " . $bike->mfk_date;
+                                                                        } ?></p>
                                                                         </div>
-
                                                                         <?php foreach ($models as $model) { ?>
                                                                             <h5 class="link-style-1">
                                                                                 <a
@@ -741,15 +749,19 @@
                                                                     <div class="icon-box flex flex-wrap">
                                                                         <div class="icons flex-three">
                                                                             <i class="icon-autodeal-km1"></i>
-                                                                            <span><?= $bike->mileage; ?> kms</span>
+                                                                            <span><?= $bike->mileage; ?> km</span>
                                                                         </div>
                                                                         <div class="icons flex-three">
                                                                             <i class="icon-autodeal-diesel"></i>
                                                                             <span><?= $bike->fuel_type; ?></span>
                                                                         </div>
                                                                         <div class="icons flex-three">
-                                                                            <i class="icon-autodeal-automatic"></i>
-                                                                            <span><?= $bike->transmission; ?></span>
+                                                                            <!-- <i class="icon-autodeal-automatic"></i>
+                                                                            <span><?= $bike->transmission; ?></span> -->
+                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                    <path d="M16.25 2.5H14.375V1.875C14.375 1.70924 14.3092 1.55027 14.1919 1.43306C14.0747 1.31585 13.9158 1.25 13.75 1.25C13.5842 1.25 13.4253 1.31585 13.3081 1.43306C13.1908 1.55027 13.125 1.70924 13.125 1.875V2.5H6.875V1.875C6.875 1.70924 6.80915 1.55027 6.69194 1.43306C6.57473 1.31585 6.41576 1.25 6.25 1.25C6.08424 1.25 5.92527 1.31585 5.80806 1.43306C5.69085 1.55027 5.625 1.70924 5.625 1.875V2.5H3.75C3.41848 2.5 3.10054 2.6317 2.86612 2.86612C2.6317 3.10054 2.5 3.41848 2.5 3.75V16.25C2.5 16.5815 2.6317 16.8995 2.86612 17.1339C3.10054 17.3683 3.41848 17.5 3.75 17.5H16.25C16.5815 17.5 16.8995 17.3683 17.1339 17.1339C17.3683 16.8995 17.5 16.5815 17.5 16.25V3.75C17.5 3.41848 17.3683 3.10054 17.1339 2.86612C16.8995 2.6317 16.5815 2.5 16.25 2.5ZM5.625 3.75V4.375C5.625 4.54076 5.69085 4.69973 5.80806 4.81694C5.92527 4.93415 6.08424 5 6.25 5C6.41576 5 6.57473 4.93415 6.69194 4.81694C6.80915 4.69973 6.875 4.54076 6.875 4.375V3.75H13.125V4.375C13.125 4.54076 13.1908 4.69973 13.3081 4.81694C13.4253 4.93415 13.5842 5 13.75 5C13.9158 5 14.0747 4.93415 14.1919 4.81694C14.3092 4.69973 14.375 4.54076 14.375 4.375V3.75H16.25V6.25H3.75V3.75H5.625ZM16.25 16.25H3.75V7.5H16.25V16.25ZM13.2547 9.55781C13.3128 9.61586 13.3589 9.68479 13.3904 9.76066C13.4218 9.83654 13.438 9.91787 13.438 10C13.438 10.0821 13.4218 10.1635 13.3904 10.2393C13.3589 10.3152 13.3128 10.3841 13.2547 10.4422L9.50469 14.1922C9.44664 14.2503 9.37771 14.2964 9.30184 14.3279C9.22596 14.3593 9.14463 14.3755 9.0625 14.3755C8.98037 14.3755 8.89904 14.3593 8.82316 14.3279C8.74729 14.2964 8.67836 14.2503 8.62031 14.1922L6.74531 12.3172C6.62804 12.1999 6.56215 12.0409 6.56215 11.875C6.56215 11.7091 6.62804 11.5501 6.74531 11.4328C6.86259 11.3155 7.02165 11.2497 7.1875 11.2497C7.35335 11.2497 7.51241 11.3155 7.62969 11.4328L9.0625 12.8664L12.3703 9.55781C12.4284 9.4997 12.4973 9.4536 12.5732 9.42215C12.649 9.3907 12.7304 9.37451 12.8125 9.37451C12.8946 9.37451 12.976 9.3907 13.0518 9.42215C13.1277 9.4536 13.1966 9.4997 13.2547 9.55781Z" fill="#B6B6B6"></path>
+                                                                </svg>
+                                                                            <span><?= $bike->year; ?></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="icons flex-three text-color-3">
@@ -757,7 +769,11 @@
                                                                     </div>
                                                                     <div class="justify-content-between d-flex">
                                                                         <div class="money fs-20 fw-5 lh-25 text-color-3">
-                                                                            <?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?>
+                                                                            <?php if (isset($_SESSION['location']) && ($_SESSION['location'] == 2 || $_SESSION['location'] == 3)) {
+                                                                                echo $eur;
+                                                                            } else {
+                                                                                echo $chf;
+                                                                            } ?>
                                                                         </div>
                                                                         <?php
                                                                         $is_logged_in = isset($_SESSION['user_id']);
@@ -843,10 +859,10 @@
                                             <div class="swiper-wrapper">
                                                 <?php if (!empty($commercials)) {
                                                     foreach ($commercials as $commercial) {
-                                                          $chf = 'CHF ' . number_format($commercial->total_price, 0, '', '.');
+                                                         $chf = "CHF " . number_format($commercial->total_price, 0, '.', ".") . ",–"; //'CHF ' . number_format($commercial->total_price, 0, '', '.');
                                                         // EUR: comma as thousand separator -> "EUR 28,880" 
-                                                        $eur = 'EUR ' . number_format($commercial->total_price, 0, '.', ',');
-                                                        ?>
+                                                        $eur = "EUR " . number_format($commercial->total_price, 0, ',', '.') . ",--";//'EUR ' . number_format($commercial->total_price, 0, '.', ',');
+                                                ?>
                                                         <div class="swiper-slide">
                                                             <div class="box-car-list hv-one">
                                                                 <div class="image-group relative ">
@@ -882,13 +898,12 @@
                                                                     foreach ($makes as $make) { ?>
                                                                         <div class="text-address d-flex justify-content-between">
                                                                             <p class="text-color-3 font mb-0"><?= $make->name; ?></p>
-                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_lang == "fr" ||  $selected_lang == "it") {
-                                                                                                                    echo " TUV " . $commercial->tuv_date;
-                                                                                                                } else {
-                                                                                                                    echo " MFK " . $commercial->mfk_date;
-                                                                                                                } ?></p>
+                                                                            <p class="text-color-3 font mb-0"> <?php if ($selected_location == 2 ||  $selected_location == 3) {
+                                                                            echo " TUV " . $commercial->tuv_date;
+                                                                        } else {
+                                                                            echo " MFK " . $commercial->mfk_date;
+                                                                         } ?></p>
                                                                         </div>
-
                                                                         <?php foreach ($models as $model) { ?>
                                                                             <h5 class="link-style-1">
                                                                                 <a
@@ -899,22 +914,30 @@
                                                                     <div class="icon-box flex flex-wrap">
                                                                         <div class="icons flex-three">
                                                                             <i class="icon-autodeal-km1"></i>
-                                                                            <span><?= $commercial->mileage; ?> kms</span>
+                                                                            <span><?= $commercial->mileage; ?> km</span>
                                                                         </div>
                                                                         <div class="icons flex-three">
                                                                             <i class="icon-autodeal-diesel"></i>
                                                                             <span><?= $commercial->fuel_type; ?></span>
                                                                         </div>
                                                                         <div class="icons flex-three">
-                                                                            <i class="icon-autodeal-automatic"></i>
-                                                                            <span><?= $commercial->transmission; ?></span>
+                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                    <path d="M16.25 2.5H14.375V1.875C14.375 1.70924 14.3092 1.55027 14.1919 1.43306C14.0747 1.31585 13.9158 1.25 13.75 1.25C13.5842 1.25 13.4253 1.31585 13.3081 1.43306C13.1908 1.55027 13.125 1.70924 13.125 1.875V2.5H6.875V1.875C6.875 1.70924 6.80915 1.55027 6.69194 1.43306C6.57473 1.31585 6.41576 1.25 6.25 1.25C6.08424 1.25 5.92527 1.31585 5.80806 1.43306C5.69085 1.55027 5.625 1.70924 5.625 1.875V2.5H3.75C3.41848 2.5 3.10054 2.6317 2.86612 2.86612C2.6317 3.10054 2.5 3.41848 2.5 3.75V16.25C2.5 16.5815 2.6317 16.8995 2.86612 17.1339C3.10054 17.3683 3.41848 17.5 3.75 17.5H16.25C16.5815 17.5 16.8995 17.3683 17.1339 17.1339C17.3683 16.8995 17.5 16.5815 17.5 16.25V3.75C17.5 3.41848 17.3683 3.10054 17.1339 2.86612C16.8995 2.6317 16.5815 2.5 16.25 2.5ZM5.625 3.75V4.375C5.625 4.54076 5.69085 4.69973 5.80806 4.81694C5.92527 4.93415 6.08424 5 6.25 5C6.41576 5 6.57473 4.93415 6.69194 4.81694C6.80915 4.69973 6.875 4.54076 6.875 4.375V3.75H13.125V4.375C13.125 4.54076 13.1908 4.69973 13.3081 4.81694C13.4253 4.93415 13.5842 5 13.75 5C13.9158 5 14.0747 4.93415 14.1919 4.81694C14.3092 4.69973 14.375 4.54076 14.375 4.375V3.75H16.25V6.25H3.75V3.75H5.625ZM16.25 16.25H3.75V7.5H16.25V16.25ZM13.2547 9.55781C13.3128 9.61586 13.3589 9.68479 13.3904 9.76066C13.4218 9.83654 13.438 9.91787 13.438 10C13.438 10.0821 13.4218 10.1635 13.3904 10.2393C13.3589 10.3152 13.3128 10.3841 13.2547 10.4422L9.50469 14.1922C9.44664 14.2503 9.37771 14.2964 9.30184 14.3279C9.22596 14.3593 9.14463 14.3755 9.0625 14.3755C8.98037 14.3755 8.89904 14.3593 8.82316 14.3279C8.74729 14.2964 8.67836 14.2503 8.62031 14.1922L6.74531 12.3172C6.62804 12.1999 6.56215 12.0409 6.56215 11.875C6.56215 11.7091 6.62804 11.5501 6.74531 11.4328C6.86259 11.3155 7.02165 11.2497 7.1875 11.2497C7.35335 11.2497 7.51241 11.3155 7.62969 11.4328L9.0625 12.8664L12.3703 9.55781C12.4284 9.4997 12.4973 9.4536 12.5732 9.42215C12.649 9.3907 12.7304 9.37451 12.8125 9.37451C12.8946 9.37451 12.976 9.3907 13.0518 9.42215C13.1277 9.4536 13.1966 9.4997 13.2547 9.55781Z" fill="#B6B6B6"></path>
+                                                                </svg>
+                                                                            <span><?= $commercial->year; ?></span>
+                                                                            <!-- <i class="icon-autodeal-automatic"></i>
+                                                                            <span><?= $commercial->transmission; ?></span> -->
                                                                         </div>
                                                                     </div>
                                                                     <div class="icons flex-three text-color-3">
                                                                         <span><?php echo ($commercial->tax !== '0.00' && $commercial->tax !== 0.00) ? " (Incl. 7.7% VAT)" : ""; ?></span>
                                                                     </div>
                                                                     <div class="justify-content-between d-flex">
-                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3"><?php if(isset($_SESSION['location']) &&($_SESSION['location']==2 || $_SESSION['location']==3)){ echo $eur; }else{echo $chf;} ?>
+                                                                        <div class="money fs-20 fw-5 lh-25 text-color-3"><?php if (isset($_SESSION['location']) && ($_SESSION['location'] == 2 || $_SESSION['location'] == 3)) {
+                                                                                                                                echo $eur;
+                                                                                                                            } else {
+                                                                                                                                echo $chf;
+                                                                                                                            } ?>
                                                                         </div>
                                                                         <?php
                                                                         $is_logged_in = isset($_SESSION['user_id']);
@@ -1290,14 +1313,14 @@
                                                 <p class="fs-16 lh-22 text-color-2"> <a href="<?= base_url('blog-details/' . $blog->id); ?>"><?= $blog->description; ?></a></p>
                                                 <div class="author-box flex">
                                                     <div class="images">
-                                                        <?php if($blog->img) { ?>
-                                                        <img class="lazyload" data-src="<?= base_url('uploads/blogs/' . $blog->img); ?>"
-                                                            src="<?= base_url('uploads/blogs/' . $blog->img); ?>" alt="images">
-                                                            <?php }else{ ?>
-                                                                <img class="lazyload" data-src="<?= base_url('uploads/blogs/blog.jpg'); ?>"
-                                                            src="<?= base_url('uploads/blogs/blog.jpg'); ?>" alt="images">
+                                                        <?php if ($blog->img) { ?>
+                                                            <img class="lazyload" data-src="<?= base_url('uploads/blogs/' . $blog->img); ?>"
+                                                                src="<?= base_url('uploads/blogs/' . $blog->img); ?>" alt="images">
+                                                        <?php } else { ?>
+                                                            <img class="lazyload" data-src="<?= base_url('uploads/blogs/blog.jpg'); ?>"
+                                                                src="<?= base_url('uploads/blogs/blog.jpg'); ?>" alt="images">
 
-                                                                <?php } ?>
+                                                        <?php } ?>
                                                     </div>
                                                     <div class="content">
                                                         <h5><?= $blog->name; ?></h5>
@@ -1375,77 +1398,76 @@
 
 
 
-// Sidebar button click
-$(document).on("click", ".sidebar-icon", function () {
-    let form = $("#car-form");
-    if (form.length === 0) {
-        console.warn("Filter form not loaded yet, cannot set vehicle type.");
-        return;
-    }
+                // Sidebar button click
+                $(document).on("click", ".sidebar-icon", function() {
+                    let form = $("#car-form");
+                    if (form.length === 0) {
+                        console.warn("Filter form not loaded yet, cannot set vehicle type.");
+                        return;
+                    }
 
-    $(".sidebar-icon").removeClass("active");
-    $(this).addClass("active");
+                    $(".sidebar-icon").removeClass("active");
+                    $(this).addClass("active");
 
-    let btnId = $(this).attr("id");
-    let typeValue = 2; // Default Car
+                    let btnId = $(this).attr("id");
+                    let typeValue = 2; // Default Car
 
-    if (btnId === "truck-button") {
-        typeValue = 1;
-    } else if (btnId === "commercial-button") {
-        typeValue = 3;
-    }
+                    if (btnId === "truck-button") {
+                        typeValue = 1;
+                    } else if (btnId === "commercial-button") {
+                        typeValue = 3;
+                    }
 
-    $("#vehicle_type").val(typeValue);
-    console.log("Vehicle type set to:", typeValue);
+                    $("#vehicle_type").val(typeValue);
+                    console.log("Vehicle type set to:", typeValue);
 
-    updateVehicleCount();
-});
+                    updateVehicleCount();
+                });
 
-// Filter change event
-$(document).on("change keyup", "#car-form select, #car-form input", function () {
-    updateVehicleCount();
-});
+                // Filter change event
+                $(document).on("change keyup", "#car-form select, #car-form input", function() {
+                    updateVehicleCount();
+                });
 
-// Function to fetch vehicle count
-function updateVehicleCount() {
-    let form = $("#car-form");
-    if (form.length === 0) {
-        console.warn("Form not found in DOM, skipping count update.");
-        return;
-    }
+                // Function to fetch vehicle count
+                function updateVehicleCount() {
+                    let form = $("#car-form");
+                    if (form.length === 0) {
+                        console.warn("Form not found in DOM, skipping count update.");
+                        return;
+                    }
 
-    let formData = form.serialize();
-    let url = form.data("url");
+                    let formData = form.serialize();
+                    let url = form.data("url");
 
-    console.log("Sending data:", formData);
+                    console.log("Sending data:", formData);
 
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: formData,
-        dataType: "json",
-        success: function (response) {
-            if (response.count !== undefined) {
-                $("#vehicleCount").text(response.count);
-            } else {
-                console.error("Count not found in response:", response);
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-            console.error("Response:", xhr.responseText);
-        }
-    });
-}
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: formData,
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.count !== undefined) {
+                                $("#vehicleCount").text(response.count);
+                            } else {
+                                console.error("Count not found in response:", response);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", status, error);
+                            console.error("Response:", xhr.responseText);
+                        }
+                    });
+                }
 
-// Jab filter form load ho jaye (AJAX ya partial view se)
-$(document).on("DOMNodeInserted", function (e) {
-    if ($(e.target).find("#car-form").length > 0) {
-        console.log("Filter form loaded, updating count...");
-        updateVehicleCount();
-    }
-});
+                // Jab filter form load ho jaye (AJAX ya partial view se)
+                $(document).on("DOMNodeInserted", function(e) {
+                    if ($(e.target).find("#car-form").length > 0) {
+                        console.log("Filter form loaded, updating count...");
+                        updateVehicleCount();
+                    }
+                });
 
-
-
+                
             </script>
