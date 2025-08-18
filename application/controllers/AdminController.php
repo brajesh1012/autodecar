@@ -415,8 +415,13 @@ class AdminController extends CI_Controller
                     // Allow first vehicle without subscription
                     $vehicle_count = $this->db->where('added_by', $user_id)->count_all_results('car_list');
                     if ($vehicle_count == 0) {
-                          $data["main"] = "add-listing";
-                           $this->load->view("admin/template", $data);
+                        // Check if accessing the new step-by-step form
+                        if (strpos(current_url(), 'add-new-listing') !== false) {
+                            $data["main"] = "add-new-listing";
+                        } else {
+                            $data["main"] = "add-listing";
+                        }
+                        $this->load->view("admin/template", $data);
                         return;
                     }
 
@@ -426,10 +431,15 @@ class AdminController extends CI_Controller
                         ->get('user_subscriptions')->row();
 
                     if ($sub) {
-                        if ($sub->listings_used < get_plan_limit($sub->plan_id)) {
-                               $data["main"] = "add-listing";
-                                 $this->load->view("admin/template", $data);
-                        } else {
+                                        if ($sub->listings_used < get_plan_limit($sub->plan_id)) {
+                    // Check if accessing the new step-by-step form
+                    if (strpos(current_url(), 'add-new-listing') !== false) {
+                        $data["main"] = "add-new-listing";
+                    } else {
+                        $data["main"] = "add-listing";
+                    }
+                    $this->load->view("admin/template", $data);
+                } else {
 
                             $this->session->set_flashdata('error', 'You have used all your listings. Please upgrade your plan.');
                             redirect(ADMIN_PATH  . '/add-plan');
@@ -439,10 +449,13 @@ class AdminController extends CI_Controller
                         redirect(ADMIN_PATH  . '/add-plan');
                     }
                 }else{
-
-                    $data["main"] = "add-listing";
+                    // Check if accessing the new step-by-step form
+                    if (strpos(current_url(), 'add-new-listing') !== false) {
+                        $data["main"] = "add-new-listing";
+                    } else {
+                        $data["main"] = "add-listing";
+                    }
                     $this->load->view("admin/template", $data);
-
                 }
 
             // 
