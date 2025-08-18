@@ -114,6 +114,7 @@ $route[trim(ADMIN_PATH  . '/my-profile', '/')] = 'AdminController/my_profile';
 $route[trim(ADMIN_PATH  . '/dealer-profile', '/')] = 'AdminController/dealer_my_profile';
 $route[trim(ADMIN_PATH  . '/change-password', '/')] = 'AdminController/change_password';
 $route[trim(ADMIN_PATH  . '/add-listing', '/')] = 'AdminController/add_listing';
+$route[trim(ADMIN_PATH  . '/add-new-listing', '/')] = 'AdminController/add_listing';
 $route[trim(ADMIN_PATH  . '/edit-listing/(:any)', '/')] = 'AdminController/edit_listing/$1';
 $route[trim(ADMIN_PATH  . '/duplicate-listing/(:any)', '/')] = 'AdminController/duplicate_listing/$1';
 $route[trim(ADMIN_PATH  . '/delete-car-img', '/')] = 'AdminController/delete_car_img';
