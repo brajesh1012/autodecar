@@ -300,6 +300,11 @@
                                                         <tfoot>
                                                             <tr>
                                                                 <th>Listing</th>
+                                                                 <?php if($_SESSION["role_name"] != 'Seller'){ ?>
+                                                                <th>Tax (7.7%)</th>
+                                                                <?php } if($_SESSION["role_name"] == 'Admin'){ ?>
+                                                                <th>Added By</th>
+                                                                <?php } ?>
                                                                 <th>Status</th>
                                                                 <th>Posting date</th>
                                                                 <th>Action</th>

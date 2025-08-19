@@ -638,7 +638,7 @@
                                         <div class="form-group">
                                             <label for="listing_title">Country *</label>
 
-                                            <select class="form-control" name="state" id="state">
+                                            <select class="form-control" name="state" id="state" disabled>
                                                 <option value="">Select Location</option>
                                                 <?php foreach ($states as $state) { ?>
                                                     <option value="<?= $state->id; ?>"

@@ -170,6 +170,7 @@ $route[trim(ADMIN_PATH  . '/add-plan', '/')] = 'AdminController/add_plan';
 $route[trim(ADMIN_PATH  . '/update-plan/(:any)', '/')] = 'AdminController/update_plan/$1';
 
 $route[trim(ADMIN_PATH  . '/buy-plan/(:num)', '/')] = 'AdminController/buy_plan/$1';
+$route[trim(ADMIN_PATH  . '/payment-success/(:num)', '/')] = 'AdminController/payment_success/$1';
 
 // $route[trim(ADMIN_PATH . '/view-chat', '/')] = 'AdminController/view_chat';
 $route[trim(ADMIN_PATH  . '/view-chat/(:num)/(:num)', '/')] = 'AdminController/view_chat/$1/$2';

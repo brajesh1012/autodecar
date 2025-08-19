@@ -32,7 +32,7 @@ p {
                                     <div class="form-group-2">
                                           <div class="form-group">
                                             <label for="listing_title">Vehicle Type *</label>
-                                            <select name="vehicle_type_id" id="vehicle_type_id" class="form-control">
+                                            <select name="vehicle_type_id" id="vehicle_type_id" onchange="on_change_vehicle();" class="form-control">
                                                 <option value="">Select Vehicle Type</option>
                                                 <?php foreach($vehicle_types as $vehicle_type){ ?>
                                                 <option value="<?= $vehicle_type->id; ?>"><?= $vehicle_type->name; ?>
@@ -136,6 +136,7 @@ p {
 
 
 </div>
+
 <script>
 $(document).ready(function() {
     setTimeout(function() {
@@ -145,5 +146,41 @@ $(document).ready(function() {
 </script>
 
 <script>
-    var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
+    function on_change_vehicle() {
+    const vehicleTypeId = $("#vehicle_type_id").val();
+
+    if (vehicleTypeId !== "") {
+        $('#cat_id').prop('disabled', false);
+
+        $.ajax({
+            url: "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>",
+            type: 'POST',
+            data: { vehicle_type_id: vehicleTypeId },
+            dataType: 'json',
+            success: function(response) {
+                $('#cat_id').html('<option value="">Select Category</option>');
+                $.each(response, function(index, item) {
+                    $('#cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+                });
+
+                if (response.length === 1) {
+                    $('#cat_id').val(response[0].id);
+                    $('#cat_id').addClass('single-option-tab');
+                    // Trigger on_change_cat to load makes when single option is selected
+                    on_change_cat();
+                } else {
+                    $('#cat_id').removeClass('single-option-tab');
+                }
+            },
+            error: function() {
+                alert('Error loading category list.');
+            }
+        });
+    } else {
+        $('#cat_id').prop('disabled', true);
+        $('#cat_id').html('<option value="">Select Category</option>');
+    }
+}
+
+    // var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
 </script>

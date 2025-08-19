@@ -428,49 +428,97 @@ document.addEventListener('DOMContentLoaded', function () {
 // ///////////////////////////////////////////Comman Status Change/////////////////////////////////////////////////
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.update-status-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
-            const table = this.getAttribute('data-table');
-            const key = this.getAttribute('data-key');
-            const status = this.getAttribute('data-status');
-            const redirect = this.getAttribute('data-redirect');
-            const message = this.getAttribute('data-message') || "Do you want to update the status?";
-            Swal.fire({
-                title: 'Confirm Status Change',
-                text: message,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, update it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch(updateStatusUrl, {
-                        method: "POST",
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            id: id,
-                            table: table,
-                            key: key,
-                            status: status
-                        })
+// document.addEventListener('DOMContentLoaded', function () {
+//     document.querySelectorAll('.update-status-btn').forEach(button => {
+//         button.addEventListener('click', function () {
+//             const id = this.getAttribute('data-id');
+//             const table = this.getAttribute('data-table');
+//             const key = this.getAttribute('data-key');
+//             const status = this.getAttribute('data-status');
+//             const redirect = this.getAttribute('data-redirect');
+//             const message = this.getAttribute('data-message') || "Do you want to update the status?";
+//             Swal.fire({
+//                 title: 'Confirm Status Change',
+//                 text: message,
+//                 icon: 'warning',
+//                 showCancelButton: true,
+//                 confirmButtonText: 'Yes, update it!',
+//                 cancelButtonText: 'Cancel'
+//             }).then((result) => {
+//                 if (result.isConfirmed) {
+//                     fetch(updateStatusUrl, {
+//                         method: "POST",
+//                         headers: { 'Content-Type': 'application/json' },
+//                         body: JSON.stringify({
+//                             id: id,
+//                             table: table,
+//                             key: key,
+//                             status: status
+//                         })
+//                     })
+//                     .then(res => res.json())
+//                     .then(response => {
+//                         if (response.status === 'success') {
+//                             Swal.fire('Updated!', response.message, 'success').then(() => {
+//                                 window.location.href = redirect;
+//                             });
+//                         } else {
+//                             Swal.fire('Error!', response.message, 'error');
+//                         }
+//                     });
+//                 }
+//             });
+//         });
+//     });
+// });
+
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('update-status-btn')) {
+        e.preventDefault();
+
+        const button = e.target;
+        const id = button.getAttribute('data-id');
+        const table = button.getAttribute('data-table');
+        const key = button.getAttribute('data-key');
+        const status = button.getAttribute('data-status');
+        const redirect = button.getAttribute('data-redirect');
+        const message = button.getAttribute('data-message') || "Do you want to update the status?";
+
+        Swal.fire({
+            title: 'Confirm Status Change',
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(updateStatusUrl, {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: id,
+                        table: table,
+                        key: key,
+                        status: status
                     })
-                    .then(res => res.json())
-                    .then(response => {
-                        if (response.status === 'success') {
-                            Swal.fire('Updated!', response.message, 'success').then(() => {
-                                window.location.href = redirect;
-                            });
-                        } else {
-                            Swal.fire('Error!', response.message, 'error');
-                        }
-                    });
-                }
-            });
+                })
+                .then(res => res.json())
+                .then(response => {
+                    if (response.status === 'success') {
+                        Swal.fire('Updated!', response.message, 'success').then(() => {
+                            window.location.href = redirect;
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
+                });
+            }
         });
-    });
+    }
 });
+
+//////////////////////////////////////////////////City According Country///////////////////////////////////////////////////
 
 $(document).ready(function () {
     $('#state').on('change', function () {
