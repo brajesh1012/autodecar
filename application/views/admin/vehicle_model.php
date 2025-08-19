@@ -33,7 +33,7 @@ p {
                                      <div class="form-group-2">
                                          <div class="form-group">
                                         <label for="listing_title">Vehicle Type *</label>
-                                        <select name="vehicle_type_id" id="vehicle_type_id" onchange="on_change_vehicle();" class="form-control">
+                                        <select name="vehicle_type_id" id="vehicle_type_id" class="form-control">
                                             <option value="">Select Vehicle Type</option>
                                             <?php foreach($vehicle_types as $vehicle_type){ ?>
                                             <option value="<?= $vehicle_type->id; ?>"><?= $vehicle_type->name; ?></option>
@@ -45,7 +45,7 @@ p {
 
                                     <div class="form-group">
                                             <label for="listing_title">Categories*</label>
-                                            <select name="cat_id" id="cat_id" onchange="on_change_cat();" class="form-control">
+                                            <select name="cat_id" id="cat_id" class="form-control">
                                                 <option value="">Select category</option>
                                                 <?php foreach($categories as $cat){ ?>
                                                 <option value="<?= $cat->id; ?>"><?= $cat->name; ?>
@@ -71,7 +71,7 @@ p {
 
                                     <div class="form-group">
                                         <label for="listing_title">Model *</label>
-                                        <input type="text" class="form-control"  name="name"
+                                        <input type="text" class="form-control" name="name"
                                             placeholder="Enter model(e.g. Civic, Fortuner)"
                                             value="<?= set_value('name') ?>">
                                         <small class="text-danger"><?= form_error('name') ?></small>
@@ -151,82 +151,6 @@ $(document).ready(function() {
 </script>
 
 <script>
-    function on_change_vehicle() {
-    const vehicleTypeId = $("#vehicle_type_id").val();
-
-    if (vehicleTypeId !== "") {
-        $('#cat_id').prop('disabled', false);
-
-        $.ajax({
-            url: "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>",
-            type: 'POST',
-            data: { vehicle_type_id: vehicleTypeId },
-            dataType: 'json',
-            success: function(response) {
-                $('#cat_id').html('<option value="">Select Category</option>');
-                $.each(response, function(index, item) {
-                    $('#cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-                });
-
-                if (response.length === 1) {
-                    $('#cat_id').val(response[0].id);
-                    $('#cat_id').addClass('single-option-tab');
-                    // Trigger on_change_cat to load makes when single option is selected
-                    on_change_cat();
-                } else {
-                    $('#cat_id').removeClass('single-option-tab');
-                }
-            },
-            error: function() {
-                alert('Error loading category list.');
-            }
-        });
-    } else {
-        $('#cat_id').prop('disabled', true);
-        $('#cat_id').html('<option value="">Select Category</option>');
-    }
-}
-
-function on_change_cat() {
-    const catId = $("#cat_id").val();
-
-    if (catId !== "") {
-        $('#make_id').prop('disabled', false);
-
-        $.ajax({
-            url: "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>",
-            type: 'POST',
-            data: { cat_id: catId },
-            dataType: 'json',
-            success: function(response) {
-                $('#make_id').html('<option value="">Select Make</option>');
-                $.each(response, function(index, item) {
-                    $('#make_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-                });
-
-                if (response.length === 1) {
-                    $('#make_id').val(response[0].id);
-                    $('#make_id').addClass('single-option-tab');
-                    // Trigger on_change_make to load models when single option is selected
-                    on_change_make();
-                } else {
-                    $('#make_id').removeClass('single-option-tab');
-                }
-            },
-            error: function() {
-                alert('Error loading make list.');
-            }
-        });
-    } else {
-        $('#make_id').prop('disabled', true);
-        $('#make_id').html('<option value="">Select Make</option>');
-        $('#make_id').removeClass('single-option-tab');
-        
-        $('#model_id').prop('disabled', true);
-        $('#model_id').html('<option value="">Select Model</option>');
-        $('#model_id').removeClass('single-option-tab');
-    }
-}
-    //    var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
-    // var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
+       var URL = "<?= base_url(ADMIN_PATH . "/get-category-by-vehicle-type") ?>";
+    var URL1 = "<?= base_url(ADMIN_PATH . "/get-makes-by-category") ?>";
 </script>
